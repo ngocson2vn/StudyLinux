@@ -1,0 +1,18 @@
+#!/bin/bash
+
+type=$1
+num=$2
+
+if [ "$type" = "cpu" ]; then
+	if [ "$num" ] && [ "$num" -gt "0" ]; then
+		echo "Starting $num CPU load process"
+		while [ "$num" -gt "0" ]
+		do
+			while :; do :; done &
+			num=$((num - 1))
+		done
+	else
+		echo "Starting 1 CPU load process"
+		while :; do :; done &
+	fi
+fi
