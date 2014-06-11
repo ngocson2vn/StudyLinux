@@ -5,14 +5,26 @@ num=$2
 
 if [ "$type" = "cpu" ]; then
 	if [ "$num" ] && [ "$num" -gt "0" ]; then
-		echo "Starting $num CPU load process"
+		echo "Starting $num CPU load process."
 		while [ "$num" -gt "0" ]
 		do
 			while :; do :; done &
 			num=$((num - 1))
 		done
 	else
-		echo "Starting 1 CPU load process"
+		echo "Starting 1 CPU load process."
 		while :; do :; done &
+	fi
+elif [ "$type" = "network" ]; then
+	if [ "$num" ] && [ "$num" -gt "0" ]; then
+		echo "Starting $num network load process."
+		while [ "$num" -gt "0" ]
+		do
+			sudo ping -s 1024 -i 0.0001 127.0.0.1 > /dev/null 2>&1 &
+			num=$((num - 1))
+		done
+	else
+		echo "Starting 1 network load process"
+		sudo ping -s 10240 -i 0.01 127.0.0.1 > /dev/null 2>&1 &
 	fi
 fi
