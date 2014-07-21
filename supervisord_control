@@ -2,8 +2,8 @@
 
 TRY_NUMBER=3
 
-function stop() {
-	old_pid=$(ps -o pid,cmd -e | grep supervisord.py | grep -v grep | awk '{print $1}')
+function stopd() {
+	old_pid=$(ps -o pid,cmd -e | grep -P "supervisord -c|supervisord.py -c" | grep -v grep | awk '{print $1}')
 
 	if [ "$old_pid" ]; then
 		printf "%-40s" "Stopping supervisord with PID = $old_pid"
@@ -15,7 +15,7 @@ function stop() {
 		do
 			echo -n "."
 			sleep 1
-			pid=$(ps -o pid,cmd -e | grep supervisord.py | grep -v grep | awk '{print $1}')
+			pid=$(ps -o pid,cmd -e | grep -P "supervisord -c|supervisord.py -c" | grep -v grep | awk '{print $1}')
 			
 			if [ ! "$pid" ]; then
 				if [ "$count" -ge "$TRY_NUMBER" ]; then
@@ -32,9 +32,9 @@ function stop() {
 	fi
 }
 
-function start() {
+function startd() {
 	printf "%-40s" "Starting supervisord"
-	/home/son/Study/supervisor/supervisor/supervisord.py -c /home/son/local/etc/supervisord.conf
+	supervisord -c /home/son/local/etc/supervisord.conf
 
 	count=0
 	while [ 1 ]
@@ -42,7 +42,7 @@ function start() {
 		echo -n "."
 		sleep 1
 		
-		pid=$(ps -o pid,cmd -e | grep supervisord.py | grep -v grep | awk '{print $1}')
+		pid=$(ps -o pid,cmd -e | grep -P "supervisord -c|supervisord.py -c" | grep -v grep | awk '{print $1}')
 		
 		if [ "$pid" ]; then
 			if [ "$count" -ge "$TRY_NUMBER" ]; then
@@ -50,7 +50,7 @@ function start() {
 				break
 			fi
 		else
-			/home/son/Study/supervisor/supervisor/supervisord.py -c /home/son/local/etc/supervisord.conf > /dev/null 2>&1
+			supervisord -c /home/son/local/etc/supervisord.conf > /dev/null 2>&1
 			count=-1
 		fi
 		
@@ -62,13 +62,13 @@ function start() {
 }
 
 function restart() {
-	stop
-	start
+	stopd
+	startd
 }
 
 case "$1" in
 	stop)
-		stop
+		stopd
 		;;
 	*)
 		restart
