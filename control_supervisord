@@ -1,6 +1,14 @@
 #!/bin/bash
 
 TRY_NUMBER=3
+SPY3=/home/son/local/app/Python-3.4.1/bin/supervisord
+SPY2=/home/son/local/app/Python-2.7.8/bin/supervisord
+
+LOADER=$SPY2
+
+if [ "$1" = "PY3" ]; then
+	LOADER=$SPY3
+fi
 
 function stopd() {
 	old_pid=$(ps -o pid,cmd -e | grep -P "supervisord -c|supervisord.py -c" | grep -v grep | awk '{print $1}')
@@ -34,7 +42,7 @@ function stopd() {
 
 function startd() {
 	printf "%-40s" "Starting supervisord"
-	supervisord -c /home/son/local/etc/supervisord.conf
+	$LOADER -c /home/son/local/etc/supervisord.conf
 
 	count=0
 	while [ 1 ]
@@ -50,7 +58,7 @@ function startd() {
 				break
 			fi
 		else
-			supervisord -c /home/son/local/etc/supervisord.conf > /dev/null 2>&1
+			$LOADER -c /home/son/local/etc/supervisord.conf > /dev/null 2>&1
 			count=-1
 		fi
 		
