@@ -1,0 +1,116 @@
+=========
+Prob 3.1
+=========
+
+Operand															Value
+%eax															0x100
+0x104															0xAB
+$0x108															0x108
+(%eax)															0xFF
+4(%eax)															0xAB
+9(%eax,%edx)   = 9     + 0x100 + 0x3 = 0x10C					0x11		
+260(%ecx,%edx) = 260   + 0x1   + 0x3 = 260  + 0x4 = 0x108		0x13
+0xFC(,%ecx,4)  = 0xFC  + 0x1   * 4   = 0xFC + 0x4 = 0x100		0xFF
+(%eax,%edx,4)  = 0x100 + 0x3   * 4   = 0x10C					0x11
+
+=========
+Prob 3.4
+=========
+src_t 			dest_t 			Instruction
+int 			int 			movl   %eax, (%edx)
+char 			int 			movsbl %al,  (%edx)
+char 			unsigned		movsbl %al,  (%edx) # need sign expansion
+unsigned char 	int 			movzbl %al,  (%edx)
+int 			char			movb   %al,  (%edx)
+unsigned 		unsigned char	movb   %al,  (%edx)
+unsigned 		int 			movl   %eax, (%edx)
+
+=========
+Prob 3.5
+=========
+xp at %ebp+8, yp at %ebp+12, zp at %ebp+16
+1 movl 8(%ebp), %edi	# get xp
+2 movl 12(%ebp), %edx	# get yp
+3 movl 16(%ebp), %ecx	# get zp
+4 movl (%edx), %ebx		# ty = *yp
+5 movl (%ecx), %esi 	# tz = *zp
+6 movl (%edi), %eax 	# tx = *xp
+7 movl %eax, (%edx) 	# *yp = tx
+8 movl %ebx, (%ecx)		# *zp = ty
+9 movl %esi, (%edi)		# *xp = tz
+
+=========
+Prob 3.6
+=========
+Instruction 				Result
+leal 6(%eax), %edx			6x
+leal (%eax,%ecx), %edx		x + y
+leal (%eax,%ecx,4), %edx	x + 4y
+leal 7(%eax,%eax,8), %edx	7 + 9x
+leal 0xA(,%ecx,4), %edx		10 + 4y
+leal 9(%eax,%ecx,2), %edx	9 + x + 2y
+
+=========
+Prob 3.7
+=========
+Address Value 	Register 	Value
+0x100 	0xFF 	%eax 		0x100
+0x104 	0xAB 	%ecx 		0x1
+0x108 	0x13 	%edx 		0x3
+0x10C 	0x11
+
+Instruction 				Destination 		Value
+addl %ecx,(%eax)			0x100				0xFF + 0x1 = 0x100
+subl %edx,4(%eax)			0x104				0xAB - 0x3 = 0xA8
+imull $16,(%eax,%edx,4)		0x10C				0x11 * 0x10 = 0x110
+incl 8(%eax)				0x108				0x14
+decl %ecx					%ecx				0x0
+subl %edx,%eax 				%eax 				0x100 - 0x3 = 0xFD
+
+=========
+Prob 3.9
+=========
+ x at %ebp + 8, y at %ebp + 12, z at %ebp + 16
+1 movl 12(%ebp), %eax 	# get y
+2 xorl 8(%ebp), %eax 	# y ^ x
+3 sarl $3, %eax 		# y >> 3
+4 notl %eax 			# ~y
+5 subl 16(%ebp), %eax 	# y - z
+
+1 int arith(int x,
+2 			int y,
+3 			int z)
+4 {
+5 	int t1 = y ^ x;
+6 	int t2 = t1 >> 3;
+7 	int t3 = ~t2;
+8 	int t4 = t3 - z;
+9 	return t4;
+10 }
+
+=========
+Prob 3.15
+=========
+A. What is the target of the je instruction below?
+(You don’t need to know anything about the call instruction here.)
+804828f: 74 05 			je XXXXXXX		# XXXXXXX = 0x05 + 0x8048291 = 0x8048296
+8048291: e8 1e 00 00 00 call 80482b4
+
+B. What is the target of the jb instruction below?
+8048357: 72 e7 				  jb XXXXXXX
+8048359: c6 05 10 a0 04 08 01 movb $0x1,0x804a010
+# XXXXXXX = 0xe7 + 0x8048359 = 0x8048359 - 25 = 0x8048359 - 0x19 = 0x8048340
+
+C. What is the address of the mov instruction?
+XXXXXXX: 74 12 			je 8048391		# XXXXXXX = 0x804837f - 0x2  = 0x804837d
+XXXXXXX: b8 00 00 00 00 mov $0x0,%eax 	# XXXXXXX = 0x8048391 - 0x12 = 0x804837f
+
+D. In the code that follows, the jump target is encoded in PC-relative form as a 
+4-byte, two’s-complement number.The bytes are listed from least signiﬁcant to
+most, reﬂecting the little-endian byte ordering of IA32. What is the address of the jump target?
+80482bf: e9 e0 ff ff ff jmp XXXXXXX		# XXXXXXX = 0x80482a4
+80482c4: 90				nop
+
+E. Explain the relation between the annotation on the right and the byte coding
+on the left.
+80482aa: ff 25 fc 9f 04 08 jmp *0x8049ffc
