@@ -1,0 +1,6 @@
+set $i = 20
+set $a = $esp - 4
+while $i > 0
+set $a = $a + 4
+x $a
+set $i = $i - 1
