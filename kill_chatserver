@@ -1,0 +1,12 @@
+#!/bin/bash
+
+pid_list=$(ps -ef | grep chatserverd.py | grep -v grep | awk '{print $2}')
+for pid in $pid_list
+do
+  echo '(+)' Killing chatserver pid = $pid
+  /bin/kill -9 $pid
+  retval=$?
+  if [ $retval -eq 0 ]; then
+    echo '(+)' Done
+  fi
+done
