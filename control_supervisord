@@ -1,8 +1,9 @@
 #!/bin/bash
 
 TRY_NUMBER=3
-SPY3=/home/son/local/app/Python-3.4.1/bin/supervisord
-SPY2=/home/son/local/app/Python-2.7.8/bin/supervisord
+#SPY3=/home/son/local/app/Python-3.4.1/bin/supervisord
+SPY2=/bin/supervisord
+CONFIG=/etc/supervisord.conf
 
 LOADER=$SPY2
 
@@ -42,7 +43,7 @@ function stopd() {
 
 function startd() {
 	printf "%-40s" "Starting supervisord"
-	$LOADER -c /home/son/local/etc/supervisord.conf
+	$LOADER -c $CONFIG
 
 	count=0
 	while [ 1 ]
@@ -58,7 +59,7 @@ function startd() {
 				break
 			fi
 		else
-			$LOADER -c /home/son/local/etc/supervisord.conf > /dev/null 2>&1
+			$LOADER -c $CONFIG > /dev/null 2>&1
 			count=-1
 		fi
 		
