@@ -3,7 +3,7 @@
 if [ ! "$1" ]; then
 	pattern="PPID|supervisord|httpd"
 else
-	pattern="PPID|supervisord|httpd|$1"
+	pattern="PPID|$1"
 fi
 
 /bin/ps -o pid,ppid,pgrp,sid,cmd -e | grep -P "$pattern" | grep -v control_supervisord | grep -v grep

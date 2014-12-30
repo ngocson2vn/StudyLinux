@@ -1,9 +1,10 @@
 #!/bin/bash
 
-TRY_NUMBER=3
-SPY3=supervisord3
-SPY2=supervisord
-CONFIG=/etc/supervisord.conf
+TRY_NUMBER=2
+SPY3=python3
+SPY2=python
+CHATSERVER=/home/son/git/simplechat/chatserverd.py
+OPTION="--port=9999"
 
 LOADER=$SPY2
 
@@ -12,10 +13,10 @@ if [ "$1" = "PY3" ]; then
 fi
 
 function stopd() {
-	old_pid=$(ps -o pid,cmd -e | grep -P "supervisord -c|supervisord.py -c|supervisord3 -c" | grep -v grep | awk '{print $1}')
+	old_pid=$(ps -o pid,cmd -e | grep -P "chatserverd" | grep -v grep | awk '{print $1}')
 
 	if [ "$old_pid" ]; then
-		printf "%-40s" "Stopping supervisord with PID = $old_pid"
+		printf "%-40s" "Stopping chatserverd with PID = $old_pid"
 		/usr/bin/kill -s TERM $old_pid
 
 		count=0
@@ -24,7 +25,7 @@ function stopd() {
 		do
 			echo -n "."
 			sleep 1
-			pid=$(ps -o pid,cmd -e | grep -P "supervisord -c|supervisord.py -c|supervisord3 -c" | grep -v grep | awk '{print $1}')
+			pid=$(ps -o pid,cmd -e | grep -P "chatserverd" | grep -v grep | awk '{print $1}')
 			
 			if [ ! "$pid" ]; then
 				if [ "$count" -ge "$TRY_NUMBER" ]; then
@@ -42,8 +43,8 @@ function stopd() {
 }
 
 function startd() {
-	printf "%-40s" "Starting supervisord"
-	$LOADER -c $CONFIG
+	printf "%-40s" "Starting chatserverd"
+	$CHATSERVER $OPTION > /dev/null 2>&1
 
 	count=0
 	while [ 1 ]
@@ -51,7 +52,7 @@ function startd() {
 		echo -n "."
 		sleep 1
 		
-		pid=$(ps -o pid,cmd -e | grep -P "supervisord -c|supervisord.py -c|supervisord3 -c" | grep -v grep | awk '{print $1}')
+		pid=$(ps -o pid,cmd -e | grep -P "chatserverd" | grep -v grep | awk '{print $1}')
 		
 		if [ "$pid" ]; then
 			if [ "$count" -ge "$TRY_NUMBER" ]; then
@@ -59,7 +60,7 @@ function startd() {
 				break
 			fi
 		else
-			$LOADER -c $CONFIG > /dev/null 2>&1
+			$CHATSERVER $OPTION > /dev/null 2>&1
 			count=-1
 		fi
 		
@@ -67,9 +68,7 @@ function startd() {
 	done
 
 	echo ""
-	/usr/bin/eps
-	sleep 2
-	reset
+	/usr/bin/eps chatserverd
 }
 
 function restart() {
