@@ -70,6 +70,7 @@ function startd() {
 	/usr/bin/eps
 	sleep 2
 	reset
+	netstat -tlpn | grep python
 }
 
 function restart() {

@@ -1,0 +1,10 @@
+#!/bin/bash 
+
+keys=$(redis-cli KEYS \*)
+
+for k in $keys
+do
+	v=$(redis-cli get $k)
+	printf "KEY: %s\n" $k
+	printf "VAL: %s\n\n" $v
+done
