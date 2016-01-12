@@ -1,0 +1,1052 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><!--
+ Archive processed by SingleFile 
+ url: http://www.ntu.edu.sg/home/ehchua/programming/howto/vcpp_HowTo.html 
+ saved date: Mon Aug 25 2014 15:19:59 GMT+0900 (Tokyo Standard Time) 
+--><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>How to Install and Get Started with Visual C++ 2010 Express</title>
+
+<style rel="stylesheet" type="text/css" data-href="http://www.ntu.edu.sg/home/ehchua/programming/css/programming_notes_v1.css">/* 
+ * Universal selector - clear all the margin and padding to get consistent layout for Firefox and IE 
+ */
+* { 
+	margin: 0;
+	padding: 0;
+}
+
+/* 
+ * Set default style for all the tags.
+ * Apply to the main content division as well.
+ */
+body {
+	background-color: rgb(202, 251, 237);
+	color: #000;
+	font-family: "Segoe UI", Segoe, Calibri, "Ubuntu", Tahoma, Arial, Helvetica, Verdana, sans-serif;
+	font-size: 14px;
+	text-align: justify;
+	line-height: 1.5;
+}
+
+/*
+ * "wrap-outer" wraps header, wrap-inner and footer
+ */
+#wrap-outer {
+	margin: 20px 20px 20px 20px;
+	padding: 0;
+	
+}
+/*
+ * "wrap-inner" wraps content-header, content-main and content-footer
+ */
+#wrap-inner {
+	background-color: #fff;
+	margin: 0;
+	border: 1px solid #ddd;
+	padding: 25px 15px;
+	box-shadow: 5px 5px 0 #ddd;
+}
+#content-header {
+	margin: 0;
+	padding: 50px 0 10px 0;
+}
+
+#content-main {
+	margin: 0;
+	padding: 30px 0 20px 0;
+}
+#content-footer {
+	font-family: "Century Gothic", "Segoe UI", Segoe, "Ubuntu", Verdana, Tahoma, Arial, Helvetica, sans-serif;
+	font-size: 13px;
+	text-align: right;
+	color: rgb(192, 80, 77);
+/*	color: rgb(11, 83, 149); */
+	margin: 30px 0 0 0;
+    padding: 0;
+	border-top: 4px solid rgb(12, 155, 116);
+}
+/*
+ *  The main "header" & "footer" divisions
+ */
+.header-footer {
+	font-family: "Century Gothic", "Segoe UI", Segoe, "Ubuntu", Verdana, Tahoma, Arial, Helvetica, sans-serif;
+	color: rgb(192, 80, 77);
+/*	color: rgb(11, 83, 149); */
+	font-size: 13px;
+	text-align: right;
+	margin: 10px 0 5px 0;
+	padding: 5px 4px;
+}
+.header-footer a {
+	color: rgb(192, 80, 77);
+	text-decoration: underline;
+}
+.header-footer a:focus, .header-footer a:hover {  /* change color and remove underline */
+	text-decoration: none;
+ 	color: rgb(11, 83, 149);
+/*	color: rgb(192, 80, 77); */
+}
+
+h1, h2, h3, h4, h5, h6 {  /* main title and sub-title */
+	font-family: "Century Gothic", "Trebuchet MS", "Segoe UI", Segoe, "Ubuntu", Verdana, Tahoma, Arial, Helvetica, sans-serif;
+	margin: 0;
+	color: rgb(10, 132, 100);
+	letter-spacing: 1px;
+	line-height: 1.2;
+	text-align:left;
+}
+h1 {
+	font-size: 40px;
+	font-weight: 400;
+	padding: 0.2em 0;
+}
+h2 {
+	font-size: 36px;
+	font-weight: 400;
+	padding: 0.2em 0;
+}
+h3 {
+	font-size: 22px;
+	border-bottom: thin solid rgb(12, 155, 116);
+	padding: 1.5em 0 0.3em 0;
+}
+h4 {
+	font-family: "Segoe UI", Segoe, "Ubuntu", Verdana, Tahoma, Arial, Helvetica, sans-serif;
+	font-size: 18px;
+	padding: 1.3em 0 0.2em 0;
+	border-bottom: thin dotted rgb(12, 155, 116);
+}
+h5, h6 {
+	font-family: "Segoe UI", Segoe, "Ubuntu", Verdana, Tahoma, Arial, Helvetica, sans-serif;
+	font-size: 15px;
+	color: #444;
+	padding: 1.2em 0 0 0;  /* top right bottom left */
+	letter-spacing: 1px;
+}
+.line-heading {
+	color: #444;
+	font-size: 15px;
+	font-weight: bold;
+	letter-spacing: 1px;
+	padding: 0.2em 0;
+}
+.line-heading-code-new {
+	font-family: Consolas, "Lucida Console", "Courier New", Courier, monospace;
+	color: #E31B23;
+	font-size: 15px;
+    font-weight: normal;
+/*	letter-spacing: 0.5px; */
+}
+p {
+	margin-top: 0.6em;
+	margin-bottom: 0.4em;
+}
+pre {
+	font-family: Consolas, "Lucida Console", "Courier New", Courier, monospace;
+	font-size: 13px;
+	margin: 5px 0 8px 0;
+	border: solid 2px #f8f8f8;  /* slight 3D shape */
+	padding: 5px 10px;
+	line-height: 135%;
+}
+code {
+	font-family: Consolas, "Lucida Console", "Courier New", Courier, monospace;
+}
+
+ul {   /* first level ul */
+	margin: 0.3em 0 0.2em 1.8em;
+	padding: 0;
+/*	list-style-type: square;  */
+	list-style-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAANAQMAAABBztZFAAAABlBMVEUAAwBjjJzG2b5OAAAAAXRSTlMAQObYZgAAABBJREFUCNdjYMAG7FARAwMADXkBNzRuJgIAAAAASUVORK5CYII=);
+}
+ul ul li {   /* 2nd level ul */
+	list-style-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAANAQMAAABb8jbLAAAABlBMVEX///8AUow5QSOjAAAAAXRSTlMAQObYZgAAABNJREFUCB1jYEABBQw/wLCAgQEAGpIDyT0IVcsAAAAASUVORK5CYII=);
+/*
+	list-style-type: disc;
+	list-style-image: none; */
+}
+ul ul u1 li {   /* 3rd level ul */
+	list-style-type: circle;
+	list-style-image: none;
+}
+ol {   /* first level ol */
+/*    list-style-position:inside; */
+/*    display: table  */
+    list-style-type: decimal;
+	margin: 0.3em 0 0.2em 2.5em;
+	padding: 0;
+}
+ol ol li {   /* 2nd level ol */
+	list-style-type: lower-alpha;
+}
+ol ol o1 li {  /* 3rd level ol */
+	list-style-type: lower-roman;
+}
+
+li {
+	margin: 0.4em 0;
+}
+
+.float-left-ol-ul {
+	overflow:hidden;
+}
+
+/* li after a left-float image */
+.float-left-li {
+   position: relative; left: 20px;
+   margin-right: 20px;
+}
+
+a {
+	color: rgb(11, 83, 149);
+	text-decoration: none;
+}
+a:hover, a:focus {
+	color: rgb(192, 80, 77);
+	text-decoration: underline;
+}
+
+a.references {
+	display: block;
+	width: 30em;
+	font-size: 18px;
+	font-weight: bold;
+	margin: 4em 0 0 0;
+}
+
+p.references {
+	font-size: 18px;
+	font-weight: bold;
+	margin: 4em 0 0 0;
+}
+
+/*
+ * General classes
+ */
+.center-block {
+	margin: 10px auto;  /* auto margin-left and margin-right to center the table */
+}
+.text-center {	
+    text-align: center; 
+}
+.text-right {	
+    text-align: right; 
+}
+.underline {
+	text-decoration: underline;
+}
+.font-code {
+	font-family: Consolas, "Lucida Console", "Courier New", Courier, monospace;
+}
+.font-code-text {
+	font-family: Consolas, "Lucida Console", "Courier New", Courier, monospace;
+	font-size: 14px;
+}
+.font-code-smaller {
+	font-family: Consolas, "Lucida Console", "Courier New", Courier, monospace;
+	font-size: 13px;
+}
+.font-normal {
+	font-family: "Segoe UI", Segoe, Calibri, "Ubuntu", Tahoma, Arial, Helvetica, Verdana, sans-serif;
+}
+.pre {
+    white-space: pre;	
+}
+/* color control mainly for <pre>, <div>, <span> */
+.color-example {
+	background-color: rgb(215, 236, 211);  /* darker */
+}
+.color-example-light {
+	background-color: rgb(236, 246, 234);  /* lighter */
+}
+.color-syntax, .color-command {
+	background-color: rgb(204, 238, 241);  /* darker */
+}
+.color-explanation {
+	background-color: #eee;   /* grey */
+}
+/* Character level control for code listing */
+.color-comment {
+	color: #009900;  /* green */
+}
+.color-new {
+	color: #E31B23;  /* dark red to highlight new terms */
+}
+.color-error {
+	color: #ff0099;  /* bright red */
+/*	font-weight:bold; */
+}
+.color-plain {
+	background-color: #fff;
+}
+.color-highlight {
+	background-color: #ff0;
+}
+.color-highlight-new {
+    background-color: #FFC;  /* lighter */
+}
+
+.output {  /* Output of program or DOS session */
+    background-color: rgb(236, 246, 234);  /* lighter */
+	border: solid 2px #f8f8f8;   /* slight 3D shape */
+	padding: 4px 8px;
+}
+.side-note {
+	margin-top: 15px;
+    margin-left: 40px;
+	padding: 3px 8px; 
+	background-color: #e7e7e7;
+}
+
+
+/*
+ * for positioning images 
+ */
+img.image-center {      /* center horizontally an image */
+	display: block;
+	margin: 10px auto;
+}
+img.image-border {
+    border: #ddd thin solid;
+}
+img.image-float-left {
+	float: left;
+	margin: 8px 15px 15px 0;
+    border: #ddd thin solid;
+}
+img.image-float-right {
+	float: right;
+	margin: 8px 0 15px 15px;
+    border: #ddd thin solid;
+}
+.float-clear {
+   clear: both;	
+}
+/*
+ *  Table - for tablulating data with alternate row colors or different column colors
+ */
+table.table-zebra, table.table-program {
+	border-collapse: collapse;
+	border: 0;
+	margin: 0 auto; /* center */
+	padding: 0;
+    width: 100%;
+	/* Default setting for all cells in this table, inherited */
+    background-color: rgb(231, 240, 248);  /* lighter */
+	text-align: left;
+	vertical-align: top;
+}
+table.table-zebra th {  /* header cells */
+	color: #ffffff;     /* white text on dark background */
+	background-color: rgb(0, 157, 217);
+	margin: 0;
+	border: 2px solid white;
+	padding: 4px 10px;
+	font-size: 15px;
+	letter-spacing: 1px;
+	text-align: center;
+}
+table.table-zebra td {  /* data cells */
+    margin: 0;
+	border: 2px solid white;
+	padding: 2px 8px;
+	/* color, font, text inherited from table */
+	vertical-align: top;
+}
+
+table.table-program th {  /* header cells */
+	color: #ffffff;     /* white text on dark background */
+	background-color: rgb(0, 157, 217);
+	margin: 0;
+	border: 2px solid white;
+	padding: 4px 10px;
+	font-size: 15px;
+	letter-spacing: 1px;
+	text-align: center;
+}
+table.table-program td {  /* data cells */
+    margin: 0;
+	border: 0;
+	padding: 0;
+	/* color, font, text inherited from table */
+}
+
+table.table-program td pre {
+	margin: 0;
+	border: solid 2px #f8f8f8;   /* slight 3D shape */
+	padding: 5px 10px;
+}
+
+table.table-program td pre.text-right {
+	text-align: right;
+}
+
+/* Setting the color for row (2 colors) or column (3 colors) */
+/* can only set the background, border, width of <col>, NOT font, text, color */
+/* for table-zebra */
+table .col-desc {       /* same as default color */
+    background-color: rgb(231, 240, 248);  /* lighter */
+}
+table .col-code, table .tr-alt {
+	background-color: rgb(203, 223, 241);  /* darker */
+}
+table .col-example {
+    background-color: #eee;  /* grey */
+}
+
+/* for table-program */
+table .col-line-number {
+	width: 40px;
+    background-color: rgb(225, 233, 207);
+}
+table .col-program {
+    background-color: rgb(240, 244, 233);
+}
+
+/*
+ * For the "Table of Content" generated by JavaScript
+ * in <div id="toc">
+ */
+#wrap-toc {
+    display: block;
+	background: none repeat scroll 0 0 rgb(231, 246, 239);
+	float: right;
+	width: 230px;
+	z-index: 100;
+	line-height: 1.5;
+	margin: 0 0 0 15px;
+	padding: 5px 8px 10px 8px;
+	text-align: left;
+	white-space: nowrap;
+/*	min-height: 180px;  */
+}
+#wrap-toc h5 {
+   letter-spacing: 1px;
+   margin: 0;
+   text-transform: uppercase;
+	color: #444;
+	padding: 0.5em 0;
+}
+a#show-toc {
+	color: rgb(192, 80, 77);
+	text-decoration: none;
+   letter-spacing: 1px;
+}
+#toc {
+	overflow: auto;
+}
+#toc a.toc-H3 {
+    margin-left: 0px;
+	font-size: 15px;
+}
+#toc a.toc-H4 {
+    margin-left: 20px;
+	font-size: 14px;
+}
+#toc a.toc-H5 {
+    margin-left: 40px;
+	font-size: 14px;
+}
+</style>
+
+<link rel="shortcut icon" href="data:image/x-icon;base64,AAABAAEAEBAQAAEABAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAgAAAAAAAAAAAAAAAEAAAAAAAAADy8O0APrMnACEdGADb2tkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMzMzMzMzMzMyIiIiIiIiIzIiIiIiIiIjMgIiIgAAAiMyACIiAAACIzIgAiIiIiIjMiIAIiIiIiMyIiACIiIiIzIiACIiIiIjMiACISEiESMyACIhISEiIzICIiERISIjMiIiISEhIiMyIiIhISIRIzIiIiIiIiIjMzMzMzMzMzMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" type="image/x-icon"></head>
+
+<body class="">
+
+<div id="wrap-outer" class="">
+
+<!-- header filled by JavaScript -->
+<div id="header" class="header-footer"><p class="">yet another insignificant programming notes... &nbsp;&nbsp;| &nbsp;&nbsp;<a href="http://www.ntu.edu.sg/home/ehchua/programming/index.html" class="">HOME</a></p></div>
+
+<div id="wrap-inner" class="">
+
+<div id="wrap-toc" class="">
+<h5 class="">TABLE OF CONTENTS <a id="show-toc" href="#show-toc" class="">(HIDE)</a></h5>
+<div id="toc" class=""><a class="toc-H3" href="#zz-1.">1.&nbsp;&nbsp;Introduction</a><br class=""><a class="toc-H3" href="#zz-2.">2.&nbsp;&nbsp;How to Install Visual C++ 2010/2008 Express</a><br class=""><a class="toc-H3" href="#zz-3.">3.&nbsp;&nbsp;Write Your First C++ Program in VC++ 2010/2008</a><br class=""><a class="toc-H3" href="#zz-4.">4.&nbsp;&nbsp;Read the Documentation</a><br class=""><a class="toc-H3" href="#zz-5.">5.&nbsp;&nbsp;Debugging C++ Program in VC++ 2010/2008</a><br class=""><a class="toc-H3" href="#zz-6.">6.&nbsp;&nbsp;Notes on Visual Studio IDE</a><br class=""><a class="toc-H3" href="#zz-7.">7.&nbsp;&nbsp;Tips and Tweaks</a><br class=""><a class="toc-H3" href="#zz-8.">8.&nbsp;&nbsp;File IO in VC++</a><br class=""><a class="toc-H3" href="#zz-9.">9.&nbsp;&nbsp;Sample C++ Programs</a><br class=""><a class="toc-H4" href="#zz-9.1">9.1&nbsp;&nbsp;Win32 Application</a><br class=""><a class="toc-H4" href="#zz-9.2">9.2&nbsp;&nbsp;A C++ Class</a><br class=""><a class="toc-H3" href="#zz-10.">10.&nbsp;&nbsp;Compiling C++ Programs from Command-Line with VC++</a><br class=""><a class="toc-H4" href="#zz-10.1">10.1&nbsp;&nbsp;Environment Variables</a><br class=""><a class="toc-H4" href="#zz-10.2">10.2&nbsp;&nbsp;Commonly-used Command-line Options</a><br class=""><br class=""></div>  <!-- for showing the "Table of Content" -->
+</div>
+
+<div id="content-header" class="">
+<h1 class="">Visual C++ 2010 Express</h1>
+<h2 class="">How to Install and Get Started</h2>
+</div>
+
+<div id="content-main" class="">
+
+<h3 class="">1.&nbsp;&nbsp;Introduction<a id="zz-1." class="" style=""></a></h3>
+
+<p class="">Visual C++ is part of the <em class="">Visual Studio Programming Suite</em>.  A light <em class="">express </em>version is freely available.</p>
+
+<p class="">Visual Studio is an Integrated Development Environment (IDE) for developing web applications, client applications, and Windows Phone mobile applications. It supports C/C++, C#, Visual Basic. The versions are:</p>
+<ul class="">
+<li class="">Visual Studio 97: First version bundling many programming tools.</li>
+<li class="">Visual Studio Version 6 (1998): Compiled into native executable machine codes (Win32) only.</li>
+<li class="">Visual Studio .net 2002/2003 (Version 7): Introduced the so-called <em class="">managed</em> codes on <em class="">Common Language Runtime</em> (CLR), and C#. Managed codes run over a virtual machine known as <em class="">.NET Framework</em>. It uses a portable virtual machine code called <em class="">Common Intermediate Language</em> (CIL). CLR, .NET Framework, CIL and C# are similar to Java Runtime, Java Virtual Machine, Java portable byte codes, and Java language.</li>
+<li class="">Visual Studio 2005 (Version 8): .NET Framework 2.0, ASP.NET 2.0, ADO.NET 2.0 (for database support), etc.</li>
+<li class="">Visual Studio 2008 (Version 9): .NET Framework 3.5.</li>
+<li class="">Visual Studio 2010 (Version 10): .NET Framework 4.0.</li>
+<li class="">Visual Studio 11 (Version 11): upcoming.</li>
+</ul>
+
+<h3 id="vcpp-install" class="">2.&nbsp;&nbsp;How to Install Visual C++ 2010/2008 Express<a id="zz-2." class="" style=""></a></h3>
+
+<p class="">Simply download and run the VC++ Express online installer @ <a href="http://www.microsoft.com/visualstudio/en-us/products/2010-editions/visual-cpp-express" class="">http://www.microsoft.com/visualstudio/en-us/products/2010-editions/visual-cpp-express</a>. Choose the "Express" instead of "Professional Trial" version.</p>
+
+<h3 id="vcpp-first" class="">3.&nbsp;&nbsp;Write Your First C++ Program in VC++ 2010/2008<a id="zz-3." class="" style=""></a></h3>
+
+<h5 class="">Step 0: Launch Visual C++</h5>
+<p class="">The "Start Page" appears. Take a good look at the "Start Page" before you proceed.</p>
+
+<h5 class="">(For Visual C++ 2010 Express) Switch to "Expert Settings"</h5>
+<p class="">From "Tools" menu ⇒ "Settings"  ⇒ Check "Expert Settings".</p>
+
+<h5 class="">Step 1: Create a New C++ Project and Solution</h5>
+<p class="">Visual studio applications are organized in solutions and projects. A solution consists of one or more related projects (e.g., an exeutable program and its related DLL). A C++ project consists of program codes, headers, and relevant resources.</p>
+
+<ol class="">
+<li class="">Select "File" menu ⇒ "New" ⇒ "Project...".</li>
+
+<li class="">The "New Project" dialog appears:
+
+  <ol class="">
+<li class="">In the "Installed Templates" (or "Project Types" in VC2008) pane, expand "Visual C++" node and select "Win32".</li>
+<li class=""> In the middle pane (or "Templates" in VC2008), select "Win32 Console Application".</li>
+
+<li class="">In the "Name" field, enter "<code class="">Hello</code>" as the project name.</li>
+<li class="">In the "Location" field, choose your working directory, for example, "<code class="">d:\myproject</code>".</li>
+<li class="">In "Solution" (if there is one), select "Create New Solution".<br class="">
+As mentioned, a solution consists of many related projects. By default, the solution name is the same as the <em class="">first</em> project in the solution. Accept the default. You can add more projects into this solution later.</li>
+<li class="">Check "Create directory for solution".</li>
+<li class="">Click "OK".</li>
+
+</ol></li>
+
+<li class="">The "Win32 Application Wizard" appears:
+  <ol class="">
+<li class="">Click "Next".</li>
+<li class="">In "Application type", select "Console application" (the default).</li>
+<li class=""> In "Additional options", select "Empty project".</li>
+<li class="">Click "Finish".</li>
+</ol>
+</li>
+
+</ol>
+
+<h5 class="">Step 2: Write a C++ Program</h5>
+<ol class="">
+<li class="">In the "Solution Explorer" pane (the leftmost pane), expand the "<code class="">hello</code>" project node    ⇒ Right-click on "Sources Files"   ⇒ "Add" ⇒ "New Item...".</li>
+<li class="">The "Add New Item" dialog appears.
+
+<ol class="">
+<li class="">In the "Installed Templates" pane, expand the "Visual C++" node and select "Code".</li>
+<li class="">Select "C++ File(.cpp)".</li>
+<li class="">In the "Name" field, enter "<code class="">hello</code>" as the filename</li>
+<li class="">Click "Add".</li>
+</ol></li>
+
+<li class="">In the editor pane for "<code class="">hello.cpp</code>", enter  the following C++ codes:
+
+  <pre class="color-example">#include &lt;iostream&gt;
+using namespace std;
+   
+int main() {
+    cout &lt;&lt; "Hello, world!" &lt;&lt; endl;
+}</pre>
+</li>
+</ol>
+
+<h5 class="">Step 3: Build (Compile and Link) the Project</h5>
+<p class="">From the "Build" menu, choose "Build Solution" (or press F7) to compile and link the program.</p>
+
+<h5 class="">Step 4: Run the Project</h5>
+<p class="">From the "Debug" menu, select "Start Without Debugging" (or press Ctrl-F5) to run your project. You should see the  "Hello, world!" message displayed on the console.</p>
+
+<h5 class="">Next:</h5>
+<ul class="">
+<li class="">Each C++ program has to be kept in a separate project. For toy programs, you could put the new project under an existing solution. For production, a solution shall only contain  related projects.</li>
+<li class="">To add another project under this solution "Hello", right click on the solution (on the Solution Explorer) ⇒ Add ⇒ New Project. Follow the above steps to create the project.</li>
+
+<li class="">To build and run the new project:
+  <ol class="">
+<li class="">right-click on the project ⇒ Set as StartUp Project.</li>
+<li class="">Right-click on the project ⇒ Build.</li>
+<li class="">To run the project: from the "Build" menu, select "Start Without Debugging".</li>
+</ol></li>
+
+</ul>
+
+<h3 class="">4.&nbsp;&nbsp;Read the Documentation<a id="zz-4." class="" style=""></a></h3>
+
+<ul class="">
+<li class="">At a minimum, you should spend sometimes to browse through the "Getting Started" section on the "START PAGE" (the initial page when the Visual Studio is launched). There are video links as well as tutorials. This will  save you many hours of  struggling later.</li>
+
+<li class="">"Visual C++ Guided Tour" @ <a href="http://msdn.microsoft.com/en-us/library/ms235630.aspx" class="">http://msdn.microsoft.com/en-us/library/ms235630.aspx</a>.</li>
+</ul>
+
+<h3 id="vcpp-debug" class="">5.&nbsp;&nbsp;Debugging C++ Program in VC++ 2010/2008<a id="zz-5." class="" style=""></a></h3>
+
+<p class="">Able to use a graphics debugger to debug program is crucial in programming. It could save you countless of hours guessing on what went wrong.</p>
+
+<h5 class="">Step 0: Write a C++ Program</h5>
+<p class="">Follow the steps in "<a href="#vcpp-first" class="">Writing C++ Program</a>" to write the following C++ program, to be used for the debugging practice. This program computes and prints the factorial of <code class=""><em class="">n</em></code> (<code class="">=1*2*3*...*<em class="">n</em></code>). The program, however, has a logical error and produce a wrong answer for <code class=""><em class="">n</em>=20</code>. (It outputs "The Factorial of 20 is -2102132736" - a negative number?!).</p>
+
+<table class="table-program">
+<colgroup class="" style=""><col class="col-line-number" style="">
+<col class="col-program" style="">
+</colgroup><tbody class="">
+<tr class="">
+<td class="">
+<pre class="text-right">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13</pre>
+</td>
+<td class="">
+<pre class="">#include &lt;iostream&gt;
+using namespace std;
+ 
+int main() {
+   int n = 20;
+   int factorial = 1;
+ 
+   <span class="color-comment">// n! = 1*2*3...*n</span>
+   for (int i = 1; i &lt;= n; i++) {
+      factorial *= i;
+   }
+   cout &lt;&lt; "The Factorial of " &lt;&lt; n &lt;&lt; " is " &lt;&lt; factorial &lt;&lt; endl;
+}</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+<p class="">Run the program and observe the output produced:</p>
+
+<pre class="output">The Factorial of 20 is -2102132736</pre>
+
+<p class="">Let's use the graphic debugger to debug the program.</p>
+
+<h5 class="">Step 1: Set an Initial Breakpoint</h5>
+
+<img class="image-float-left" src="data:image/png;base64,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">
+
+<p class="">Set an initial <em class="">breakpoint</em> at <code class="">main()</code> function by clicking on the "left-margin" of the line containing <code class="">main()</code>. (Alternatively, you can place the cursor on the line containing <code class="">main()</code>, and select the "Toggle Breakpoint (F9)" from the "Debug" menu).  A red circle appears indicating a breakpoint has been set at that line. A <em class="">breakpoint</em> suspends program execution for you to examine the internal states.</p>
+
+<h5 class="float-clear">Step 2: Start Debugging</h5>
+
+<img class="image-float-left" src="data:image/png;base64,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">
+
+<p class="">From "Debug" menu, select "Start Debugging". The program begins execution but suspends its execution at the breakpoint, i.e., <code class="">main()</code>. An <em class="">yellow arrow</em> (as shown in the diagram) appears and points at the <code class="">main()</code>, indicating this is the next statement to be executed.</p>
+
+<h5 class="float-clear">Step 3: Single-Step and Watch the Variables and Outputs</h5>
+
+<img class="image-float-right" src="data:image/png;base64,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">
+<img class="image-float-right" src="data:image/png;base64,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">
+
+<p class=""> Click the "Step Over" button on the "Debug" toolbar (or select "Step Over (F10)" in "Debug" menu) to <em class="">single-step</em> thru your program. At each of the step, you could examine the internal state of your program, such as the value of the variables (in the "Auto" or "Locals" pane), the outputs produced by your program (in the console), etc.</p>
+
+<p class="">Single-stepping thru the program and watching the values of internal variables and the outputs produced is the ultimate mean in debugging programs - because it is exactly how the computer runs your program!</p>
+
+<h5 class="">Step 4: Breakpoint, Run-To-Cursor, Continue and Stop</h5>
+
+<p class="">As mentioned, a breakpoint <em class="">suspends</em> program execution and   let you examine the internal states of the program. To set a breakpoint   on a particular statement, click the left-margin of that line (or   select "Toggle Breakpoint (F9)" from "Debug" menu).</p>
+<p class="">The "Continue (F5)" resumes the program execution, up to the next breakpoint, or till the end of the program.</p>
+<p class="">Single-stepping thru a loop with a large count is time-consuming. You   could set a breakpoint at the statement immediately outside the loop   (e.g., Line 12 of the above program), and issue "Continue" to complete the   loop.</p>
+<p class="">Alternatively, you can place the cursor on a particular statement,   right-click and select "Run-To-Cursor (Ctrl-F10)" to resume execution up to   this line.</p>
+<p class=""> The "Stop Debugging" ends the debugging session. Always terminate your   current debugging session using "Stop" or "Continue" till the end of   the program.</p>
+
+<p class=""><strong class="">Important:</strong> I can's stress more that mastering the use of debugger is crucial in programming. Explore the features provided by the debuggers.</p>
+
+<h5 class="">Other Debugging Features</h5>
+
+<p class=""><strong class="">Modifying the Value of a Variable:</strong> You can modify the value of an internal variable by entering a new value in the "Locals" or "Autos" panes. This technique is handy for modifying the behavior of a program, without changing the source code and rebuild.</p>
+
+<p class=""><strong class="" style=""></strong><strong class="">Step-Into and Step-Out</strong>: To debug a <em class="">function</em>, you need to use "Step-Into (F11)" to step into the <em class="">first</em> statement of the function.  ("Step-Over" runs the function in a single step without stepping through the statements within the function.) You could use "Step-Out (Shift-F11)" to return  to the caller, anywhere within the function. Alternatively, you can set a breakpoint inside a function. </p>
+
+<h3 class="">6.&nbsp;&nbsp;Notes on Visual Studio IDE<a id="zz-6." class="" style=""></a></h3>
+<ol class="">
+<li class="">Visual Studio organized your work in <em class="">solution</em> and <em class="">project</em>.
+
+<ol class="">
+<li class="">A project is a single built-target, e.g., a executable program, a DLL (Dynamic Link Library), a static library, etc.  A project contains 3 folders: source files, header files, resource files (icons, cursors, bitmaps, etc).</li>
+<li class="">A solution can contain many related projects, that are meant to run together to provide a complete solution (e.g., a client-server based application).  By keeping the related projects in a solution, the IDE can help to keep track of the dependencies between projects, and re-build the entire solution if certain part of a project changes.</li>
+</ol>
+
+In Visual studio, you do not have to create a solution explicitly (there is no way to create a solution anywhere?!). A solution will be <em class="">automatically</em> created when you create a <em class="">new </em>project, i.e., the <em class="">first project</em> under the solution.</li>
+
+<li class="">To create a new project (and implicitly create a new solution): select "File" menu ⇒ "New" ⇒ "Project", select "Create New Solution" and check "Create directory for solution". By default, the name of the solution folder is the same as the first project created under the solution. You may choose a different name for the solution instead. You can add more projects into a solution later (by right-clicking on solution's name  ⇒ "Add"  ⇒ "New Project..."). You can choose to build only a particular project instead of the entire solution (right-click on the project  ⇒ Project Only ⇒ Build project). If there are more than one project in a solution, you need to set a "Startup" project (right-click the project ⇒ "Set as startup project" - the start-up project will be shown in bold). Running the solution begins at the startup project.</li>
+
+</ol>
+
+<h3 class="">7.&nbsp;&nbsp;Tips and Tweaks<a id="zz-7." class="" style=""></a></h3>
+<ol class="">
+<li class="">"Auto-hide" all the panels (Solution Explorer, Output, etc), while you are editing your program (so that you have a bigger screen to work on.) (Visual Studio does not allow you to switch the editor panel to full screen like Eclipse or NetBeans?!)</li>
+
+<li class="">It is very complicated to rename a project directory and the project name. The steps are:
+  <ol class="">
+	<li class="">Close the Visual Studio.</li>
+	<li class="">Rename the project directory (using Windows Explorer).</li>
+	<li class="">Start the Visual Studio, and ignore all the warning messages.</li>
+	<li class="">In the Solution Explorer, select a "unavailable project". Click the "Property Manager" icon (on the top-left corner of the Solution Explorer) to display the "Property" panel.</li>
+	<li class="">Set the "File Path" to the new directory location.</li>
+	<li class="">Select the "unavailable project" again, choose "Reload".</li>
+	<li class="">Go back to the "Property" panel, rename the "project name" and "namespace".</li>
+  </ol>
+<p class="">Alternatively, you can remove the project from Visual Studio, rename the project, and add the project into the Visual Studio again.</p>
+<p class="">Another alternatively, you can rename the project directory, and edit the "<code class="">.sol</code>" configuration file.</p>
+<p class="">Read <a href="http://www.platinumbay.com/blogs/dotneticated/archive/2008/01/01/renaming-and-copying-projects-and-solutions.aspx" class="">http://www.platinumbay.com/blogs/dotneticated/archive/2008/01/01/renaming-and-copying-projects-and-solutions.aspx</a> on many other tasks such as renaming and copy project/solution. (  I am still wondering why is it so difficult to rename a project directory in Visual Studio, compared to Eclipse or NetBeans refactoring).</p></li>
+
+<li class="">You can choose the compile the code without linking via "Build" menu ⇒ Compile (Ctrl-F7). You can choose to compile/link a project (instead of the entire solution) via "Build" menu ⇒ "Build <em class="">project-name</em>".</li>
+<li class="">Figure out the various options in "find/replace" will save you many hours of typing. (Is there a refactoring facility in Visual Studio for renaming entities?!)</li>
+</ol>
+
+<h3 id="vcpp-io" class="">8.&nbsp;&nbsp;File IO in VC++<a id="zz-8." class="" style=""></a></h3>
+
+<p class="">Suppose that your program receives input from a text file called "<code class="">xxxx.in</code>", and writes its output to a text file called "<code class="">xxxx.out</code>" (e.g., the  USACO training site, where "<code class="">xxxx</code>" is the name of the problem).</p>
+<p class="">File Input is a little tricky under VC++ due to:</p>
+<ol class="">
+<li class="">When you create a text file in Notepad and saved it as "<code class="">xxxx.in</code>", Notepad will append the "<code class="">.txt</code>" to your file and it becomes "<code class="">xxxx.in.txt</code>".  Worse still, the Windows' Explorer, by default, will not show the "<code class="">.txt</code>" extension (instead it shows a txt file <em class="">icon</em>). (The first thing I always do to an alien Windows is to change this setting. From "Tools" menu ⇒ Folder Options... ⇒ View ⇒ Uncheck "Hide extensions for known file types".) You need to put a pair of double quotes around <code class="">xxxx.in</code> to override the default "<code class="">.txt</code>" extension. This is one good reason not to use Notepad for programming at all. You should use VC++ to create the input text files directly.</li>
+
+<li class="">Which directory to keep the input file "<code class="">xxxx.in</code>" in VC++?
+<br class="">
+When you create a new project, VC++ creates a few sub-folders, such as "debug", "release", under the <em class="">base</em> directory. BUT you need to put your input file "<code class="">xxxx.in</code>" in the <em class="">base</em> directory of the project.</li>
+</ol>
+
+<p class="">NOTES:</p>
+<ul class="">
+<li class="">You can create you input file from VC++ directly via ⇒ Add ⇒ New Item... ⇒ Visual C++ ⇒  Utility ⇒ Text File (.txt).</li>
+<li class="">Remember to add a newline to the end of your input file to avoid unexpected behavior.</li>
+<li class="">You can include existing input files into the project via: File ⇒ Existing item... ⇒ Select the file.</li>
+</ul>
+<p class="">This is a sample C++ program for File input/output. Try it out.</p> 
+<pre class="color-example">#include &lt;iostream&gt;
+#include &lt;fstream&gt;
+using namespace std;
+   
+int main() {
+   ifstream in ("test.in");    <span class="color-comment">// input file</span>
+   ofstream out ("test.out");  <span class="color-comment">// output file</span>
+   
+   int a, b;
+   in &gt;&gt; a &gt;&gt; b;         <span class="color-comment">// read from file</span>
+   out &lt;&lt; a+b &lt;&lt; endl;   <span class="color-comment">// write to file</span>
+   return 0;
+}</pre>
+
+<p class="">Create a text file called "<code class="">test.in</code>" with the following contents and terminated with a newline:</p>
+<pre class="output">55 66&nbsp;
+</pre>
+
+<h3 class="">9.&nbsp;&nbsp;Sample C++ Programs<a id="zz-9." class="" style=""></a></h3>
+
+<p class="">The following samples are extracted from "Visual C++ Tour".</p>
+<h4 class="">9.1&nbsp;&nbsp;Win32 Application<a id="zz-9.1" class="" style=""></a></h4>
+<pre class="color-example"><span class="color-comment">/*
+ * A Sample Win32 Hello-world Application (Extracted from "Visual C++ Tour").
+ * Compile: cl /D "_UNICODE" /D "UNICODE" /D "WIN32" /D "_WINDOWS" /c HelloWin32.cpp
+ * Link: link /SUBSYSTEM:WINDOWS /link kernel32.lib user32.lib gdi32.lib HelloWin32.obj 
+ */
+</span>#include &lt;windows.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+#include &lt;tchar.h&gt;
+   
+<span class="color-comment">// Global variables
+// TCHAR can be used to describe ANSI, double-byte character set, or Unicode strings.</span>
+static TCHAR szWindowClass[] = _T("win32app");           <span class="color-comment">// The main window class name</span>
+static TCHAR szTitle[] = _T("Sample Win32 Application"); <span class="color-comment">// The window's title</span>
+HINSTANCE hInst;
+   
+<span class="color-comment">// Function prototype</span>
+LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
+   
+<span class="color-comment">/*
+ * A Win32 application starts at WinMain().
+ * HINSTANCE hInstance: Handle to the current instance of the application.
+ * HINSTANCE hPrevInstance: Handle to the previous instance of the application.
+ * LPSTR lpCmdLine: Pointer to a null-terminated string specifying the command line 
+ *    for the application, excluding the program name.
+ * int nCmdShow: Specifies how the window is to be shown.
+ */</span>
+int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, 
+				   LPSTR lpCmdLine, int nCmdShow) {
+   
+    <span class="color-comment">// Allocate a WNDCLASSEX (Window Class Ex) structure, which maintains
+    //  information about the window.</span>
+    WNDCLASSEX wcex;
+    wcex.cbSize = sizeof(WNDCLASSEX);                <span class="color-comment">// Size in bytes</span>
+    wcex.style          = CS_HREDRAW | CS_VREDRAW;   <span class="color-comment">// Class style(s)</span>
+    wcex.lpfnWndProc    = WndProc;                   <span class="color-comment">// Pointer to the window procedure</span>
+    wcex.cbClsExtra     = 0;         <span class="color-comment">// number of extra bytes to allocate following the window-class structure</span>
+    wcex.cbWndExtra     = 0;         <span class="color-comment">// number of extra bytes to allocate following the window instance</span>
+    wcex.hInstance      = hInstance; <span class="color-comment">// Handle to the instance that contains the window procedure for the class</span>
+    wcex.hIcon          = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_APPLICATION));  <span class="color-comment">// Handle to the class icon</span>
+    wcex.hCursor        = LoadCursor(NULL, IDC_ARROW);  <span class="color-comment">// Handle to the class cursor</span>
+    wcex.hbrBackground  = (HBRUSH)(COLOR_WINDOW+1);     <span class="color-comment">// Handle to the class background brush</span>
+    wcex.lpszMenuName   = NULL;           <span class="color-comment">// Pointer to a null-terminated string that specifies the resource name of the class menu</span>
+    wcex.lpszClassName  = szWindowClass;  <span class="color-comment">// Pointer to a null-terminated string that specifies the class name</span>
+    wcex.hIconSm        = LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_APPLICATION));  <span class="color-comment">// Handle to a small icon</span>
+   
+	// Reigster the window class structure
+	if (!RegisterClassEx(&amp;wcex)) {
+        MessageBox(NULL,                           <span class="color-comment">// Handle to the owner window</span>
+            _T("Call to RegisterClassEx failed!"), <span class="color-comment">// Pointer to a null-terminated string that contains the message to be displayed</span>
+            _T("Sample Win32 Application"),        <span class="color-comment">// Pointer to a null-terminated string that contains the dialog box title</span>
+            NULL);                                 <span class="color-comment">// Specifies the contents and behavior of the dialog box</span>
+        return 1;
+    }
+   
+	hInst = hInstance;         <span class="color-comment">// Store instance handle in global variable</span>
+   
+	<span class="color-comment">// Create the window</span>
+    HWND hWnd = CreateWindow(  <span class="color-comment">// returns a handle to window</span>
+		szWindowClass,         <span class="color-comment">// window class name</span>
+		szTitle,               <span class="color-comment">// window title</span>
+		WS_OVERLAPPEDWINDOW,   <span class="color-comment">// the type of window to create</span>
+		CW_USEDEFAULT, CW_USEDEFAULT,  <span class="color-comment">// initial position (x, y)</span>
+		500, 100,  <span class="color-comment">// initial size (width, length)</span>
+		NULL,      <span class="color-comment">// the parent of this window</span>
+		NULL,      <span class="color-comment">// this application does not have a menu bar</span>
+		hInstance, <span class="color-comment">// the first parameter from WinMain</span>
+		NULL       <span class="color-comment">// not used in this application</span>
+	);
+   
+	if (!hWnd) {
+		MessageBox(NULL,
+	        _T("Call to CreateWindow failed!"),
+		    _T("Sample Win32 Application"),
+            NULL);
+	    return 1;
+	}
+   
+	<span class="color-comment">// Show the window on the screen</span>
+	ShowWindow(
+		hWnd,     <span class="color-comment">// window handle returned from CreateWindow</span>
+		nCmdShow  <span class="color-comment">// the fourth parameter from WinMain</span>
+	);
+   
+	UpdateWindow(hWnd);
+   
+	<span class="color-comment">// Main message loop</span>
+	MSG msg;
+    while (GetMessage(&amp;msg, NULL, 0, 0)) {
+        TranslateMessage(&amp;msg);
+        DispatchMessage(&amp;msg);
+    }
+   
+    return (int) msg.wParam;
+}
+   
+<span class="color-comment">/*
+ * A Win32 application also has a WndProc() (Window Procedure) to handle 
+ *    messages/events received from the Operating System.
+ * HWND hWnd: Handle to the window
+ * UINT message: Specifies the message
+ * WPARAM wParam: Specifies additional message information
+ * LPARAM lParam: Specifies additional message information
+ */</span>
+LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
+	PAINTSTRUCT ps;
+	HDC hdc;
+	TCHAR greeting[] = _T("Hello, World!");
+   
+	switch (message) {
+		case WM_PAINT:
+			hdc = BeginPaint(hWnd, &amp;ps);  <span class="color-comment">// begin repaint</span>
+   
+			<span class="color-comment">// Your display codes begin here.
+			// we print "Hello, World!" in the top left corner.</span>
+			TextOut(hdc,
+				5, 5,
+				greeting,
+				_tcslen(greeting));
+			<span class="color-comment">// Your display codes end.</span>
+   
+			EndPaint(hWnd, &amp;ps); <span class="color-comment">// end repaint</span>
+			break;
+		case WM_DESTROY:
+			PostQuitMessage(0);
+			break;
+		default:
+			return DefWindowProc(hWnd, message, wParam, lParam);
+			break;
+	}
+	return 0;
+}</pre>
+
+<h4 class="">9.2&nbsp;&nbsp;A C++ Class<a id="zz-9.2" class="" style=""></a></h4>
+<p class="">Header File:</p>
+<pre class="color-example"><span class="color-comment">/*
+ * header for Cardgame (Extracted from "Visual C++ Tour")
+ */</span>
+#pragma once
+   
+class Cardgame {
+private:
+	int numPlayers;
+	static int totalParticipants;
+   
+public:
+	Cardgame(int numPlayer);
+	~Cardgame(void);
+};</pre>
+
+<p class="">Source File:</p>
+<pre class="color-example"><span class="color-comment">/*
+ * Source for Cardgame (Extracted from "Visual C++ Tour")
+ */</span>
+#include "Cardgame.h"
+#include &lt;iostream&gt;
+using namespace std;
+   
+<span class="color-comment">// Constructor</span>
+Cardgame::Cardgame(int p) {
+    numPlayers = p;
+    totalParticipants += p;
+    cout &lt;&lt; p &lt;&lt; " players have started a new game.  There are now "
+         &lt;&lt; totalParticipants &lt;&lt; " players in total." &lt;&lt; endl;
+}
+   
+<span class="color-comment">// Destructor</span>
+Cardgame::~Cardgame(void) {
+	totalParticipants -= numPlayers;
+	cout &lt;&lt; numPlayers &lt;&lt; " players have finished their game.  There are now "
+		 &lt;&lt; totalParticipants &lt;&lt; " players in total." &lt;&lt; endl;
+}</pre>
+
+<p class="">Test Program:</p>
+<pre class="color-example"><span class="color-comment">/*
+ * Test Program for Cardgame (Extracted from "Visual C++ Tour")
+ */</span>
+#include "Cardgame.h"
+   
+int Cardgame::totalParticipants = 0;
+   
+int main() {
+    Cardgame *bridge = 0;
+    Cardgame *blackjack = 0;
+    Cardgame *solitaire = 0;
+    Cardgame *poker = 0;
+   
+    bridge = new Cardgame(4);    <span class="color-comment">// invoke constructor</span>
+    blackjack = new Cardgame(8);
+    solitaire = new Cardgame(1);
+    delete blackjack;            <span class="color-comment">// invoke destructor</span>
+    delete bridge;
+    poker = new Cardgame(5);
+    delete solitaire;
+    delete poker;
+   
+    return 0;
+}</pre>
+
+<h3 id="vcpp-command-line" class="">10.&nbsp;&nbsp;Compiling C++ Programs from Command-Line with VC++<a id="zz-10." class="" style=""></a></h3>
+
+<p class="">To use VC++ compiler to compile a C++ program in the Command Shell (<code class="">CMD</code>), you need to set the <em class="">environment variables</em> properly by first running the batch file "vcvars32.bat" in "C:\Program Files\Microsoft Visual Studio 10.0\VC\bin".</p>
+
+<table class="table-program">
+<tbody class=""><tr class="">
+<td class="">
+<pre class="color-example">&gt; <strong class="">"c:\Program Files\Microsoft Visual Studio 10.0\VC\bin\vcvars32"</strong>
+&nbsp;
+&gt; [set current directory pointing to the source file]
+&gt; <strong class="">cl /EHsc Hello.cpp</strong>
+&nbsp;
+&gt; <strong class="">Hello</strong></pre>
+</td>
+<td class="">
+<pre class="color-explanation">Set environment variables for VC++,
+such as PATH, INCLUDE, LIB.
+&nbsp;
+Compile: generate Hello.obj and Hello.exe,
+/EHsc to enable Exception Handling for C++
+Run Hello.exe</pre>
+</td>
+</tr>
+</tbody></table>
+
+<p class="">Alternatively, you could use a special <em class="">Visual Studio 200X Command Prompt</em>, which pre-sets all the environment variables, to compile and execute C++ program.  To start the "Visual Studio 200X Command Prompt": From the "Start" button ⇒ Choose "Microsoft Visual Studio 200X" ⇒ Visual Studio Tools ⇒ Visual Studio 200X Command Prompt.</p>
+
+<table class="table-program">
+<tbody class=""><tr class="">
+<td class="">
+<pre class="color-example">&gt; [set the current working]
+&gt; <strong class="">cl /EHsc Hello.cpp</strong>
+&gt; <strong class="">Hello</strong>
+&nbsp;
+&gt; <strong class="">cl /EHsc /c Hello.cpp</strong>
+&gt; <strong class="">link Hello.obj</strong>
+&gt; <strong class="">Hello</strong></pre>
+</td>
+<td class="">
+<pre class="color-explanation">&nbsp;
+Compile and Link Hello.cpp into Hello.exe (/EHsc to enable Exception Handling for C++)
+Run Hello.exe
+&nbsp;
+Compile Hello.cpp into Hello.obj (/c means compile only)
+Link Hello.obj into Hello.exe
+Run Hello.exe</pre>
+</td>
+</tr>
+</tbody></table>
+
+<h4 class="">10.1&nbsp;&nbsp;Environment Variables<a id="zz-10.1" class="" style=""></a></h4>
+
+<p class="">"<code class="">cl.exe</code>" invokes the <em class="">preprocessor</em> and <em class="">compiler</em>, and <em class="">linker</em>. "<code class="">link.exe</code>" invokes the <em class="">linker</em>. The path for "<code class="">cl.exe</code>" and "<code class="">link.exe</code>" must be included the the <code class="">PATH</code> environment variable.</p>
+<p class="">"<code class="">cl.exe</code>" uses the following environment variables:</p>
+<ul class="">
+  <li class=""><code class="">INCLUDE</code>: contains the search paths for include header such as "<code class="">iostream</code>", "<code class="">stdio.h</code>".</li>
+  <li class=""><code class="">CL</code>: if defined, contains the command-line arguments for the "<code class="">cl.exe</code>".</li>
+</ul>
+<p class="">"<code class="">link.exe</code>" uses the following environment variables:</p>
+<ul class="">
+<li class=""><code class="">LIB</code>: contains the search paths for link library. <code class="">LIB</code> provides only the paths, you need to specify the desired libraries (e.g., <code class="">user32.lib</code>) as part of the source input.</li>
+<li class=""><code class="">LIBPATH</code>: contains search paths used for <code class="">#using</code> directive.</li>
+<li class=""><code class="">TMP</code>: temporary file location.</li>
+</ul>
+
+<h4 class="">10.2&nbsp;&nbsp;Commonly-used Command-line Options<a id="zz-10.2" class="" style=""></a></h4>
+<ul class="">
+<li class=""><code class="">/c</code>: Compile only (int "<code class="">.obj</code>"), without linking.</li>
+<li class=""><code class="">/Fe &lt;file&gt;</code>: Specifies the executable filename, default is "<em class=""><code class="">input-filename</code></em><code class="">.exe</code>". (gcc uses "<code class="">-o &lt;file&gt;</code>").</li>
+<li class=""><code class="">/Fo &lt;file&gt;</code>: Specifies the object filename, default is "<em class=""><code class="">input-filename</code></em><code class="">.obj</code>".</li>
+<li class=""><code class="">/I &lt;dir&gt;</code>: Specifies the Include directories for header files.</li>
+<li class=""><code class="">/L &lt;dir&gt;</code>: Specifies the LIB directories.</li>
+<li class=""><code class="">/link &lt;name&gt;</code>: Link with these <code class="">lib</code>'s.</li>
+<li class=""><code class="">/D &lt;macro&gt;</code>: Define macro</li>
+<li class=""><code class="">/Wall</code>: Show all the warning messages.</li>
+</ul>
+
+<p class="references">REFERENCES &amp; RESOURCES</p>
+<ol class="">
+  <li class="">Microsoft Visual Studio Express @ <a href="http://www.microsoft.com/express/download/" class="">http://www.microsoft.com/express/download</a>.</li>
+  <li class="">Visual C++ Developer Center (with Learning Tutorials and Videos) @ <a href="http://msdn.microsoft.com/en-us/visualc/default.aspx" class="">http://msdn.microsoft.com/en-us/visualc/default.aspx</a>.</li>
+  <li class="">"MSDN Library - Visual C++", accessed via the "Help" menu.</li>
+</ol>
+
+</div> <!-- End the content-main division -->
+
+<div id="content-footer" class="">
+<p class="">Latest version tested: Visual C++ 2010 Express<br class="">
+Last modified: December, 2010</p>
+</div>
+
+</div>  <!-- End the wrap-inner division -->
+
+<!-- footer filled by JavaScript -->
+<div id="footer" class="header-footer"><p class="">Feedback, comments, corrections, and errata can be sent to Chua Hock-Chuan (ehchua@ntu.edu.sg) &nbsp;&nbsp;|&nbsp;&nbsp; <a href="http://www.ntu.edu.sg/home/ehchua/programming/index.html" class="">HOME</a></p></div>
+
+</div>  <!-- End the wrap-outer division -->
+
+
+
+
+<div class="selection_bubble_root" style=""></div></body></html>

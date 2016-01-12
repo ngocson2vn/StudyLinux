@@ -1,0 +1,812 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><!--
+ Archive processed by SingleFile 
+ url: http://www.ntu.edu.sg/home/ehchua/programming/howto/EclipseCpp_HowTo.html 
+ saved date: Mon Aug 25 2014 15:19:43 GMT+0900 (Tokyo Standard Time) 
+--><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>How to install and use Eclipse CDT for C/C++ programming</title>
+<style rel="stylesheet" type="text/css" data-href="http://www.ntu.edu.sg/home/ehchua/programming/css/programming_notes_v1.css">/* 
+ * Universal selector - clear all the margin and padding to get consistent layout for Firefox and IE 
+ */
+* { 
+	margin: 0;
+	padding: 0;
+}
+
+/* 
+ * Set default style for all the tags.
+ * Apply to the main content division as well.
+ */
+body {
+	background-color: rgb(202, 251, 237);
+	color: #000;
+	font-family: "Segoe UI", Segoe, Calibri, "Ubuntu", Tahoma, Arial, Helvetica, Verdana, sans-serif;
+	font-size: 14px;
+	text-align: justify;
+	line-height: 1.5;
+}
+
+/*
+ * "wrap-outer" wraps header, wrap-inner and footer
+ */
+#wrap-outer {
+	margin: 20px 20px 20px 20px;
+	padding: 0;
+	
+}
+/*
+ * "wrap-inner" wraps content-header, content-main and content-footer
+ */
+#wrap-inner {
+	background-color: #fff;
+	margin: 0;
+	border: 1px solid #ddd;
+	padding: 25px 15px;
+	box-shadow: 5px 5px 0 #ddd;
+}
+#content-header {
+	margin: 0;
+	padding: 50px 0 10px 0;
+}
+
+#content-main {
+	margin: 0;
+	padding: 30px 0 20px 0;
+}
+#content-footer {
+	font-family: "Century Gothic", "Segoe UI", Segoe, "Ubuntu", Verdana, Tahoma, Arial, Helvetica, sans-serif;
+	font-size: 13px;
+	text-align: right;
+	color: rgb(192, 80, 77);
+/*	color: rgb(11, 83, 149); */
+	margin: 30px 0 0 0;
+    padding: 0;
+	border-top: 4px solid rgb(12, 155, 116);
+}
+/*
+ *  The main "header" & "footer" divisions
+ */
+.header-footer {
+	font-family: "Century Gothic", "Segoe UI", Segoe, "Ubuntu", Verdana, Tahoma, Arial, Helvetica, sans-serif;
+	color: rgb(192, 80, 77);
+/*	color: rgb(11, 83, 149); */
+	font-size: 13px;
+	text-align: right;
+	margin: 10px 0 5px 0;
+	padding: 5px 4px;
+}
+.header-footer a {
+	color: rgb(192, 80, 77);
+	text-decoration: underline;
+}
+.header-footer a:focus, .header-footer a:hover {  /* change color and remove underline */
+	text-decoration: none;
+ 	color: rgb(11, 83, 149);
+/*	color: rgb(192, 80, 77); */
+}
+
+h1, h2, h3, h4, h5, h6 {  /* main title and sub-title */
+	font-family: "Century Gothic", "Trebuchet MS", "Segoe UI", Segoe, "Ubuntu", Verdana, Tahoma, Arial, Helvetica, sans-serif;
+	margin: 0;
+	color: rgb(10, 132, 100);
+	letter-spacing: 1px;
+	line-height: 1.2;
+	text-align:left;
+}
+h1 {
+	font-size: 40px;
+	font-weight: 400;
+	padding: 0.2em 0;
+}
+h2 {
+	font-size: 36px;
+	font-weight: 400;
+	padding: 0.2em 0;
+}
+h3 {
+	font-size: 22px;
+	border-bottom: thin solid rgb(12, 155, 116);
+	padding: 1.5em 0 0.3em 0;
+}
+h4 {
+	font-family: "Segoe UI", Segoe, "Ubuntu", Verdana, Tahoma, Arial, Helvetica, sans-serif;
+	font-size: 18px;
+	padding: 1.3em 0 0.2em 0;
+	border-bottom: thin dotted rgb(12, 155, 116);
+}
+h5, h6 {
+	font-family: "Segoe UI", Segoe, "Ubuntu", Verdana, Tahoma, Arial, Helvetica, sans-serif;
+	font-size: 15px;
+	color: #444;
+	padding: 1.2em 0 0 0;  /* top right bottom left */
+	letter-spacing: 1px;
+}
+.line-heading {
+	color: #444;
+	font-size: 15px;
+	font-weight: bold;
+	letter-spacing: 1px;
+	padding: 0.2em 0;
+}
+.line-heading-code-new {
+	font-family: Consolas, "Lucida Console", "Courier New", Courier, monospace;
+	color: #E31B23;
+	font-size: 15px;
+    font-weight: normal;
+/*	letter-spacing: 0.5px; */
+}
+p {
+	margin-top: 0.6em;
+	margin-bottom: 0.4em;
+}
+pre {
+	font-family: Consolas, "Lucida Console", "Courier New", Courier, monospace;
+	font-size: 13px;
+	margin: 5px 0 8px 0;
+	border: solid 2px #f8f8f8;  /* slight 3D shape */
+	padding: 5px 10px;
+	line-height: 135%;
+}
+code {
+	font-family: Consolas, "Lucida Console", "Courier New", Courier, monospace;
+}
+
+ul {   /* first level ul */
+	margin: 0.3em 0 0.2em 1.8em;
+	padding: 0;
+/*	list-style-type: square;  */
+	list-style-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAANAQMAAABBztZFAAAABlBMVEUAAwBjjJzG2b5OAAAAAXRSTlMAQObYZgAAABBJREFUCNdjYMAG7FARAwMADXkBNzRuJgIAAAAASUVORK5CYII=);
+}
+ul ul li {   /* 2nd level ul */
+	list-style-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAANAQMAAABb8jbLAAAABlBMVEX///8AUow5QSOjAAAAAXRSTlMAQObYZgAAABNJREFUCB1jYEABBQw/wLCAgQEAGpIDyT0IVcsAAAAASUVORK5CYII=);
+/*
+	list-style-type: disc;
+	list-style-image: none; */
+}
+ul ul u1 li {   /* 3rd level ul */
+	list-style-type: circle;
+	list-style-image: none;
+}
+ol {   /* first level ol */
+/*    list-style-position:inside; */
+/*    display: table  */
+    list-style-type: decimal;
+	margin: 0.3em 0 0.2em 2.5em;
+	padding: 0;
+}
+ol ol li {   /* 2nd level ol */
+	list-style-type: lower-alpha;
+}
+ol ol o1 li {  /* 3rd level ol */
+	list-style-type: lower-roman;
+}
+
+li {
+	margin: 0.4em 0;
+}
+
+.float-left-ol-ul {
+	overflow:hidden;
+}
+
+/* li after a left-float image */
+.float-left-li {
+   position: relative; left: 20px;
+   margin-right: 20px;
+}
+
+a {
+	color: rgb(11, 83, 149);
+	text-decoration: none;
+}
+a:hover, a:focus {
+	color: rgb(192, 80, 77);
+	text-decoration: underline;
+}
+
+a.references {
+	display: block;
+	width: 30em;
+	font-size: 18px;
+	font-weight: bold;
+	margin: 4em 0 0 0;
+}
+
+p.references {
+	font-size: 18px;
+	font-weight: bold;
+	margin: 4em 0 0 0;
+}
+
+/*
+ * General classes
+ */
+.center-block {
+	margin: 10px auto;  /* auto margin-left and margin-right to center the table */
+}
+.text-center {	
+    text-align: center; 
+}
+.text-right {	
+    text-align: right; 
+}
+.underline {
+	text-decoration: underline;
+}
+.font-code {
+	font-family: Consolas, "Lucida Console", "Courier New", Courier, monospace;
+}
+.font-code-text {
+	font-family: Consolas, "Lucida Console", "Courier New", Courier, monospace;
+	font-size: 14px;
+}
+.font-code-smaller {
+	font-family: Consolas, "Lucida Console", "Courier New", Courier, monospace;
+	font-size: 13px;
+}
+.font-normal {
+	font-family: "Segoe UI", Segoe, Calibri, "Ubuntu", Tahoma, Arial, Helvetica, Verdana, sans-serif;
+}
+.pre {
+    white-space: pre;	
+}
+/* color control mainly for <pre>, <div>, <span> */
+.color-example {
+	background-color: rgb(215, 236, 211);  /* darker */
+}
+.color-example-light {
+	background-color: rgb(236, 246, 234);  /* lighter */
+}
+.color-syntax, .color-command {
+	background-color: rgb(204, 238, 241);  /* darker */
+}
+.color-explanation {
+	background-color: #eee;   /* grey */
+}
+/* Character level control for code listing */
+.color-comment {
+	color: #009900;  /* green */
+}
+.color-new {
+	color: #E31B23;  /* dark red to highlight new terms */
+}
+.color-error {
+	color: #ff0099;  /* bright red */
+/*	font-weight:bold; */
+}
+.color-plain {
+	background-color: #fff;
+}
+.color-highlight {
+	background-color: #ff0;
+}
+.color-highlight-new {
+    background-color: #FFC;  /* lighter */
+}
+
+.output {  /* Output of program or DOS session */
+    background-color: rgb(236, 246, 234);  /* lighter */
+	border: solid 2px #f8f8f8;   /* slight 3D shape */
+	padding: 4px 8px;
+}
+.side-note {
+	margin-top: 15px;
+    margin-left: 40px;
+	padding: 3px 8px; 
+	background-color: #e7e7e7;
+}
+
+
+/*
+ * for positioning images 
+ */
+img.image-center {      /* center horizontally an image */
+	display: block;
+	margin: 10px auto;
+}
+img.image-border {
+    border: #ddd thin solid;
+}
+img.image-float-left {
+	float: left;
+	margin: 8px 15px 15px 0;
+    border: #ddd thin solid;
+}
+img.image-float-right {
+	float: right;
+	margin: 8px 0 15px 15px;
+    border: #ddd thin solid;
+}
+.float-clear {
+   clear: both;	
+}
+/*
+ *  Table - for tablulating data with alternate row colors or different column colors
+ */
+table.table-zebra, table.table-program {
+	border-collapse: collapse;
+	border: 0;
+	margin: 0 auto; /* center */
+	padding: 0;
+    width: 100%;
+	/* Default setting for all cells in this table, inherited */
+    background-color: rgb(231, 240, 248);  /* lighter */
+	text-align: left;
+	vertical-align: top;
+}
+table.table-zebra th {  /* header cells */
+	color: #ffffff;     /* white text on dark background */
+	background-color: rgb(0, 157, 217);
+	margin: 0;
+	border: 2px solid white;
+	padding: 4px 10px;
+	font-size: 15px;
+	letter-spacing: 1px;
+	text-align: center;
+}
+table.table-zebra td {  /* data cells */
+    margin: 0;
+	border: 2px solid white;
+	padding: 2px 8px;
+	/* color, font, text inherited from table */
+	vertical-align: top;
+}
+
+table.table-program th {  /* header cells */
+	color: #ffffff;     /* white text on dark background */
+	background-color: rgb(0, 157, 217);
+	margin: 0;
+	border: 2px solid white;
+	padding: 4px 10px;
+	font-size: 15px;
+	letter-spacing: 1px;
+	text-align: center;
+}
+table.table-program td {  /* data cells */
+    margin: 0;
+	border: 0;
+	padding: 0;
+	/* color, font, text inherited from table */
+}
+
+table.table-program td pre {
+	margin: 0;
+	border: solid 2px #f8f8f8;   /* slight 3D shape */
+	padding: 5px 10px;
+}
+
+table.table-program td pre.text-right {
+	text-align: right;
+}
+
+/* Setting the color for row (2 colors) or column (3 colors) */
+/* can only set the background, border, width of <col>, NOT font, text, color */
+/* for table-zebra */
+table .col-desc {       /* same as default color */
+    background-color: rgb(231, 240, 248);  /* lighter */
+}
+table .col-code, table .tr-alt {
+	background-color: rgb(203, 223, 241);  /* darker */
+}
+table .col-example {
+    background-color: #eee;  /* grey */
+}
+
+/* for table-program */
+table .col-line-number {
+	width: 40px;
+    background-color: rgb(225, 233, 207);
+}
+table .col-program {
+    background-color: rgb(240, 244, 233);
+}
+
+/*
+ * For the "Table of Content" generated by JavaScript
+ * in <div id="toc">
+ */
+#wrap-toc {
+    display: block;
+	background: none repeat scroll 0 0 rgb(231, 246, 239);
+	float: right;
+	width: 230px;
+	z-index: 100;
+	line-height: 1.5;
+	margin: 0 0 0 15px;
+	padding: 5px 8px 10px 8px;
+	text-align: left;
+	white-space: nowrap;
+/*	min-height: 180px;  */
+}
+#wrap-toc h5 {
+   letter-spacing: 1px;
+   margin: 0;
+   text-transform: uppercase;
+	color: #444;
+	padding: 0.5em 0;
+}
+a#show-toc {
+	color: rgb(192, 80, 77);
+	text-decoration: none;
+   letter-spacing: 1px;
+}
+#toc {
+	overflow: auto;
+}
+#toc a.toc-H3 {
+    margin-left: 0px;
+	font-size: 15px;
+}
+#toc a.toc-H4 {
+    margin-left: 20px;
+	font-size: 14px;
+}
+#toc a.toc-H5 {
+    margin-left: 40px;
+	font-size: 14px;
+}
+</style>
+
+<link rel="shortcut icon" href="data:image/x-icon;base64,AAABAAEAEBAQAAEABAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAgAAAAAAAAAAAAAAAEAAAAAAAAADy8O0APrMnACEdGADb2tkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMzMzMzMzMzMyIiIiIiIiIzIiIiIiIiIjMgIiIgAAAiMyACIiAAACIzIgAiIiIiIjMiIAIiIiIiMyIiACIiIiIzIiACIiIiIjMiACISEiESMyACIhISEiIzICIiERISIjMiIiISEhIiMyIiIhISIRIzIiIiIiIiIjMzMzMzMzMzMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" type="image/x-icon"></head>
+
+<body class="">
+
+<div id="wrap-outer" class="">
+
+<!-- header filled by JavaScript -->
+<div id="header" class="header-footer" style=""><p>yet another insignificant programming notes... &nbsp;&nbsp;| &nbsp;&nbsp;<a href="http://www.ntu.edu.sg/home/ehchua/programming/index.html">HOME</a></p></div>
+
+<div id="wrap-inner" class="">
+
+<div id="wrap-toc" class="">
+<h5 class="">TABLE OF CONTENTS <a id="show-toc" href="#show-toc" class="">(HIDE)</a></h5>
+<div id="toc" class="" style=""><a class="toc-H3" href="#zz-1.">1.&nbsp;&nbsp;How to Install Eclipse C/C++ Development Tool (CDT) 8.1.2 for Eclipse 4.2.2 (Juno)</a><br><a class="toc-H3" href="#zz-2.">2.&nbsp;&nbsp;Writing your First C/C++ Program in Eclipse</a><br><a class="toc-H4" href="#zz-2.1">2.1&nbsp;&nbsp;C++ Program</a><br><a class="toc-H4" href="#zz-2.2">2.2&nbsp;&nbsp;C Program</a><br><a class="toc-H4" href="#zz-2.3">2.3&nbsp;&nbsp;C++ Program with Makefile</a><br><a class="toc-H3" href="#zz-3.">3.&nbsp;&nbsp;Read the Documentation</a><br><a class="toc-H3" href="#zz-4.">4.&nbsp;&nbsp;Debugging C/C++ Programs in Eclipse CDT</a><br><a class="toc-H3" href="#zz-5.">5.&nbsp;&nbsp;Tips &amp; Tricks</a><br><a class="toc-H4" href="#zz-5.1">5.1&nbsp;&nbsp;C/C++ Software Development Using GCC</a><br><a class="toc-H3" href="#zz-6.">6.&nbsp;&nbsp; File I/O in Eclipse</a><br><br></div>  <!-- for showing the "Table of Content" -->
+</div>
+
+<div id="content-header" class="">
+<h1 class="">Eclipse 4.3 (Kepler) for C/C++ Programming</h1>
+<h2 class="">How To Install Eclipse CDT 8.2 and Get Started</h2>
+</div>
+
+<div id="content-main" class="">
+
+
+<p class="">Eclipse is an <em class="">open-source</em> Integrated Development Environment (IDE) supported by IBM. The mother site is @ <a href="http://www.eclipse.org/" class="">www.eclipse.org</a>. Eclipse is popular for Java project development. It also supports C/C++, PHP, Python, Perl, and other web project developments via extensible plug-ins. Eclipse is cross-platform and runs under Windows, Linux and Mac OS.</p>
+
+<h3 id="eclipse-cpp-install" class="">1.&nbsp;&nbsp;How to Install Eclipse C/C++ Development Tool (CDT) 8.1.2 for Eclipse 4.2.2 (Juno)<a id="zz-1."></a></h3>
+
+<h5 class="">Step 0: Install MinGW GCC or Cygwin GCC</h5>
+
+<p class="">To use Eclipse for C/C++ programming, you need a C/C++ compiler. On Windows, you could install either MinGW GCC or Cygwin GCC. Choose MinGW if you are not sure, because MinGW is lighter and easier to install, but having less features.</p>
+<ol class="">
+<li class="">MinGW GCC: Read "<a href="http://www.ntu.edu.sg/home/ehchua/programming/howto/Cygwin_HowTo.html#mingw" class="">How to Install MinGW</a>".</li>
+
+<li class="">Cygwin GCC: Read "<a href="http://www.ntu.edu.sg/home/ehchua/programming/howto/Cygwin_HowTo.html#cygwin" class="">How to Install Cygwin</a>". Make sure that you select "<code class="">gcc</code>", "<code class="">g++</code>", "<code class="">gdb</code>", and "<code class="">make</code>" packages under the "<code class="">Devel</code>" (Development) category - these packages are not part of the default installation.</li>
+</ol>
+
+<h5 class="">Step 1: Install Eclipse C/C++ Development Tool (CDT)</h5>
+<p class="">Two ways to install CDT, depending on whether you have previously installed an Eclipse:</p>
+<ol class="">
+<li class="">If you have already installed "Eclipse for Java Developers" or other Eclipse packages, you could install the CDT <em class="">plug-in</em> as follows:<br class="">
+Launch Eclipse ⇒ Help ⇒ Install New Software ⇒ In "Work with" field, pull down the drop-down menu and select "Kepler - http://download.eclipse.org/releases/kepler" (or juno for Eclipse 4.2; or helios for Eclipse 3.7).<br class="">
+In "Name" box, expand "Programming Language" node  ⇒ Check "C/C++ Development Tools"  ⇒ "Next" ⇒ ... ⇒ "Finish".</li>
+
+<li class="">If you have not install any Eclipse package, you could download "Eclipse IDE for C/C++ Developers" from <a href="http://www.eclipse.org/downloads/" class="">http://www.eclipse.org/downloads</a>, and unzip the downloaded file into a directory of your choice.</li>
+</ol>
+
+<h5 class="">Step 2: Configuration</h5>
+<p class="">You do NOT need to do any configuration, as long as the Cygwin or MinGW binaries are included in the <code class="">PATH</code> environment variable. CDT searches the <code class="">PATH</code> to discover the C/C++ compilers.</p>
+
+
+<h3 id="eclipse-cpp-first" class="">2.&nbsp;&nbsp;Writing your First C/C++ Program in Eclipse<a id="zz-2."></a></h3>
+
+<h4 class="">2.1&nbsp;&nbsp;C++ Program<a id="zz-2.1"></a></h4>
+
+<h5 class="">Step 0: Launch Eclipse</h5>
+<ol class="">
+<li class="">Start Eclipse by running "<code class="">eclipse.exe</code>" in the Eclipse installed directory.</li>
+<li class="">Choose an appropriate directory for your <em class="">workspace</em> (i.e., where you would like to save your works).</li>
+<li class="">If the "welcome" screen shows up, close it by clicking the "close" button.</li>
+</ol>
+
+<h5 class="">Step 1: Create a new C++ Project</h5>
+<p class="">For <em class="">each</em> C++ application, you need to create a <em class="">project</em> to keep all the  source codes, object files, executable files, and relevant resources.</p>
+<p class="">To create a new C++ project:</p>
+<ol class="">
+<li class=""> Choose "File" menu ⇒ "New" ⇒ Project... ⇒ C/C++ ⇒ C++ project.</li>
+
+<li class="">The "C++ Project" dialog pops up.
+<ol class="">
+<li class="">In "Project name" field, enter "<code class="">FirstProject</code>".</li>
+<li class="">In "Project Types" box, select "Executable" ⇒ "Empty Project".</li>
+<li class=""> In "Toolchains" box, choose your compiler, e.g., "Cygwin GCC" or "MinGW GCC" ⇒ Next.</li>
+</ol>
+</li>
+<li class="">The "Select Configurations" dialog appears. Select both "Debug" and "Release" ⇒ Finish.</li>
+
+
+</ol>
+ 
+<h5 class="">Step 2: Write a Hello-world C++ Program</h5>
+<ol class="">
+<li class="">In the "Project Explorer" (leftmost panel) ⇒  Right-click on "<code class="">FirstProject</code>" (or use the "File" menu) ⇒  New ⇒ Source File.</li>
+
+<li class="">The "New Source File" dialog pops up.
+  <ol class="">
+<li class="">In "Source file" field, enter "<code class="">Hello.cpp</code>".</li>
+<li class="">Click "Finish".</li>
+</ol>
+</li>
+
+<li class="">The source file "<code class="">Hello.cpp</code>" opens on the editor panel (double-click on "<code class="">test.cpp</code>" to open if necessary). Enter the following codes: 
+
+<pre class="color-example">#include &lt;iostream&gt;
+using namespace std;
+ 
+int main() {
+   cout &lt;&lt; "Hello, world!" &lt;&lt; endl;
+   return 0;
+}</pre>
+</li></ol>
+
+<h5 class="">If "<span class="color-new">Unresolved Inclusion Error</span>"</h5>
+
+<p class="">If error "unresolved inclusion" appears next to <code class="">#include</code> statement, the "include paths for headers" are not set properly. Select "Project" menu ⇒ Properties ⇒ C/C++ General ⇒ Paths and Symbols ⇒ In "Includes" tab:</p>
+
+<p class="">For Cygwin GCC:</p>
+
+<ol class="">
+
+<li class="">"Add" the following directories to "GNU C", where <code class="">$CYGWIN_HOME</code> is your Cygwin installed directory:
+  <ul class="">
+  <li class=""><code class="">$CYGWIN_HOME\lib\gcc\i686-pc-cygwin\4.5.x\include</code></li>
+<li class=""><code class="">$CYGWIN_HOME\lib\gcc\i686-pc-cygwin\4.5.x\include-fixed</code></li>
+<li class=""><code class="">$CYGWIN_HOME\usr\include</code></li>
+<li class=""><code class="">$CYGWIN_HOME\usr\include\w32api</code></li>
+</ul></li>
+
+<li class="">"Add" the following directories to "GNU C++", where <code class="">$CYGWIN_HOME</code> is your Cygwin installed directory:
+  <ul class="">
+<li class=""><code class="">$CYGWIN_HOME\lib\gcc\i686-pc-cygwin\4.5.x\include\c++</code></li>
+<li class=""><code class="">$CYGWIN_HOME\lib\gcc\i686-pc-cygwin\4.5.x\include\c++\i686-pc-cygwin</code></li>
+<li class=""><code class="">$CYGWIN_HOME\lib\gcc\i686-pc-cygwin\4.5.x\include\c++\backward</code></li>
+<li class=""><code class="">$CYGWIN_HOME\lib\gcc\i686-pc-cygwin\4.5.x\include</code></li>
+<li class=""><code class="">$CYGWIN_HOME\lib\gcc\i686-pc-cygwin\4.5.x\include-fixed</code></li>
+<li class=""><code class="">$CYGWIN_HOME\usr\include</code></li>
+<li class=""><code class="">$CYGWIN_HOME\usr\include\w32api</code></li>
+</ul></li>
+
+</ol>
+
+<p class="">For MinGW GCC:</p>
+
+<ol class="">
+
+<li class="">"Add" the following directories to "GNU C", where <code class="">$MINGW_HOME</code> is your MinGW installed directory:
+<ul class="">
+<li class=""><code class="">$MINGW_HOME\lib\gcc\mingw32\4.6.x\include</code></li>
+<li class=""><code class="">$MINGW_HOME\include</code></li>
+<li class=""><code class="">$MINGW_HOME\lib\gcc\mingw32\4.6.x\include-fixed</code></li>
+</ul></li>
+
+<li class="">"Add" the following directories to "GNU C++", where <code class="">$MINGW_HOME</code> is your Cygwin installed directory:
+<ul class="">
+<li class=""><code class="">$MINGW_HOME\lib\gcc\mingw32\4.6.x\include\c++</code></li>
+<li class=""><code class="">$MINGW_HOME\lib\gcc\mingw32\4.6.x\include\c++\mingw32</code></li>
+<li class=""><code class="">$MINGW_HOME\lib\gcc\mingw32\4.6.x\include\c++\backward</code></li>
+<li class=""><code class="">$MINGW_HOME\lib\gcc\mingw32\4.6.x\include</code></li>
+<li class=""><code class="">$MINGW_HOME\include</code></li>
+<li class=""><code class="">$MINGW_HOME\lib\gcc\mingw32\4.6.x\include-fixed</code></li>
+</ul></li>
+
+</ol>
+
+<p class=""><strong class="">NOTE</strong>: To find the header paths, you can do a search on headers such as "<code class="">stdio.h</code>" (for C) and "<code class="">iostream</code>" (for C++) under the Cygwin or MinGW installed directory.</p>
+
+<div class="side-note">
+<span class="line-heading">Note</span>: If you encounter "<span class="color-new">error while loading shared libraries</span>" during link. Install "<code class="">libmpfr4</code>" in cygwin.</div>
+
+
+<h5 class="">Step 3: Compile/Build</h5>
+<p class="">Right-click on the "<code class="">FirstProject</code>" (or use the "Project" menu)  ⇒  choose "Build Project" to compile and link the program.</p>
+
+<h5 class="">Step 4: Run</h5>
+<p class="">To run the program, right-click on the "<code class="">FirstProject</code>" (or anywhere on the source "<code class="">test.cpp</code>", or select the "Run" menu) ⇒ Run As ⇒ Local C/C++ Application ⇒ (If ask, choose Cygwin's gdb debugger) ⇒ The output "Hello, world!" appears on the "Console" panel.</p>
+<p class=""><strong class="">NOTE</strong>: You need to create a <em class="">new</em> C++ project for EACH of your programming problems. This is messy for writing toy programs!</p>
+
+<h4 class="">2.2&nbsp;&nbsp;C Program<a id="zz-2.2"></a></h4>
+<p class="">Follow the same steps as above. Create a "C Project" (instead of "C++ Project"). Try the following Hello-world program (called "<code class="">Hello.c</code>").</p>
+
+<pre class="color-example">#include &lt;stdio.h&gt;
+ 
+int main() {
+   printf("Hello, world!\n");
+   return 0;
+}</pre>
+
+<h4 class="">2.3&nbsp;&nbsp;C++ Program with Makefile<a id="zz-2.3"></a></h4>
+
+<p class="">In the previous examples, we use so-called <em class="">managed-make</em> where Eclipse automatically generated a <em class="">makefile</em> to build the program. We can also choose to write our own makefile for complete control of the building process.</p>
+
+<h5 class="">Step 1: Create a C++ Makefile Project</h5>
+<p class="">From "File" menu ⇒ New ⇒ Project... ⇒ C/C++ ⇒ C++ project  ⇒ In "Project name", enter "<code class="">HelloCppMakefile</code>" ⇒ In "Project type", choose "Makefile Project ", "Empty Project" ⇒ In "Toolchains", choose "Cygwin GCC" or "MinGW GCC". Ignore the warning message.</p>
+
+<h5 class="">Step 2: Write a C++ Program</h5>
+
+<p class="">Right-click on the project ⇒ New ⇒ Source File ⇒ In "Source file", enter "<code class="">Hello.cpp</code>" ⇒ Enter the following source codes:</p>
+
+<pre class="color-example">#include &lt;iostream&gt;
+using namespace std;
+  
+int main() {
+	cout &lt;&lt; "Hello, world!" &lt;&lt; endl;
+	return 0;
+}</pre>
+
+<h5 class="">Step 3: Write a Makefile</h5>
+
+<p class="">Right-click on the project ⇒ New ⇒ File ⇒ In "File name", enter "<code class="">makefile</code>" ⇒ Enter the following codes. Take note that you need to use a Tab (NOT Spaces) for the indent.</p>
+
+<pre class="color-example">all: Hello.exe
+  
+clean:
+	rm Hello.o Hello.exe
+  
+Hello.exe: Hello.o
+	g++ -g -o Hello.exe Hello.o
+  
+Hello.o: Hello.cpp
+	g++ -c -g Hello.cpp</pre>
+
+<h5 class="">Step 4: Build the Project</h5>
+
+<p class="">Right-click on the project ⇒ Build Project.</p>
+
+<h5 class="">Step 5: Run the Program</h5>
+<p class="">Right-click on the project ⇒ Run As ⇒ Local C/C++ Application.</p>
+
+<br class="">
+<p class="">[TODO] Write a makefile to compile toy-programs under one project.</p>
+
+
+<h3 class="">3.&nbsp;&nbsp;Read the Documentation<a id="zz-3."></a></h3>
+<p class="">At a minimum, you SHOULD browse through Eclipse's "<strong class="">Workbench User Guide</strong>" and "<strong class="">C/C++ Development User Guide</strong>" - accessible via the Eclipse's "Welcome" page or "Help" menu. This will save you many agonizing hours trying to figure out how to do some things later.</p>
+
+<h3 id="eclipse-cpp-debug" class="">4.&nbsp;&nbsp;Debugging C/C++ Programs in Eclipse CDT<a id="zz-4."></a></h3>
+
+<p class="">Able to use a graphics debugger to debug program is crucial in programming. It could save you countless of hours guessing on what went wrong.</p>
+
+<p class=""><span class="line-heading">Step 0: Write a C++ Program - </span>
+The following program computes and prints the factorial of <code class=""><em class="">n</em></code> (<code class="">=1*2*3*...*<em class="">n</em></code>).  The program, however, has a logical error and produce a wrong answer for <em class=""><code class="">n</code></em><code class="">=20</code> ("<code class="">The Factorial of 20 is -2102132736</code>" - a negative number?!).</p>
+
+<table class="table-program">
+<colgroup class="" style=""><col class="col-line-number" style="">
+<col class="col-program" style="">
+</colgroup><tbody class="">
+<tr class="">
+<td class="">
+<pre class="text-right">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14</pre>
+</td>
+<td class="">
+<pre class="">#include &lt;iostream&gt;
+using namespace std;
+ 
+int main() {
+   int n = 20;
+   int factorial = 1;
+ 
+   <span class="color-comment">// n! = 1*2*3...*n</span>
+   for (int i = 1; i &lt;= n; i++) {
+      factorial *= i;
+   }
+   cout &lt;&lt; "The Factorial of " &lt;&lt; n &lt;&lt; " is " &lt;&lt; factorial &lt;&lt; endl;
+   return 0;
+}</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+<pre class="color-output">The Factorial of 20 is -2102132736</pre>
+
+<p class="">Let us use the graphic debugger to debug the program.</p>
+
+<p class="" style=""><img class="image-float-right" src="data:image/png;base64,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" alt="EclipseCppDebugSetBreakpoint.png"></p>
+
+<p class=""><span class="line-heading">Step 1: Set an Initial Breakpoint - </span>A <em class="">breakpoint</em> suspends program execution for you to examine the internal states (e.g., value of variables) of the program. Before starting the debugger, you need to set at least one breakpoint to suspend the execution inside the program. Set a breakpoint at <code class="">main()</code> function by double-clicking on the <em class="">left-margin</em> of the line containing <code class="">main()</code>.  A <em class="">blue circle</em> appears in the left-margin indicating a breakpoint is set at that line.</p>
+
+
+<p class="" style=""><img class="image-float-right float-clear" src="data:image/png;base64,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" alt="EclipseCppDebugStart.png"></p>
+
+<p class=""><span class="line-heading">Step 2: Start Debugger - </span>Right click on the project (or use the "Run" menu) ⇒ "Debug As" ⇒ "Local C/C++ Application" ⇒ choose "Yes" to switch into "Debug" perspective (A <em class="">perspective</em> is a particular arrangement of panels to suits a certain development task such as editing or debugging). The program begins execution but suspends its operation at the breakpoint, i.e., the <code class="">main()</code> function.</p>
+<p class="">As illustrated in the following diagram, the highlighted line (also pointed to by a blue arrow) indicates the statement to be executed in the <em class="">next</em> step.</p>
+
+<img class="image-float-right float-clear" src="data:image/png;base64,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" alt="EclipseJavaDebugToolbar.png">
+<img class="image-float-right float-clear" src="data:image/png;base64,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" alt="EclipseCppDebugVariables.png">
+
+<p class=""><span class="line-heading">Step 3: Step-Over and Watch the Variables and Outputs - </span> Click the "Step Over" button (or select "Step Over" from "Run" menu) to <em class="">single-step</em> thru your program. At each of the step, examine the value of the  variables (in the "Variable" panel) and the outputs produced by your program (in the "Console" Panel), if any. You can also place your cursor at any variable to inspect the content of the variable.</p>
+
+<p class="">Single-stepping thru the program and watching the values of internal variables and the outputs produced is the <em class="">ultimate</em> mean in debugging programs - because it is exactly how the computer runs your program!</p>
+
+<p class=""><span class="line-heading">Step 4: Breakpoint, Run-To-Line, Resume and Terminate - </span> As mentioned, a breakpoint <em class="">suspends</em> program execution and let you examine the internal states of the program. To set a breakpoint on a particular statement, double-click the left-margin of that line (or select "Toggle Breakpoint" from "Run" menu).</p>
+<p class="">"Resume" continues the program execution, up to the next breakpoint, or till the end of the program.</p>
+<p class="">"Single-step" thru a loop with a large count is time-consuming. You could set a breakpoint at the statement immediately outside the loop (e.g., Line 12 of the above program), and issue "Resume" to complete the loop.</p>
+<p class="">Alternatively, you can place the cursor on a particular statement, and issue "Run-To-Line" from the "Run" menu to continue execution up to the line.</p>
+<p class=""> "Terminate" ends the debugging session. Always terminate your current debugging session using "Terminate" or "Resume" till the end of the program.</p>
+<p class=""><span class="line-heading">Step 5: Switching Back to C/C++ perspective - </span> Click the "C/C++" perspective icon on the upper-right corner to switch back to the "C/C++" perspective for further programming (or "Window" menu ⇒ Open Perspective ⇒ C/C++).</p>
+<p class="">I can's stress more that mastering the use of debugger is crucial in programming. Explore the features provided by the debuggers.</p>
+
+<h5 class="">Other Debugger's Features</h5>
+
+<p class=""><span class="line-heading">Modify the Value of a Variable:</span> You can modify the value of a variable by entering a new value in the "Variable" panel. This is handy for temporarily modifying the behavior of a program, without changing the source code.</p>
+
+<p class=""><span class="line-heading">Step-Into and Step-Return:</span> To debug a <em class="">function</em>, you need to use "Step-Into" to step into the <em class="">first</em> statement of the method.  You could use "Step-Return" to return back to the caller, anywhere within the method.  Alternatively, you could set a breakpoint inside a method.</p>
+<p class=""><strong class="">NOTE</strong>: If you receive error message "Can't find a source file at <code class="">/cygdrive/c</code>..." during debugging, you need to configure a mapping between "<code class="">/cygdrive/c</code>" and "<code class="">c:/</code>" (assuming that your program in kept in drive c. From "Window" ⇒ "Preferences" 
+  ⇒ "C/C++" ⇒ "Debug" ⇒ "Common Source Lookup Path", select "Add" ⇒ "Path Mapping".</p>
+
+<h3 id="tips" class="">5.&nbsp;&nbsp;Tips &amp; Tricks<a id="zz-5."></a></h3>
+<p class="">Read Eclipse for Java's <a href="http://www.ntu.edu.sg/home/ehchua/programming/howto/EclipseJava_HowTo.html#tips" class="">Tips &amp; Tricks</a> for general tips in using Eclipse.</p>
+
+<h4 class="">5.1&nbsp;&nbsp;C/C++ Software Development Using GCC<a id="zz-5.1"></a></h4>
+
+<ol class="">
+<li class="">You can find the commands used in Eclipse CDT for build the project at "<code class="">&lt;workspace&gt;\.metadata\.plugins\org.eclipse.cdt.ui\global-build.log</code>".</li>
+<li class=""><span class="line-heading">Setting include-paths, library-paths, and libraries:</span> When building the program, the <em class="">compiler</em> needs the <em class="">header files</em> to compile the source codes; the <em class="">linker</em> needs the <em class="">libraries</em> to resolve external references. The compiler searches the "include-paths" for the headers specified in <code class="">#include</code> directives. The linker searches the "library-paths" for "libraries" needed to link the program. In GCC, include-path is specified via <code class="">-I<em class="">dir</em></code> option or environment variable <code class="">CPATH</code>. The library-path is specified via <code class="">-L<em class="">dir</em></code> option, or environment variable <code class="">LIBRARY_PATH</code>. The library <code class="">lib<em class="">xxx</em>.a</code> is specified via <code class="">-l<em class="">xxx</em></code> option (lowercase letter <code class="">'l'</code>, without the prefix <code class="">lib</code> and <code class="">.a</code> extension).<br class="">
+  In Eclipse CDT, you can set the include paths, library paths and libraries by right-click on the project  ⇒ Properties ⇒ C/C++ General  ⇒ Paths and Symbols ⇒ Under tabs "Includes", "Library Paths" and "Libraries". The settings are applicable to the selected project only.<br class="">
+  To set the include paths and library paths for all the projects, set the environment variables <code class="">CPATH</code> and <code class="">LIBRARY_PATH</code>. In Eclipse, choose "Window" ⇒ Preferences ⇒ C/C++ ⇒ Build ⇒ Environment.<br class="">
+  Alternatively, copy the headers and libraries into system directories, and you can omit the include-paths and library-paths.</li>
+<li class=""><span class="line-heading">OpenGL with GLUT:</span> For Cygwin, you need to install gcc, g++, gdb, make (under Devel category) and opengl, freeglut (under graphics category). The headers <code class="">gl.h</code>, <code class="">glu.h</code>, <code class="">glut.h</code> are kept in <code class="">$cygwin\usr\include\w32api\GL</code>. Use <code class="">#include &lt;GL/gl<em class="">__</em>.h&gt;</code> to include the headers. The libraries <code class="">libopengl32.a</code> <code class="">libglu32.a</code> and <code class="">libglut32.a</code> are kept in <code class="">$cygwin\lib\w32api</code>. To specify these libraries in linking, use <code class="">-lopengl32</code> <code class="">-lglu32</code> <code class="">-lglut32</code> options (without the <code class="">lib</code> prefix and <code class="">.a</code> extension).</li>
+
+<li class=""><span class="line-heading">OpenGL with SDL:</span> Download SDL from <a href="http://www.libsdl.org/" class="">http://www.libsdl.org</a>. Choose Development Libraries ⇒ win32 ⇒  mingw32 ⇒ Unzip. Copy the headers directory <code class="">SDL </code>(under <code class="">include</code>) to <code class="">$cygwin\usr\include\w32api</code>; copy all the library files in <code class="">lib</code> into <code class="">$cygwin\lib\w32api</code>; copy the run-time library <code class="">SDL.dll</code> (under <code class="">bin</code>) into <code class="">Windows/System32</code>. In your program, include these two headers: <code class="">#include &lt;SDL/sdl.h&gt;</code> and <code class="">#include &lt;SDL/sdl_opengl.h&gt;</code>. For linking, add these libraries: <code class="">-lSDL</code> <code class="">-lSDLmain</code>.</li>
+
+<li class=""><span class="line-heading"><span class="font-code">#Pragram</span> Comment Directive:</span> pragma comment directive, e.g., <code class="">#pragma comment(lib, "opengl32.lib")</code>, is often used to include a particular library (same as <code class="">-l</code> option). This system-dependent directive works on Windows's compiler, but NOT in GCC.</li>
+<li class=""><span class="line-heading">Error "multiple target patterns":</span> There is a problem with GNU make (at <code class="">$Cygwin\bin\make.exe</code>). Replaced by this copy @ <a href="http://www.cmake.org/files/cygwin/make.exe" class="">http://www.cmake.org/files/cygwin/make.exe</a>.</li>
+<li class=""><span class="line-heading"><span class="font-code">fflush(stdout)</span>:</span> The gcc library uses buffered I/O (in accordance with the C Specification). Output is only written out to the output stream after a newline character. You can flush the output with a <code class="">fflush()</code>.</li>
+
+<li class=""><span class="line-heading">Project name shall not include the word "setup":</span> If you name your C/C++ project with a name including the word "<code class="">setup</code>", then the resultant "<code class="">*setup*.exe</code>" will trigger UAC (User Authorization Control) and require administrator right to run. (This took me a few hours to figure out! Try renaming a "<code class="">hello.exe</code>" to "<code class="">mysetup.exe</code>".)</li>
+</ol>
+
+
+
+<h3 id="io" class="">6.&nbsp;&nbsp; File I/O in Eclipse<a id="zz-6."></a></h3>
+<p class="">Refer to Eclipse for Java's <a href="http://www.ntu.edu.sg/home/ehchua/programming/howto/EclipseJava_HowTo.html#io" class="">File IO</a>.</p>
+
+
+<p class="references">REFERENCES &amp; RESOURCES</p>
+<ol class="">
+  <li class="">Eclipse's "C/C++ Development Tool User Guide", accessible via Eclipse's Help menu.</li>
+  <li class="">GCC (GNU compilers) mother site @ <a href="http://gcc.gnu.org" class="">http://gcc.gnu.org</a>; GCC manual @ <a href="http://gcc.gnu.org/onlinedocs/" class="">http://gcc.gnu.org/onlinedocs</a>.</li>
+  <li class="">An Introduction to GCC @ <a href="http://www.network-theory.co.uk/docs/gccintro/index.html" class="">http://www.network-theory.co.uk/docs/gccintro/index.html</a>.</li>
+</ol>
+
+
+</div> <!-- End the content-main division -->
+
+<div id="content-footer" class="">
+<p class="">Latest version tested: Eclipse 4.2.2 (Juno), Eclipse CDT 8.1.2<br class="">
+Last modified: April, 2013</p>
+</div>
+
+</div>  <!-- End the wrap-inner division -->
+
+<!-- footer filled by JavaScript -->
+<div id="footer" class="header-footer" style=""><p>Feedback, comments, corrections, and errata can be sent to Chua Hock-Chuan (ehchua@ntu.edu.sg) &nbsp;&nbsp;|&nbsp;&nbsp; <a href="http://www.ntu.edu.sg/home/ehchua/programming/index.html">HOME</a></p></div>
+
+</div>  <!-- End the wrap-outer division -->
+
+
+<div class="selection_bubble_root" style=""></div></body></html>

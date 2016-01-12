@@ -1,0 +1,2903 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><!--
+ Archive processed by SingleFile 
+ url: http://www.ntu.edu.sg/home/ehchua/programming/cpp/cp6_Inheritance.html 
+ saved date: Mon Aug 25 2014 15:17:13 GMT+0900 (Tokyo Standard Time) 
+--><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Object-oriented Programming (OOP) in C++</title>
+<style rel="stylesheet" type="text/css" data-href="http://www.ntu.edu.sg/home/ehchua/programming/css/programming_notes_v1.css">/* 
+ * Universal selector - clear all the margin and padding to get consistent layout for Firefox and IE 
+ */
+* { 
+	margin: 0;
+	padding: 0;
+}
+
+/* 
+ * Set default style for all the tags.
+ * Apply to the main content division as well.
+ */
+body {
+	background-color: rgb(202, 251, 237);
+	color: #000;
+	font-family: "Segoe UI", Segoe, Calibri, "Ubuntu", Tahoma, Arial, Helvetica, Verdana, sans-serif;
+	font-size: 14px;
+	text-align: justify;
+	line-height: 1.5;
+}
+
+/*
+ * "wrap-outer" wraps header, wrap-inner and footer
+ */
+#wrap-outer {
+	margin: 20px 20px 20px 20px;
+	padding: 0;
+	
+}
+/*
+ * "wrap-inner" wraps content-header, content-main and content-footer
+ */
+#wrap-inner {
+	background-color: #fff;
+	margin: 0;
+	border: 1px solid #ddd;
+	padding: 25px 15px;
+	box-shadow: 5px 5px 0 #ddd;
+}
+#content-header {
+	margin: 0;
+	padding: 50px 0 10px 0;
+}
+
+#content-main {
+	margin: 0;
+	padding: 30px 0 20px 0;
+}
+#content-footer {
+	font-family: "Century Gothic", "Segoe UI", Segoe, "Ubuntu", Verdana, Tahoma, Arial, Helvetica, sans-serif;
+	font-size: 13px;
+	text-align: right;
+	color: rgb(192, 80, 77);
+/*	color: rgb(11, 83, 149); */
+	margin: 30px 0 0 0;
+    padding: 0;
+	border-top: 4px solid rgb(12, 155, 116);
+}
+/*
+ *  The main "header" & "footer" divisions
+ */
+.header-footer {
+	font-family: "Century Gothic", "Segoe UI", Segoe, "Ubuntu", Verdana, Tahoma, Arial, Helvetica, sans-serif;
+	color: rgb(192, 80, 77);
+/*	color: rgb(11, 83, 149); */
+	font-size: 13px;
+	text-align: right;
+	margin: 10px 0 5px 0;
+	padding: 5px 4px;
+}
+.header-footer a {
+	color: rgb(192, 80, 77);
+	text-decoration: underline;
+}
+.header-footer a:focus, .header-footer a:hover {  /* change color and remove underline */
+	text-decoration: none;
+ 	color: rgb(11, 83, 149);
+/*	color: rgb(192, 80, 77); */
+}
+
+h1, h2, h3, h4, h5, h6 {  /* main title and sub-title */
+	font-family: "Century Gothic", "Trebuchet MS", "Segoe UI", Segoe, "Ubuntu", Verdana, Tahoma, Arial, Helvetica, sans-serif;
+	margin: 0;
+	color: rgb(10, 132, 100);
+	letter-spacing: 1px;
+	line-height: 1.2;
+	text-align:left;
+}
+h1 {
+	font-size: 40px;
+	font-weight: 400;
+	padding: 0.2em 0;
+}
+h2 {
+	font-size: 36px;
+	font-weight: 400;
+	padding: 0.2em 0;
+}
+h3 {
+	font-size: 22px;
+	border-bottom: thin solid rgb(12, 155, 116);
+	padding: 1.5em 0 0.3em 0;
+}
+h4 {
+	font-family: "Segoe UI", Segoe, "Ubuntu", Verdana, Tahoma, Arial, Helvetica, sans-serif;
+	font-size: 18px;
+	padding: 1.3em 0 0.2em 0;
+	border-bottom: thin dotted rgb(12, 155, 116);
+}
+h5, h6 {
+	font-family: "Segoe UI", Segoe, "Ubuntu", Verdana, Tahoma, Arial, Helvetica, sans-serif;
+	font-size: 15px;
+	color: #444;
+	padding: 1.2em 0 0 0;  /* top right bottom left */
+	letter-spacing: 1px;
+}
+.line-heading {
+	color: #444;
+	font-size: 15px;
+	font-weight: bold;
+	letter-spacing: 1px;
+	padding: 0.2em 0;
+}
+.line-heading-code-new {
+	font-family: Consolas, "Lucida Console", "Courier New", Courier, monospace;
+	color: #E31B23;
+	font-size: 15px;
+    font-weight: normal;
+/*	letter-spacing: 0.5px; */
+}
+p {
+	margin-top: 0.6em;
+	margin-bottom: 0.4em;
+}
+pre {
+	font-family: Consolas, "Lucida Console", "Courier New", Courier, monospace;
+	font-size: 13px;
+	margin: 5px 0 8px 0;
+	border: solid 2px #f8f8f8;  /* slight 3D shape */
+	padding: 5px 10px;
+	line-height: 135%;
+}
+code {
+	font-family: Consolas, "Lucida Console", "Courier New", Courier, monospace;
+}
+
+ul {   /* first level ul */
+	margin: 0.3em 0 0.2em 1.8em;
+	padding: 0;
+/*	list-style-type: square;  */
+	list-style-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAANAQMAAABBztZFAAAABlBMVEUAAwBjjJzG2b5OAAAAAXRSTlMAQObYZgAAABBJREFUCNdjYMAG7FARAwMADXkBNzRuJgIAAAAASUVORK5CYII=);
+}
+ul ul li {   /* 2nd level ul */
+	list-style-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAANAQMAAABb8jbLAAAABlBMVEX///8AUow5QSOjAAAAAXRSTlMAQObYZgAAABNJREFUCB1jYEABBQw/wLCAgQEAGpIDyT0IVcsAAAAASUVORK5CYII=);
+/*
+	list-style-type: disc;
+	list-style-image: none; */
+}
+ul ul u1 li {   /* 3rd level ul */
+	list-style-type: circle;
+	list-style-image: none;
+}
+ol {   /* first level ol */
+/*    list-style-position:inside; */
+/*    display: table  */
+    list-style-type: decimal;
+	margin: 0.3em 0 0.2em 2.5em;
+	padding: 0;
+}
+ol ol li {   /* 2nd level ol */
+	list-style-type: lower-alpha;
+}
+ol ol o1 li {  /* 3rd level ol */
+	list-style-type: lower-roman;
+}
+
+li {
+	margin: 0.4em 0;
+}
+
+.float-left-ol-ul {
+	overflow:hidden;
+}
+
+/* li after a left-float image */
+.float-left-li {
+   position: relative; left: 20px;
+   margin-right: 20px;
+}
+
+a {
+	color: rgb(11, 83, 149);
+	text-decoration: none;
+}
+a:hover, a:focus {
+	color: rgb(192, 80, 77);
+	text-decoration: underline;
+}
+
+a.references {
+	display: block;
+	width: 30em;
+	font-size: 18px;
+	font-weight: bold;
+	margin: 4em 0 0 0;
+}
+
+p.references {
+	font-size: 18px;
+	font-weight: bold;
+	margin: 4em 0 0 0;
+}
+
+/*
+ * General classes
+ */
+.center-block {
+	margin: 10px auto;  /* auto margin-left and margin-right to center the table */
+}
+.text-center {	
+    text-align: center; 
+}
+.text-right {	
+    text-align: right; 
+}
+.underline {
+	text-decoration: underline;
+}
+.font-code {
+	font-family: Consolas, "Lucida Console", "Courier New", Courier, monospace;
+}
+.font-code-text {
+	font-family: Consolas, "Lucida Console", "Courier New", Courier, monospace;
+	font-size: 14px;
+}
+.font-code-smaller {
+	font-family: Consolas, "Lucida Console", "Courier New", Courier, monospace;
+	font-size: 13px;
+}
+.font-normal {
+	font-family: "Segoe UI", Segoe, Calibri, "Ubuntu", Tahoma, Arial, Helvetica, Verdana, sans-serif;
+}
+.pre {
+    white-space: pre;	
+}
+/* color control mainly for <pre>, <div>, <span> */
+.color-example {
+	background-color: rgb(215, 236, 211);  /* darker */
+}
+.color-example-light {
+	background-color: rgb(236, 246, 234);  /* lighter */
+}
+.color-syntax, .color-command {
+	background-color: rgb(204, 238, 241);  /* darker */
+}
+.color-explanation {
+	background-color: #eee;   /* grey */
+}
+/* Character level control for code listing */
+.color-comment {
+	color: #009900;  /* green */
+}
+.color-new {
+	color: #E31B23;  /* dark red to highlight new terms */
+}
+.color-error {
+	color: #ff0099;  /* bright red */
+/*	font-weight:bold; */
+}
+.color-plain {
+	background-color: #fff;
+}
+.color-highlight {
+	background-color: #ff0;
+}
+.color-highlight-new {
+    background-color: #FFC;  /* lighter */
+}
+
+.output {  /* Output of program or DOS session */
+    background-color: rgb(236, 246, 234);  /* lighter */
+	border: solid 2px #f8f8f8;   /* slight 3D shape */
+	padding: 4px 8px;
+}
+.side-note {
+	margin-top: 15px;
+    margin-left: 40px;
+	padding: 3px 8px; 
+	background-color: #e7e7e7;
+}
+
+
+/*
+ * for positioning images 
+ */
+img.image-center {      /* center horizontally an image */
+	display: block;
+	margin: 10px auto;
+}
+img.image-border {
+    border: #ddd thin solid;
+}
+img.image-float-left {
+	float: left;
+	margin: 8px 15px 15px 0;
+    border: #ddd thin solid;
+}
+img.image-float-right {
+	float: right;
+	margin: 8px 0 15px 15px;
+    border: #ddd thin solid;
+}
+.float-clear {
+   clear: both;	
+}
+/*
+ *  Table - for tablulating data with alternate row colors or different column colors
+ */
+table.table-zebra, table.table-program {
+	border-collapse: collapse;
+	border: 0;
+	margin: 0 auto; /* center */
+	padding: 0;
+    width: 100%;
+	/* Default setting for all cells in this table, inherited */
+    background-color: rgb(231, 240, 248);  /* lighter */
+	text-align: left;
+	vertical-align: top;
+}
+table.table-zebra th {  /* header cells */
+	color: #ffffff;     /* white text on dark background */
+	background-color: rgb(0, 157, 217);
+	margin: 0;
+	border: 2px solid white;
+	padding: 4px 10px;
+	font-size: 15px;
+	letter-spacing: 1px;
+	text-align: center;
+}
+table.table-zebra td {  /* data cells */
+    margin: 0;
+	border: 2px solid white;
+	padding: 2px 8px;
+	/* color, font, text inherited from table */
+	vertical-align: top;
+}
+
+table.table-program th {  /* header cells */
+	color: #ffffff;     /* white text on dark background */
+	background-color: rgb(0, 157, 217);
+	margin: 0;
+	border: 2px solid white;
+	padding: 4px 10px;
+	font-size: 15px;
+	letter-spacing: 1px;
+	text-align: center;
+}
+table.table-program td {  /* data cells */
+    margin: 0;
+	border: 0;
+	padding: 0;
+	/* color, font, text inherited from table */
+}
+
+table.table-program td pre {
+	margin: 0;
+	border: solid 2px #f8f8f8;   /* slight 3D shape */
+	padding: 5px 10px;
+}
+
+table.table-program td pre.text-right {
+	text-align: right;
+}
+
+/* Setting the color for row (2 colors) or column (3 colors) */
+/* can only set the background, border, width of <col>, NOT font, text, color */
+/* for table-zebra */
+table .col-desc {       /* same as default color */
+    background-color: rgb(231, 240, 248);  /* lighter */
+}
+table .col-code, table .tr-alt {
+	background-color: rgb(203, 223, 241);  /* darker */
+}
+table .col-example {
+    background-color: #eee;  /* grey */
+}
+
+/* for table-program */
+table .col-line-number {
+	width: 40px;
+    background-color: rgb(225, 233, 207);
+}
+table .col-program {
+    background-color: rgb(240, 244, 233);
+}
+
+/*
+ * For the "Table of Content" generated by JavaScript
+ * in <div id="toc">
+ */
+#wrap-toc {
+    display: block;
+	background: none repeat scroll 0 0 rgb(231, 246, 239);
+	float: right;
+	width: 230px;
+	z-index: 100;
+	line-height: 1.5;
+	margin: 0 0 0 15px;
+	padding: 5px 8px 10px 8px;
+	text-align: left;
+	white-space: nowrap;
+/*	min-height: 180px;  */
+}
+#wrap-toc h5 {
+   letter-spacing: 1px;
+   margin: 0;
+   text-transform: uppercase;
+	color: #444;
+	padding: 0.5em 0;
+}
+a#show-toc {
+	color: rgb(192, 80, 77);
+	text-decoration: none;
+   letter-spacing: 1px;
+}
+#toc {
+	overflow: auto;
+}
+#toc a.toc-H3 {
+    margin-left: 0px;
+	font-size: 15px;
+}
+#toc a.toc-H4 {
+    margin-left: 20px;
+	font-size: 14px;
+}
+#toc a.toc-H5 {
+    margin-left: 40px;
+	font-size: 14px;
+}
+</style>
+
+<link rel="shortcut icon" href="data:image/x-icon;base64,AAABAAEAEBAQAAEABAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAgAAAAAAAAAAAAAAAEAAAAAAAAADy8O0APrMnACEdGADb2tkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMzMzMzMzMzMyIiIiIiIiIzIiIiIiIiIjMgIiIgAAAiMyACIiAAACIzIgAiIiIiIjMiIAIiIiIiMyIiACIiIiIzIiACIiIiIjMiACISEiESMyACIhISEiIzICIiERISIjMiIiISEhIiMyIiIhISIRIzIiIiIiIiIjMzMzMzMzMzMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" type="image/x-icon"></head>
+
+<body class="">
+
+<div id="wrap-outer" class="">
+
+<!-- header filled by JavaScript -->
+<div id="header" class="header-footer"><p class="">yet another insignificant programming notes... &nbsp;&nbsp;| &nbsp;&nbsp;<a href="http://www.ntu.edu.sg/home/ehchua/programming/index.html" class="">HOME</a></p></div>
+
+<div id="wrap-inner" class="">
+
+<div id="wrap-toc" class="">
+<h5 class="">TABLE OF CONTENTS <a id="show-toc" href="#show-toc" class="">(HIDE)</a></h5>
+<div id="toc" class=""><a class="toc-H3" href="#zz-1.">1.&nbsp;&nbsp;Revision on Classes and Objects</a><br class=""><a class="toc-H3" href="#zz-2.">2.&nbsp;&nbsp;Inheritance</a><br class=""><a class="toc-H4" href="#zz-2.1">2.1&nbsp;&nbsp;Terminology</a><br class=""><a class="toc-H4" href="#zz-2.2">2.2&nbsp;&nbsp;Example: Superclass <span class="font-code">Point</span> and subclass <span class="font-code">MovablePoint</span></a><br class=""><a class="toc-H4" href="#zz-2.3">2.3&nbsp;&nbsp;Example: <span class="font-code">Point</span> and <span class="font-code">MovablePoint</span> with <span class="font-code">protected</span> Data Members</a><br class=""><a class="toc-H3" href="#zz-3.">3.&nbsp;&nbsp;Polymorphism</a><br class=""><a class="toc-H4" href="#zz-3.1">3.1&nbsp;&nbsp;Substitution</a><br class=""><a class="toc-H4" href="#zz-3.2">3.2&nbsp;&nbsp;Polymorphism</a><br class=""><a class="toc-H4" href="#zz-3.3">3.3&nbsp;&nbsp;Pure Virtual Function and Abstract Superclass</a><br class=""><a class="toc-H4" href="#zz-3.4">3.4&nbsp;&nbsp;Example: <span class="font-code">Shape</span> and its Subclasses</a><br class=""><a class="toc-H4" href="#zz-3.5">3.5&nbsp;&nbsp;Dynamic Binding vs. Static Binding</a><br class=""><a class="toc-H3" href="#zz-4.">4.&nbsp;&nbsp;More On OOP</a><br class=""><a class="toc-H4" href="#zz-4.1">4.1&nbsp;&nbsp;<span class="font-code">const</span> Objects and <span class="font-code">const</span> Member Functions</a><br class=""><a class="toc-H4" href="#zz-4.2">4.2&nbsp;&nbsp;<span class="font-code">const</span> Data Member</a><br class=""><a class="toc-H4" href="#zz-4.3">4.3&nbsp;&nbsp;"<span class="font-code">friend</span>" Function and "<span class="font-code">friend</span>" Class</a><br class=""><a class="toc-H4" href="#zz-4.4">4.4&nbsp;&nbsp;The <span class="font-code">static</span> Class Members</a><br class=""><a class="toc-H3" href="#zz-5.">5.&nbsp;&nbsp;More On Inheritance</a><br class=""><a class="toc-H4" href="#zz-5.1">5.1&nbsp;&nbsp;Multiple Inheritance</a><br class=""><a class="toc-H4" href="#zz-5.2">5.2&nbsp;&nbsp;Virtual Inheritance</a><br class=""><a class="toc-H3" href="#zz-6.">6.&nbsp;&nbsp;Object with Dynamically Allocated Data Members</a><br class=""><a class="toc-H4" href="#zz-6.1">6.1&nbsp;&nbsp;Implicitly-generated Special member Functions</a><br class=""><a class="toc-H4" href="#zz-6.2">6.2&nbsp;&nbsp;Dynamic Memory Allocation of Object Data Member</a><br class=""><br class=""></div>  <!-- for showing the "Table of Content" -->
+</div>
+
+<div id="content-header" class="">
+<h1 class="">C++ Programming Language</h1>
+<h2 class="">OOP Part 2</h2>
+</div>
+
+<div id="content-main" class="">
+
+<h3 class="">1.&nbsp;&nbsp;Revision on Classes and Objects<a id="zz-1." class="" style=""></a></h3>
+
+<img class="image-float-left" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQ0AAAECCAYAAADkRILdAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAABm7SURBVHhe7Z3bdey4DkQdwoQy3w7I8Tiak8x8nFB6Wm+JIkhQREugtL2W153rQ1FggSjxheLXix8QAAEQKEDgq6AsRUEABEDgBWnQCUAABIoQgDSK4KIwCIAApEEfAAEQKEIA0iiCi8IgAAKQBn0ABECgCAFIowguCoMACEAa9AEQAIEiBCCNIrgoDAIgAGnQB0AABIoQgDSK4KIwCIBAEWn8+++/r6+vL37BgD7QaB/oYrj2p4g0OsLgBwRAoF0ELGK4iAUsXtgu3FgOAu0jYBHDkEb7/YAWgIAaAUhDDRUFQQAEOgQgDfoBCIBAEQKQRhFcFAYBEIA06AMgAAJFCEAaRXBRGARAANKgD4AACBQhAGkUwUVhEAABSIM+AAIgUIQApFEE150K//f6/Y7lAP28/hxt5p+fMZ+koo7XaNf37/u/+PGIAKTh0Sun2CSRRkck36/fIxFrQRpTHZDGKb3gyEsgjSOo3eKZhTR+5qHF8rfvQ6xhAAykYQDiZ6uAND6Lr+PaY6Txev33+z1MMRYmWf42p3Jvpx/zM8K/v2sdp0Lv5/77fX2vUsInctrXsZ46HRz5OEa/ZdMgjZa9V2V7jDT+vH7GgJ6C+c+PpH2yBLKeNGJ1DfVAGlXOPPVhSONUuD29LLWmMY4kVqOC2BRmPRrpWzaXDxdC1++ayCY+0nkxPfHUSaK2QBruXfQpAwXSWE1LxACWAltBGjHyWb8S0viUv+3qhTTssGysJuFLv26FRA6QRmO+tjUX0rDFs6HaFKSRmZ7sdlgsRxpfNWc9GnJDg6ZCGg06zcZkBWm8XyQvhE5BnVob+XoNxJLe3t1MT4LdlUGEmt0TG5/b1AJp2ODYYC060ugatiOOzcErY9IYXhgolUManjoYpOHJG9gCAg0gAGk04CRMBAFPCEAanryBLSDQAAKQRgNOwkQQ8IQApOHJG9gCAg0gAGk04CRMBAFPCEAanryBLSDQAAKQRgNOwkQQ8IQApOHJG9gCAg0gAGk04CRMBAFPCEAanryBLSDQAAKQRgNOwkQQ8ITAqaTx9+/fIBFJkpLj70N2J79g4LMP1JLYV0kFFixV8j7KggAI2CJgEcOQhq1PqA0EXCMAabh2D8aBgD8EIA1/PsEiEHCNAKTh2j0YBwL+EIA0/PkEi0DANQKQBpfzuO6gGOcPAUjDgjRGBe2NqvbVvg5VvV0ZdzU4vL8GAUijBr3pWW+ksbNnvKMV4rDw9uPrgDQsuoAr0hivFAgJoh9RcRWAhbufXkdbpCHc4DXdOL678WuaesS+sOHdGpEy/X0f3d83ZVO3pa+P/F51Q9gwqthzxmDbDqOnRwDtL0agLdLomjcRxxQV4/+PBkOKNGaohC/z+9/nS4Lmy4HGspvLghabXIz+ezzWI4rB5u/fP/3/7m56L+4yPPB0BNojjc5jIxn8/JEDXu/YDGkEBDGMaoJRRPX0JH1LWREZbaYh61GHBVZ6VCl5XwSckUYseOLz8GlKsgvgYl95II1io+UHppHGH2nE0d2tyg8IHEfAGWnoG7LcL1q7uHcz0niNOyW7W9eHv7Omoe9jlIwj0CRpDKOMgSx68gjXGIq87YE0DKcn0w3t7J4U9QIK6xFojzR2C5+JMwgWC6GaNY3p6160+KB3UnHJec1nepJzGsUY8oCIQFukIZ3elMghQRrLmkiojLRMd2KjmOhCaAdveAJzNz04uRcGW8pMS07G/8ava4s0buwImgYCrSAAabTiKewEAScIQBpOHIEZINAKApBGK57CThBwggCk4cQRmAECrSAAabTiKewEAScIQBpOHIEZINAKApBGK57CThBwggCkYSH358SZmAECZyAAaViQRnVq/AdcjUboB0Clyg4BSMOiH3gjDTRCLbxKHQICkIZF13BFGmiEWriUOmQE2iKNXfbm1DBBKwKN0Nnzk/4IiWvQQS0CbZFGUisiIuRrkRr/Fq5Z9DrQCK3tcDzfPgKNkUaXgb4I8Azw12pf3kyEB43Q9qPSeQuckYZGIzSYiuzUt0sR90AapTYnyqMRaggmVcUQcEYaOietxXH6kUeVYtbNSAONUF0notRhBJokjUElq1PY6gL+DsLCaIQe7sE8eDoCbZLGtI6xWaSMYGexEIpG6Omdkhf6RqBR0niDKm6/rgBHI7Q/vcd1jL6DsDXrGieNq+5Lbc3N2AsCdgi0SRquTmDaOYOaQKAFBJoijfW1A1UbJi14BhtBwCkCTZGGUwwxCwQehQCk8Sh301gQqEcA0qjHkBpA4FEIQBqPcjeNBYF6BCCNegypAQQehQCk8Sh301gQqEcA0qjHkBpA4FEIQBqPcjeNBYF6BCCNegypAQQehcCppPH37985gWpKpOJ/h4QyfsGgpT5Qy5JfJRVYsFTJ+ygLAiBgi4BFDEMatj6hNhBwjQCk4do9GAcC/hCANPz5BItAwDUCkIZr92AcCPhDANLw5xMsAgHXCEAaFrfGl7q4+q4W5QuvaJvStOpiJ7Wtuy6Dqyy33mqONKY7STd72oFieFGHtOh8RfKDwr2zRUYrC5/eNqVdFsXOatvoW4hjcVqbpLEhienOkAtFhtWkUXuFpEW0FdahblthvR6Ka9u2uerSg+HX2nAD0ngDqHX+p7BWvn/QOL2Q3I60X9m2I1Vf/kxB29a3+l1u98UGOCUNeQgfd16k/DR8nY5oh1OY8N8jSsX9u7q/b8ouN7qthY73R4BDchhGGdFh7th5Q0KZ6t89k7sE6vS2JXqxeD+N4GOvbSsgmItj+uOvvwdpBA4Vb5aPfuUzd7lubnEby4YEpOlQuTITcUzklZpL5wJr7jYntS3ZTQUb+jZERl1u25Yg/Y+Hqa8X3IA0hi/W1xzIwhdMDNqTLoCWgmTdH+avstXax0lty/RpkcSr7qE4v21MUQZH+yGNcEgdZn6OHSy2e7IZvovbmdKX4pzOp13PWKY8Fmsf57Qt/x0MiNxky/n8tkEa3khj0/NK1zRWDzsljWFdJE8ECykuayf5oJRKnB9YkiXrgOuJsWqU0b3l/LbNa1zHHXKLJ/2MNKxI4+V0epJb0+g3gbrdlYEsbL5q5weWGBUzmXc2tUiIrGlMvr0haYwBNwbf0FBhAXP9b9LuSbDoGZ9mjOsqya9nZp1it/CZqNNqsdCsbRPhjbtNUeaYztOs158iBR22begmv6/v95S5eoB0g7GGU9KQkdV+gXfboYG35e3S5SsYe5e4NjFvm04KVPupyH5BcGyndLpRCqBMYF3RtmVbOjGKELdfV/722La3edp+dwNOyDahOdLItsh1AatdEY+NVJzMVa7ruGsdJ0I3LoE0zu6h4XmMs9//qfeNIwQxR6PV4T25J7seA2l8KohS9ZpsOV5heOyd49qLMN9fT5VaXA8gy3Xvc0jDS+xhBwg0ggCk0YijMBMEvCAAaXjxBHaAQCMIQBqNOAozQcALApCGtSeERU7TBTUL1SrrdlPfYxB4NmmktgGlLcTklmlCys9y686KNFrdBn1MePpsKKSROBo8JI+tTzimDjApDm55OyQEafiMSudWQRrJfIIg/yNxDFqb+u7qODKk4Tw8fZrnlDTSit1ibsX69FCYC7JKziqS6ZuJIpWUVpABmQvUVO6FQsav62a2MoU+Oy5WXYdAc6SxT/qKBHNkGhD9wucCePTLonEh6GEo6xmqyxCMKsszPRWa7Z2JskKm8Lq+yZudItAcacSCf/s3IShjuxraYM8FcmEiVv0URUEamrR3bfuddl7MugYBP6ShlPuTRhpLotSSC7FXCA/0EFRBs60vlj+hXc+YXAxpXNPZeasNAn5IY9OexJpGjFw2kVxwg5mCNJYdlMTOyZGRRlX2FiMNm+5PLUcQaIw0NAuOiq3PCakcaWivFcjVs/GMpg05V0IaOYT4988h0CRpZEVpc9oOM575HZFQDHh/dmNZ3Mza1RfNyMbl1k9Wi6nS+/SKYxqZws91PmpuEwGnpJEAcyerJ8jrxaYxsYuiBZm+aQdiP4uY1ji2OymilF/QlOx6RoI0NDJ+3ev0pLGQ2LL+k1dMb7OrY7UVAo2RhrRe4eGLqZgWeTsRatWLqOdRCLRFGlL+hmVeR437U3kpXmysaR/PgsAbgbZIYxh790aHv1WbEZZd4YwsV0t7qQsEChFojzQKG0hxEAABWwQgDVs8qQ0Ebo8ApHF7F9NAELBFANKwxZPaQOD2CEAat3cxDQQBWwQgDVs8xxOfFreiJwyzkvtTtN1U21TxPnWRQgxKkwrVdjyw4LNJ40yNUMvOVRgw4qtzR9q7B72eLynEANKw64CQxpkaoXZ+s6lJQxrdm25wkhXSsOkyXS2QxskaoXauM6hJSxo9b7wP1MVydwzMOKMKSMMOZaekkdHEiJwK3Z0I9aIROtsRS3D7eu1uWfeqEZojGMlu8TlJpnF12jdGUkqd1GlatT05TDKeBXW0Rxq5zisMpy/VCNXqcsy2vwMneS5eoafRHbU31Qg9qm0q6JMGU559lnDquoh+seX1+y3gFFGNZ6RhQRdDHe2RRnZ+7VQjdO7IimzYrH8VpPEBjdDDU5Ss0LMwskx+ICQM4n+HNLKdSl3AD2koNULnL8yYtCbrXeyT2rrGbsprRi0vO43QRQ+jdpjcGGmMGIY6rrMvhCS/tHK7hMHgr7BfQBpqTsgW9EMaG1N1Op/L1QLrtQHds/3rFKRhqRG62Ft7juNC0jiYTtwH7TT6CTVVIY1soHoq0DRpTEDGrjAwkd7TrkUoyGc9Zz88zJ97zhWkUaltuiKG/YExy+lJvK6BsGtHeJ5C9zpbbkAakQDyphG6OyCVUBrzqhGaI8as3RPp/L6nD/uRlnhvrrjNKxNnSBDZy66ui78m3+yUNGQsozqZsSGzF41Q6eSiFGRONUKzo6MsafSHPQbxJGGKs/NtpJxOJ3XaeRnWtfq1lMJrJpqM5pOMbo40TsLlwGssdkUOvPaMR7I7VmcYwTu8IABpWHoipRFq+Z4z6/Kae3ImBrxrgwCkYd0hxJ0A6xedU5/bLNdzms9bIghAGnQLEACBIgQgjSK4KAwCIABp0AdAAASKEIA0iuCiMAiAAKRh3QfOuCypULXKuonU92wEnk0a4inHdFp2/Ob4riMl8l4sty6tSCN3yvPZsUHrBQQgDUm5SzpzIQa/4nCXt0NSkAbEcAABSKNII1SWvdOmXmePYx9w4uFHII3D0D35QaekkU5vF/MP1rkKJnJ/QWJZZjqzk+6L9axcoHqV+3tylND2DQLNkcZeFk7SmtxmUh6V+1OltOeIYAP5Udm8dSWK1HhzuT8iBwQGBJojjVjwx/Q0dl/92K6GKtgnjcvv13ckpbtHsTCDsn6KoiCND8j9ETQg4Is0lHJ/0kgjlJLbqlAv0n/lcn8TKeRSuvUCL5AGwdcyAs2NNGZNhlEjdK/PYCv3Nzg3rjs5O/7ISOOgbN7wTkYaLQdd67Y3RhoayTnF1ufkNdX0REEa6nqWgFctmoq9C9JoPfBatr9J0sjqf5rI/a3dmhlpZL78mw6SIxiNApbVSGNSWq8a9bTc/bH9CAJOSSPRlHArdZ6mBGsKlXJ/WwtypNEJm7/VtqWF0lVl2fUMp3J/RzoXz9wTgcZIQ1qvSAj1nuY3xbTI24nQ07DhRXdCoC3SkI5wW+Z11Hg3Jffnxcaa9vEsCLwRaIs0+jXJUdF6vXuSvPn9ZD+fkeV6cpN4HQisEWiPNPAfCIDApQhAGpfCz8tBoD0EII32fIbFIHApApDGpfDzchBoDwFIoz2fYTEIXIoApGEN/xmXJVnJ/Sna7vaypEIMtCJJCkgeX+TZpHGmRqhlVysMGPHVuSPt3YNez5cUYgBp2HVASONMjVA7v9nUpCGN7k03OMkKadh0ma4WSONkjVA71xnUpCWNnjfeeiKBsI+BBadVAWnYQe2UNDKaGJFTobtETS8aoaOt+0RSoY1eNUJzBCPZLT4nyTQugklRkgp9L2XoRhMb9UJJdiF2v5raI41c5xWG09dphAqJbJJwj1VqvLlG6FFt00ku8fed0L/6CaY8+yzh9N0zSSGiCFEz0rAjr/ZIIzu/Fjr3hRqhYkAc1rG4RoTn8BQl4rNtXcKoK/mBkDCI/x3SuCNpKDVC5y/MmLAmDft9aYQGQVG9LdsYaexungv0SUQ8UqMbCYO49gmkcUfS2LRJp/M5XI84/IbCwio5Pc1Up7erXiN0/WXtO/DhUUa/D/r6/ZaFjmMjgmjQqNs/OKev96Dd/funhdRwagZp2EX0CTW1Nz2JgBK7wkDVudVBkyENTT1zYHQBv72TpdzPV5CGRp810ZIVMewPjFlOT+J1DR8YFkLL+9r+iRuQRiSAXGqETgt7ma1Lq4VQzb0nJRqhOWLM2j2Rzu/rJyKLuL9UW1hAnfuwTJwhQSwjUkjjxqQhNy16JWNsyOxRI1Tcfg13FeLTAPE6yiAI1dOTfqbz+74EarXNKXyNs4ugWdLo5zfDdFKY4uzaFymnw2BF0NPUtfCaCYvgumsdTkcaLcKt1Qht8GuX3bFq0V/YfBQBSOMocrHnFBqhB9cRLa0sq8tr7klZKyhtiACkYQhmX1WwE7AeTjdHGOOOiWonyhpH6nOLAKTh1jUYBgI+EYA0fPoFq0DALQKQhlvXYBgI+EQA0vDpF6wCAbcIQBpXuKY690RpdKG6lbJWH8VOahtyh3t3P5s0UqccpVOl87bq75D/kToMFb0QWpdXYxKZFoGVOwlqYuiBSs5qm9ct58L2WybsQRpFyl2BxoN0LkPsaIoDYAfi56OPeCUNi0Zr23aDw22QhkWH6erIdppAXSpyDHyfMyFL41k6zgqCbD1ZjLI1+C1Q0LbsMXq/rewts+x7TkcaXuT+3mjPRBGRp+vdEfxd7IiJLNE5/2N7xHw6GLY7XJXL81BI4s1p7puyS/atnONRmC0q5tsckDvs4Q4uAI+cmPtI23IEI/lEfE7oT2H7Ql1WRftHlghyigr9liDB9kgj57y5Y23Tz4/K/Q3VTQld8byRtTKX+EXK2R1OdVJz6RxpzA7PZYKuM26FrNKc3dkv7CfkDvtvp6gpMvtrDjiLtn1W7nAZDaz7bUryMDHV/bDcYXukkZ1fWsv9rb5u4jnwqVN+v9ld0MrQZFnOzrZa+8gEliZ9vpo0pqFxJBiqztWf37bDU5RIn93XVaopcp3coR/SiKWyr1O25w62TXv+vNzfOIwU5QXHT60q7Tuf4bpMC/Jlsx/53Nf4JNKYpnDzNMtky7kh0sjJHc7ra7EPjjTCuU7u0A9pbCJAty15htzfstCZGiouaxvix1Mz0thMhWrVvRRD+NNIY7s4XC93eE3bPiZ3CGmkv386ltKRxvSmj8n9lawz5HREFcN81dpIfnixKnH+11g0z1Tu8ArS+KTc4fLR2S16ZxbW94JGn5c71MVwhgdK+rHuhSWk8Sm5v/jIIrbFOrQ/oyOaEQPe35kq7dZo1lgmjxiQhlIScJ5W5dZ9NvexRHqO1SKvZhSlbFtvZY70s3an5Q77HtQvuEfWfqI32+UWgpfpbW4hvyR+u7K6GD6dNOQXniX3NwEtr5mEaw450ogtCI7tlE73SR1RtX6ylvCb/nvpkOaSgPOaVGJaJW6/rvztsW1TQKeupcySho7sc5KHHuQOmyONUlb0Vd5qV8RXqwZrcms+U9BYLPCe3P7sjt3J9lz8OkjjbAekJAHPtsXyfeOXVlT5yg3vLW2xrMtr7ollGwvrgjQKATMpbrLlaGKJQSXLlnRsOQO5QwOInVUBaThzCOaAgHcEIA3vHsI+EHCGAKThzCGYAwLeEYA0vHsI+0DAGQKQRqECkon/hIVQpOVM0KWSDyMAaViQRtF2YuK0q9ftvUKMLAVfPtz/qf4AApDGAdB2j6hJQ3G46wYHiSANi07ltw5Iw8I3StLQBtNh3QaLthjUoW2nwauo4gIEnJKGPITPSbn1GM5p6FvtjU1GoEI2LfeuMkm8gizJHAml8hxK5OUakJa7ICZ4ZQaBNkmjF8QJs/hWOQ2rYNgKv3y99qcWc9mCRpJ4OSLYOOqotFxXiSBtF0x71mn4w6t9SssRwf4QaJQ0gqSnMCCj2ZTS6MUgfVxDCEoRnqmLVE1RsvJy7UjL+QsZLPJDGkq5v3gwBUFQtJh4DmmUzvOrSCMnLyfmvviTliNE/SHghzQ22GTWNHa6BoGWhUPSWNZZdJ2gRlqun2z8fr++JpzCUQ6koXMCpaII3IM0wiDwSBqaKczsooJFU6ljrzDZHxqzmp58XlqOuPWHwA1IIyKLdzZpqGTjFGc0pv6RIxiNStS4sPn9+/v6iVyr0Iq0nL+QwSKnpCE7Zq1A3hnf/cZvIEureWtk06wl8fY7FvF2ZtczVKTxrrtUOi/YWtJgtOy6rHxRuOhLGLaFQJukkdJqdI2/YrRRNEpy3ViMuykCkMbZjk3J/XnNPTkbI97nGgFI4wr3tJblegVGvNMtAs2RhlskMQwEHoIApPEQR9NMELBCANKwQpJ6QOAhCEAaD3E0zQQBKwQgDSskqQcEHoIApPEQR9NMELBCANKwQpJ6QOAhCEAaD3E0zQQBKwROJ41//vmnzxfhFwzoA232gS6Ga3++aivgeRAAgWchAGk8y9+0FgSqEYA0qiGkAhB4FgKQxrP8TWtBoBoBSKMaQioAgWchAGk8y9+0FgSqEYA0qiGkAhB4FgKQxrP8TWtBoBoBSKMaQioAgWchAGk8y9+0FgSqEYA0qiGkAhB4FgKQxrP8TWtBoBoBSKMaQioAgWch8D9DOHue4UcfOAAAAABJRU5ErkJggg==" alt="ClassDiagram_PointInheritance.png">
+<p class="">Let us revise the basics of OOP with an example of modeling 2D points with integer coordinates (x, y) in a class called <code class="">Point</code>, as shown in the class diagram.</p>
+
+<h5 class="float-clear">Header File: <span class="font-code">Point.h</span></h5>
+
+<table class="table-program">
+<colgroup class="" style=""><col class="col-line-number" style="">
+<col class="col-program" style="">
+</colgroup><tbody class="">
+<tr class="">
+<td class="">
+<pre class="text-right">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19</pre></td>
+<td class="">
+<pre class=""><span class="color-comment">/* The Point class Header file (Point.h) */</span>
+#ifndef POINT_H
+#define POINT_H
+ 
+<span class="color-comment" style=""></span>class Point {
+private:
+   int x, y; <span class="color-comment"> // Private data members</span>
+ 
+public:
+   Point(int x = 0, int y = 0); <span class="color-comment">// Constructor with default arguments</span>
+   int getX() const; <span class="color-comment"> // Getter</span>
+   void setX(int x); <span class="color-comment"> // Setter</span>
+   int getY() const;
+   void setY(int y);
+   void setXY(int x, int y);
+   void print() const;
+};
+ 
+#endif</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+<h5 class="float-clear">Implementation File: <span class="font-code">Point.cpp</span></h5>
+
+<table class="table-program">
+<colgroup class="" style=""><col class="col-line-number" style="">
+<col class="col-program" style="">
+</colgroup><tbody class="">
+<tr class="">
+<td class="">
+<pre class="text-right">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22</pre>
+</td>
+<td class="">
+<pre class=""><span class="color-comment">/* The Point class Implementation file (Point.cpp) */</span>
+#include "Point.h"
+#include &lt;iostream&gt;
+using namespace std;
+ 
+<span class="color-comment">// Constructor - The default values are specified in the declaration</span>
+Point::Point(int x, int y) : x(x), y(y) { }
+ 
+<span class="color-comment">// Getters</span>
+int Point::getX() const { return x; }
+int Point::getY() const { return y; }
+ 
+<span class="color-comment">// Setters</span>
+void Point::setX(int x) { this-&gt;x = x; }
+void Point::setY(int y) { this-&gt;y = y; }
+ 
+<span class="color-comment">// Public Functions</span>
+void Point::setXY(int x, int y) { this-&gt;x = x; this-&gt;y = y; }
+ 
+void Point::print() const {
+   cout &lt;&lt; "Point @ (" &lt;&lt; x &lt;&lt; "," &lt;&lt; y &lt;&lt; ")";
+}</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+<h5 class="float-clear">A Test Driver: <span class="font-code">TestPoint.cpp</span></h5>
+
+<table class="table-program">
+<colgroup class="" style=""><col class="col-line-number" style="">
+<col class="col-program" style="">
+</colgroup><tbody class="">
+<tr class="">
+<td class="">
+<pre class="text-right">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72</pre>
+</td>
+<td class="">
+<pre class=""><span class="color-comment">/* A test driver program (TestPoint.cpp) */</span>
+#include "Point.h"
+#include &lt;iostream&gt;
+using namespace std;
+ 
+int main() {
+  <span class="color-comment"> // Instances (Objects)</span>
+   Point p1;      <span class="color-comment"> // Invoke default constructor</span>
+                  <span class="color-comment"> // OR Point p1 = Point(); NOT Point p1();</span>
+   Point p2(2, 2);<span class="color-comment"> // Invoke constructor</span>
+                  <span class="color-comment"> // OR Point p2 = Point(2, 2);</span>
+   p1.print();    <span class="color-comment"> // Point @ (0,0)</span>
+   cout &lt;&lt; endl;
+   p2.print();    <span class="color-comment"> // Point @ (2,2)</span>
+   cout &lt;&lt; endl;
+ 
+  <span class="color-comment"> // Object Pointers with dynamic allocation</span>
+   Point * ptrP3, * ptrP4;<span class="color-comment"> // Declare two Point pointers</span>
+   ptrP3 = new Point();   <span class="color-comment"> // Dynamically allocate storage via new</span>
+                          <span class="color-comment"> // with default constructor</span>
+   ptrP4 = new Point(4, 4);
+   ptrP3-&gt;print(); <span class="color-comment"> // Point @ (0,0)</span>
+                   <span class="color-comment"> // prtPoint1-&gt;print() is the same as (*ptrP3).print()</span>
+   cout &lt;&lt; endl;
+   ptrP4-&gt;print(); <span class="color-comment"> // Point @ (4,4)</span>
+   cout &lt;&lt; endl;
+ 
+   delete ptrP3;   <span class="color-comment"> // Remove storage via delete</span>
+   delete ptrP4;
+ 
+  <span class="color-comment"> // Object Reference (Alias)</span>
+   Point &amp; p5 = p2;<span class="color-comment"> // Reference (alias) to an existing object</span>
+   p5.print();     <span class="color-comment"> // Point @ (2,2)</span>
+   cout &lt;&lt; endl;
+ 
+   <span class="color-comment">/********************
+    * ARRAYS           *
+    ********************/</span>
+ 
+  <span class="color-comment"> // Array of Objects - Static Memory Allocation</span>
+   Point ptsArray1[2];    <span class="color-comment"> // Array of Point objects</span>
+                          <span class="color-comment"> // Use default constructor for all elements of the array</span>
+   ptsArray1[0].print();  <span class="color-comment"> // Point @ (0,0)</span>
+   cout &lt;&lt; endl;
+   ptsArray1[1].setXY(11, 11);
+   (ptsArray1 + 1)-&gt;print();<span class="color-comment"> // Point @ (11,11)</span>
+                            <span class="color-comment"> // same as ptsArray1[1].print()</span>
+   cout &lt;&lt; endl;
+ 
+   Point ptsArray2[3] = {Point(21, 21), Point(22, 22), Point()};
+                          <span class="color-comment"> // Initialize array elements via constructor</span>
+   ptsArray2[0].print();  <span class="color-comment"> // Point @ (21,21)</span>
+   cout &lt;&lt; endl;
+   (ptsArray2 + 2)-&gt;print();<span class="color-comment"> // Point @ (0,0)</span>
+                            <span class="color-comment"> // same as ptsArray2[2].print()</span>
+   cout &lt;&lt; endl;
+ 
+  <span class="color-comment"> // Array of Object Pointers - Need to allocate elements dynamically</span>
+   Point * ptrPtsArray3 = new Point[2];
+   ptrPtsArray3[0].setXY(31, 31);
+   ptrPtsArray3-&gt;print(); <span class="color-comment"> // Point @ (31,31)</span>
+                          <span class="color-comment"> // same as ptrPtsArray3[0].print()</span>
+   cout &lt;&lt; endl;
+   (ptrPtsArray3 + 1)-&gt;setXY(32, 32);<span class="color-comment"> // same as ptrPtsArray3[1].setXY(32, 32)</span>
+   ptrPtsArray3[1].print();          <span class="color-comment"> // Point @ (32,32)</span>
+   cout &lt;&lt; endl;
+ 
+   delete[] ptrPtsArray3;<span class="color-comment"> // Free storage</span>
+ 
+  <span class="color-comment"> // C++ does not support Array of References</span>
+<span class="color-comment">//</span> Point &amp; pts[2] = {p1, p2}; <span class="color-error"> // error: declaration of 'pts' as array of references</span>
+}</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+<p class=""><span class="line-heading">Classes:</span> A <em class="">class</em> is a <em class="">abstract</em> or <em class="">user-defined data type</em>, contrast to <em class="">built-in</em> fundamental types such as <code class="">int</code> or <code class="">double</code> <code class="" style=""></code>. A class is  represented as a three-compartment box: <em class="">name</em>, <em class="">date members</em> (or variables or attributes) and <em class="">member functions</em> (or methods, or operations). The data member and member functions are collectively called <em class="">class members</em>. The syntax of defining a class consists of two sections: <em class="">class declaration</em> and <em class="">class implementation</em>. Class declaration is further divided into two sections: <code class="">private</code> and <code class="">public</code> sections. Class implementation contains member function definitions.</p>
+
+<pre class="color-syntax"><span class="color-comment">// Class Declaration Section - in Header file</span>
+class <em class="">ClassName</em> {
+private:
+   <em class="">private-data-members</em>
+   <em class="">private-member-functions</em>
+public:
+   <em class="">public-data-members</em>
+   <em class="">public-member-functions</em>
+};  <span class="color-comment">// Class declaration must end with a semi-colon</span>
+ 
+<span class="color-comment">// Class Implementation Section - in the Implementation file</span>
+<em class="">member-function-definitions</em></pre>
+
+<p class=""><span class="line-heading">Objects (or instances):</span> An object (or instance) is a concrete realization of a class. For example, <code class="">Point</code> is a class, we can create instances (objects) <code class="">p1</code>, <code class="">p2</code>, <code class="">p3</code>, belonging to the class <code class="">Point</code>. You can invoke the constructor implicitly or explicitly as follows:</p>
+
+<pre class="color-example"><span class="color-comment">// Invoke the constructor implicitly</span>
+Point p2(1, 2);
+Point p3;   <span class="color-comment">// No empty brackets for default constructor</span>
+ 
+<span class="color-comment">// Invoke the constructor explicitly</span>
+Point p5 = Point(1, 2);
+Point p6 = Point();   <span class="color-comment">// Need empty brackets for default constructor</span></pre>
+
+<p class="">There are a few ways to use a class to create instances, as shown in the above test driver program:</p>
+<ol class="">
+<li class="">Construct instances (or objects) via constructors, either implicitly or explicitly.</li>
+<li class="">Declare object pointers, and construct the objects dynamically via <code class="">new</code> operator.</li>
+<li class="">Declare object references, and initialized to an existing object, or received as function reference argument.</li>
+<li class="">Array of objects, or Array of object pointers (dynamically allocated via <code class="">new[]</code> operator).</li>
+</ol>
+
+<p class=""><span class="line-heading">Data Members:</span> Similar to normal variables, but having so-called <em class="">class scope</em> such as <code class="">private</code> or <code class="">public</code>. The syntax of declaring a data member is the same as declaring a normal variable:</p>
+
+<pre class="color-syntax"><em class="">type</em> <em class="">variableName</em>;</pre>
+<p class="">A data member cannot be initialized (except const static data variables) in C++03.</p>
+
+<p class=""><span class="line-heading">Member Functions:</span> Again, similar to normal functions, but having class scope. The syntax of declaring a member function is the same as normal function:</p>
+<pre class="color-syntax"><em class="">returnType</em> <em class="" style=""></em><em class="">functionName</em>(<em class="">parameter-type-list</em>);</pre>
+
+<p class=""><span class="line-heading">Constant Member Functions:</span> A <code class="">const</code> member function, identified by a <code class="">const</code> keyword at the end of the member function's header, cannot modifies any data member of this object. For example,</p>
+
+<pre class="color-example">int getX() const;
+   <span class="color-comment">// This function cannot modify any data member</span></pre>
+
+<p class=""><span class="line-heading">Implementing Member Functions:</span> Member functions are usually implemented outside class declaration. You need to use the <em class="">scope resolution operator</em> <code class="">::</code> to identify <em class=""><code class="">functionName</code></em> as a member of a particular <em class=""><code class="">ClassName</code></em>.</p>
+<pre class="color-syntax"><em class="">returnType</em> <span class="color-new"><em class="">ClassName</em>::<em class="">functionName</em></span>(<em class="">parameter-list</em>) {
+   <em class="">function-body</em>;
+}</pre>
+
+<p class=""><span class="line-heading"><span class="font-code">public</span> vs. <span class="font-code">private</span> Access Specifier:</span> <code class="">private</code> members are accessible by the member functions of this class only. <code class="">public</code> members are accessible everywhere. For example, if <code class="">p1</code> is an instance of <code class="">Point</code>, <code class="">p1.getX()</code> is allowed outside the class definition (such as <code class="">main()</code>) as <code class="">getX()</code> is <code class="">public</code>. However, <code class="">p1.x</code> is not allowed in <code class="">main()</code>, as x is declared <code class="">private</code>.</p>
+
+<p class=""><span class="line-heading">Constructor:</span> A <em class="">constructor</em> is a <em class="">special function</em> having the "same name" as the classname, with no return-type. As the name implied, constructor is called each time when an instance is declared (or constructed). Constructor is used for initializing the data members of the instances created. The syntax is:</p>
+<pre class="color-syntax"><span class="color-comment">// Declare constructor inside the class declaration</span>
+class <em class="">ClassName</em> {
+   <em class="">ClassName</em>(<em class="">parameter-list</em>);   <span class="color-comment">// prototype only</span>
+}
+  
+<span class="color-comment">// Constructor implementation - identified via scope resolution operator</span>
+<em class="">ClassName</em>::<em class="">ClassName</em>(<em class="">parameter-list</em>) {
+   <em class="">function-body</em>;
+}</pre>
+
+<p class=""><span class="line-heading"> Member Initializer List</span>: used to initialize data members in the constructor. For example,</p>
+
+<pre class="color-example">Point::Point(int x, int y) <span class="color-new">: x(x), y(y)</span> { 
+   <span class="color-comment">// The body runs after the member initializer list
+</span>}</pre>
+
+<p class="">The member initializer list is placed after the function parameter list, separated by a colon. For fundamental-type data members (e.g., <code class="">int</code>, <code class="">double</code>), <code class="">x(x)</code> is the same as <code class="">this-&gt;x = x</code>. For object data members, the <em class="">copy constructor</em> will be invoked for each of the object. The function body will be executed <em class="">after</em> the  member initializer list, which is empty in this case.</p>
+
+<p class="">Alternatively, you could initialize the data members inside the constructor's body:</p>
+<pre class="color-example">Point::Point(int x, int y) {
+   <span class="color-new">this-&gt;x = x;
+   this-&gt;y = y;
+</span>}</pre>
+
+<p class="">where <code class="">this-&gt;x</code> refers to the data member <code class="">x</code>; and <code class="">x</code> refer to the function parameter <code class="">x</code>.</p>
+
+<p class="">Another alternative that avoids naming conflict, but is hard to read:</p>
+<pre class="color-example">Point::Point(int x_, int y_) {
+   <span class="color-new">x = x_;
+   y = y_;
+</span>}</pre>
+
+
+<p class=""><span class="line-heading">Default Constructor:</span> The <em class="">default constructor</em> refers to the constructor that takes no parameter - either it has no parameter or all parameters have their default value (e.g., the above <code class="">Point</code>'s constructor). If no constructor is defined in the class, the compiler inserts a default constructor that takes no argument and does nothing (i.e., <em class=""><code class="">ClassName</code></em><code class="">::<em class="">ClassName</em>() {}</code>). However, if you define one (or more) constructors, compiler will not insert the default constructor. You need to define your default constructor, if desired.</p>
+<p class=""><span class="line-heading">Function Overloading:</span> A function (including constructor) can have many versions, differentiated by its parameter list (number, types and orders of parameters). Caller can choose to invoke a particular version by matching the parameter list.</p>
+
+<p class=""><span class="line-heading">Function Default Argument:</span> In C++, default values can be assigned to <em class="">trailing</em> function's parameters. If the caller does not supply these arguments, compiler would insert the default value accordingly. For example,</p>
+
+<pre class="color-example"><span class="color-comment">// The Point class declaration (in header file "Point.h")</span>
+class Point {
+   ......
+   Point(int = 0, int = 0);
+}
+ 
+<span class="color-comment">// The Point class implementation (Point.cpp)</span>
+Point::Point(int x, int y) :  x(x), y(y) { }
+ 
+<span class="color-comment">// Test Driver (TestPoint.cpp)</span>
+Point p1;          <span class="color-comment">// (0, 0)</span>
+Point p2(4);       <span class="color-comment">// (4, 0)</span>
+Point p3(5, 6);    <span class="color-comment">// (5, 6)</span>
+</pre>
+
+<p class="">Notes:</p>
+
+<ul class="">
+<li class="">The default value can only be assigned to the trailing arguments.</li>
+<li class="">The default value shall be specified in the class declaration. I shall NOT be specified in the function implementation.</li>
+<li class="">Default argument is applicable to all functions, including constructor function.</li>
+</ul>
+
+<p class=""><span class="line-heading">Constructing Instances:</span> As mentioned, instances (or objects) are concrete realizations of a class. A constructor would be invoked when declaring an instance to initialize the instance. The syntax to declare an instance is:</p>
+<pre class="color-syntax"><em class="">ClassName</em> <em class="">instanceName</em>;     <span class="color-comment">// Invoke default constructor</span>
+<em class="">ClassName</em> <em class="">instanceName</em>(<em class="">constructor-parameter-list</em>);  <span class="color-comment">// Invoke the constructor with matching parameter list</span></pre>
+
+<p class=""><span class="line-heading">Public Getters and Setters for Private Variables:</span> Member variables are usually declared <code class="">private</code> to prevent direct access (called <em class="">data hiding</em>). Instead, <code class="">public</code> getter and setter are defined to retrieve (get) and modify (set) the <code class="">private</code> member variable. The convention is as follows:</p>
+
+<pre class="color-syntax">class ClassName {
+private:
+   <span class="color-new"><em class="">type</em> xxx;</span>  <span class="color-comment">// private variable</span>
+public:
+   <span class="color-new"><em class="">type</em> getXxx() const;</span>  <span class="color-comment">// public getter</span>
+   <span class="color-new">void setXxx(<em class="">type</em>);</span>    <span class="color-comment">// public setter (use const <em class="">type</em> if <em class="">type</em> is a class)</span>
+}
+ 
+<span class="color-comment">// Getter Implementation</span>
+<em class="">type</em> <em class="">ClassName</em>::getXxx() const { return xxx; }
+ 
+<span class="color-comment">// Setter Implementation</span>
+void <em class="">ClassName</em>::setXxx(<em class="">type</em> x) { xxx = x; }
+<span class="color-comment">// OR</span>
+void <em class="">ClassName</em>::setXxx(<em class="">type</em> xxx) { this-&gt;xxx = xxx; }</pre>
+
+<p class=""><span class="line-heading">Implementing Member Functions in Class Declaration:</span> You can include the function's implementation inside the class declaration, as follows:</p>
+
+<table class="table-program">
+<colgroup class="" style=""><col class="col-line-number" style="">
+<col class="col-program" style="">
+</colgroup><tbody class="">
+<tr class="">
+<td class="">
+<pre class="text-right">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20</pre>
+</td>
+<td class="">
+<pre class=""><span class="color-comment">/* Point with integer coords with inline functions (PointInline.h) */</span>
+#include &lt;iostream&gt;
+using namespace std;
+ 
+<span class="color-comment">// Class Declaration with inline implementation</span>
+class Point {
+private:
+   int x, y;
+ 
+public:
+   Point(int x = 0, int y = 0) : x(x), y(y) { }
+   int getX() const { return x; }
+   int getY() const { return y; }
+   void setX(int x) { this-&gt;x = x; }
+   void setY(int y) { this-&gt;y = y; }
+   void setXY(int x, int y) { this-&gt;x = x; this-&gt;y = y; }
+   void print() const {
+      cout &lt;&lt; "Point @ (" &lt;&lt; x &lt;&lt; "," &lt;&lt; y &lt;&lt; ")";
+   }
+};</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+<p class="">Functions that implemented inside the class declaration are automatically treated as <em class="">inline functions</em>. That is, they will be expanded in place by the compiler (if the compiler chooses to do so), instead of performing a more expensive function call.</p>
+
+<p class=""><span class="line-heading">Dot (<code class="">.</code>) Member Selection Operator:</span> Dot operator (<code class="">.</code>) is used to access <code class="">public</code> class members, in the form of <em class=""><code class="">instanceName.memberName</code></em>, e.g., <code class="">point1.getX()</code>, <code class="">point2.print()</code>.</p>
+
+<p class=""><span class="line-heading">Arrow (<code class="">-&gt;</code>) Member Selection Operator:</span> Arrow operator (<code class=""><code class="">-&gt;</code></code>) is used with object pointer. Suppose <code class="">*pObj</code> is a pointer to an object, instead of using <code class="">(*pObj).member</code> to select a member, it is more convenient to use the arrow notation, in the form of <code class="">pObj-&gt;member</code>.</p>
+
+<p class=""><span class="line-heading">Memberwise Assignment:</span> The assignment operator (<code class="">=</code>) can be used to assign one object into another object (of the same class), in <em class="">memberwise</em> manner. For example,</p>
+<pre class="color-example">Point p1(4, 5);
+Point p2 = p1;   <span class="color-comment">// Also (4, 5)</span></pre>
+                   
+<p class="">(Note: The compiler automatically generates an implicit assignment operator <code class="">operator=()</code>, which performs memberwise copying.)</p>
+
+<p class=""><span class="line-heading">Passing Objects into Function:</span> Objects are <em class="">passed by value</em> into function. A copy is created (via memberwise assignment) and passed into the function. The caller's copy cannot be modified inside the function.</p>
+<p class=""><em class="">Pass by reference</em> can be archived by passing an object pointer or an object reference.</p>
+
+<p class=""><span class="line-heading">Object Pointer and Dynamic Allocation:</span> To allocate an instance of a class dynamically, define an object pointer and use <code class="">new</code> operator to allocate the storage. The <code class="">new</code> operator return a pointer pointing to the storage allocated. You could use arrow operator <code class="">-&gt;</code> to access the members with object pointer in the form of <code class="">pObj-&gt;member</code> (same as <code class="">(*pObj).member</code>). You need to use the <code class="">delete</code> operator to free the allocated storage.</p>
+<p class="">Similarly, you can use <code class="">new[]</code> and <code class="">delete[]</code> to dynamically allocate array of objects.</p>
+
+<table class="table-program">
+<colgroup class="" style=""><col class="col-line-number" style="">
+<col class="col-program" style="">
+</colgroup><tbody class="">
+<tr class="">
+<td class="">
+<pre class="text-right">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27</pre>
+</td>
+<td class="">
+<pre class=""><span class="color-comment">/* A test driver for Dynamic Allocation (TestDynamicAllocation.cpp) */</span>
+#include "Point.h"
+#include &lt;iostream&gt;
+using namespace std;
+ 
+int main() {
+  <span class="color-comment"> // Object Pointers with dynamic allocation</span>
+   <span class="color-comment"><span class="color-new">Point * ptrP1;
+   ptrP1 = new Point();</span> // Dynamically allocate storage via new</span>
+                       <span class="color-comment"> // with default constructor</span>
+   ptrP1-&gt;print();     <span class="color-comment"> // Point @ (0,0)</span>
+   cout &lt;&lt; endl;
+ 
+   <span class="color-new">Point * ptrP2 = new Point(2, 2);</span> <span class="color-comment"> // with constructor</span>
+   ptrP2-&gt;print(); <span class="color-comment"> // Point @ (0,0)</span>
+   cout &lt;&lt; endl;
+ 
+   <span class="color-new">delete ptrP1;</span>   <span class="color-comment"> // Remove storage via delete</span>
+   <span class="color-new">delete ptrP2;</span>
+ 
+  <span class="color-comment"> // Array of Dynamic Objects</span>
+   <span class="color-new">Point * ptrPtsArray = new Point[2];</span>
+   ptrPtsArray[1].setXY(31, 31);
+   ptrPtsArray[1].print(); <span class="color-comment"> // Point @ (31,31)</span>
+   cout &lt;&lt; endl;
+   <span class="color-new">delete[] ptrPtsArray;</span>   <span class="color-comment"> // Free storage for entire array</span>
+}</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+<p class=""><span class="line-heading">Object Reference:</span> You can create an object reference to an existing object. A reference is similar to a pointer, but it is a name constant that is referenced and de-reference implicitly by the compiler.</p>
+
+<pre class="color-example">Point p1(1, 2);   <span class="color-comment">// Construct an object</span>
+Point &amp; p2 = p1;  <span class="color-comment">// p2 is an alias to p1</span></pre>
+
+<p class="">Object references are useful in passing object into function by reference (by default, objects are passed into function by value).</p>
+
+<p class=""><span class="line-heading">Destructor:</span> Similar to constructor, a <em class="">destructor</em> has the same name as the classname, but preceded with a tilde (<code class="">~</code>). The destructor is called automatically when the instance expires. It has no-argument, no return type. There can be only one destructor in a class. If there is no destructor defined, the compiler supplies a destructor that does nothing.</p>
+
+<p class="">Destructor shall do the clean up, in particular, the dynamically allocated memory. If the constructor uses <code class="">new</code> to dynamically allocate storage, the destructor should <code class="">delete</code> them.</p>
+
+<h3 class="">2.&nbsp;&nbsp;Inheritance<a id="zz-2." class="" style=""></a></h3>
+
+<h4 class="">2.1&nbsp;&nbsp;Terminology<a id="zz-2.1" class="" style=""></a></h4>
+
+<p class=""><span class="line-heading">Superclass (Base Class) &amp; Subclass (Derived Class):</span> In OOP, we could organize classes in <em class="">hierarchy</em> to avoid redundancy. We can extend a subclass (or derived class) from a superclass (or base class). The subclass <em class="">inherits</em> the members of the superclass, known as <em class="">inheritance</em>.</p>
+<p class="">The syntax for deriving a subclass from a superclass is as follows:</p>
+
+<pre class="color-syntax">class <em class="">SubclassName</em> : <em class="">inheritance-access-specifier</em> <em class="">SuperclassName</em> {
+   ......
+};</pre>
+
+<p class="">The subclass inherits all the members of the superclass. The subclass shall define its own constructor(s). It may define additional members (data or functions).</p>
+
+<p class=""><span class="line-heading">Access Specifier:</span> C++ supports three access specifier: <code class="">private</code>, <code class="">public</code> and <code class="">protected</code>. A <code class="">private</code> member is accessible within the class by member functions and by <em class="">friends</em> of that class. A <code class="">public</code> member is accessible by all. A <code class="">protected</code> member can be accessed by itself and its friend, as well as its subclasses and their friends.</p>
+<p class=""> To access a superclass's member explicitly, you could use the scope resolution operator in the form of <code class=""><em class="">superclassName</em>::<em class="">memberName</em></code>.</p>
+<p class=""><span class="line-heading">Inheritance Access Specifier:</span> It specifies the type of inheritance: <code class="">public</code>, <code class="">private</code> or <code class="">protected</code>. The most commonly used is <code class="">public</code>-inheritance. In this case, the inherited members in the subclass  have the same visibility as the superclass. There is no further restriction. In other words, <code class="">public</code> members in the superclass becomes <code class="">public</code> members in the derived class; <code class="">protected</code> members in the base class become <code class="">protected</code> member in the derived class. In this case, every subclass object is also a superclass object (known as <em class="">is-a</em> relationship), and can be substituted for a superclass reference.</p>
+<p class=""><code class="">private</code>- and <code class="">protected</code>-inheritance, which are rarely used, may further restrict the access of the inherited members (equal or lower than the access in superclass). In <code class="">protected</code>-inheritance, <code class="">public</code> and <code class="">protected</code> members in the base class become <code class="">protected</code> members in the derived class. In <code class="">private</code>-inheritance, <code class="">public</code> and <code class="">protected</code> members in the base class become <code class="">private</code> member in the derived class. Take note the <code class="">private</code> members in the superclass cannot be directly accessed in the subclass; while <code class="">protected</code> members can be directly accessed.</p>
+
+<h4 class="">2.2&nbsp;&nbsp;Example: Superclass <span class="font-code">Point</span> and subclass <span class="font-code">MovablePoint</span><a id="zz-2.2" class="" style=""></a></h4>
+
+<p class="" style=""><img class="image-float-left" src="data:image/png;base64,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" alt="ClassDiagram_MovablePoint.png"></p>
+
+<p class="">[TODO] Description</p>
+
+<h5 class="float-clear">Superclass <span class="font-code">Point.h</span>, <span class="font-code">Point.cpp</span></h5>
+
+<p class="">No change.</p>
+
+<h5 class="">Subclass Header: <span class="font-code">MovablePoint.h</span></h5>
+
+<table class="table-program">
+<colgroup class="" style=""><col class="col-line-number" style="">
+<col class="col-program" style="">
+</colgroup><tbody class="">
+<tr class="">
+<td class="">
+<pre class="text-right">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21</pre>
+</td>
+<td class="">
+<pre class=""><span class="color-comment">/* Header for Moving 3D Points with int coords (MovablePoint.h) */</span>
+#ifndef MOVING_POINT_H
+#define MOVING_POINT_H
+ 
+#include "Point.h"  <span class="color-comment"> // Include header of the base class</span>
+ 
+class MovablePoint <span class="color-new">: public Point</span> {<span class="color-comment"> // MovablePoint is a subclass of Point</span>
+private:
+   int xSpeed, ySpeed;
+ 
+public:
+   MovablePoint(int x, int y, int xSpeed = 0, int ySpeed = 0);
+   int getXSpeed() const;
+   int getYSpeed() const;
+   void setXSpeed(int xSpeed);
+   void setYSpeed(int ySpeed);
+   void move();
+   void print() const;
+};
+ 
+#endif</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+<h5 class="">Subclass Implementation: <span class="font-code">MovablePoint.cpp</span></h5>
+
+<table class="table-program">
+<colgroup class="" style=""><col class="col-line-number" style="">
+<col class="col-program" style="">
+</colgroup><tbody class="">
+<tr class="">
+<td class="">
+<pre class="text-right">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29</pre>
+</td>
+<td class="">
+<pre class=""><span class="color-comment">/* Implementation for Moving 3D Points with int coords (MovablePoint.cpp) */</span>
+#include &lt;iostream&gt;
+#include "MovablePoint.h"<span class="color-comment"> // Include header containing the class declaration</span>
+using namespace std;
+ 
+MovablePoint::MovablePoint(int x, int y, int xSpeed, int ySpeed)
+      : Point(x, y), xSpeed(xSpeed), ySpeed(ySpeed) { }
+ 
+<span class="color-comment">// Getters</span>
+int MovablePoint::getXSpeed() const { return xSpeed; }
+int MovablePoint::getYSpeed() const { return ySpeed; }
+ 
+<span class="color-comment">// Setters</span>
+void MovablePoint::setXSpeed(int xs) { xSpeed = xs; }
+void MovablePoint::setYSpeed(int ys) { ySpeed = ys; }
+ 
+<span class="color-comment">// Functions</span>
+void MovablePoint::print() const {
+   cout &lt;&lt; "Movable";
+   <span class="color-comment"><span class="color-new">Point::print();</span> // Invoke base class function via scope resolution operator</span>
+   cout &lt;&lt; " Speed=" &lt;&lt; "(" &lt;&lt; xSpeed &lt;&lt; "," &lt;&lt; ySpeed &lt;&lt; ")";
+}
+ 
+void MovablePoint::move() {
+  <span class="color-comment"> // Subclass cannot access private member of the superclass directly</span>
+  <span class="color-comment"> // Need to go thru the public interface</span>
+   Point::setX(Point::getX() + xSpeed);
+   Point::setY(Point::getY() + ySpeed);
+}</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+<p class="">Notes:</p>
+<ul class="">
+<li class="">When the subclass construct its instance, it must first construct a superclass object, which it inherited.</li>
+<li class="">The subclass does not have direct access to superclass' <code class="">private</code> members <code class="">x</code>, and <code class="">y</code>. To initialize these inherited members, the subclass constructor invokes the superclass constructor, which is <code class="">public</code>, in the <em class="">member initializer list</em>.</li>
+<li class="">You need to use the <em class="">member initializer list</em> (<code class="">: Point(x, y)</code>) to invoke the superclass <code class="">Point</code>'s constructor to initialize the superclass, before initializing the subclass. Object data member can only be initialized via member initializer list.</li>
+<li class="">If you did not explicitly invoke the superclass' constructor, the compile implicitly invoke the superclass' default constructor to construct a superclass object.</li>
+<li class="">To use the superclass members, use scope resolution operator in the form of <code class=""><em class="">SuperclassName</em>::<em class="">memberName</em></code>. For example, <code class="">Point::print()</code>, <code class="">Point::getX()</code>.</li>
+</ul>
+
+<h5 class="">A Test Driver: <span class="font-code">TestMovablePoint.cpp</span></h5>
+
+<table class="table-program">
+<colgroup class="" style=""><col class="col-line-number" style="">
+<col class="col-program" style="">
+</colgroup><tbody class="">
+<tr class="">
+<td class="">
+<pre class="text-right">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25</pre>
+</td>
+<td class="">
+<pre class=""><span class="color-comment">/* Test Driver Program for MovablePoint (TestMovablePoint.cpp) */</span>
+#include &lt;iostream&gt;
+#include "MovablePoint.h" <span class="color-comment"> // included "Point.h"</span>
+using namespace std;
+ 
+int main() {
+   Point p1(4, 5); <span class="color-comment"> // superclass</span>
+   p1.print();     <span class="color-comment"> // Point @ (4,5)</span>
+   cout &lt;&lt; endl;
+ 
+   MovablePoint mp1(11, 22);<span class="color-comment"> // subclass, default speed</span>
+   mp1.print();      <span class="color-comment"> // MovablePoint @ (11,22) Speed=(0,0)</span>
+   cout &lt;&lt; endl;
+   mp1.setXSpeed(8);
+   mp1.move();
+   mp1.print();      <span class="color-comment"> // MovablePoint @ (19,22) Speed=(8,0)</span>
+   cout &lt;&lt; endl;
+ 
+   MovablePoint mp2(11, 22, 33, 44);
+   mp2.print(); <span class="color-comment"> // MovablePoint @ (11,22) Speed=(33,44)</span>
+   cout &lt;&lt; endl;
+   mp2.move();
+   mp2.print(); <span class="color-comment"> // MovablePoint @ (44,66) Speed=(33,44)</span>
+   cout &lt;&lt; endl;
+}</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+<p class="">To compile/link (aka build) the program:</p>
+<pre class="color-command"><span class="color-comment">// Compile Point.cpp (with Point.h) into object code Point.o
+// -c option specifies compile-only</span>
+&gt; <strong class="">g++ -c Point.cpp</strong>
+ 
+<span class="color-comment">// Compile MovablePoint.cpp (with MovablePoint.h) into object code MovablePoint.o
+// Does not require Point.o for compilation (but needed in linkage)</span>
+&gt; <strong class="">g++ -c MovablePoint.cpp</strong>
+ 
+<span class="color-comment">// Compile and link TestMovablePoint.cpp with object files into executable file</span>
+&gt; <strong class="">g++ -o TestMovablePoint.exe TestMovablePoint.cpp MovablePoint.o Point.o</strong></pre>
+
+<h4 class="">2.3&nbsp;&nbsp;Example: <span class="font-code">Point</span> and <span class="font-code">MovablePoint</span> with <span class="font-code">protected</span> Data Members<a id="zz-2.3" class="" style=""></a></h4>
+
+<p class="">Recall that a <code class="">private</code> data member in the superclass is not accessible in the subclass. For example, in the function <code class="">move()</code> of <code class="">MovablePoint</code>, you cannot reference <code class="">x</code> of superclass <code class="">Point</code> directly.</p>
+
+<pre class="color-example">void MovablePoint::move() {
+   <span class="color-new">x += xSpeed;</span>     <span class="color-comment">// error: 'int Point::x' is private</span>
+<span class="color-comment">//   Point::setX(Point::getX() + xSpeed);</span>
+   Point::setY(Point::getY() + ySpeed);
+}</pre>
+
+<p class="">However, if we make <code class="">x </code><code class="">protected</code> instead of <code class="">private</code>, the subclass can access <code class="">x</code> directly.</p>
+
+<pre class="color-example"><span class="color-comment">// Superclass Point</span>
+class Point {
+<span class="color-new">protected:
+   int x, y;</span>
+......
+};   
+
+<span class="color-comment">// Subclass MovablePoint</span>
+class MovablePoint : <span class="color-new">public</span> Point {
+   ......
+}
+ 
+void MovablePoint::move() {
+   <span class="color-new">x += xSpeed;
+   y += ySpeed;
+</span>}</pre>
+
+<p class="">[TODO] more examples</p>
+
+<h3 class="">3.&nbsp;&nbsp;Polymorphism<a id="zz-3." class="" style=""></a></h3>
+
+<p class="">Polymorphism works on object pointers and references using so-called dynamic binding at run-time. It does not work on regular objects<code class="" style=""></code>, which uses static binding during the compile-time.</p>
+
+<p class="">We typically allocate object dynamically via the <code class="">new</code> operator and manipulate the return pointer in polymorphism. Recall that we can dynamically allocate objects for the <code class="">Point</code> and <code class="">MovablePoint</code> classes as follows:</p>
+
+<pre class="color-example">Point * p1 = <span class="color-new">new</span> Point(1, 2);  <span class="color-comment">// Allocate a Point instance dynamically</span>
+p1-&gt;print();                   <span class="color-comment">// Invoke function via -&gt;</span>
+<span class="color-new">delete</span> p1;                     <span class="color-comment">// Free storage</span>
+
+MovablePoint * mp1 = <span class="color-new">new</span> MovablePoint(1, 2, 3, 4);
+mp1-&gt;print();
+mp1-&gt;move();
+<span class="color-new">delete</span> mp1;</pre>
+
+<h4 class="">3.1&nbsp;&nbsp;Substitution<a id="zz-3.1" class="" style=""></a></h4>
+<p class="">A subclass instance inherits all the properties of the superclass, in the case of <code class="">public</code>-inheritance. It can do whatever a superclass instance can do. This is known as a "<em class="">is-a</em>" relationship. Hence, you can substitute a subclass instance to a superclass reference.</p>
+
+<h5 class="">Example</h5>
+
+<p class="">Using the above example of superclass <code class="">Point</code> and subclass <code class="">MovablePoint</code>,</p>
+
+<table class="table-program">
+<colgroup class="" style=""><col class="col-line-number" style="">
+<col class="col-program" style="">
+</colgroup><tbody class="">
+<tr class="">
+<td class="">
+<pre class="text-right">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29</pre>
+</td>
+<td class="">
+<pre class=""><span class="color-comment">/* Test Substituting a subclass instance to a superclass reference
+   (TestSubstitution.cpp) */</span>
+#include &lt;iostream&gt;
+#include "MovablePoint.h"  <span class="color-comment"> // included "Point.h"</span>
+using namespace std;
+ 
+int main() {
+  <span class="color-comment"> // Substitute a subclass instance to a superclass reference</span>
+ 
+  <span class="color-comment"> // Using Object Pointer</span>
+   <span class="color-new">Point * ptrP1 = new MovablePoint(11, 12, 13, 14);</span>  <span class="color-comment"> // upcast</span>
+   <span class="color-comment"><span class="color-new">ptrP1-&gt;print();</span> // Point @ (11,12) - Run superclass version!!</span>
+   cout &lt;&lt; endl;
+<span class="color-comment">// ptrP1-&gt;move(); <span class="color-comment"> // error: 'class Point' has no member named 'move'</span></span>
+   delete ptrP1;
+ 
+  <span class="color-comment"> // Using Object Reference</span>
+   MovablePoint mp2(21, 22, 23, 24);
+   <span class="color-new">Point &amp; p2 = mp2;</span> <span class="color-comment"> // upcast</span>
+   <span class="color-new">p2.print();</span>    <span class="color-comment"> // Point @ (21,22) - Run superclass version!!</span>
+   cout &lt;&lt; endl;
+<span class="color-comment">// p2.move();     <span class="color-comment"> // error: 'class Point' has no member named 'move'</span></span>
+ 
+  <span class="color-comment"> // Using object with explicit constructor</span>
+   <span class="color-new">Point p3 = MovablePoint(31, 32, 33, 34);</span> <span class="color-comment"> // upcast</span>
+   <span class="color-new">p3.print();</span>    <span class="color-comment"> // Point @ (31,32) - Run superclass version!!</span>
+   cout &lt;&lt; endl;
+<span class="color-comment">// p3.move();     <span class="color-comment"> // error: 'class Point' has no member named 'move'</span></span>
+}</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+<p class="">Once substituted, it can invoke all the functions defined in the superclass, but CANNOT invoke functions defined in the subclass. This is because the reference is a superclass reference, which is not aware of subclass members.</p>
+
+<h4 class="">3.2&nbsp;&nbsp;Polymorphism<a id="zz-3.2" class="" style=""></a></h4>
+<ol class="">
+<li class="">A subclass instance can be substituted for a superclass reference.</li>
+<li class="">Once substituted, only the superclass' functions can be called, no the subclass'.</li>
+<li class="">If the subclass overrides a superclass function. We wish to run the overridden version in the subclass, instead of the superclass' version (as in the previous example).</li>
+</ol>
+
+<p class=""><span class="line-heading">Virtual Functions:</span> To implement polymorphism, we need to use the keyword <code class="">virtual</code> for functions that are meant to be polymorphic. In this case, if a superclass pointer is aiming at a subclass objects, and invoke a <code class="">virtual</code> function that is overridden by the subclass, the subclass version will be invoked, instead of the superclass version.  For example,</p>
+
+<pre class="color-example"><span class="color-comment">// Point.h</span>
+class Point {
+   ......
+   <span class="color-new">virtual</span> void print() const;
+}</pre>
+
+<table class="table-program">
+<colgroup class="" style=""><col class="col-line-number" style="">
+<col class="col-program" style="">
+</colgroup><tbody class="">
+<tr class="">
+<td class="">
+<pre class="text-right">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28</pre>
+</td>
+<td class="">
+<pre class=""><span class="color-comment">/* Test Substituting a subclass instance to a superclass reference.
+   (TestSubstitution.cpp) */</span>
+#include &lt;iostream&gt;
+#include "MovablePoint.h"  <span class="color-comment"> // included "Point.h"</span>
+using namespace std;
+ 
+int main() {
+  <span class="color-comment"> // Substitute a subclass instance to a superclass reference</span>
+ 
+  <span class="color-comment"> // Using Object Pointer</span>
+   Point * ptrP1 = new MovablePoint(11, 12, 13, 14);  <span class="color-comment"> // upcast</span>
+   <span class="color-comment"><span class="color-new">ptrP1-&gt;print();</span> // MovablePoint @ (11,12) Speed=(13,14)</span>
+                  <span class="color-comment"> //   - Run subclass version!!</span>
+   cout &lt;&lt; endl;
+   delete ptrP1;
+ 
+  <span class="color-comment"> // Using Object Reference</span>
+   MovablePoint mp2(21, 22, 23, 24);
+   Point &amp; p2 = mp2; <span class="color-comment"> // upcast</span>
+   <span class="color-new">p2.print();</span>    <span class="color-comment"> // MovablePoint @ (21,22) Speed=(23,24)</span>
+                  <span class="color-comment"> //   - Run subclass version!!</span>
+   cout &lt;&lt; endl;
+ 
+  <span class="color-comment"> // Using object with explicit constructor</span>
+   Point p3 = MovablePoint(31, 32, 33, 34); <span class="color-comment"> // upcast</span>
+   <span class="color-new">p3.print();</span>    <span class="color-comment"> // Point @ (31,32) - Run superclass version!!</span>
+   cout &lt;&lt; endl;
+}</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+<p class="">The keyword <code class="">virtual</code> determines which method is used if the method is invoked by a pointer (or reference). Without <code class="">virtual</code>, the program chooses the method based on the <em class="">pointer type</em>; with <code class="">virtual</code>, the program chooses the method based on the <em class="">type of the object</em> pointed-to.</p>
+<p class="">Take note that virtual functions work on object pointers (and references), but not on regular objects.</p>
+<p class="">If the subclass override a method inherited from its superclass, the usual practice is to declare the superclass method as <code class="">virtual</code>. In this case, the program will choose the method based on the type of the object, instead of the type of pointer.</p>
+
+<p class="">For non-virtual function, the compiler selects the function that will be invoked at compiled-time (known as static binding). For virtual functions, the selection is delayed until the runtime. The function selected depends on the actual type that invokes the function (known as dynamic binding or late binding).</p>
+
+<p class=""><span class="line-heading">Using Polymorphism:</span></p>
+<ol class="">
+<li class="">Create instances of concrete subclass.</li>
+<li class="">Declare superclass (possibly abstract) pointers (or references).</li>
+<li class="">Aim the superclass pointers to the subclass instances.</li>
+<li class="">Invoke virtual function, with implementation provided by subclass.</li>
+</ol>
+
+<h5 class="">Using Virtual Functions</h5>
+
+<ul class="">
+<li class="">Using keyword <code class="">virtual</code> on a superclass function makes the function virtual for the superclass, as well as ALL its subclasses.</li>
+
+<li class="">If a virtual function is invoked using a pointer (or reference), the program uses the method defined for the object type instead of the pointer type. This is called <em class="">dynamic binding</em> or <em class="">late binding</em>, contrast to <em class="">static binding</em> during the compile time.</li>
+<li class="">It is recommended that functions to be overridden in the subclass be declared <code class="">virtual</code> in the superclass.</li>
+<li class="">Constructor can't be <code class="">virtual</code>, because it is not inherited. Subclass defines its own constructor, which invokes the superclass constructor to initialize the inherited data members.</li>
+<li class="">Destructor should be declared virtual, if a class is to to be used as a superclass, so that the appropriate object destructor is invoked to free the dynamically allocated memory in the subclass, if any.</li>
+<li class="">Friends can't be virtual, as friends are not class member and are not inherited.</li>
+<li class="">If you override function in the subclass, the overridden function shall have the same parameter list as the superclass' version.</li>
+</ul>
+
+<h5 class="">Upcasting and Downcasting</h5>
+
+<p class="">Normally, C++ does not allow you to assign an address of one type to pointer (or reference) of another type. For example,</p>
+
+<pre class="color-example">int i = 8;
+<span class="color-error">double * ptr1 = &amp;i;</span>
+    <span class="color-comment"> // error: cannot convert 'int*' to 'double*' in initializatin</span>
+<span class="color-error">double &amp; d = i;</span>
+    <span class="color-comment"> // error: invalid initialization of reference of type 'double&amp;'</span> <span class="color-comment">from expression of type 'int'</span></pre>
+    
+<p class="">However, a pointer or reference of superclass can hold a subclass object without explicit type cast:</p>
+
+<pre class="color-example">MovablePoint mp(.....);
+Point * ptrP1 = &amp;mp;   <span class="color-comment">// Okay - Implicit upcast </span>
+Point &amp; p2 = mp;       <span class="color-comment">// Okay - Implicit upcast</span></pre>
+
+<p class="">Converting a subclass to superclass reference or pointer is called <em class="">upcasting</em>. (Because in UML diagram, we often draw the superclass on top of the subclass, with an arrow pointing up from the subclass to the superclass.) Upcasting is always allow for <code class="">public</code>-inheritance without the need for an explicit type cast, because <code class="">public</code>-inheritance exhibits <em class="">is-a</em> relationship. A subclass object is a superclass object, because it inherits all the attributes and operations from the superclass, and can do whatever the superclass object can do.</p>
+<p class="">The reverse operation, converting a superclass reference or pointer to subclass, is called <em class="">downcasting</em>. Downcasting requires explicit type cast.</p>
+
+<table class="table-program">
+<colgroup class="" style=""><col class="col-line-number" style="">
+<col class="col-program" style="">
+</colgroup><tbody class="">
+<tr class="">
+<td class="">
+<pre class="text-right">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16</pre>
+</td>
+<td class="">
+<pre class=""><span class="color-comment">/* Test Up and Down Cast (TestCast.cpp) */</span>
+#include &lt;iostream&gt;
+#include "MovablePoint.h"  <span class="color-comment"> // included "Point.h"</span>
+using namespace std;
+ 
+int main() {
+  <span class="color-comment"> // Object Pointer</span>
+   <span class="color-new">Point * ptrP1 = new MovablePoint(11, 12, 13, 14);</span>
+      <span class="color-comment"> // Upcast is always permissible and safe</span>
+   ptrP1-&gt;print();
+ 
+<span class="color-comment">//</span> MovablePoint * ptrMP1 = ptrP1; <span class="color-error"> // error</span>
+   <span class="color-new">MovablePoint * ptrMP1 = (MovablePoint *) ptrP1;</span>
+      <span class="color-comment"> // Downcast requires explicit casting operator</span>
+   delete ptrP1;
+}</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+<h5 class="">Operator <span class="font-code">dynamic_cast</span></h5>
+
+<p class="">C++ provides a new casting operator called <code class="">dynamic_cast&lt;type&gt;(value)</code>, which returns a null pointer if the type cast fails. For example,</p>
+<pre class="color-example">MovablePoint * ptrMP1 = <span class="color-new">dynamic_cast&lt;MovablePoint *&gt;</span>(ptrP1);</pre>
+
+<h5 class="">Operator <span class="font-code">typeid</span></h5>
+<p class="">The operator <code class="">typeid</code> returns a reference to an object of class <code class="">type_info</code> (in header &lt;typeinfo&gt;, which contains information about the type of its operands. You can use <code class="">type_info</code>'s member function <code class="">name()</code> to get the type name. For example,</p>
+
+<table class="table-program">
+<colgroup class="" style=""><col class="col-line-number" style="">
+<col class="col-program" style="">
+</colgroup><tbody class="">
+<tr class="">
+<td class="">
+<pre class="text-right">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21</pre>
+</td>
+<td class="">
+<pre class=""><span class="color-comment">/* Test typeid operator, which return an object of type_info (TestTypeID.cpp) */</span>
+#include &lt;iostream&gt;
+#include &lt;typeinfo&gt;      <span class="color-comment"> // Need for typeid operator</span>
+#include "MovablePoint.h"<span class="color-comment"> // included "Point.h"</span>
+using namespace std;
+ 
+int main() {
+  <span class="color-comment"> // Object Pointer</span>
+   Point * ptrP1 = new MovablePoint(11, 12, 13, 14); <span class="color-comment"> // upcast</span>
+   cout &lt;&lt; <span class="color-new">typeid(*ptrP1).name()</span> &lt;&lt; endl;  <span class="color-comment"> // 12MovablePoint</span>
+ 
+   MovablePoint * ptrMP1 = dynamic_cast&lt;MovablePoint *&gt;(ptrP1);
+   cout &lt;&lt; <span class="color-new">typeid(*ptrMP1).name()</span> &lt;&lt; endl; <span class="color-comment"> // 12MovablePoint</span>
+   delete ptrP1;
+ 
+   Point p2;
+   cout &lt;&lt; <span class="color-new">typeid(p2).name()</span> &lt;&lt; endl; <span class="color-comment"> // 5Point</span>
+ 
+   MovablePoint mp2(1, 2, 3, 4);
+   cout &lt;&lt; <span class="color-new">typeid(mp2).name()</span> &lt;&lt; endl;<span class="color-comment"> // 12MovablePoint</span>
+}</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+<p class="">Program Notes:</p>
+<ul class="">
+<li class="">The number in front of the name gives the length of the string.</li>
+</ul>
+
+
+
+<h4 class="">3.3&nbsp;&nbsp;Pure Virtual Function and Abstract Superclass<a id="zz-3.3" class="" style=""></a></h4>
+
+<p class="">A <em class="">pure virtual function</em> is specified by placing "<code class="">= 0</code>" (called <em class="">pure specifier</em>) in its declaration. For example,</p>
+
+<pre class="color-example">virtual double getArea() = 0;  <span class="color-comment">// Pure virtual function, to be implemented by subclass</span></pre>
+
+<p class="">A pure virtual function usually has no implementation body, because the class does not know how to implement the body. A class containing one or more pure virtual function is called an <em class="">abstract class</em>. You cannot create instances from an abstract class, because its definition may be incomplete.</p>
+<p class="">Abstract class is meant to be a superclass. To use an abstract class, you need to derive a subclass, override and provide implementation to all the pure virtual functions. You can then create instances from the concrete subclass.</p>
+<p class="">C++ allows implementation for pure virtual function. In this case, the <code class="">=0</code> simply make the class <em class="">abstract</em>. As the result, you cannot create instances.</p>
+
+
+<h4 class="">3.4&nbsp;&nbsp;Example: <span class="font-code">Shape</span> and its Subclasses<a id="zz-3.4" class="" style=""></a></h4>
+
+<img class="image-float-left" src="data:image/png;base64,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" alt="ClassDiagram_Shape.png">
+
+<p class="">[TODO] Description</p>
+
+<h5 class="float-clear"><span class="font-code">Shape.h</span></h5>
+
+<table class="table-program">
+<colgroup class="" style=""><col class="col-line-number" style="">
+<col class="col-program" style="">
+</colgroup><tbody class="">
+<tr class="">
+<td class="">
+<pre class="text-right">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23</pre>
+</td>
+<td class="">
+<pre class=""><span class="color-comment">/* Header for Shape class (Shape.h) */</span>
+#ifndef SHAPE_H
+#define SHAPE_H
+ 
+#include &lt;string&gt;
+using namespace std;
+ 
+class Shape {
+private:
+   string color;  <span class="color-comment"> // Private data member</span>
+ 
+public:
+   Shape(const string &amp; color = "red"); <span class="color-comment"> // Constructor</span>
+   string getColor() const;           <span class="color-comment"> // Getter</span>
+   void setColor(const string &amp; color); <span class="color-comment"> // Setter</span>
+  <span class="color-comment"> // Virtual function, run subclass version if overridden</span>
+   virtual void print() const;
+  <span class="color-comment"> // Pure virtual, to be implemented by subclass</span>
+  <span class="color-comment"> // You cannot create instance of Shape</span>
+   virtual double getArea() const = 0;
+};
+ 
+#endif</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+<h5 class=""><span class="font-code">Shape.cpp</span></h5>
+
+<table class="table-program">
+<colgroup class="" style=""><col class="col-line-number" style="">
+<col class="col-program" style="">
+</colgroup><tbody class="">
+<tr class="">
+<td class="">
+<pre class="text-right">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22</pre>
+</td>
+<td class="">
+<pre class=""><span class="color-comment">/* Implementation for Shape class (Shape.cpp) */</span>
+#include "Shape.h"
+#include &lt;iostream&gt;
+ 
+<span class="color-comment">// Constructor</span>
+Shape::Shape(const string &amp; color) {
+   this-&gt;color = color;
+}
+ 
+<span class="color-comment">// Getter</span>
+string Shape::getColor() const {
+   return color;
+}
+ 
+<span class="color-comment">// Setter</span>
+void Shape::setColor(const string &amp; color) {
+   this-&gt;color = color;
+}
+ 
+void Shape::print() const {
+   std::cout &lt;&lt; "Shape of color=" &lt;&lt; color;
+}</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+<h5 class=""><span class="font-code">Circle.h</span></h5>
+
+<table class="table-program">
+<colgroup class="" style=""><col class="col-line-number" style="">
+<col class="col-program" style="">
+</colgroup><tbody class="">
+<tr class="">
+<td class="">
+<pre class="text-right">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20</pre>
+</td>
+<td class="">
+<pre class=""><span class="color-comment">/* Header for Circle (Circle.h) */</span>
+#ifndef CIRCLE_H
+#define CIRCLE_H
+ 
+#include "Shape.h"
+ 
+<span class="color-comment">// The class Circle is a subclass of Shape</span>
+class Circle : public Shape {
+private:
+   int radius;  <span class="color-comment"> // Private data member</span>
+ 
+public:
+   Circle(int radius = 1, const string &amp; color = "red");<span class="color-comment"> // Constructor</span>
+   int getRadius() const;               <span class="color-comment"> // Getter</span>
+   void setRadius(int radius);    <span class="color-comment"> // Setter</span>
+   void print() const;     <span class="color-comment"> // Override the virtual function</span>
+   double getArea() const; <span class="color-comment"> // to implement virtual function</span>
+};
+ 
+#endif</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+<h5 class=""><span class="font-code">Circle.cpp</span></h5>
+
+<table class="table-program">
+<colgroup class="" style=""><col class="col-line-number" style="">
+<col class="col-program" style="">
+</colgroup><tbody class="">
+<tr class="">
+<td class="">
+<pre class="text-right">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28</pre>
+</td>
+<td class="">
+<pre class=""><span class="color-comment">/* Implementation for Circle (Circle.cpp) */</span>
+#include "Circle.h"
+#include &lt;iostream&gt;
+#define PI 3.14159265
+ 
+<span class="color-comment">// Constructor</span>
+Circle::Circle(int radius, const string &amp; color)
+   : Shape(color), radius(radius) { }
+ 
+<span class="color-comment">// Getters</span>
+int Circle::getRadius() const {
+   return radius;
+}
+ 
+<span class="color-comment">// Setters</span>
+void Circle::setRadius(int radius) {
+   this-&gt;radius = radius;
+}
+ 
+void Circle::print() const {
+   std::cout &lt;&lt; "Circle radius=" &lt;&lt; radius &lt;&lt; ", subclass of ";
+   Shape::print();
+}
+ 
+<span class="color-comment">// Implement virtual function inherited for superclass Shape</span>
+double Circle::getArea() const {
+   return radius * radius * PI;
+}</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+<h5 class=""><span class="font-code">Rectangle.h</span></h5>
+
+<table class="table-program">
+<colgroup class="" style=""><col class="col-line-number" style="">
+<col class="col-program" style="">
+</colgroup><tbody class="">
+<tr class="">
+<td class="">
+<pre class="text-right">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23</pre>
+</td>
+<td class="">
+<pre class=""><span class="color-comment">/* Header for Rectangle class (Rectangle.h) */</span>
+#ifndef RECTANGLE_H
+#define RECTANGLE_H
+ 
+#include "Shape.h"
+ 
+<span class="color-comment">// The class Rectangle is a subclass of Shape</span>
+class Rectangle : public Shape {
+private:
+   int length;
+   int width;
+ 
+public:
+   Rectangle(int length = 1, int width = 1, const string &amp; color = "red");
+   int getLength() const;
+   void setLength(int length);
+   int getWidth() const;
+   void setWidth(int width);
+   void print() const;     <span class="color-comment"> // Override the virtual function</span>
+   double getArea() const; <span class="color-comment"> // to implement virtual function</span>
+};
+ 
+#endif</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+<h5 class=""><span class="font-code">Rectangle.cpp</span></h5>
+
+<table class="table-program">
+<colgroup class="" style=""><col class="col-line-number" style="">
+<col class="col-program" style="">
+</colgroup><tbody class="">
+<tr class="">
+<td class="">
+<pre class="text-right">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33</pre>
+</td>
+<td class="">
+<pre class=""><span class="color-comment">/* Implementation for Rectangle (Rectangle.cpp) */</span>
+#include "Rectangle.h"
+#include &lt;iostream&gt;
+ 
+<span class="color-comment">// Constructor</span>
+Rectangle::Rectangle(int length, int width, const string &amp; color)
+  : Shape(color), length(length), width(width) { }
+ 
+<span class="color-comment">// Getters</span>
+int Rectangle::getLength() const {
+   return length;
+}
+int Rectangle::getWidth() const {
+   return width;
+}
+ 
+<span class="color-comment">// Setters</span>
+void Rectangle::setLength(int length) {
+   this-&gt;length = length;
+}
+void Rectangle::setWidth(int width) {
+   this-&gt;width = width;
+}
+ 
+void Rectangle::print() const {
+   std::cout &lt;&lt; "Rectangle length=" &lt;&lt; length &lt;&lt; " width=" &lt;&lt; width &lt;&lt; ", subclass of ";
+   Shape::print();
+}
+ 
+<span class="color-comment">// Implement virtual function inherited from superclass Shape</span>
+double Rectangle::getArea() const {
+   return length * width;
+}</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+<h5 class="">Test Driver: <span class="font-code">TestShape.cpp</span></h5>
+
+<table class="table-program">
+<colgroup class="" style=""><col class="col-line-number" style="">
+<col class="col-program" style="">
+</colgroup><tbody class="">
+<tr class="">
+<td class="">
+<pre class="text-right">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51</pre>
+</td>
+<td class="">
+<pre class=""><span class="color-comment">/* A test driver program for polymorphism (TestShape.cpp) */</span>
+#include "Circle.h"
+#include "Rectangle.h"
+#include &lt;iostream&gt;
+using namespace std;
+ 
+int main() {
+  <span class="color-comment"> // Circle object</span>
+   Circle c1(5, "blue");
+   c1.print();
+   cout &lt;&lt; endl;
+   cout &lt;&lt; "area=" &lt;&lt; c1.getArea() &lt;&lt; endl;
+ 
+  <span class="color-comment"> // Rectangle object</span>
+   Rectangle r1(5, 6, "green");
+   r1.print();
+   cout &lt;&lt; endl;
+   cout &lt;&lt; "area=" &lt;&lt; r1.getArea() &lt;&lt; endl;
+ 
+<span class="color-comment">//</span> Shape s1; <span class="color-error"> // Cannot create instance of abstract class Shape</span>
+ 
+  <span class="color-comment"> // Polymorphism</span>
+   Shape * s1, * s2; <span class="color-comment"> // Shape pointers</span>
+ 
+   s1 = new Circle(6); <span class="color-comment"> // Dynamically allocate a subclass instance</span>
+   s1-&gt;print();  <span class="color-comment"> // Run subclass version</span>
+   cout &lt;&lt; endl;
+   cout &lt;&lt; "area=" &lt;&lt; s1-&gt;getArea() &lt;&lt; endl; <span class="color-comment"> // Run subclass version of getArea()</span>
+ 
+   s2 = new Rectangle(7, 8); <span class="color-comment"> // Dynamically allocate a subclass instance</span>
+   s2-&gt;print();  <span class="color-comment"> // Run subclass version</span>
+   cout &lt;&lt; endl;
+   cout &lt;&lt; "area=" &lt;&lt; s2-&gt;getArea() &lt;&lt; endl; <span class="color-comment"> // Run subclass version of getArea()</span>
+ 
+   delete s1;
+   delete s2;
+ 
+<span class="color-comment">//</span> Shape s3 = Circle(6); <span class="color-error"> // error: cannot allocate an object of abstract type 'Shape'</span>
+ 
+   Circle c3(8);
+   Shape &amp; s3 = c3;   <span class="color-comment"> // Object reference</span>
+   s3.print();
+   cout &lt;&lt; endl;
+   cout &lt;&lt; "area=" &lt;&lt; s3.getArea() &lt;&lt; endl;
+ 
+   Circle c4(9);
+   Shape * s4 = &amp;c4;  <span class="color-comment"> // Object pointer</span>
+   s4-&gt;print();
+   cout &lt;&lt; endl;
+   cout &lt;&lt; "area=" &lt;&lt; s4-&gt;getArea() &lt;&lt; endl;
+}</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+<pre class="output">Circle radius=5, subclass of Shape of color=blue
+area=78.5398
+Rectangle length=5 width=6, subclass of Shape of color=green
+area=30
+Circle radius=6, subclass of Shape of color=red
+area=113.097
+Rectangle length=7 width=8, subclass of Shape of color=red
+area=56
+Circle radius=8, subclass of Shape of color=red
+area=201.062
+Circle radius=9, subclass of Shape of color=red
+area=254.469</pre>
+
+<p class="">[TODO] Explanation</p>
+
+<h4 class="">3.5&nbsp;&nbsp;Dynamic Binding vs. Static Binding<a id="zz-3.5" class="" style=""></a></h4>
+
+<p class="">[TODO]</p>
+
+<h3 class="">4.&nbsp;&nbsp;More On OOP<a id="zz-4." class="" style=""></a></h3>
+
+<h4 class="">4.1&nbsp;&nbsp;<span class="font-code">const</span> Objects and <span class="font-code">const</span> Member Functions<a id="zz-4.1" class="" style=""></a></h4>
+<p class=""><span class="line-heading">Constant Object:</span> We can use <code class="">const</code> to specify that an <em class="">object</em> is not mutable. For example,</p>
+
+<pre class="color-example"><span class="color-new">const</span> Point p1;  <span class="color-comment">// Constant object</span>
+Point p2;        <span class="color-comment">// Non-constant object</span>
+// p1 = p2;      <span class="color-error">// error: const object cannot be reassigned</span>
+p2 = p1;         <span class="color-comment">// okay</span></pre>
+
+<p class=""><span class="line-heading">Constant Member Functions:</span> We declare a member function constant by placing the keyword <code class="">const</code> after the parameter list. A <code class="">const</code> member function cannot modify any member variable. For example,</p>
+
+<pre class="color-example">int getX() <span class="color-new">const</span> { return x; }
+void print() <span class="color-new">const</span> { cout &lt;&lt; "(" &lt;&lt; x &lt;&lt; "," &lt;&lt; y &lt;&lt; ")" &lt;&lt; endl; }</pre>
+
+<p class="">A constant member function cannot modify data members too. For example,</p>
+<pre class="color-example">void setX(int x) <span class="color-new">const</span> {
+   <span class="color-error">this-&gt;x  = x;    // ERROR!</span>
+}</pre>
+
+<p class="">The constructor and destructor cannot be made <code class="">const</code>, as they need to initialize data members. However, a <code class="">const</code> object can invoke non-<code class="">const</code> constructor.  The <code class="">const</code> property begins after construction.</p>
+
+<h5 class="">A <span class="font-code">const</span> object can invoke only <span class="font-code">const</span> member functions</h5>
+<p class="">In C++, a <code class="">const</code> object can only invoke <code class="">const</code> member functions, and cannot invoke non-<code class="">const</code> member functions. On the other hand, a non-<code class="">const</code> object can invoke both <code class="">const</code> and non-<code class="">const</code> member functions. For example,</p>
+
+<table class="table-program">
+<colgroup class="" style=""><col class="col-line-number" style="">
+<col class="col-program" style="">
+</colgroup><tbody class="">
+<tr class="">
+<td class="">
+<pre class="text-right">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28</pre>
+</td>
+<td class="">
+<pre class=""><span class="color-comment">/* Testing constant objects and constant member functions
+   (TestConstantObject.cpp) */</span>
+#include &lt;iostream&gt;
+using namespace std;
+ 
+class Point {
+private:
+   int x, y;
+public:
+   Point(int x = 0, int y = 0) : x(x), y(y) { }
+   int getX() <span class="color-new">const</span> { return x; } <span class="color-comment"> // const function (cannot modify data)</span>
+   int getY() <span class="color-new">const</span> { return y; } <span class="color-comment"> // const function</span>
+   void setX(int x) { this-&gt;x = x; } <span class="color-comment"> // non-const function</span>
+   void setY(int y) { this-&gt;y = y; } <span class="color-comment"> // non-const function</span>
+   void print() <span class="color-new">const</span> { cout &lt;&lt; "(" &lt;&lt; x &lt;&lt; "," &lt;&lt; y &lt;&lt; ")" &lt;&lt; endl; } <span class="color-comment"> // const</span>
+};
+ 
+int main() {
+  <span class="color-comment"> // non-const object can invoke const and non-const member functions</span>
+   Point p1(5, 6);       <span class="color-comment"> // non-const object</span>
+   p1.setX(55);
+   p1.print();  <span class="color-comment"> // (55,6)</span>
+ 
+  <span class="color-comment"> // const object can only invoke const member functions</span>
+   <span class="color-new">const</span> Point p2(7, 8); <span class="color-comment"> // const object</span>
+   p2.print();  <span class="color-comment"> // (7,8)</span>
+<span class="color-comment">//</span> p2.setX(55); <span class="color-error"> // error: const object cannot invoke non-const member function</span>
+}</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+<h5 class="">Member Function Overloading with <span class="font-code">const</span></h5>
+
+<p class="">As an example, if you check the <code class="">string</code> class' function <code class="">at()</code> (which returns the character at the given position), you will see two overloaded versions:</p>
+
+<pre class="color-syntax"><span class="color-comment">// C++'s std::string class</span>
+      char &amp; at (size_t pos);
+const char &amp; at (size_t pos) const;</pre>
+
+<p class="">A non-<code class="">const</code> string object will run the non-<code class="">const</code> version, which returns a non-<code class="">const</code> <code class="">char</code> reference. The return reference can be used as the <em class="">lvalue</em> to modify the <code class="">char</code>, e.g., <code class="">str.at(1) = 'x'</code>. On the other hand, a <code class="">const</code> <code class="">string</code> object will invoke the <code class="">const</code> member function, which returns a <code class="">const</code> <code class="">char</code> reference. A <code class="">const</code> reference cannot be used as <em class="">lvalue</em>. For example,</p>
+
+<table class="table-program">
+<colgroup class="" style=""><col class="col-line-number" style="">
+<col class="col-program" style="">
+</colgroup><tbody class="">
+<tr class="">
+<td class="">
+<pre class="text-right">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15</pre>
+</td>
+<td class="">
+<pre class=""><span class="color-comment">/* Test const overloading function (TestConstFn.cpp) */</span>
+#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+ 
+int main() {
+   const string s1("Apple"); <span class="color-comment"> // const object</span>
+   string s2("Banana");      <span class="color-comment"> // non-const object</span>
+ 
+   cout &lt;&lt; <span class="color-new">s1.at(3)</span> &lt;&lt; endl; <span class="color-comment"> // run const version, non-mutable</span>
+   <span class="color-new">s2.at(0) = 'A';</span>           <span class="color-comment"> // run non-const version, mutable</span>
+   cout &lt;&lt; s2 &lt;&lt; endl;
+ 
+<span class="color-comment">//</span> s1.at(0) = 'B'; <span class="color-error"> // error: assignment of read-only location</span>
+}</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+<h4 class="">4.2&nbsp;&nbsp;<span class="font-code">const</span> Data Member<a id="zz-4.2" class="" style=""></a></h4>
+<p class="">You can declare a data member <code class="">const</code>. A <code class="">const</code> data member cannot be modified by any member function. It can only be initialized by  the constructor using a special syntax called <em class="">member initializer list</em>. For example,</p>
+
+<table class="table-program">
+<colgroup class="" style=""><col class="col-line-number" style="">
+<col class="col-program" style="">
+</colgroup><tbody class="">
+<tr class="">
+<td class="">
+<pre class="text-right">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17</pre></td>
+<td class="">
+<pre class=""><span class="color-comment">/* Testing constant data members (TestConstantData.cpp) */</span>
+#include &lt;iostream&gt;
+using namespace std;
+ 
+class Point {
+private:
+   int x;
+   <span class="color-new">const</span> int y; <span class="color-comment">// constant data member, cannot be modified by member functions</span>
+public:
+   Point(int x = 0, int y = 0) : x(x), <span class="color-new">y(y)</span> {  }  
+      <span class="color-comment">// init const data member via member initializer list</span>
+   int getX() const { return x; }
+   int getY() const { return y; }
+   void setX(int x) { this-&gt;x = x; }  <span class="color-comment">// modify non-const data member x</span>
+<span class="color-error">// void setY(int y) { this-&gt;y = y; }  // error: assignment of read-only member</span>
+   void print() const { cout &lt;&lt; "(" &lt;&lt; x &lt;&lt; "," &lt;&lt; y &lt;&lt; ")" &lt;&lt; endl; }  <span class="color-comment">// const</span>
+};</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+<p class="">A member initializer list is placed after the parameter list, in the form of <code class="">: <em class="">data-member-name</em>(<em class="">value</em>)</code>, ....  Using <code class="">this-&gt;y = y</code> triggers a compilation error due to the assignment into <code class="">const</code> data member <code class="">y</code>.</p>
+<p class="">For object data member, you can use the member initializer list to trigger its constructor. member initializer list is also use to invoke superclass constructor from the subclass constructor.</p>
+
+<h4 class="">4.3&nbsp;&nbsp;"<span class="font-code">friend</span>" Function and "<span class="font-code">friend</span>" Class<a id="zz-4.3" class="" style=""></a></h4>
+
+<h5 class=""><span class="font-code">friend</span> Functions</h5>
+
+<p class="">A "friend" function of a class, marked by the keyword <code class="">friend</code>, is a function defined outside the class, yet its argument of that class has unrestricted access to all the class members (<code class="">private</code>, <code class="">protected</code> and <code class="">public</code> data members and member functions).</p>
+
+<p class="">For example,</p>
+
+<table class="table-program">
+<colgroup class="" style=""><col class="col-line-number" style="">
+<col class="col-program" style="">
+</colgroup><tbody class="">
+<tr class="">
+<td class="">
+<pre class="text-right">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29</pre></td>
+<td class="">
+<pre class=""><span class="color-comment">/*
+ *  Test Friend Function (TestFriend.cpp)
+ */</span>
+#include &lt;iostream&gt;
+using namespace std;
+ 
+class Point {
+   <span class="color-comment">// A friend function defined outside this class, but its argument of
+   // this class can access </span><span class="color-comment">all class members (including private members).</span>
+   <span class="color-new">friend void set(Point &amp; point, int x, int y);</span>  <span class="color-comment">// prototype</span>
+private:
+   int x, y;
+public:
+   Point(int x = 0, int y = 0) : x(x), y(y) { }
+   void print() const { cout &lt;&lt; "(" &lt;&lt; x &lt;&lt; "," &lt;&lt; y &lt;&lt; ")" &lt;&lt; endl; }
+};
+ 
+<span class="color-comment">// Friend function is defined outside the class</span>
+<span class="color-new">void set(Point &amp; point, int x, int y) {
+  point.x = x;  <span class="color-comment">// can access private data x and y</span>
+  point.y = y;
+}</span>
+ 
+int main() {
+   Point p1;
+   p1.print();   <span class="color-comment">// (0, 0)</span>
+   set(p1, 5, 6);
+   p1.print();   <span class="color-comment">// (5, 6)</span>
+}</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+<p class="">Notes:</p>
+
+<ul class="">
+<li class="">A friend function is a regular function, NOT a member function of the class. Hence it is invoked without the dot operator in the form of <code class="">set(p1, 5, 6)</code>, instead of <code class="">p1.set(5, 6)</code> for a member function.</li>
+<li class="">The above example is meant for illustration. This operation is better served by a member function <code class="">void set(int x, int y)</code>, instead of friend function.</li>
+<li class="">The friend function prototype is provided inside the class declaration. You do not need to provide another prototype outside the class declaration, but merely provide its implementation.</li>
+
+<li class="">Friend functions can enhance the performance by directly accessing the private data members, eliminating the overhead of going thru the public member functions.</li>
+
+<li class="">Friend functions are neither public nor private, and it can be declared anywhere inside the class. As friends are part of the extended interface of the class, you may group them together with the public functions.</li>
+<li class="">Friend functions will not be inherited by the subclass. Friends can't be virtual, as friends are not class member.<br class="">
+</li>
+</ul>
+
+<h5 class=""><span class="font-code">friend</span> Class</h5>
+
+<p class="">To declare all member functions of a class (says <code class="">Class1</code>) friend functions of another class (says <code class="">Class2</code>), declared "<code class="">friend class Class1;</code>" in <code class="">Class2</code>.</p>
+
+<p class="">Friends are not <em class="">symmetric</em>. That is, if <code class="">Class1</code> is a friend of <code class="">Class2</code>, it does not imply that <code class="">Class2</code> is a friend of <code class="">Class1</code>. Friends are also not <em class="">transitive</em>. That is, if <code class="">Class1</code> is a friend of <code class="">Class2</code>, and <code class="">Class2</code> is a friend of <code class="">Class3</code>, it does not imply that <code class="">Class1</code> is a friend of <code class="">Class3</code>.</p>
+<p class="">Use friend with care. Incorrect use of friends may corrupt the concept of <em class="">information hiding and encapsulation</em>.</p>
+
+
+<h4 class="">4.4&nbsp;&nbsp;The <span class="font-code">static</span> Class Members<a id="zz-4.4" class="" style=""></a></h4>
+
+<p class="">A static class member has only one copy, belonging to the class instead of the instances. All instances share the same storage for a <code class="">static</code> class member. A <code class="">static</code> members is referenced via scope resolution operator in the form of <code class=""><em class="">ClassName</em>::<em class="">variableName</em></code> or <code class=""><em class="">ClassName</em>::<em class="">functionName</em>()</code>.</p>
+
+<ul class="">
+<li class="">It can be used to implement "global" class variables and functions, that can be used without creating instances of a class.</li>
+<li class="">It can also be used to share information among all instances, e.g., a count on the number of instances created.</li>
+</ul>
+
+<p class="">A <code class="">static</code> function can only access <code class="">static</code> variables, and cannot access non-<code class="">static</code> variables. A static variable/function can be referenced without any instantiation (i.e., no instance is created).</p>
+
+<p class=""><span class="line-heading">Example (<span class="font-code">static</span> Class Member)</span>: This example uses a <code class="">static</code> data member to keep track of the number of instances created.</p>
+
+<h5 class=""><span class="font-code">Point.h</span></h5>
+
+<table class="table-program">
+<colgroup class="" style=""><col class="col-line-number" style="">
+<col class="col-program" style="">
+</colgroup><tbody class="">
+<tr class="">
+<td class="">
+<pre class="text-right">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14</pre>
+</td>
+<td class="">
+<pre class=""><span class="color-comment">/* Header for Point class (Point.h) */</span>
+#ifndef POINT_H
+#define POINT_H
+class Point {
+private:
+   int x, y;         <span class="color-comment">// x and y coords</span>
+   <span class="color-new">static int count;</span> <span class="color-comment">// Count the number of instances created</span>
+ 
+public:
+   Point(int x = 0, int y = 0);
+   void print();
+   <span class="color-new">static int getCount();</span>  <span class="color-comment">// A static function</span>
+};
+#endif</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+<h5 class=""><span class="font-code">Point.cpp</span></h5>
+
+<table class="table-program">
+<colgroup class="" style=""><col class="col-line-number" style="">
+<col class="col-program" style="">
+</colgroup><tbody class="">
+<tr class="">
+<td class="">
+<pre class="text-right">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22</pre>
+</td>
+<td class="">
+<pre class=""><span class="color-comment">/* Implementation for Point class (Point.cpp) */</span>
+#include &lt;iostream&gt;
+#include "Point.h"
+using namespace std;
+ 
+<span class="color-comment">// Initialize the static data member (outside the class declaration)</span>
+<span class="color-new">int Point::count = 0;</span>
+ 
+<span class="color-comment">// A static function can access static data member</span>
+<span class="color-new">int Point::getCount() {
+   return count;
+}</span>
+ 
+<span class="color-comment">// Constructor</span>
+Point::Point(int x, int y) : x(x), y(y) {
+   ++count; <span class="color-comment"> // one more instance created</span>
+}
+ 
+<span class="color-comment">// A non-static member function can also access static data member (of the class)</span> 
+void Point::print() {
+   cout &lt;&lt; "Point number " &lt;&lt; <span class="color-new">count</span> &lt;&lt; " @ (" &lt;&lt; x &lt;&lt; "," &lt;&lt; y &lt;&lt; ")" &lt;&lt; endl;
+}</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+<p class="">You cannot initialize the <code class="">static</code> variable in the class declaration. This is because class declaration merely describe the memory allocation but does not actually allocate the memory. Instead, it is initialized outside the declaration as shown above. The initialization is kept in the implementation file, instead of header, so as not the repeat the same step when header file in included.</p>
+
+<h5 class=""><span class="font-code">TestPoint.cpp</span></h5>
+
+<table class="table-program">
+<colgroup class="" style=""><col class="col-line-number" style="">
+<col class="col-program" style="">
+</colgroup><tbody class="">
+<tr class="">
+<td class="">
+<pre class="text-right">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16</pre></td>
+<td class="">
+<pre class=""><span class="color-comment">/* Test Driver Program for Point class (TestPoint.cpp) */</span>
+#include &lt;iostream&gt;
+#include "Point.h"
+using namespace std;
+ 
+int main() {
+   Point p1;
+   p1.print();
+   cout &lt;&lt; <strong class="">Point::getCount()</strong> &lt;&lt; " instances created" &lt;&lt; endl;
+   Point p2(1, 2);
+   p2.print();
+   cout &lt;&lt; <strong class="">Point::getCount()</strong> &lt;&lt; " instances created" &lt;&lt; endl;
+   Point p3(3);
+   p3.print();
+   cout &lt;&lt; <strong class="">Point::getCount()</strong> &lt;&lt; " instances created" &lt;&lt; endl;
+}</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+<p class="">Program Notes:</p>
+
+<ul class="">
+<li class="">A <code class="">static</code> data member retains this value throughout its life span.</li>
+
+<li class="">To reference a <code class="">static</code> class member, you need to use <code class=""><em class="">ClassName</em>::<em class="">staticMemberName</em></code>. You CANNOT invoke <code class="">static</code> member function from an instance, such as <code class="">p1.getCount()</code>.</li>
+
+<li class="">A <code class="">static</code> data member can be accessed by <code class="">static</code> and non-<code class="">static</code> member functions. However, a <code class="">static</code> function member can only access <code class="">static</code> data members, and CANNOT access non-<code class="">static</code> data members. For example,
+  <pre class="color-example"><span class="color-comment">// static member function</span>
+int Point::getCount() {
+   <span class="color-error">cout &lt;&lt; "(" &lt;&lt; x &lt;&lt; "," &lt;&lt; y &lt;&lt; ")" &lt;&lt; endl;
+      // error: invalid use of member 'Point::x' in static member function</span>
+   return count;
+}</pre>
+</li>
+</ul>
+
+<h3 class="">5.&nbsp;&nbsp;More On Inheritance<a id="zz-5." class="" style=""></a></h3>
+
+<h4 class="">5.1&nbsp;&nbsp;Multiple Inheritance<a id="zz-5.1" class="" style=""></a></h4>
+
+<p class="">A class derived from more than one base classes.</p>
+<p class="">[TODO]</p>
+
+<h4 class="">5.2&nbsp;&nbsp;Virtual Inheritance<a id="zz-5.2" class="" style=""></a></h4>
+
+<p class="">A base class instance is shared by multiple derived class instances.</p>
+
+<p class="">[TODO]</p>
+
+<h3 class="">6.&nbsp;&nbsp;Object with Dynamically Allocated Data Members<a id="zz-6." class="" style=""></a></h3>
+
+<h4 class="">6.1&nbsp;&nbsp;Implicitly-generated Special member Functions<a id="zz-6.1" class="" style=""></a></h4>
+
+<p class="">C++ compiler  automatically generates the following special member functions if they are required in your program:</p>
+<ul class="">
+<li class="">A <em class="">default constructor</em> if you did not define any constructor.</li>
+<li class="">A <em class="">copy constructor</em> if you did not define one.</li>
+<li class="">An <em class="">assignment operator</em> if you did not define one.</li>
+<li class="">An <em class="">address-of operator</em> if you did not define one.</li>
+</ul>
+
+<h5 class="">Default Constructor</h5>
+
+<p class="">If you did not define any constructor in a class, C++ provide a <em class="">default constructor</em> that takes no argument and does nothing. For example, if you did not define any constructor in <code class="">Point</code> class, the following default constructor will be generated:</p>
+
+<pre class="color-example"><span class="color-comment" style=""></span><span class="color-comment" style=""></span>Point::Point() {}</pre>
+
+<p class="">The default constructor does not initialize the data members. For example,</p>
+
+<table class="table-program">
+<colgroup class="" style=""><col class="col-line-number" style="">
+<col class="col-program" style="">
+</colgroup><tbody class="">
+<tr class="">
+<td class="">
+<pre class="text-right">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15</pre>
+</td>
+<td class="">
+<pre class="">#include &lt;iostream&gt;
+using namespace std;
+ 
+class Point {
+private:
+   int x, y;
+public:
+   void print() const { cout &lt;&lt; "(" &lt;&lt; x &lt;&lt; "," &lt;&lt; y &lt;&lt; ")" &lt;&lt; endl; }
+};
+ 
+int main() {
+   Point p1;<span class="color-comment"> // Invoke implicitly-generated default constructor</span>
+            <span class="color-comment"> // Value of x and y uninitialized</span>
+   p1.print();  <span class="color-comment">// (???,???)</span>
+}</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+<p class="">If you have define a constructor of with any parameter-list. C++ will not generate the default constructor. In this case, if you use default constructor without defining one, you will get a compilation error For example,</p>
+
+<table class="table-program">
+<colgroup class="" style=""><col class="col-line-number" style="">
+<col class="col-program" style="">
+</colgroup><tbody class="">
+<tr class="">
+<td class="">
+<pre class="text-right">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15</pre>
+</td>
+<td class="">
+<pre class="">#include &lt;iostream&gt;
+using namespace std;
+ 
+class Point {
+private:
+   int x, y;
+public:
+   Point(int x, int y) : x(x), y(y) { }
+   void print() const { cout &lt;&lt; "(" &lt;&lt; x &lt;&lt; "," &lt;&lt; y &lt;&lt; ")" &lt;&lt; endl; }
+};
+ 
+int main() {
+   <span class="color-error">Point p1;
+      // error: no matching function for call to 'Point::Point()'</span>
+}</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+<p class="">A constructor with arguments can be treated as a default constructor if all arguments have a default value. For example,</p>
+
+<pre class="color-example">point(int x <span class="color-new">= 0</span>, int y <span class="color-new">= 0</span>) : x(x), y(y) { }</pre>
+
+<h5 class="">Copy Constructor</h5>
+
+<p class="">A copy constructor is used to construct a new object by copying the given object. It take a <code class="">const</code> reference of an object of the same class, as follows:</p>
+
+<pre class="color-syntax"><em class="">ClassName</em>(const <em class="">ClassName</em> &amp;);
+</pre>
+
+<p class="">The copy constructor is used in the following situations:</p>
+
+<pre class="color-example">Point p1(p2); <span class="color-comment">// Explicitly invoke the copy constructor</span>
+
+Point p1 = p2;
+Point p1 = (Point)p2;
+   <span class="color-comment">// Depending on compiler implementation, they may invoke the copy
+   // constructor to create a temporary object, and then copy over
+   // via memberwise assignment</span>
+ 
+Point * ptrP1 = new Point(p2);
+   <span class="color-comment">// Invoke the copy constructor to construct an object and
+   // assign the address to the pointer.</span></pre>
+   
+<p class="">In addition, when an object is passed by value into a function, and when a function returns an object by value, a compiler also uses the copy constructor to generate a temporary object and then copy over via memberwise assignment. [Hence, it is more efficient to pass an object by reference into function, which avoids the overhead of copying.]</p>
+<p class="">The default copy constructor performs a memberwise copy of all the non-<code class="">static</code> data members. Each data member is copied by value. If the data member is an object, the copy constructor of that object is used to do the copy. Static members are not copy as they belong to the class (one copy shared by all instances). However, if the data member is a pointer, the value of the pointer is copied - no dynamic memory allocation is performed to duplicate the contents pointed to by the pointer. This is called <em class="">shadow copying</em>.</p>
+
+<h5 class="">Assignment Operator</h5>
+
+<p class="">C++ allows object assignment via the assignment operator (<code class="">=</code>). It does so by automatically overloading the assignment operator, as follows:</p>
+
+<pre class="color-syntax"><em class="">ClassName</em> &amp; operator=(const <em class="">ClassName</em> &amp;);</pre>
+
+<p class="">The overloaded assignment operator takes an object reference and return an object reference.</p>
+<p class="">Like the copy constructor, the implicit assignment operator performs memberwise copy. For object data members, the assignment operator of that class will be used for copying. Static members are not copied. Again, for pointers, the value of pointer is copied, but no dynamic allocation is performed to duplicate the contents of the pointer (shadow copying).</p>
+
+<h4 class="">6.2&nbsp;&nbsp;Dynamic Memory Allocation of Object Data Member<a id="zz-6.2" class="" style=""></a></h4>
+
+<p class="">In C++, you can allocate memory for object during runtime, instead during compile-time, using operators <code class="">new</code> and <code class="">new[]</code>. However, you are responsible for memory management, and are required to free the memory via <code class="">delete</code> and <code class="">delete[]</code> to prevent memory leak. If you introduce <code class="">new</code> in your constructor, you need to use <code class="">delete</code> in destructor to free the memory.</p>
+
+<p class="">If you use <code class="">new</code> (or <code class="">new[]</code>) to dynamically allocate memory in the constructor to object data member pointers, for example,</p>
+
+<pre class="color-example">class <em class="">ClassName</em> {
+private:
+   <em class="">T </em>* <em class="">pObj</em>;   <span class="color-comment">// object data member pointer</span>
+public:
+   <span class="color-comment">// Constructors</span>
+   <em class="">ClassName</em>(...) {
+      <em class="">pObj</em> = new <em class="">T</em>(...); <span class="color-comment">// or new[]</span>
+      ....
+   }
+   <span class="color-comment">// Destructor</span>
+   ~<em class="">ClassName</em>() {
+      delete <em class="">pObj</em>;      <span class="color-comment">// OR delete[]</span>
+   }
+   <span class="color-comment">// Copy constructor</span>
+   <em class="">ClassName</em> &amp; <em class="">ClassName</em>(const <em class="">ClassName</em> &amp;);
+ 
+   <span class="color-comment">// Overload Assignment Operator</span>
+   <em class="">ClassName</em> &amp; operator=(const <em class="">ClassName</em> &amp;);   
+......
+}</pre>
+
+<ul class="">
+<li class="">You should use <code class="">delete</code> (or <code class="">delete[]</code>) in the destructor to free the dynamic memory allocated.</li>
+
+<li class="">If you have more than one constructors, all constructors should be compatible with the destructor, including the <em class="">default constructor</em>. You may need to provide you own default constructor, instead of using the implicitly generated one.</li>
+
+<li class="">You should define a copy constructor that initializes the object by <em class="">deep copying</em> the given object.  The default copy constructor implicitly generated by the compiler does <em class="">shadow copying</em>, which does not copy the contents of the pointers.</li>
+<li class="">You should also define an assignment operator that <em class="">deep copies</em> one object into another.</li>
+</ul>
+
+<h5 class="">Using Object Pointer</h5>
+
+<ul class="">
+<li class="">Declare an object pointer:
+<pre class="color-example">T * pObj;</pre></li>
+
+<li class="">Either initialize the pointer to an existing object, or dynamically allocate an object.
+  <pre class="color-example">pObj = &amp;obj;
+<span class="color-comment">// OR</span>
+pObj = new T(...);</pre></li>
+
+<li class="">Use member-of (<code class="">-&gt;</code>) operator to refer to its class members, e.g. <code class="">obj-&gt;memberName</code>.</li>
+<li class="">Use dereferencing (<code class="">*</code>) operator to get its content, e.g., <code class="">*obj</code>.</li>
+
+
+</ul>
+
+
+
+<a class="references" href="http://www.ntu.edu.sg/home/ehchua/programming/howto/References.html#cpp">Link to "C++ References &amp; Resources"</a>
+
+</div> <!-- End the content-main division -->
+
+<div id="content-footer" class="">
+<p class="">Latest version tested: Cygwin/MinGW GCC 4.6.2<br class="">
+Last modified: April, 2013</p>
+</div>
+
+</div>  <!-- End the wrap-inner division -->
+
+<!-- footer filled by JavaScript -->
+<div id="footer" class="header-footer"><p class="">Feedback, comments, corrections, and errata can be sent to Chua Hock-Chuan (ehchua@ntu.edu.sg) &nbsp;&nbsp;|&nbsp;&nbsp; <a href="http://www.ntu.edu.sg/home/ehchua/programming/index.html" class="">HOME</a></p></div>
+
+</div>  <!-- End the wrap-outer division -->
+
+
+
+<div class="selection_bubble_root" style=""></div><div id="gritter-notice-wrapper" class="bottom-left"><div id="gritter-item-1" class="gritter-item-wrapper " style="opacity: 0; overflow: hidden; height: 75px;"><div class="gritter-top"></div><div class="gritter-item"><div class="gritter-close"></div><div class="gritter-without-image"><span class="gritter-title">Text Zoom</span><p>Level 100%</p></div><div style="clear:both"></div></div><div class="gritter-bottom"></div></div></div></body></html>

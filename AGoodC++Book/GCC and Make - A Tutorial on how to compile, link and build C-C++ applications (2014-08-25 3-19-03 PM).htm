@@ -1,0 +1,1134 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><!--
+ Archive processed by SingleFile 
+ url: http://www.ntu.edu.sg/home/ehchua/programming/cpp/gcc_make.html 
+ saved date: Mon Aug 25 2014 15:19:03 GMT+0900 (Tokyo Standard Time) 
+--><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>GCC and Make - A Tutorial on how to compile, link and build C/C++ applications</title>
+<style rel="stylesheet" type="text/css" data-href="http://www.ntu.edu.sg/home/ehchua/programming/css/programming_notes_v1.css">/* 
+ * Universal selector - clear all the margin and padding to get consistent layout for Firefox and IE 
+ */
+* { 
+	margin: 0;
+	padding: 0;
+}
+
+/* 
+ * Set default style for all the tags.
+ * Apply to the main content division as well.
+ */
+body {
+	background-color: rgb(202, 251, 237);
+	color: #000;
+	font-family: "Segoe UI", Segoe, Calibri, "Ubuntu", Tahoma, Arial, Helvetica, Verdana, sans-serif;
+	font-size: 14px;
+	text-align: justify;
+	line-height: 1.5;
+}
+
+/*
+ * "wrap-outer" wraps header, wrap-inner and footer
+ */
+#wrap-outer {
+	margin: 20px 20px 20px 20px;
+	padding: 0;
+	
+}
+/*
+ * "wrap-inner" wraps content-header, content-main and content-footer
+ */
+#wrap-inner {
+	background-color: #fff;
+	margin: 0;
+	border: 1px solid #ddd;
+	padding: 25px 15px;
+	box-shadow: 5px 5px 0 #ddd;
+}
+#content-header {
+	margin: 0;
+	padding: 50px 0 10px 0;
+}
+
+#content-main {
+	margin: 0;
+	padding: 30px 0 20px 0;
+}
+#content-footer {
+	font-family: "Century Gothic", "Segoe UI", Segoe, "Ubuntu", Verdana, Tahoma, Arial, Helvetica, sans-serif;
+	font-size: 13px;
+	text-align: right;
+	color: rgb(192, 80, 77);
+/*	color: rgb(11, 83, 149); */
+	margin: 30px 0 0 0;
+    padding: 0;
+	border-top: 4px solid rgb(12, 155, 116);
+}
+/*
+ *  The main "header" & "footer" divisions
+ */
+.header-footer {
+	font-family: "Century Gothic", "Segoe UI", Segoe, "Ubuntu", Verdana, Tahoma, Arial, Helvetica, sans-serif;
+	color: rgb(192, 80, 77);
+/*	color: rgb(11, 83, 149); */
+	font-size: 13px;
+	text-align: right;
+	margin: 10px 0 5px 0;
+	padding: 5px 4px;
+}
+.header-footer a {
+	color: rgb(192, 80, 77);
+	text-decoration: underline;
+}
+.header-footer a:focus, .header-footer a:hover {  /* change color and remove underline */
+	text-decoration: none;
+ 	color: rgb(11, 83, 149);
+/*	color: rgb(192, 80, 77); */
+}
+
+h1, h2, h3, h4, h5, h6 {  /* main title and sub-title */
+	font-family: "Century Gothic", "Trebuchet MS", "Segoe UI", Segoe, "Ubuntu", Verdana, Tahoma, Arial, Helvetica, sans-serif;
+	margin: 0;
+	color: rgb(10, 132, 100);
+	letter-spacing: 1px;
+	line-height: 1.2;
+	text-align:left;
+}
+h1 {
+	font-size: 40px;
+	font-weight: 400;
+	padding: 0.2em 0;
+}
+h2 {
+	font-size: 36px;
+	font-weight: 400;
+	padding: 0.2em 0;
+}
+h3 {
+	font-size: 22px;
+	border-bottom: thin solid rgb(12, 155, 116);
+	padding: 1.5em 0 0.3em 0;
+}
+h4 {
+	font-family: "Segoe UI", Segoe, "Ubuntu", Verdana, Tahoma, Arial, Helvetica, sans-serif;
+	font-size: 18px;
+	padding: 1.3em 0 0.2em 0;
+	border-bottom: thin dotted rgb(12, 155, 116);
+}
+h5, h6 {
+	font-family: "Segoe UI", Segoe, "Ubuntu", Verdana, Tahoma, Arial, Helvetica, sans-serif;
+	font-size: 15px;
+	color: #444;
+	padding: 1.2em 0 0 0;  /* top right bottom left */
+	letter-spacing: 1px;
+}
+.line-heading {
+	color: #444;
+	font-size: 15px;
+	font-weight: bold;
+	letter-spacing: 1px;
+	padding: 0.2em 0;
+}
+.line-heading-code-new {
+	font-family: Consolas, "Lucida Console", "Courier New", Courier, monospace;
+	color: #E31B23;
+	font-size: 15px;
+    font-weight: normal;
+/*	letter-spacing: 0.5px; */
+}
+p {
+	margin-top: 0.6em;
+	margin-bottom: 0.4em;
+}
+pre {
+	font-family: Consolas, "Lucida Console", "Courier New", Courier, monospace;
+	font-size: 13px;
+	margin: 5px 0 8px 0;
+	border: solid 2px #f8f8f8;  /* slight 3D shape */
+	padding: 5px 10px;
+	line-height: 135%;
+}
+code {
+	font-family: Consolas, "Lucida Console", "Courier New", Courier, monospace;
+}
+
+ul {   /* first level ul */
+	margin: 0.3em 0 0.2em 1.8em;
+	padding: 0;
+/*	list-style-type: square;  */
+	list-style-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAANAQMAAABBztZFAAAABlBMVEUAAwBjjJzG2b5OAAAAAXRSTlMAQObYZgAAABBJREFUCNdjYMAG7FARAwMADXkBNzRuJgIAAAAASUVORK5CYII=);
+}
+ul ul li {   /* 2nd level ul */
+	list-style-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAANAQMAAABb8jbLAAAABlBMVEX///8AUow5QSOjAAAAAXRSTlMAQObYZgAAABNJREFUCB1jYEABBQw/wLCAgQEAGpIDyT0IVcsAAAAASUVORK5CYII=);
+/*
+	list-style-type: disc;
+	list-style-image: none; */
+}
+ul ul u1 li {   /* 3rd level ul */
+	list-style-type: circle;
+	list-style-image: none;
+}
+ol {   /* first level ol */
+/*    list-style-position:inside; */
+/*    display: table  */
+    list-style-type: decimal;
+	margin: 0.3em 0 0.2em 2.5em;
+	padding: 0;
+}
+ol ol li {   /* 2nd level ol */
+	list-style-type: lower-alpha;
+}
+ol ol o1 li {  /* 3rd level ol */
+	list-style-type: lower-roman;
+}
+
+li {
+	margin: 0.4em 0;
+}
+
+.float-left-ol-ul {
+	overflow:hidden;
+}
+
+/* li after a left-float image */
+.float-left-li {
+   position: relative; left: 20px;
+   margin-right: 20px;
+}
+
+a {
+	color: rgb(11, 83, 149);
+	text-decoration: none;
+}
+a:hover, a:focus {
+	color: rgb(192, 80, 77);
+	text-decoration: underline;
+}
+
+a.references {
+	display: block;
+	width: 30em;
+	font-size: 18px;
+	font-weight: bold;
+	margin: 4em 0 0 0;
+}
+
+p.references {
+	font-size: 18px;
+	font-weight: bold;
+	margin: 4em 0 0 0;
+}
+
+/*
+ * General classes
+ */
+.center-block {
+	margin: 10px auto;  /* auto margin-left and margin-right to center the table */
+}
+.text-center {	
+    text-align: center; 
+}
+.text-right {	
+    text-align: right; 
+}
+.underline {
+	text-decoration: underline;
+}
+.font-code {
+	font-family: Consolas, "Lucida Console", "Courier New", Courier, monospace;
+}
+.font-code-text {
+	font-family: Consolas, "Lucida Console", "Courier New", Courier, monospace;
+	font-size: 14px;
+}
+.font-code-smaller {
+	font-family: Consolas, "Lucida Console", "Courier New", Courier, monospace;
+	font-size: 13px;
+}
+.font-normal {
+	font-family: "Segoe UI", Segoe, Calibri, "Ubuntu", Tahoma, Arial, Helvetica, Verdana, sans-serif;
+}
+.pre {
+    white-space: pre;	
+}
+/* color control mainly for <pre>, <div>, <span> */
+.color-example {
+	background-color: rgb(215, 236, 211);  /* darker */
+}
+.color-example-light {
+	background-color: rgb(236, 246, 234);  /* lighter */
+}
+.color-syntax, .color-command {
+	background-color: rgb(204, 238, 241);  /* darker */
+}
+.color-explanation {
+	background-color: #eee;   /* grey */
+}
+/* Character level control for code listing */
+.color-comment {
+	color: #009900;  /* green */
+}
+.color-new {
+	color: #E31B23;  /* dark red to highlight new terms */
+}
+.color-error {
+	color: #ff0099;  /* bright red */
+/*	font-weight:bold; */
+}
+.color-plain {
+	background-color: #fff;
+}
+.color-highlight {
+	background-color: #ff0;
+}
+.color-highlight-new {
+    background-color: #FFC;  /* lighter */
+}
+
+.output {  /* Output of program or DOS session */
+    background-color: rgb(236, 246, 234);  /* lighter */
+	border: solid 2px #f8f8f8;   /* slight 3D shape */
+	padding: 4px 8px;
+}
+.side-note {
+	margin-top: 15px;
+    margin-left: 40px;
+	padding: 3px 8px; 
+	background-color: #e7e7e7;
+}
+
+
+/*
+ * for positioning images 
+ */
+img.image-center {      /* center horizontally an image */
+	display: block;
+	margin: 10px auto;
+}
+img.image-border {
+    border: #ddd thin solid;
+}
+img.image-float-left {
+	float: left;
+	margin: 8px 15px 15px 0;
+    border: #ddd thin solid;
+}
+img.image-float-right {
+	float: right;
+	margin: 8px 0 15px 15px;
+    border: #ddd thin solid;
+}
+.float-clear {
+   clear: both;	
+}
+/*
+ *  Table - for tablulating data with alternate row colors or different column colors
+ */
+table.table-zebra, table.table-program {
+	border-collapse: collapse;
+	border: 0;
+	margin: 0 auto; /* center */
+	padding: 0;
+    width: 100%;
+	/* Default setting for all cells in this table, inherited */
+    background-color: rgb(231, 240, 248);  /* lighter */
+	text-align: left;
+	vertical-align: top;
+}
+table.table-zebra th {  /* header cells */
+	color: #ffffff;     /* white text on dark background */
+	background-color: rgb(0, 157, 217);
+	margin: 0;
+	border: 2px solid white;
+	padding: 4px 10px;
+	font-size: 15px;
+	letter-spacing: 1px;
+	text-align: center;
+}
+table.table-zebra td {  /* data cells */
+    margin: 0;
+	border: 2px solid white;
+	padding: 2px 8px;
+	/* color, font, text inherited from table */
+	vertical-align: top;
+}
+
+table.table-program th {  /* header cells */
+	color: #ffffff;     /* white text on dark background */
+	background-color: rgb(0, 157, 217);
+	margin: 0;
+	border: 2px solid white;
+	padding: 4px 10px;
+	font-size: 15px;
+	letter-spacing: 1px;
+	text-align: center;
+}
+table.table-program td {  /* data cells */
+    margin: 0;
+	border: 0;
+	padding: 0;
+	/* color, font, text inherited from table */
+}
+
+table.table-program td pre {
+	margin: 0;
+	border: solid 2px #f8f8f8;   /* slight 3D shape */
+	padding: 5px 10px;
+}
+
+table.table-program td pre.text-right {
+	text-align: right;
+}
+
+/* Setting the color for row (2 colors) or column (3 colors) */
+/* can only set the background, border, width of <col>, NOT font, text, color */
+/* for table-zebra */
+table .col-desc {       /* same as default color */
+    background-color: rgb(231, 240, 248);  /* lighter */
+}
+table .col-code, table .tr-alt {
+	background-color: rgb(203, 223, 241);  /* darker */
+}
+table .col-example {
+    background-color: #eee;  /* grey */
+}
+
+/* for table-program */
+table .col-line-number {
+	width: 40px;
+    background-color: rgb(225, 233, 207);
+}
+table .col-program {
+    background-color: rgb(240, 244, 233);
+}
+
+/*
+ * For the "Table of Content" generated by JavaScript
+ * in <div id="toc">
+ */
+#wrap-toc {
+    display: block;
+	background: none repeat scroll 0 0 rgb(231, 246, 239);
+	float: right;
+	width: 230px;
+	z-index: 100;
+	line-height: 1.5;
+	margin: 0 0 0 15px;
+	padding: 5px 8px 10px 8px;
+	text-align: left;
+	white-space: nowrap;
+/*	min-height: 180px;  */
+}
+#wrap-toc h5 {
+   letter-spacing: 1px;
+   margin: 0;
+   text-transform: uppercase;
+	color: #444;
+	padding: 0.5em 0;
+}
+a#show-toc {
+	color: rgb(192, 80, 77);
+	text-decoration: none;
+   letter-spacing: 1px;
+}
+#toc {
+	overflow: auto;
+}
+#toc a.toc-H3 {
+    margin-left: 0px;
+	font-size: 15px;
+}
+#toc a.toc-H4 {
+    margin-left: 20px;
+	font-size: 14px;
+}
+#toc a.toc-H5 {
+    margin-left: 40px;
+	font-size: 14px;
+}
+</style>
+
+<link rel="shortcut icon" href="data:image/x-icon;base64,AAABAAEAEBAQAAEABAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAgAAAAAAAAAAAAAAAEAAAAAAAAADy8O0APrMnACEdGADb2tkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMzMzMzMzMzMyIiIiIiIiIzIiIiIiIiIjMgIiIgAAAiMyACIiAAACIzIgAiIiIiIjMiIAIiIiIiMyIiACIiIiIzIiACIiIiIjMiACISEiESMyACIhISEiIzICIiERISIjMiIiISEhIiMyIiIhISIRIzIiIiIiIiIjMzMzMzMzMzMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" type="image/x-icon"></head>
+
+<body class="">
+
+<div id="wrap-outer" class="">
+
+<!-- header filled by JavaScript -->
+<div id="header" class="header-footer"><p class="">yet another insignificant programming notes... &nbsp;&nbsp;| &nbsp;&nbsp;<a href="http://www.ntu.edu.sg/home/ehchua/programming/index.html" class="">HOME</a></p></div>
+
+<div id="wrap-inner" class="">
+
+<div id="wrap-toc" class="">
+<h5 class="">TABLE OF CONTENTS <a id="show-toc" href="#show-toc" class="">(HIDE)</a></h5>
+<div id="toc" class=""><a class="toc-H3" href="#zz-1.">1.&nbsp;&nbsp;GCC (GNU Compiler Collection)</a><br class=""><a class="toc-H4" href="#zz-1.1">1.1&nbsp;&nbsp;A Brief History and Introduction to GCC</a><br class=""><a class="toc-H4" href="#zz-1.2">1.2&nbsp;&nbsp;Installing GCC</a><br class=""><a class="toc-H4" href="#zz-1.3">1.3&nbsp;&nbsp;Getting Started</a><br class=""><a class="toc-H4" href="#zz-1.4">1.4&nbsp;&nbsp;GCC Compilation Process</a><br class=""><a class="toc-H4" href="#zz-1.5">1.5&nbsp;&nbsp;Headers (<span class="font-code">.h</span>), Static Libraries (<span class="font-code">.lib</span>, <span class="font-code">.a</span>) and Shared Library (<span class="font-code">.dll</span>, <span class="font-code">.so</span>)</a><br class=""><a class="toc-H4" href="#zz-1.6">1.6&nbsp;&nbsp;GCC Environment Variables</a><br class=""><a class="toc-H4" href="#zz-1.7">1.7&nbsp;&nbsp;Utilities for Examining the Compiled Files</a><br class=""><a class="toc-H3" href="#zz-2.">2.&nbsp;&nbsp;GNU Make</a><br class=""><a class="toc-H4" href="#zz-2.1">2.1&nbsp;&nbsp;First Makefile By Example</a><br class=""><a class="toc-H4" href="#zz-2.2">2.2&nbsp;&nbsp;More on Makefile</a><br class=""><a class="toc-H4" href="#zz-2.3">2.3&nbsp;&nbsp;A Sample Makefile</a><br class=""><a class="toc-H4" href="#zz-2.4">2.4&nbsp;&nbsp;Brief Summary</a><br class=""><br class=""></div>  <!-- for showing the "Table of Content" -->
+</div>
+
+<div id="content-header" class="">
+<h1 class="">GCC and Make</h1>
+<h2 class="">Compiling, Linking and Building<br class="">C/C++ Applications</h2>
+</div>
+
+<div id="content-main" class="">
+
+
+<h3 class="">1.&nbsp;&nbsp;GCC (GNU Compiler Collection)<a id="zz-1." class="" style=""></a></h3>
+
+<h4 class="">1.1&nbsp;&nbsp;A Brief History and Introduction to GCC<a id="zz-1.1" class="" style=""></a></h4>
+
+<p class="">The original <em class="">GNU C Compiler</em> (GCC) is developed by Richard Stallman, the founder of the <em class="">GNU Project</em>. Richard Stallman founded the GNU project in 1984 to create a complete Unix-like operating system as free software, to promote freedom and cooperation among computer users and programmers.</p>
+
+<p class="">GCC, formerly for "<em class="">GNU C Compiler</em>", has grown over times to support many languages such as C++, Objective-C, Java, Fortran and Ada. It is now referred to as "<em class="">GNU Compiler Collection</em>". The mother site for GCC is <a href="http://gcc.gnu.org/" class="">http://gcc.gnu.org/</a>.</p>
+
+<p class="">GCC is a key component of "<em class="">GNU Toolchain</em>", for developing applications, as well as operating systems. The GNU Toolchain includes:</p>
+
+<ol class="">
+<li class="">GNU Compiler Collection (GCC): a compiler suit that supports many languages, such as C/C++, Objective-C and Java.</li>
+<li class="">GNU Make: an automation tool for compiling and building applications.</li>
+<li class="">GNU Binutils: a suit of binary utility tools, including linker and assembler.</li>
+<li class="">GNU Debugger (GDB).</li>
+<li class="">GNU Autotools: A build system including Autoconf, Autoheader, Automake and Libtool.</li>
+<li class="">GNU Bison: a parser generator (similar to lex and yacc).</li>
+</ol>
+
+<p class="">GCC is <em class="">portable</em> and run in many operating platforms. GCC (and GNU Toolchain) is currently available on all Unixes. They are also ported to Windows by MinGW and Cygwin. GCC is also a <em class="">cross-compiler</em>, for producing executables on different platform.</p>
+
+<p class="">The various GCC versions are:</p>
+<ul class="">
+<li class="">In 1987, the first version of GCC was released.</li>
+<li class="">In 1992, GCC version 2 was released which supports C++.</li>
+<li class="">In 2001, GCC version 3 was released incorporating ECGS (Experimental GNU Compiler System), with improve optimization.</li>
+<li class="">In 2005, GCC version 4 was released. As of July 2012, the latest release of GCC is 4.7.4.</li>
+</ul>
+
+<h4 class="">1.2&nbsp;&nbsp;Installing GCC<a id="zz-1.2" class="" style=""></a></h4>
+
+<p class="">GCC (GNU Toolchain) is included in all Unixes. For Windows, you could either install MinGW GCC or Cygwin GCC. Read "<a href="http://www.ntu.edu.sg/home/ehchua/programming/howto/Cygwin_HowTo.html" class="">How to install Cygwin and MinGW</a>".</p>
+
+<h5 class="">MinGW GCC</h5>
+<p class="">MinGW (Minimalist GNU for Windows) is a port of the GNU Compiler Collection (GCC) and GNU Binutils for use in  Windows. It also included MSYS (Minimal System), which is basically a Bourne shell (<code class="">bash<span class="color-comment" style=""></span></code>).</p>
+
+<h5 class="">Cygwin GCC</h5>
+<p class="">Cygwin is a Unix-like environment and command-line interface for Microsoft Windows. Cygwin is huge and includes most of the Unix tools and utilities. It also included the commonly-used Bash shell. </p>
+<p class="">Two versions of GCC are installed, identified via <code class="">gcc-3.exe</code> and <code class="">gcc-4.exe</code> (and <code class="">g++-3.exe</code> and <code class="">g++-4.exe</code>). It also provides symlinks <code class="">gcc.exe</code> and <code class="">g++.exe</code>, which are linked to <code class="">gcc-4.exe</code> and <code class="">g++-4.exe</code>, respectively.</p>
+
+<h5 class="">Versions</h5>
+<p class="">You could display the version of GCC via <code class="">--version</code> option:</p>
+
+<pre class="color-command"><span class="color-comment">// Cygwin in bash shell</span>
+$ <strong class="">gcc --version</strong>
+gcc (GCC) 4.5.3
+ 
+$ <strong class="">gcc-3 --version</strong>
+gcc-3 (GCC) 3.4.4 (cygming special, gdc 0.12, using dmd 0.125)
+<span class="color-comment"> 
+// MinGW in CMD shell</span>
+&gt; <strong class="">gcc --version</strong>
+gcc (GCC) 4.6.2
+ 
+&gt; <strong class="">g++ --version</strong>
+gcc (GCC) 4.6.2</pre>
+
+<p class="">More details can be obtained via <code class="">-v</code> option, for example,</p>
+<pre class="color-command">&gt; <strong class="">gcc -v</strong>
+Using built-in specs.
+COLLECT_GCC=gcc
+COLLECT_LTO_WRAPPER=d:/mingw/bin/../libexec/gcc/mingw32/4.6.2/lto-wrapper.exe
+Target: mingw32
+Configured with: ../gcc-4.6.2/configure --enable-languages=c,c++,ada,fortran,objc,obj-c++ 
+  --disable-sjlj-exceptions --with-dwarf2 --enable-shared --enable-libgomp 
+  --disable-win32-registry --enable-libstdcxx-debug --enable-version-specific-runtime-libs 
+  --build=mingw32 --prefix=/mingw
+Thread model: win32
+gcc version 4.6.2 (GCC)</pre>
+
+
+<h5 class="">Help</h5>
+<p class="">You can get the help manual via the <code class="">--help</code> option. For example,</p>
+<pre class="color-command">&gt; <strong class="">gcc --help</strong>
+</pre>
+
+<h5 class="">Man Pages</h5>
+<p class="">You can read the GCC manual pages (or <em class="">man pages</em>) via the <code class="">man</code> utility:</p>
+<pre class="color-command">&gt; <strong class="">man gcc</strong>
+<span class="color-comment">// or</span>
+&gt; <strong class="">man g++</strong>
+<span class="color-comment">// Press space key for next page, or 'q' to quit.</span></pre>
+
+<p class="">Reading man pages under CMD or Bash shell can be difficult. You could generate a text file via:</p>
+<pre class="color-command">&gt; <strong class="">man gcc | col -b &gt; gcc.txt</strong>
+</pre>
+
+<p class="">The <code class="">col</code> utility is needed to strip the backspace. (For Cygwin, it is available in  "Utils", "util-linux" package.)</p>
+<p class="">Alternatively, you could look for an online man pages, e.g., <a href="http://linux.die.net/man/1/gcc" class="">http://linux.die.net/man/1/gcc</a>.</p>
+
+<p class="">For MinGW, the GCC man pages are kept in "<code class="">share\man\man1\gcc.1</code>". For Cygwin, it is kept under "<code class="">usr\share\man\man1</code>".</p>
+
+
+<h4 class="">1.3&nbsp;&nbsp;Getting Started<a id="zz-1.3" class="" style=""></a></h4>
+
+<p class="">The GNU C and C++ compiler are <code class="">gcc</code> and <code class="">g++</code>, respectively.</p>
+
+<h5 class="">Compile/Link a Simple C Program - <span class="font-code">hello.c</span></h5>
+
+<p class="">Below is the Hello-world C program <code class="">hello.c</code>:</p>
+
+<table class="table-program">
+<colgroup class="" style=""><col class="col-line-number" style="">
+<col class="col-program" style="">
+</colgroup><tbody class="">
+<tr class="">
+<td class="">
+<pre class="text-right">1
+2
+3
+4
+5
+6
+7</pre>
+</td>
+<td class="">
+<pre class=""><span class="color-comment">// hello.c</span>
+#include &lt;stdio.h&gt;
+ 
+int main() {
+    printf("Hello, world!\n");
+    return 0;
+}</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+<p class="">To compile the <code class="">hello.c</code>:</p>
+<pre class="color-command">&gt; <strong class="">gcc hello.c</strong>
+  <span class="color-comment">// Compile and link source file hello.c into executable a.exe</span></pre>
+
+<p class="">The default output executable is called "<code class="">a.exe</code>".</p>
+<p class="">To run the program:</p>
+
+<pre class="color-command"><span class="color-comment">// Under CMD Shell</span>
+&gt; <strong class="">a</strong>
+<span class="color-comment">// Under Bash or Bourne Shell - include the current path (./)</span>
+$ <strong class="">./a</strong></pre>
+
+<p class="">NOTES (for Bash Shell, Bourne Shell and Unixes):</p>
+<ul class="">
+<li class="">In Bash or Bourne shell, the default PATH does not include the current working directory. Hence, you may need to include the current path (<code class="">./</code>) in the command. (Windows include the current directory in the PATH automatically; whereas Unixes do not - you need to include the current directory explicitly in the PATH.)</li>
+<li class="">You may need to include the file extension, i.e., "<code class="">./a.exe</code>".</li>
+<li class=""> In some Unixes, the output file could be "<code class="">a.out</code>" or simply "<code class="">a</code>". Furthermore, you may need to assign <em class="">executable file-mode</em> (<em class="">x</em>) to the executable file "<code class="">a.out</code>", via command "<code class="">chmod a+x <em class="">filename</em></code>" (add executable file-mode "<code class="">+x</code>" to all users "<code class="">a+x</code>").</li>
+</ul>
+
+<p class="">To specify the output filename, use <code class="">-o</code> option:</p>
+<pre class="color-example">&gt; <strong class="">gcc -o hello.exe hello.c</strong>
+  <span class="color-comment">// Compile and link source file hello.c into executable hello.exe</span>
+&gt; <strong class="">hello</strong>
+  <span class="color-comment">// Execute hello.exe under CMD shell</span>
+$ <strong class="">./hello</strong>
+  <span class="color-comment">// Execute hello.exe under Bash or Bourne shell, specifying the current path (./)</span></pre>
+
+<p class="">NOTE for Unixes: In Unixes, you may omit the <code class="">.exe</code> file extension, and simply name the output executable as <code class="">hello</code>. You need to assign executable file mode via command "<code class="">chmod a+x hello</code>".</p>
+
+<h5 class="">Compile/Link a Simple C++ Program - <span class="font-code">hello.cpp</span></h5>
+
+<table class="table-program">
+<colgroup class="" style=""><col class="col-line-number" style="">
+<col class="col-program" style="">
+</colgroup><tbody class="">
+<tr class="">
+<td class="">
+<pre class="text-right">1
+2
+3
+4
+5
+6
+7
+8</pre>
+</td>
+<td class="">
+<pre class=""><span class="color-comment">// hello.cpp
+</span>#include &lt;iostream&gt;
+using namespace std;
+ 
+int main() {
+   cout &lt;&lt; "Hello, world!" &lt;&lt; endl;
+   return 0;
+}</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+<p class="">You need to use g++ to compile C++ program, as follows. We use the <code class="">-o</code> option to specify the output file name.</p>
+<pre class="color-command">&gt; g++ -o hello.exe hello.cpp
+   <span class="color-comment">// Compile and link source hello.cpp into executable hello.exe</span>
+&gt; hello
+   <span class="color-comment">// Execute under CMD shell</span>
+$ ./hello
+   <span class="color-comment">// Execute under Bash or Bourne shell, specifying the current path (./)</span></pre>
+
+<h5 class="">More GCC Compiler Options</h5>
+
+<p class="">A few commonly-used GCC compiler options are:</p>
+<pre class="color-command">$ g++ <strong class="">-Wall -g -o Hello.exe</strong> Hello.cpp</pre>
+
+<ul class="">
+<li class=""><code class="">-o</code>: specifies the <span class="underline">o</span>utput executable filename.</li>
+<li class=""><code class="">-Wall</code>: prints "<code class="">all</code>" <span class="underline">w</span>arning messages.</li>
+<li class=""><code class="">-g</code>: generates additional symbolic debug<span class="underline">g</span>ging information for use with <code class="">gdb</code> debugger.</li>
+</ul>
+
+<h5 class="">Compile and Link Separately</h5>
+
+<p class="">The above command <em class="">compile</em> the source file into object file and <code class="">link</code> with other object files (system library) into executable in one step. You may separate compile and link in two steps as follows:</p>
+
+<pre class="color-command"><span class="color-comment">// Compile-only with -c option</span>
+&gt; g++ <strong class="">-c</strong> -Wall -g Hello.cpp
+<span class="color-comment">// Link object file(s) into an executable</span>
+&gt; g++ -g -o Hello.exe Hello.o</pre>
+
+<p class="">The options are:</p>
+<ul class="">
+<li class=""><code class="">-c</code>: <span class="underline">c</span>ompile into object file "<code class="">Hello.o</code>". By default, the object file has the same name as the source file with extension of "<code class="">.o</code>" (there is no need to specify <code class="">-o</code> option). No linking with other object file or library.</li>
+<li class="">Linking is performed when the input file are object files "<code class="">.o</code>" (instead of source file "<code class="">.cpp</code>" or "<code class="">.c</code>"). GCC uses a separate linker program (called <code class="">ld.exe</code>) to perform the linking.</li>
+</ul>
+
+<h5 class="">Compile and Link Multiple Source Files</h5>
+<p class="">Suppose that your program has two source files: <code class="">file1.cpp</code>, <code class="">file2.cpp</code>. You could compile all of them in a single command:</p>
+<pre class="color-command">&gt; g++ -o myprog.exe file1.cpp file2.cpp </pre>
+
+<p class="">However, we usually compile each of the source files separately into object file, and link them together in the later stage. In this case, changes in one file does not require re-compilation of the other files.</p>
+<pre class="color-command">&gt; g++ -c file1.cpp
+&gt; g++ -c file2.cpp
+&gt; g++ -o myprog.exe file1.o file2.o</pre>
+
+<h5 class="">Compile into a Shared Library</h5>
+
+<p class="">To compile and link C/C++ program into a shared library (<code class="">".dll"</code> in Windows, <code class="">".so"</code> in Unixes), use <code class="">-shared</code> option. Read "<a href="http://www.ntu.edu.sg/home/ehchua/programming/java/JavaNativeInterface.html" class="">Java Native Interface</a>" for example.</p>
+
+<h4 class="">1.4&nbsp;&nbsp;GCC Compilation Process<a id="zz-1.4" class="" style=""></a></h4>
+
+<img class="image-center" src="data:image/png;base64,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">
+
+<p class="">GCC compiles a C/C++ program into executable in 4 steps as shown in the above diagram. For example, a "<code class="">gcc -o hello.exe hello.c</code>" is carried out as follows:</p>
+<ol class="">
+<li class="">Pre-processing: via the GNU C Preprocessor (<code class="">cpp.exe</code>), which includes the headers (<code class="">#include</code>) and expands the macros (<code class="">#define</code>).
+
+<pre class="color-command">&gt; <strong class="">cpp hello.c &gt; hello.i</strong></pre>
+
+The resultant intermediate file "<code class="">hello.i</code>" contains the expanded source code.</li>
+
+<li class="">Compilation: The compiler compiles the pre-processed source code into assembly code for a specific processor.
+  <pre class="color-command">&gt; <strong class="">gcc -S hello.i</strong></pre>
+The <code class="">-S</code> option specifies to produce assembly code, instead of object code. The resultant assembly file is "<code class="">hello.s</code>".</li>
+
+<li class="">Assembly: The assembler (<code class="">as.exe</code>) converts the assembly code into machine code in the object file "<code class="">hello.o</code>".
+<pre class="color-command">&gt; <strong class="">as -o hello.o hello.s</strong></pre></li>
+
+<li class="">Linker: Finally, the linker (<code class="">ld.exe</code>) links the object code with the library code to produce an executable file "<code class="">hello.exe</code>".
+<pre class="color-command">&gt; <strong class="">ld -o hello.exe hello.o ...libraries...</strong></pre></li>
+</ol>
+
+<h5 class="">Verbose Mode (<span class="font-code">-v</span>)</h5>
+
+<p class="">You can see the detailed compilation process by enabling <code class="">-v</code> (verbose) option. For example,</p>
+<pre class="color-command">&gt; <strong class="">gcc -v hello.c -o hello.exe</strong></pre>
+
+<h5 class="">Defining Macro (<span class="font-code">-D</span>)</h5>
+
+<p class="">You can use the <code class="">-D<em class="">name</em></code> option to define a macro, or <code class="">-D<em class="">name</em>=<em class="">value</em></code> to define a macro with a value. The <code class=""><em class="">value</em></code> should be enclosed in double quotes if it contains spaces.</p>
+
+
+
+<h4 class="">1.5&nbsp;&nbsp;Headers (<span class="font-code">.h</span>), Static Libraries (<span class="font-code">.lib</span>, <span class="font-code">.a</span>) and Shared Library (<span class="font-code">.dll</span>, <span class="font-code">.so</span>)<a id="zz-1.5" class="" style=""></a></h4>
+
+<h5 class="">Static Library vs. Shared Library</h5>
+
+<p class="">A library is a collection of pre-compiled object files that can be linked into your programs via the linker. Examples are the system functions such as <code class="">printf()</code> and <code class="">sqrt()</code>.</p>
+
+<p class="">There are two types of external libraries: <em class="">static library</em> and <em class="">shared library</em>.</p>
+
+<ol class="">
+<li class="">A static library has file extension of "<code class="">.a</code>" (archive file) in Unixes or "<code class="">.lib</code>" (library) in Windows. When your program is linked against a static library, the machine code of external functions used in your program is copied into the executable. A static library can be created via the <em class="">archive</em> program "<code class="">ar.exe</code>".</li>
+
+<li class="">A shared library has file extension of "<code class="">.so</code>" (shared objects) in Unixes or "<code class="">.dll</code>" (dynamic link library) in Windows. When your program is linked against a shared library, only a small table is created in the executable. Before the executable starts running, the operating system loads the machine code needed for the external functions - a process known as <em class="">dynamic linking</em>. Dynamic linking makes executable files smaller and saves disk space, because one copy of a library can be shared between multiple programs. Furthermore, most operating systems allows one copy of a shared library in memory to be used by all running programs, thus, saving memory. The shared library codes can be upgraded without the need to recompile your program.</li>
+</ol>
+
+<p class="">Because of the advantage of dynamic linking, GCC, by default, links to the shared library if it is available.</p>
+
+<p class="">You can list the contents of a library via "<code class="">nm <em class="">filename</em></code>".</p>
+
+<h5 class="">Searching for Header Files and Libraries (<span class="font-code">-I</span>, <span class="font-code">-L</span> and <span class="font-code">-l</span>)</h5>
+
+<p class="">When compiling the program, the <em class="">compiler</em> needs the <em class="">header files</em> to compile the source codes; the <em class="">linker</em> needs the <em class="">libraries</em> to resolve external references from other object files or libraries. The compiler and linker will not find the headers/libraries unless you set the appropriate options, which is not obvious for first-time user.</p>
+<p class="">For each of the headers used in your source (via <code class="">#include</code> directives), the compiler searches the so-called <em class="">include-paths</em> for these headers. The include-paths are specified via <code class="">-I<em class="">dir</em></code> option (or environment variable <code class="">CPATH</code>). Since the header's filename is known (e.g., <code class="">iostream.h</code>, <code class="">stdio.h</code>), the compiler only needs the directories.</p>
+<p class="">The linker searches the so-called <em class="">library-paths</em> for libraries needed to link the program into an executable. The library-path is specified via <code class="">-L<em class="">dir</em></code> option (uppercase <code class="">'L'</code> followed by the directory path) (or environment variable <code class="">LIBRARY_PATH</code>). In addition, you also have to specify the library name. In Unixes, the library <code class="">lib<em class="">xxx</em>.a</code> is specified via <code class="">-l<em class="">xxx</em></code> option (lowercase letter <code class="">'l'</code>, without the prefix "<code class="">lib</code>" and <code class="">".a</code>" extension). In Windows, provide the full name such as <code class="">-lxxx.lib</code>. The linker needs to know both the directories as well as the library names. Hence, two options need to be specified.</p>
+
+<h5 class="">Default Include-paths, Library-paths and Libraries</h5>
+
+<p class="">Try list the default include-paths in your system used by the "GNU C Preprocessor" via "<code class="">cpp -v</code>":</p>
+<pre class="color-command">&gt; <strong class="">cpp -v</strong>
+......
+#include "..." search starts here:
+#include &lt;...&gt; search starts here:
+ d:\mingw\bin\../lib/gcc/mingw32/4.6.2/include             <span class="color-comment">// d:\mingw\lib\gcc\mingw32\4.6.2\include</span>
+ d:\mingw\bin\../lib/gcc/mingw32/4.6.2/../../../../include <span class="color-comment">// d:\mingw\include</span>
+ d:\mingw\bin\../lib/gcc/mingw32/4.6.2/include-fixed       <span class="color-comment">// d:\mingw\lib\gcc\mingw32\4.6.2\include-fixed</span></pre>
+
+<p class="">Try running the compilation in verbose mode (<code class="">-v</code>) to study the library-paths (<code class="">-L</code>) and libraries (<code class="">-l</code>) used in your system:</p>
+<pre class="color-command">&gt; <strong class="">gcc -v -o hello.exe hello.c</strong>
+......
+-Ld:/mingw/bin/../lib/gcc/mingw32/4.6.2                         <span class="color-comment">// d:\mingw\lib\gcc\mingw32\4.6.2</span>
+-Ld:/mingw/bin/../lib/gcc                                       <span class="color-comment">// d:\mingw\lib\gcc</span>
+-Ld:/mingw/bin/../lib/gcc/mingw32/4.6.2/../../../../mingw32/lib <span class="color-comment">// d:\mingw\mingw32\lib</span>
+-Ld:/mingw/bin/../lib/gcc/mingw32/4.6.2/../../..                <span class="color-comment">// d:\mingw\lib</span>
+-lmingw32     <span class="color-comment">// libmingw32.a</span>
+-lgcc_eh      <span class="color-comment">// libgcc_eh.a</span>
+-lgcc         <span class="color-comment">// libgcc.a</span>
+-lmoldname
+-lmingwex
+-lmsvcrt
+-ladvapi32
+-lshell32
+-luser32 
+-lkernel32</pre>
+
+
+<p class=""><br class="">
+  <span class="line-heading">Eclipse CDT:</span> In Eclipse CDT, you can set the include paths, library paths and libraries by right-click on the project  ⇒ Properties ⇒ C/C++ General  ⇒ Paths and Symbols ⇒ Under tabs "Includes", "Library Paths" and "Libraries". The settings are applicable to the selected project only.</p>
+  
+<h4 class="">1.6&nbsp;&nbsp;GCC Environment Variables<a id="zz-1.6" class="" style=""></a></h4>
+<p class="">GCC uses the following environment variables:</p>
+<ul class="">
+  <li class=""><code class="">PATH</code>: For searching the executables and run-time shared libraries (<code class="">.dll</code>, <code class="">.so</code>).</li>
+  <li class=""><code class="">CPATH</code>: For searching the <em class="">include-paths</em> for headers. It is searched after paths specified in <code class="">-I&lt;<em class="">dir</em>&gt;</code> options. <code class="">C_INCLUDE_PATH</code> and <code class="">CPLUS_INCLUDE_PATH</code> can be used to specify C and C++ headers if the  particular language was indicated in pre-processing.</li>
+  <li class=""><code class="">LIBRARY_PATH</code>: For searching <em class="">library-paths</em> for link libraries. It is searched after paths specified in  -<code class="">L&lt;<em class="">dir</em>&gt;</code> options.</li>
+</ul>
+
+<h4 class="">1.7&nbsp;&nbsp;Utilities for Examining the Compiled Files<a id="zz-1.7" class="" style=""></a></h4>
+
+<p class="">For all the GNU utilities, you can use "<code class="">command --help</code>" to list the help menu; or "<code class="">man command</code>" to display the man pages.</p>
+
+<h5 class="">"<span class="font-code">file</span>" Utility - Determine File Type</h5>
+
+<p class="">The utility "<code class="">file</code>" can be used to display the type of object files and executable files. For example,</p>
+
+<pre class="color-command">&gt; <strong class="">gcc -c hello.c</strong>
+&gt; <strong class="">gcc -o hello.exe hello.o</strong>
+ 
+&gt; <strong class="">file hello.o</strong>
+hello.o: 80386 COFF executable not stripped - version 30821
+ 
+&gt; <strong class="">file hello.exe</strong>
+hello.exe: PE32 executable (console) Intel 80386, for MS Windows</pre>
+
+<h5 class="">"<span class="font-code">nm</span>" Utility - List Symbol Table of Object Files</h5>
+
+<p class="">The utility "<code class="">nm</code>" lists symbol table of object files. For example,</p>
+<pre class="color-command">&gt; <strong class="">nm hello.o</strong>
+00000000 b .bss
+00000000 d .data
+00000000 r .eh_frame
+00000000 r .rdata
+00000000 t .text
+         U ___main
+00000000 T _main
+         U _printf
+         U _puts
+ 
+&gt; <strong class="">nm hello.exe | grep printf</strong>
+00406120 I __imp__printf
+0040612c I __imp__vfprintf
+00401b28 T _printf
+00401b38 T _vfprintf</pre>
+
+<p class="">"nm" is commonly-used to check if a particular function is defined in an object file. A <code class="">'T'</code> in the second column indicates a function that is <em class="">defined</em>, while a <code class="">'U'</code> indicates a function which is <em class="">undefined</em> and should be resolved by the linker.</p>
+
+<h5 class="">"<span class="font-code">ldd</span>" Utility - List Dynamic-Link Libraries</h5>
+
+<p class="">The utility "<code class="">ldd</code>" examines an executable and displays a list of the shared libraries that it needs. For example,</p>
+<pre class="color-command">&gt; <strong class="">ldd hello.exe</strong>
+ntdll.dll =&gt; /cygdrive/c/Windows/SYSTEM32/ntdll.dll (0x77bd0000)
+kernel32.dll =&gt; /cygdrive/c/Windows/system32/kernel32.dll (0x77600000)
+KERNELBASE.dll =&gt; /cygdrive/c/Windows/system32/KERNELBASE.dll (0x75fa0000)
+msvcrt.dll =&gt; /cygdrive/c/Windows/system32/msvcrt.dll (0x763f0000)</pre>
+
+<h3 class="">2.&nbsp;&nbsp;GNU Make<a id="zz-2." class="" style=""></a></h3>
+<p class="">The "<code class="">make</code>" utility automates the mundane aspects of building executable from source code. "<code class="">make</code>" uses a so-called <code class="">makefile</code>, which contains rules on how to build the executables.</p>
+
+<p class="">You can issue "<code class="">make --help</code>" to list the command-line options; or "<code class="">man make</code>" to display the man pages.</p>
+
+<h4 class="">2.1&nbsp;&nbsp;First Makefile By Example<a id="zz-2.1" class="" style=""></a></h4>
+
+<p class="">Let's begin with a simple example to build the Hello-world program (<code class="">hello.c</code>) into executable (<code class="">hello.exe</code>) via make utility.</p>
+
+<table class="table-program">
+<colgroup class="" style=""><col class="col-line-number" style="">
+<col class="col-program" style="">
+</colgroup><tbody class="">
+<tr class="">
+<td class="">
+<pre class="text-right">1
+2
+3
+4
+5
+6
+7</pre>
+</td>
+<td class="">
+<pre class=""><span class="color-comment">// hello.c</span>
+#include &lt;stdio.h&gt;
+ 
+int main() {
+    printf("Hello, world!\n");
+    return 0;
+}</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+<p class="">Create the following file named "makefile" (without any file extension), which contains rules to build the executable, and save in the same directory as the source file. Use "tab" to indent the command (NOT spaces).</p>
+
+<pre class="color-example">all: hello.exe
+
+hello.exe: hello.o
+	 gcc -o hello.exe hello.o
+
+hello.o: hello.c
+	 gcc -c hello.c
+     
+clean:
+	 rm hello.o hello.exe</pre>
+    
+<p class="">Run the "<code class="">make</code>" utility as follows:</p>
+
+<pre class="color-command">&gt; <strong class="">make</strong>
+gcc -c hello.c
+gcc -o hello.exe hello.o</pre>
+
+<p class="">Running <code class="">make</code> without argument starts the target "<code class="">all</code>" in the <code class="">makefile</code>. A makefile consists of a set of rules. A rule consists of 3 parts: a target, a list of pre-requisites and a command, as follows:</p>
+
+<pre class="color-syntax"><em class="">target</em>: <em class="">pre-req-1</em> <em class="">pre-req-2</em> ...
+	<em class="">command</em></pre>
+
+<p class="">The <em class="">target</em> and <em class="">pre-requisites</em> are separated by a colon (<code class="">:</code>). The <em class="">command</em> must be preceded by a tab (NOT spaces).</p>
+
+<p class="">When <code class="">make</code> is asked to evaluate a rule, it begins by finding the files in the prerequisites. If any of the prerequisites has an associated rule, make attempts to update those first.</p>
+<p class="">In the above example, the rule "<code class="">all</code>" has a pre-requisite "<code class="">hello.exe</code>". <code class="">make</code> cannot find the file "<code class="">hello.exe</code>", so it looks for a rule to create it. The rule "<code class="">hello.exe</code>" has a pre-requisite "<code class="">hello.o</code>". Again, it does not exist, so <code class="">make</code> looks for a rule to create it. The rule "<code class="">hello.o</code>" has a pre-requisite "<code class="">hello.c</code>". <code class="">make</code> checks that "<code class="">hello.c</code>" exists and it is newer than the target (which does not exist). It runs the command "<code class="">gcc -c hello.c</code>". The rule "<code class="">hello.exe</code>" then run its command "<code class="">gcc -o hello.exe hello.o</code>". Finally, the rule "<code class="">all</code>" does nothing.</p>
+
+<p class="">More importantly, if the pre-requisite is not newer than than target, the command will not be run. In other words, the command will be run only if the target is out-dated compared with its pre-requisite. For example, if we re-run the make command:</p>
+
+<pre class="color-command">&gt; <strong class="">make</strong>
+make: Nothing to be done for `all'.</pre>
+
+<p class="">You can also specify the target to be made in the <code class="">make</code> command. For example, the target "<code class="">clean</code>" removes the "<code class="">hello.o</code>" and "<code class="">hello.exe</code>". You can then run the <code class="">make</code> without target, which is the same as "<code class="">make all</code>".</p>
+<pre class="color-command">&gt; <strong class="">make clean</strong>
+rm hello.o hello.exe
+ 
+&gt; <strong class="">make</strong>
+gcc -c hello.c
+gcc -o hello.exe hello.o</pre>
+
+<p class="">Try modifying the "<code class="">hello.c</code>" and run <code class="">make</code>.</p>
+
+<p class="">NOTES:</p>
+
+<ul class="">
+<li class="">If the <em class="">command</em> is not preceded by a tab, you get an error message "makefile:4: *** missing separator.  Stop."</li>
+<li class="">If there is no <code class="">makefile</code> in the current directory, you get an error message "make: *** No targets specified and no makefile found.  Stop."</li>
+<li class="">The makefile can be named "<code class="">makefile</code>", "<code class="">Makefile</code>" or "<code class="">GNUMakefile</code>", without file extension.</li>
+</ul>
+
+<h4 class="">2.2&nbsp;&nbsp;More on Makefile<a id="zz-2.2" class="" style=""></a></h4>
+
+<h5 class="">Comment &amp; Continuation</h5>
+<p class="">A comment begins with a <code class="">#</code> and lasts till the end of the line. Long line can be broken and continued in several lines via a back-slash (<code class="">\</code>).</p>
+
+<h5 class="">Syntax of Rules</h5>
+<p class="">A general syntax for the rules is:</p>
+
+<pre class="color-syntax"><em class="">target1</em> [<em class="">target2</em> ...]: [<em class="">pre-req-1</em> <em class="">pre-req-2</em> ...]
+	[<em class="">command1</em>
+	 <em class="">command2</em>
+	 ......]</pre>
+
+<p class="">The rules are usually organized in such as way the more general rules come first. The overall rule is often name "<code class="">all</code>", which is the default target for <code class="">make</code>.</p>
+
+<h5 class="">Phony Targets (or Artificial Targets)</h5>
+<p class="">A target that does not represent a file is called a phony target. For example, the "<code class="">clean</code>" in the above example, which is just a label for a command. If the target is a file, it will be checked against its pre-requisite for out-of-date-ness. Phony target is always out-of-date and its command will be run. The standard phony targets are: <code class="">all</code>, <code class="">clean</code>, <code class="">install</code>.</p>
+
+<h5 class="">Variables</h5>
+<p class="">A variable begins with a <code class="">$</code> and is enclosed within parentheses <code class="">(...)</code> or braces <code class="">{...}</code>. Single character variables do not need the parentheses. For example, <code class="">$(CC)</code>, <code class="">$(CC_FLAGS)</code>, <code class="">$@</code>, <code class="">$^</code>.</p>
+
+<h5 class="">Automatic Variables</h5>
+
+<p class="">Automatic variables are set by make after a rule is matched. There include:</p>
+<ul class="">
+<li class=""><code class="">$@</code>: the target filename.</li>
+<li class=""><code class="">$*</code>: the target filename without the file extension.</li>
+<li class=""><code class="">$&lt;</code>: the first prerequisite filename.</li>
+<li class=""><code class="">$^</code>: the filenames of all the prerequisites, separated by spaces, discard duplicates.</li>
+<li class=""><code class="">$+</code>: similar to <code class="">$^</code>, but includes duplicates.</li>
+<li class=""><code class="">$?</code>: the names of all prerequisites that are newer than the target, separated by spaces.</li>
+</ul>
+
+<p class="">For example, we can rewrite the earlier makefile as:</p>
+<pre class="color-example">all: hello.exe
+ 
+# $@ matches the target; $&lt; matches the first dependent
+hello.exe: hello.o
+	gcc -o $@ $&lt;
+
+hello.o: hello.c
+	gcc -c $&lt;
+     
+clean:
+	rm hello.o hello.exe</pre>
+
+<h5 class="">Virtual Path - <span class="font-code">VPATH</span> &amp; <span class="font-code">vpath</span></h5>
+
+<p class="">You can use <code class="">VPATH</code> (uppercase) to specify the directory to search for dependencies and target files. For example,</p>
+
+<pre class="color-example"><span class="color-comment"># Search for dependencies and targets from "src" and "include" directories
+# The directories are separated by space</span>
+VPATH = src include</pre>
+
+<p class="">You can also use <code class="">vpath</code> (lowercase) to be more precise about the file type and its search directory. For example,</p>
+
+<pre class="color-example"><span class="color-comment"># Search for .c files in "src" directory; .h files in "include" directory
+# The pattern matching character '%' matches filename without the extension</span>
+vpath %.c src
+vpath %.h include</pre>
+
+<h5 class="">Pattern Rules</h5>
+
+<p class="">A pattern rule, which uses pattern matching character <code class="">'%'</code> as the filename, can be applied to create a target, if there is no explicit rule. For example,</p>
+
+<pre class="color-example"><span class="color-comment"># Applicable for create .o object file.
+# '%' matches filename.
+# $&lt; is the first pre-requisite
+# $(COMPILE.c) consists of compiler name and compiler options
+# $(OUTPUT_OPTIONS) could be -o $@</span>
+%.o: %.c
+	$(COMPILE.c) $(OUTPUT_OPTION) $&lt;
+ 
+<span class="color-comment"># Applicable for create executable (without extension) from object .o object file
+# $^ matches all the pre-requisites (no duplicates)</span>
+%: %.o
+$(LINK.o) $^ $(LOADLIBES) $(LDLIBS) -o $@</pre>
+
+<h5 class="">Implicit Pattern Rules</h5>
+<p class="">Make comes with a huge set of implicit pattern rules. You can list all the rule via <code class="">--print-data-base</code> option.</p>
+
+
+<h4 class="">2.3&nbsp;&nbsp;A Sample Makefile<a id="zz-2.3" class="" style=""></a></h4>
+<p class="">This sample makefile is extracted from Eclipse's "C/C++ Development Guide -Makefile".</p>
+
+<pre class="color-example"><span class="color-comment"># A sample Makefile
+# This Makefile demonstrates and explains 
+# Make Macros, Macro Expansions,
+# Rules, Targets, Dependencies, Commands, Goals
+# Artificial Targets, Pattern Rule, Dependency Rule.</span>
+
+<span class="color-comment"># Comments start with a # and go to the end of the line.</span>
+
+<span class="color-comment"># Here is a simple Make Macro.</span>
+LINK_TARGET = test_me.exe
+
+<span class="color-comment"># Here is a Make Macro that uses the backslash to extend to multiple lines.
+</span>OBJS =  \
+ Test1.o \
+ Test2.o \
+ Main.o
+
+<span class="color-comment"># Here is a Make Macro defined by two Macro Expansions.
+# A Macro Expansion may be treated as a textual replacement of the Make Macro.
+# Macro Expansions are introduced with $ and enclosed in (parentheses).</span>
+REBUILDABLES = $(OBJS) $(LINK_TARGET)
+
+<span class="color-comment"># Here is a simple Rule (used for "cleaning" your build environment).
+# It has a Target named "clean" (left of the colon ":" on the first line),
+# no Dependencies (right of the colon),
+# and two Commands (indented by tabs on the lines that follow).
+# The space before the colon is not required but added here for clarity.</span>
+clean : 
+  rm -f $(REBUILDABLES)
+  echo Clean done
+
+<span class="color-comment"># There are two standard Targets your Makefile should probably have:
+# "all" and "clean", because they are often command-line Goals.
+# Also, these are both typically Artificial Targets, because they don't typically
+# correspond to real files named "all" or "clean".</span>  
+
+<span class="color-comment"># The rule for "all" is used to incrementally build your system.
+# It does this by expressing a dependency on the results of that system,
+# which in turn have their own rules and dependencies.</span>
+all : $(LINK_TARGET)
+  echo All done
+
+<span class="color-comment"># There is no required order to the list of rules as they appear in the Makefile.
+# Make will build its own dependency tree and only execute each rule only once
+# its dependencies' rules have been executed successfully.</span>
+
+<span class="color-comment"># Here is a Rule that uses some built-in Make Macros in its command:
+# $@ expands to the rule's target, in this case "test_me.exe".
+# $^ expands to the rule's dependencies, in this case the three files
+# main.o, test1.o, and  test2.o.</span>
+$(LINK_TARGET) : $(OBJS)
+  g++ -g -o $@ $^
+
+<span class="color-comment"># Here is a Pattern Rule, often used for compile-line.
+# It says how to create a file with a .o suffix, given a file with a .cpp suffix.
+# The rule's command uses some built-in Make Macros:
+# $@ for the pattern-matched target
+# $&lt; for the pattern-matched dependency</span>
+%.o : %.cpp
+  g++ -g -o $@ -c $&lt;
+
+<span class="color-comment"># These are Dependency Rules, which are rules without any command.
+# Dependency Rules indicate that if any file to the right of the colon changes,
+# the target to the left of the colon should be considered out-of-date.
+# The commands for making an out-of-date target up-to-date may be found elsewhere
+# (in this case, by the Pattern Rule above).
+# Dependency Rules are often used to capture header file dependencies.</span>
+Main.o : Main.h Test1.h Test2.h
+Test1.o : Test1.h Test2.h
+Test2.o : Test2.h
+
+<span class="color-comment"># Alternatively to manually capturing dependencies, several automated
+# dependency generators exist.  Here is one possibility (commented out)...</span>
+# %.dep : %.cpp
+#   g++ -M $(FLAGS) $&lt; &gt; $@
+# include $(OBJS:.o=.dep)</pre>
+
+<h4 class="">2.4&nbsp;&nbsp;Brief Summary<a id="zz-2.4" class="" style=""></a></h4>
+
+<p class="">I have presented the basic make features here so that you can read and understand simple makefiles for building C/C++ applications. Make is actually quite complex, and can be considered as a programming language by itself!!</p>
+
+<p class="references">REFERENCES &amp; RESOURCES</p>
+<ol class="">
+<li class="">GCC Manual "Using the GNU Compiler Collection (GCC)" @ <a href="http://gcc.gnu.org/onlinedocs" class="">http://gcc.gnu.org/onlinedocs</a>.</li>
+<li class="">GNU 'make' manual @ <a href="http://www.gnu.org/software/make/manual/make.html" class="">http://www.gnu.org/software/make/manual/make.html</a>.</li>
+<li class="">Robert Mecklenburg, "Managing Projects with GNU Make", 3rd Edition, 2004.</li>
+</ol>
+
+
+</div> <!-- End the content-main division -->
+
+<div id="content-footer" class="">
+<p class="">Latest version tested: CygWin/MinGW GCC 4.6.2<br class="">
+Last modified: April, 2013</p>
+</div>
+
+</div>  <!-- End the wrap-inner division -->
+
+<!-- footer filled by JavaScript -->
+<div id="footer" class="header-footer"><p class="">Feedback, comments, corrections, and errata can be sent to Chua Hock-Chuan (ehchua@ntu.edu.sg) &nbsp;&nbsp;|&nbsp;&nbsp; <a href="http://www.ntu.edu.sg/home/ehchua/programming/index.html" class="">HOME</a></p></div>
+
+</div>  <!-- End the wrap-outer division -->
+
+
+<div class="selection_bubble_root" style=""></div><div id="gritter-notice-wrapper" class="bottom-left"><div id="gritter-item-1" class="gritter-item-wrapper "><div class="gritter-top"></div><div class="gritter-item"><div class="gritter-close"></div><div class="gritter-without-image"><span class="gritter-title">Text Zoom</span><p>Level 100%</p></div><div style="clear:both"></div></div><div class="gritter-bottom"></div></div></div></body></html>

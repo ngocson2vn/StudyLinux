@@ -1,0 +1,2196 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><!--
+ Archive processed by SingleFile 
+ url: http://www.ntu.edu.sg/home/ehchua/programming/cpp/cp4_PointerReference.html 
+ saved date: Mon Aug 25 2014 15:16:35 GMT+0900 (Tokyo Standard Time) 
+--><!--
+ Archive processed by SingleFile 
+ url: http://www.ntu.edu.sg/home/ehchua/programming/cpp/cp4_PointerReference.html 
+ saved date: Mon Aug 25 2014 15:16:20 GMT+0900 (Tokyo Standard Time) 
+--><!--
+ Archive processed by SingleFile 
+ url: http://www.ntu.edu.sg/home/ehchua/programming/cpp/cp4_PointerReference.html 
+ saved date: Mon Aug 25 2014 15:16:01 GMT+0900 (Tokyo Standard Time) 
+--><!--
+ Archive processed by SingleFile 
+ url: http://www.ntu.edu.sg/home/ehchua/programming/cpp/cp4_PointerReference.html 
+ saved date: Mon Aug 25 2014 15:15:40 GMT+0900 (Tokyo Standard Time) 
+--><!--
+ Archive processed by SingleFile 
+ url: http://www.ntu.edu.sg/home/ehchua/programming/cpp/cp4_PointerReference.html 
+ saved date: Mon Aug 25 2014 15:15:24 GMT+0900 (Tokyo Standard Time) 
+--><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>C++ Pointers and References</title>
+<style rel="stylesheet" type="text/css" data-href="http://www.ntu.edu.sg/home/ehchua/programming/css/programming_notes_v1.css">/* 
+ * Universal selector - clear all the margin and padding to get consistent layout for Firefox and IE 
+ */
+* { 
+	margin: 0;
+	padding: 0;
+}
+
+/* 
+ * Set default style for all the tags.
+ * Apply to the main content division as well.
+ */
+body {
+	background-color: rgb(202, 251, 237);
+	color: #000;
+	font-family: "Segoe UI", Segoe, Calibri, "Ubuntu", Tahoma, Arial, Helvetica, Verdana, sans-serif;
+	font-size: 14px;
+	text-align: justify;
+	line-height: 1.5;
+}
+
+/*
+ * "wrap-outer" wraps header, wrap-inner and footer
+ */
+#wrap-outer {
+	margin: 20px 20px 20px 20px;
+	padding: 0;
+	
+}
+/*
+ * "wrap-inner" wraps content-header, content-main and content-footer
+ */
+#wrap-inner {
+	background-color: #fff;
+	margin: 0;
+	border: 1px solid #ddd;
+	padding: 25px 15px;
+	box-shadow: 5px 5px 0 #ddd;
+}
+#content-header {
+	margin: 0;
+	padding: 50px 0 10px 0;
+}
+
+#content-main {
+	margin: 0;
+	padding: 30px 0 20px 0;
+}
+#content-footer {
+	font-family: "Century Gothic", "Segoe UI", Segoe, "Ubuntu", Verdana, Tahoma, Arial, Helvetica, sans-serif;
+	font-size: 13px;
+	text-align: right;
+	color: rgb(192, 80, 77);
+/*	color: rgb(11, 83, 149); */
+	margin: 30px 0 0 0;
+    padding: 0;
+	border-top: 4px solid rgb(12, 155, 116);
+}
+/*
+ *  The main "header" & "footer" divisions
+ */
+.header-footer {
+	font-family: "Century Gothic", "Segoe UI", Segoe, "Ubuntu", Verdana, Tahoma, Arial, Helvetica, sans-serif;
+	color: rgb(192, 80, 77);
+/*	color: rgb(11, 83, 149); */
+	font-size: 13px;
+	text-align: right;
+	margin: 10px 0 5px 0;
+	padding: 5px 4px;
+}
+.header-footer a {
+	color: rgb(192, 80, 77);
+	text-decoration: underline;
+}
+.header-footer a:focus, .header-footer a:hover {  /* change color and remove underline */
+	text-decoration: none;
+ 	color: rgb(11, 83, 149);
+/*	color: rgb(192, 80, 77); */
+}
+
+h1, h2, h3, h4, h5, h6 {  /* main title and sub-title */
+	font-family: "Century Gothic", "Trebuchet MS", "Segoe UI", Segoe, "Ubuntu", Verdana, Tahoma, Arial, Helvetica, sans-serif;
+	margin: 0;
+	color: rgb(10, 132, 100);
+	letter-spacing: 1px;
+	line-height: 1.2;
+	text-align:left;
+}
+h1 {
+	font-size: 40px;
+	font-weight: 400;
+	padding: 0.2em 0;
+}
+h2 {
+	font-size: 36px;
+	font-weight: 400;
+	padding: 0.2em 0;
+}
+h3 {
+	font-size: 22px;
+	border-bottom: thin solid rgb(12, 155, 116);
+	padding: 1.5em 0 0.3em 0;
+}
+h4 {
+	font-family: "Segoe UI", Segoe, "Ubuntu", Verdana, Tahoma, Arial, Helvetica, sans-serif;
+	font-size: 18px;
+	padding: 1.3em 0 0.2em 0;
+	border-bottom: thin dotted rgb(12, 155, 116);
+}
+h5, h6 {
+	font-family: "Segoe UI", Segoe, "Ubuntu", Verdana, Tahoma, Arial, Helvetica, sans-serif;
+	font-size: 15px;
+	color: #444;
+	padding: 1.2em 0 0 0;  /* top right bottom left */
+	letter-spacing: 1px;
+}
+.line-heading {
+	color: #444;
+	font-size: 15px;
+	font-weight: bold;
+	letter-spacing: 1px;
+	padding: 0.2em 0;
+}
+.line-heading-code-new {
+	font-family: Consolas, "Lucida Console", "Courier New", Courier, monospace;
+	color: #E31B23;
+	font-size: 15px;
+    font-weight: normal;
+/*	letter-spacing: 0.5px; */
+}
+p {
+	margin-top: 0.6em;
+	margin-bottom: 0.4em;
+}
+pre {
+	font-family: Consolas, "Lucida Console", "Courier New", Courier, monospace;
+	font-size: 13px;
+	margin: 5px 0 8px 0;
+	border: solid 2px #f8f8f8;  /* slight 3D shape */
+	padding: 5px 10px;
+	line-height: 135%;
+}
+code {
+	font-family: Consolas, "Lucida Console", "Courier New", Courier, monospace;
+}
+
+ul {   /* first level ul */
+	margin: 0.3em 0 0.2em 1.8em;
+	padding: 0;
+/*	list-style-type: square;  */
+	list-style-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAANAQMAAABBztZFAAAABlBMVEUAAwBjjJzG2b5OAAAAAXRSTlMAQObYZgAAABBJREFUCNdjYMAG7FARAwMADXkBNzRuJgIAAAAASUVORK5CYII=);
+}
+ul ul li {   /* 2nd level ul */
+	list-style-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAANAQMAAABb8jbLAAAABlBMVEX///8AUow5QSOjAAAAAXRSTlMAQObYZgAAABNJREFUCB1jYEABBQw/wLCAgQEAGpIDyT0IVcsAAAAASUVORK5CYII=);
+/*
+	list-style-type: disc;
+	list-style-image: none; */
+}
+ul ul u1 li {   /* 3rd level ul */
+	list-style-type: circle;
+	list-style-image: none;
+}
+ol {   /* first level ol */
+/*    list-style-position:inside; */
+/*    display: table  */
+    list-style-type: decimal;
+	margin: 0.3em 0 0.2em 2.5em;
+	padding: 0;
+}
+ol ol li {   /* 2nd level ol */
+	list-style-type: lower-alpha;
+}
+ol ol o1 li {  /* 3rd level ol */
+	list-style-type: lower-roman;
+}
+
+li {
+	margin: 0.4em 0;
+}
+
+.float-left-ol-ul {
+	overflow:hidden;
+}
+
+/* li after a left-float image */
+.float-left-li {
+   position: relative; left: 20px;
+   margin-right: 20px;
+}
+
+a {
+	color: rgb(11, 83, 149);
+	text-decoration: none;
+}
+a:hover, a:focus {
+	color: rgb(192, 80, 77);
+	text-decoration: underline;
+}
+
+a.references {
+	display: block;
+	width: 30em;
+	font-size: 18px;
+	font-weight: bold;
+	margin: 4em 0 0 0;
+}
+
+p.references {
+	font-size: 18px;
+	font-weight: bold;
+	margin: 4em 0 0 0;
+}
+
+/*
+ * General classes
+ */
+.center-block {
+	margin: 10px auto;  /* auto margin-left and margin-right to center the table */
+}
+.text-center {	
+    text-align: center; 
+}
+.text-right {	
+    text-align: right; 
+}
+.underline {
+	text-decoration: underline;
+}
+.font-code {
+	font-family: Consolas, "Lucida Console", "Courier New", Courier, monospace;
+}
+.font-code-text {
+	font-family: Consolas, "Lucida Console", "Courier New", Courier, monospace;
+	font-size: 14px;
+}
+.font-code-smaller {
+	font-family: Consolas, "Lucida Console", "Courier New", Courier, monospace;
+	font-size: 13px;
+}
+.font-normal {
+	font-family: "Segoe UI", Segoe, Calibri, "Ubuntu", Tahoma, Arial, Helvetica, Verdana, sans-serif;
+}
+.pre {
+    white-space: pre;	
+}
+/* color control mainly for <pre>, <div>, <span> */
+.color-example {
+	background-color: rgb(215, 236, 211);  /* darker */
+}
+.color-example-light {
+	background-color: rgb(236, 246, 234);  /* lighter */
+}
+.color-syntax, .color-command {
+	background-color: rgb(204, 238, 241);  /* darker */
+}
+.color-explanation {
+	background-color: #eee;   /* grey */
+}
+/* Character level control for code listing */
+.color-comment {
+	color: #009900;  /* green */
+}
+.color-new {
+	color: #E31B23;  /* dark red to highlight new terms */
+}
+.color-error {
+	color: #ff0099;  /* bright red */
+/*	font-weight:bold; */
+}
+.color-plain {
+	background-color: #fff;
+}
+.color-highlight {
+	background-color: #ff0;
+}
+.color-highlight-new {
+    background-color: #FFC;  /* lighter */
+}
+
+.output {  /* Output of program or DOS session */
+    background-color: rgb(236, 246, 234);  /* lighter */
+	border: solid 2px #f8f8f8;   /* slight 3D shape */
+	padding: 4px 8px;
+}
+.side-note {
+	margin-top: 15px;
+    margin-left: 40px;
+	padding: 3px 8px; 
+	background-color: #e7e7e7;
+}
+
+
+/*
+ * for positioning images 
+ */
+img.image-center {      /* center horizontally an image */
+	display: block;
+	margin: 10px auto;
+}
+img.image-border {
+    border: #ddd thin solid;
+}
+img.image-float-left {
+	float: left;
+	margin: 8px 15px 15px 0;
+    border: #ddd thin solid;
+}
+img.image-float-right {
+	float: right;
+	margin: 8px 0 15px 15px;
+    border: #ddd thin solid;
+}
+.float-clear {
+   clear: both;	
+}
+/*
+ *  Table - for tablulating data with alternate row colors or different column colors
+ */
+table.table-zebra, table.table-program {
+	border-collapse: collapse;
+	border: 0;
+	margin: 0 auto; /* center */
+	padding: 0;
+    width: 100%;
+	/* Default setting for all cells in this table, inherited */
+    background-color: rgb(231, 240, 248);  /* lighter */
+	text-align: left;
+	vertical-align: top;
+}
+table.table-zebra th {  /* header cells */
+	color: #ffffff;     /* white text on dark background */
+	background-color: rgb(0, 157, 217);
+	margin: 0;
+	border: 2px solid white;
+	padding: 4px 10px;
+	font-size: 15px;
+	letter-spacing: 1px;
+	text-align: center;
+}
+table.table-zebra td {  /* data cells */
+    margin: 0;
+	border: 2px solid white;
+	padding: 2px 8px;
+	/* color, font, text inherited from table */
+	vertical-align: top;
+}
+
+table.table-program th {  /* header cells */
+	color: #ffffff;     /* white text on dark background */
+	background-color: rgb(0, 157, 217);
+	margin: 0;
+	border: 2px solid white;
+	padding: 4px 10px;
+	font-size: 15px;
+	letter-spacing: 1px;
+	text-align: center;
+}
+table.table-program td {  /* data cells */
+    margin: 0;
+	border: 0;
+	padding: 0;
+	/* color, font, text inherited from table */
+}
+
+table.table-program td pre {
+	margin: 0;
+	border: solid 2px #f8f8f8;   /* slight 3D shape */
+	padding: 5px 10px;
+}
+
+table.table-program td pre.text-right {
+	text-align: right;
+}
+
+/* Setting the color for row (2 colors) or column (3 colors) */
+/* can only set the background, border, width of <col>, NOT font, text, color */
+/* for table-zebra */
+table .col-desc {       /* same as default color */
+    background-color: rgb(231, 240, 248);  /* lighter */
+}
+table .col-code, table .tr-alt {
+	background-color: rgb(203, 223, 241);  /* darker */
+}
+table .col-example {
+    background-color: #eee;  /* grey */
+}
+
+/* for table-program */
+table .col-line-number {
+	width: 40px;
+    background-color: rgb(225, 233, 207);
+}
+table .col-program {
+    background-color: rgb(240, 244, 233);
+}
+
+/*
+ * For the "Table of Content" generated by JavaScript
+ * in <div id="toc">
+ */
+#wrap-toc {
+    display: block;
+	background: none repeat scroll 0 0 rgb(231, 246, 239);
+	float: right;
+	width: 230px;
+	z-index: 100;
+	line-height: 1.5;
+	margin: 0 0 0 15px;
+	padding: 5px 8px 10px 8px;
+	text-align: left;
+	white-space: nowrap;
+/*	min-height: 180px;  */
+}
+#wrap-toc h5 {
+   letter-spacing: 1px;
+   margin: 0;
+   text-transform: uppercase;
+	color: #444;
+	padding: 0.5em 0;
+}
+a#show-toc {
+	color: rgb(192, 80, 77);
+	text-decoration: none;
+   letter-spacing: 1px;
+}
+#toc {
+	overflow: auto;
+}
+#toc a.toc-H3 {
+    margin-left: 0px;
+	font-size: 15px;
+}
+#toc a.toc-H4 {
+    margin-left: 20px;
+	font-size: 14px;
+}
+#toc a.toc-H5 {
+    margin-left: 40px;
+	font-size: 14px;
+}
+</style>
+
+<link rel="shortcut icon" href="data:image/x-icon;base64,AAABAAEAEBAQAAEABAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAgAAAAAAAAAAAAAAAEAAAAAAAAADy8O0APrMnACEdGADb2tkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMzMzMzMzMzMyIiIiIiIiIzIiIiIiIiIjMgIiIgAAAiMyACIiAAACIzIgAiIiIiIjMiIAIiIiIiMyIiACIiIiIzIiACIiIiIjMiACISEiESMyACIhISEiIzICIiERISIjMiIiISEhIiMyIiIhISIRIzIiIiIiIiIjMzMzMzMzMzMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" type="image/x-icon"></head>
+
+<body>
+
+<div id="wrap-outer">
+
+<!-- header filled by JavaScript -->
+<div id="header" class="header-footer"><p>yet another insignificant programming notes... &nbsp;&nbsp;| &nbsp;&nbsp;<a href="http://www.ntu.edu.sg/home/ehchua/programming/index.html">HOME</a></p></div>
+
+<div id="wrap-inner">
+
+<div id="wrap-toc">
+<h5>TABLE OF CONTENTS <a id="show-toc" href="#show-toc">(HIDE)</a></h5>
+<div id="toc"><a class="toc-H3" href="#zz-1.">1.&nbsp;&nbsp;Pointer Variables</a><br><a class="toc-H4" href="#zz-1.1">1.1&nbsp;&nbsp;Pointer Variables (or Pointers)</a><br><a class="toc-H4" href="#zz-1.2">1.2&nbsp;&nbsp;Declaring Pointers</a><br><a class="toc-H4" href="#zz-1.3">1.3&nbsp;&nbsp;Initializing Pointers via the Address-Of Operator (<span class="font-code">&amp;</span>)</a><br><a class="toc-H4" href="#zz-1.4">1.4&nbsp;&nbsp;Indirection or Dereferencing Operator (<code>*</code>)</a><br><a class="toc-H4" href="#zz-1.5">1.5&nbsp;&nbsp;Pointer has a Type Too</a><br><a class="toc-H4" href="#zz-1.6">1.6&nbsp;&nbsp;Uninitialized Pointers</a><br><a class="toc-H4" href="#zz-1.7">1.7&nbsp;&nbsp;Null Pointers</a><br><a class="toc-H3" href="#zz-2.">2.&nbsp;&nbsp;Reference Variables</a><br><a class="toc-H4" href="#zz-2.1">2.1&nbsp;&nbsp;References (or Aliases) (<span class="font-code">&amp;</span>)</a><br><a class="toc-H4" href="#zz-2.2">2.2&nbsp;&nbsp;How References Work?</a><br><a class="toc-H4" href="#zz-2.3">2.3&nbsp;&nbsp;References vs. Pointers</a><br><a class="toc-H4" href="#zz-2.4">2.4&nbsp;&nbsp;Pass-By-Reference into Functions with Reference Arguments vs. Pointer Arguments</a><br><a class="toc-H4" href="#zz-2.5">2.5&nbsp;&nbsp;Passing the Function's Return Value</a><br><a class="toc-H4" href="#zz-2.6">2.6&nbsp;&nbsp;Summary</a><br><a class="toc-H3" href="#zz-3.">3.&nbsp;&nbsp;Dynamic Memory Allocation</a><br><a class="toc-H4" href="#zz-3.1">3.1&nbsp;&nbsp;<span class="font-code">new</span> and <span class="font-code">delete</span> Operators</a><br><a class="toc-H4" href="#zz-3.2">3.2&nbsp;&nbsp;<span class="font-code">new[]</span> and <span class="font-code">delete[]</span> Operators</a><br><a class="toc-H3" href="#zz-4.">4.&nbsp;&nbsp;Pointer, Array and Function</a><br><a class="toc-H4" href="#zz-4.1">4.1&nbsp;&nbsp;Array is Treated as Pointer</a><br><a class="toc-H4" href="#zz-4.2">4.2&nbsp;&nbsp;Pointer Arithmetic</a><br><a class="toc-H4" href="#zz-4.3">4.3&nbsp;&nbsp;<span class="font-code">sizeof</span> Array</a><br><a class="toc-H4" href="#zz-4.4">4.4&nbsp;&nbsp;Passing Array In/Out of a Function</a><br><a class="toc-H4" href="#zz-4.5">4.5&nbsp;&nbsp;Pass-by-Reference and <span class="font-code">sizeof</span></a><br><a class="toc-H4" href="#zz-4.6">4.6&nbsp;&nbsp;Operating on a Range of an Array</a><br><a class="toc-H4" href="#zz-4.7">4.7&nbsp;&nbsp;C-String and Pointer</a><br><a class="toc-H3" href="#zz-5.">5.&nbsp;&nbsp;<span class="color-new">*</span>More On Pointers</a><br><a class="toc-H4" href="#zz-5.1">5.1&nbsp;&nbsp;Function Pointer</a><br><a class="toc-H4" href="#zz-5.2">5.2&nbsp;&nbsp;Generic Pointer or void Pointer (<span class="font-code">void *</span>)</a><br><a class="toc-H4" href="#zz-5.3">5.3&nbsp;&nbsp;Constant Pointer vs. Constant Pointed-to Data</a><br><br></div>  <!-- for showing the "Table of Content" -->
+</div>
+
+<div id="content-header">
+<h1>C++ Programming Language</h1>
+<h2>Pointers, References and Dynamic Memory Allocation</h2>
+</div>
+
+<div id="content-main">
+
+<p>Pointers, References and Dynamic Memory Allocation are the most powerful features in C/C++ language, which allows programmers to directly manipulate memory to <em>efficiently manage the memory </em>- the most critical and scarce resource in computer - <em>for best performance</em>. However, "pointer" is also the most complex and difficult feature in C/C++ language.  </p>
+<p>Pointers are extremely powerful because they allows you to access addresses and manipulate their contents. But they are also extremely complex to handle. Using them correctly, they could greatly improve the efficiency and performance. On the other hand, using them incorrectly could lead to many problems, from un-readable and un-maintainable codes, to infamous bugs such as memory leaks and buffer overflow, which may  expose your system to hacking. Many new languages (such as Java and C#) remove pointer from their syntax to avoid the pitfalls of pointers, by providing automatic memory management.</p>
+<p> Although you can write C/C++ programs without using pointers, however, it is difficult not to mention pointer in teaching C/C++ language. Pointer is probably not meant for novices and dummies.</p>
+
+
+<h3>1.&nbsp;&nbsp;Pointer Variables<a id="zz-1."></a></h3>
+<p>A <em>computer memory location</em> has an <em>address</em> and holds a <em>content</em>. The <em>address</em> is a numerical number (often expressed in hexadecimal), which is hard for programmers to use directly. Typically, each address location holds 8-bit (i.e., 1-byte) of data. It is entirely up to the programmer to interpret the meaning of the data, such as integer, real number, characters or strings.</p>
+
+<p>To ease the burden of programming using numerical address and programmer-interpreted data, early programming languages (such as C) introduce the concept of variables. A variable is a <em>named</em> location that can store a <em>value</em> of a particular <em>type</em>. Instead of numerical addresses, names (or identifiers) are attached to certain addresses. Also, types (such as <code>int</code>, <code>double</code>, <code>char</code>) are associated with the contents for ease of interpretation of data.</p>
+<p>Each address location typically hold 8-bit (i.e., 1-byte) of data. A 4-byte <code>int</code> value occupies 4 memory locations. A 32-bit system typically uses 32-bit addresses. To store a 32-bit address, 4 memory locations are required.
+</p>
+<p>The following diagram illustrate the relationship between computers' memory <em>address</em> and <em>content</em>; and variable's <em>name</em>, <em>type</em> and <em>value</em> used by the programmers.</p>
+
+<img class="image-center" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAApUAAAH3CAYAAADqhaRrAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAIuaSURBVHhe7b39syVHeefZ/8n+OuH5xd6dnZi+f8F4JogggjAmgggmvIi7Y4d3MLFE4JGZFZYXazHu7rvYBoGQ7bZsaWwMHqTRRZa6V+8vCEngFkgNF0kIgeVGI8lYjdrqbqm2sqqyKisrs/Kpqqxz8lR9TkRF3z7nqXz55kt96sm3YxkfFEABFEABFEABFEABFJiowLGJ93M7CqAACqAACqAACqAACmRAJZUABVAABVAABVAABVBgsgJA5WQJCQAFUAAFUAAFUAAFUACopA6gAAqgAAqgAAqgAApMVgConCwhAaAACqAACqAACqAACgCV1AEUQAEUQAEUQAEUQIHJCgCVkyUkABRAARRAARRAARRAAaCSOoACKIACKIACKIACKDBZAaBysoQEgAIogAIogAIogAIoAFQK68A/XbyUPfnsD7MvfPmh+nr4W89l6ns+KIACKGAqoPoG+1L9xyuvv4FQKIACKLBYBYBKQdGqh8H/9Iv/xXs999IrglB230TpoB6Ua8nv7pcYOdiGAqH+4vdPnwEut1EwxIkCKDC7AkBlQGL7AfHBT/x57anUoKlAaw0fnV/lreWDAijgVkD1B7qtXPsHt3f6C/Wb+p4PCqAACixNAaCyp0TV0Lbpobz9vnMd61u/9o3Ce7eGD1C5hlImj1MVMKHS7BvU0Ld6KdXt6JnnXp4aFfejAAqgQFIKAJU9xXHmsfP1A2CId055N9UQlwmkCj5/dOH1VmzqoaLCVfGoj4JW/dBRngw9zKzuM8Nzwa0dlgpTh6X+tcFX/V/PD7Xnhaq0qt/Uv+qjbXV+TG+tPUdM2aq0m54aF3Sb6VXx6/zpOJNqJSQGBQYo4INKFYTZp+h2IW0L0n5FxaP6DNWWXB5T1bZ1XySJW88lN/sz1V5tKJ6zP5vSN+qii9k3ucJSOvFBgbUrAFT21AATjqReBdVh982/NMPRDx/VQdsQag6tu8KzIVcals6umU4bds34lH1fnsx7fXlQ4dkg7EvvEHhfe+Ml/2kqMBQqJW1hSL+iXkb7+iD1mwbaUNyq3abcn0n6RlVLYvZN5ouBGb962eaDAmtXAKjsqQFmhyFZtWk+TFQnpjp3BV3m92bHY36v4lIPDvWd3QGqe1RHZndmpofRF5bprTDjHgKVKh/2PDG9slWnwfcgNeM3AdROrwJ4Zau9tmtvmOR/dxXog0rzRVWPRITawtB+Rceh+hH90XCo+gBzoV0obnWfCs9cuW7OMzfj2ER/NrVvNEdNxvZN+rlgjqqovo2+a3fbLCmPpwBQKYRKieTmA8MeUjYhzvUwMT15CmDNoWYTaE3PgQ/SbK+g2RHruIdApc5735xKnXd7AYKZF7NDtx+UEn2xQYFdUMCs26otqnaqh4bN4Widl1BbGNqvuBYQqjTo7339hgmIIZ3NNLnyMVd/NqZvjN03uaAypBe/o8BaFAAqI0Kl7mxcnbPLe2F+5xuC9g1zq7h8Dwc7LFfcsaHSnkOpPZlm3GZezO/Zomgt3c068ml77OwhWuUtNF8UQ21haL+i7U2wU1Abgsq+dqheklW/orcVC0HlnP2Z7+XW15/G7ptcc8bZr3gdbZtchhUAKoVQaXeS9m2mJ8A1L9D83Z7PZAOiCntox9kHqHNDpZm3vvlX5nBRX3rD1RYLFEhXAR9UmovyzNT3tYUx/Yo5TUa94JovkPZIQqgdKvgNzed0eSpTgco5+ialiQmWqs9TLwrSeffp1lxShgLTFQAqezQ0h41D82XMYRkXVC7ZU2nmXWmmOnLX5ZsDGgL26dWcEFBgcwr0zal0paIP7Mb0K77FNa5N10NQacKTCleBk70bRcpQOWffpLSw53hK5t5vriYSEwpsXgGgskdzs8O1h6z0bXpYyPQuqjdX+2N29K45lTHf7O2tLcyOT8djejPMYS+zE7bz0Ten0jVXrK86hx5mm28KxIgCcRSICZVD+xVzb129UFC1eR/sSIHWnqdtei9ThkpTP+mG80P7JnPhkjlvPE5tIhQU2C0FgMpAeZmbFev9HrUXTu8FqYd1zdWEZidsdjq+1d8xoVJvGSJdea69i+rN28yvDyr1ClIVvvY+mnm3O1Z9brop9dCOe7eaFaldswKxoXJIv2IPl5tzmxVk2nP/pFBpjr7YWxalDpUx+yaln+rbTR3N/p29Ktfc8sm7UgCoDNQD1YHaoGXPG9RD4/aJGa75hb7tPGJDpStuE/bs04JMe9Ozacrj2utNp1uSd+nCIpomCuyyArGhUtK2zH4lNAfStVeua163KgNz+Nu3n27qUCnRT9o3mdBu68E+lbvcakl7LAWASoGSqlMy33bN7X7sYSHfxHbVOfetyraHp3xDzeZbsa8jdJ284ZoTansm9WRz/VC0O0nXBHUz3X2T+u2TcswHL/OQBJUQk51RYKjnStIWhvQr+uVP/as9lXb/5dpf1tUOXW1e76erF6i4oDJmfzY1LJW+mH2T61mgNKEf25kmSkJnVACoHCiuHvoOdSB6rqU5RDwwqkHmrmEslUbJIhidJ2mEoXDNvId0ksaJHQqgQFYMu+r26trGxuwH7N/NedSSfsHUW7f5Xd86J2bf1FcO1FUUWKsCQOVCSp45igspSLKBAhMUMIe+7Rc6c/rKrsPhBIm4FQVQYEYFgMoZxd1k0EDlJtUmLhRIUwFzk3M1PK2m3dhzLEPbo6WZM1KFAiiwCwoAlbtQSoI0SuZlCYLBBAVQYMcVcO2fqABTeSrZoHvHC5fko0DiCgCViRcQyUMBFEABFEABFECBXVAAqNyFUiKNKIACKIACKIACKJC4AkBl4gVE8lAABVAABVAABVBgFxQAKnehlEgjCqAACqAACqAACiSuAFCZeAGRPBRAARRAARRAARTYBQWAyl0oJdKIAiiAAiiAAiiAAokrAFQmXkAkDwVQAAVQAAVQAAV2QQGgchdKiTSiAAqgAAqgAAqgQOIKJA2VTz77w0xt6q3+lXyG2kvCxAYFUAAFUAAFdlEBdT75rV/7RqZOUeJozl0swd1L82xQqQFvCBTa8qlTIPQlkXaovSRMbNwKqA5KlbE6Ak5fqqzpuNZdY1Qd0Jd99rRWRv+uHnh8ZAqok3BMbfv+loWI1TYVMMvT105U+lQb0WU9pm/l+N5tlvI6454FKlUjMQFP/d3XcHzSD4XEofbrLPLpuVYwaZev+f/nXnpleiTCEPTLyybjNJO27fiFMm3EzK4XH/zEnztfMnRdUQ88PjIF7PO7+9ofsC7TdJtWynOoy7DvLHblZdR2Y56hQOU2S3mdcc8Clbffd64DHX0NB6jcncrnAgftqdwGLOg4VRq28dl2/NvIsy9O8wGmdVF9gf3ZRj1JSacxaTHhog8oFciPgY8xaeKe8QqYjpdr/+B2b0C6rPts+lIBVI4vI+4cp8AsUKk6NtUYfv/0mRouxzSKoZ7HofbjJFvvXWr4xdTYBQzq4bdJD9S2oW7b8adUG11QqfSxh+2AyumlZnou8UxO13MbIahnYp8XUg2RS7yZQOU2So84fQpEh0o1DKkbgmoUJlj63qDVQ8d8E1f3qI7SB4lD7FUaVAesJyrr9Kj4zI96IJqNXP3tgyOXrb2YSGKza9XSHLIZ4hlU2pj1QJWr0t9+GJplpbRR8ekXFFUe6nf9UfqaD1Zlpz2mdj2Tlu1c8e9aOY9NrwmVZtnYLx8+qNRzdM12r+qNWe4qbXY5qfDNeqKnQqj6ZdY710uQWZ+k7X+sPjHv64NK1W50W7CBXv3fnAPt0tNsd0rXIf3gJl8oY+q5jbBCQ+B9Q9/StuLzVOr+U9UFu46oeNX39jNSaSTtS7ehJ3GmoUB0qDSHvlUWzeFS3xC4fiD0DeuYcg2x141KPVzMB4wJRTbw9HnjzI7AtFNp0h+JTRrFPywV5kPXftD7QgrNBbNBUXu4fWWigaEvXBNWh5Str6645otK4x+m8G5bmw8wVU5mOzXLxAWVrikzpu5D64nPa+p6GRpSR1IpoRBU9oG7/k2/CEvqvQ2Lu6hZKmWn0xEaAjdflMy0j2krqszNNthXf3zOHMo8tRqUZnqiQ6VuCPotxxwydQ2Bmw1EeyVcUKblG2pvP1xUGvQWC/rNy9UBm2+Jrgei+RanfjeBWYfXZ5NmdehPldnZSOZtmdqrslWgoVcz6rBMGLfLSnV86jvXy4AKy7TXnmX1nX7zNn83H4q+so0d/y6W8ZQ0214R23Opw/ZBpSpDBTq6bpkvpKoO6I+knFQcqm6pdmn3J6ZnZmgdmaJPzHv7oKCvzzXrvqudKN10uzNtfe1U0q5i5ntpYZkv6ma9NEf8bGeMegaOaStToHJX28nS6ssu5CcqVNpD31oAEwrsVbqmN8NsVL7h76H2NtjYhaIbtQ285luk2XG6gNEOU2KzC5XDly+VP8nH12Gqe82Hoq4TZln5hkztuPvmNA4t29jxSzRako1rqM3lrRwyp9KsQy6oNOuJ2WbtBSvmy6j5cB1aR1Ipr9CcSt+0I629D9Ltdufqu3dVs1TKzkyH+cJjTqEy66t0K6FQW5kClZR5irUnzTRFhUrzzdbMrulx8MGC2cnZHg0TJFydYp+9PSTnAyXT06Xu8XlZXPOu7EYvsUmzOvSnyjcs4rurr6xcb74uKNFhmw9RM74+qNS/Scs2dvy7WMZT0uzSz9WO+qBStSX18NNbNQ15UKq0++qDr2yH1pEp+sS8NwSVrkUe5ncmwPTVe1c73VXNYuofKyzzRch8Bup673ou6rintJWhw9+UeawSX344UaHSV/HMty5zGMX0RrrmOtkQM9ReFV9fh2l7Q834zL/NYWzVCZgPOj3MZs75ktjsYtUyNQmtOA2Vlfm79gTHhLoxZRsz/l0s36lp9ulneytdUKnaTGj+rctTadfDIVA5po5M1SjW/SGoNAFbj8K4hr5DfaQNlbusWSztY4djj+iYoOk6TS5GWxkClZR57BJfdnjRoNJ8C/bBmf5eD3eac38kUDnUPtRh2m+JqvG4Ltfwg72yXeXNnmcosdml6mUOhYX2HTW1dZXt3J7KMWULVE6rjT79zL7BfJiZ00rMB6t6CVX32Ku3Y0PlmDoyTaF4d0ug0nyZN6cm2e1xiKdylzWLp37ckOwhcPP/rmdPjLYyBCop87jlvfTQokGl+Rast6ww/7UbghbWN6Rqn8oz1r6vw3S9zQ8tcHNo33xImuFIbIbGuw17U0vfJst6SMbU1jUH037ghV4Apg5/S/QCKiUq+W369LO9+6pO6PZitnV7eoyr3PviGeKpjNH+pyk2/m4JVJog2bdzg6mn7RkzXyS1V9gckRqfA+7UCpj1Xz1H+4a+Y7UVE1zNdQ6h565rsS0liQKmAtGgsm/+nIrQnkSvE2HCqHqgqI7L3o7EhJKh9iGoNMOzoVCfb63Tqv6v0mi+PZrAqP6W2OxyFTSHMvUedtq7q/e309MF7LLS+TY1860qtYc1Q1CpwtGry3X5DCnbqVDrin+Xy3lM2vvammskwwWVphfNhCKzD4gJlUPryBhd5rhHApUqXhfM2+kx9dSw37dLw65qNkc5xArTVU6+oW/Xi9PQtmKWud4XWrVRe7s+13M69JyMpQnh7KYCUaBSuvO/6225b76GWcG1vEPtQ1CpYDe076UGHDNue99LDUcSm92sKmWqXcBvT3fQQ+MSbc235DGeQtfeabq8JPGb8Bo7/l0u5zFpD7U1u6x8w99229L1S6cpJlQOrSNjdJnjHilU2tsp+Ta0Dk1ZMstqVzWboxxihenaRs+36tt8jo5tK/bpaGb5m+1U548yj1XSyw8nClSaQ5l9+xeaDwNzmMt+Q1KApt7StEfL9GapIhlib8bpS1vfxGe7E3adwas6eDNsic0uVy2VV1ceVTnZw5c+bVXHaHsj+8pKP0TtuuBaFGWWxZCynSP+XS7noWk3PdCutmY/mOxhN9tbo/dL1IvhXFBpx+Mb/jbTZte7IXVkqCZz2ZtQ2dfn2vDgOrTAHv624d81f3oXNZurLGKEaw87u+ahm4AXo624nqPqO10fXH2tbzGd62Ulhi6EsXsKRIHKWNnWw6jS8Ibah8LV8wFVuH0dtQpHx923h5jEJpSm1H/XeQzpZWor3XdtSN5V/H0r0oeU7ZB4zY4+tCJ+TLhru0eX4xx1JKTl3HUkFP9cv7u2ZTLjcnl+Q+1J379UzeYqi5jhxmorQ5+jlHnMUlxeWElB5fLkJUcogAIosD0FzLl2Pm9SaNrC9lJPzCiAArumAFC5ayVGelEABVBAqIA5TcU19K2CASqFYmKGAigQVACoDEqEAQqgAArspgJ6jqk9P87MjWTe+W7mnlSjAApsWgGgctOKEx8KoAAKoAAKoAAKLFABoHKBhUqWUAAFUAAFUAAFUGDTCgCVm1ac+FAABVAABVAABVBggQoAlQssVLKEAiiAAiiAAiiAAptWAKjctOLEhwIogAIogAIogAILVACoXGChkiUUQAEUQAEUQAEU2LQCQOWmFSc+FEABFEABFEABFFigAkDlAguVLKEACqAACqAACqDAphUAKjetOPGhAAqgAAqgAAqgwAIVACoTK9R33vhJ9s7rL3GhQZw68NO/T6yGkxwUQAEUQIGlKgBUJlayV7/5pezyvae40CBKHbjy6M2J1XCSgwIogAIosFQFgMrESraAygc/m1194VEuNJhUBxRQApWJNXCSgwIogAILVgCoTKxwFVQCAokVyo4mh7q0owVHslEABVBgRxUAKhMrOEAgsQLZ4eRI6tJLt381e+C978m+9fFrs2dOfDp78ctfyt56/bUdzjVJRwEUQAEU2JYCQOW2lPfEKwGBxJJMchJVQNWli/ecyM7ffdqbwh/fdVgApQLL+979ruJSf3//5puAy0TLlWShAAqgQKoKAJWJlQxQmViB7HByJFBpZu/ty29lFx68P3vqYx+t4fLVp57cYQVIOgqgAAqgwCYVACo3qbYgLqBSIBImIgWGQqUZ6OtPn8seev/7Cq8lYCmSGyMUQAEUWL0C46Hy6CDbO3YsO2ZcewdHDkGPsoO9tt2x/UOP8FJbqZ2KRmortZsrzFISoFJXjW55uKuN1G59bX0KVCq13nj+uRos1d98UAAFUAAFUKBPgXFQebjfgkkTLFvA6ADP2nbvIMc94yO1ldoV7NcFX2f8Uru5wjRkACqVGIfZvnpZMetIVefaLy5Su3V2AlOhUqn20++eL4bCv33DJ9cpIrlGARRAARQQKzACKqsHuXroG66jw33tjdzLSoel4UFqAWRzf3O71FZqNyT+bYfZLiugUr0L7OUvLfs5WrY/ZR1rvpfaiVvDwgxjQKWS5Nz11xVgqeZc8kEBFEABFEABnwLDobL2Ump4rII2vH0FLNb/99vVUCq1ldoVTKm9lIH4pXZzhWmVDFBZQX5nrLuB//Inqd16G38sqFQrwRVUXrpwYb1iknMUQAEUQIGgAvGg0vBMFkOUNXwaHqfOsHn1m9RWaqeyLbWV2s0VJlDZVqCCfNcw9/5h6eUufpPaBZvAcg1iQeULt90KVC63mpAzFEABFIimwHCoNDySzvlt1UO/HJps5sXV/z+Wew4P9JzMEiqltgcLDNMuydV7KjuwWIJk6Z2spk6o/0jtojWV3QsIqNy9MiPFKIACKLDLCgyHysIJaK3mdqwCN0HxoLZ3eyaltiZULiVMoNJSoAWLJlD2QWWP3S63zolpByonCsjtKIACKIACgxQYBZXF490CSz00qbyThVfJHuo2FuvYnkmx7RLDtIqr8VS+k/+ywuvoVLFV1d7BqcpDaWpwpzH8LbRbo4ZVnoHKQX0hxiiAAiiAAhMVGA2VnXjtBS/mNj3WoosaSPX3UlupnUqc1FZqN1eYQKUFzyU4li8nFlRXLxXl91K7FYI5UDmxW+R2FEABFECBMQpEgkrXNkPGVj0GVDZzK/U8uYLWmg3Se22ldrsUZrvYVu+pzIGo2TqoDYT291K7VXp8cx3xVI7pErkHBVAABVBgrAKjoNIEw9bG5/begtJN0lXqpbZSu10K0yg9oNLwQu7f2XgxW15KDZuVtzJot05vJVA5tlvkPhRAARRAgTEKRINK78mLesWusZhnuq3hGa2HSn3Zl9pK7QparYdoNVS78yS1a9IOVFrAWNeb4/mm+i44bIbBy7Lw2a0PLIHKMV0i96AACqAACoxVYBRUjo2M+8IKAJXrg7+5hueBynB7wwIFUAAFUCCeAkBlPC2jhFRD5Ts5XHGhwYQ6AFRGaZIEggIogAIoIFQAqBQKtSkzoBKYjvUyAVRuqtUSDwqgAAqggFIAqEysHgCVQCVQmVijJDkogAIogAIiBYBKkUybM9JQ+c5rP8y40GBKHbj6jT/PLp45kZ2/+/SkCszZ35Pk42YUQAEUWI0CQGViRa2h8vK9pzIuNJhaBy6dPQlUJtbGSQ4KoAAKLFUBoDKxktVQefWFRzMuNJhSB648enP25hmgMrEmTnJQAAVQYLEKAJWJFS1zKplTyZzKxBolyUEBFEABFBApAFSKZNqcEVAJVAKVm2tvxIQCKIACKBBPAaAynpZRQgIqgUqgMkpTIhAUQAEUQIENKzABKu0jCPfyY/RcqT/KDvbU8XnN5T+mUWortVPpkdpK7YaEqWwbnfbcArVEAyo1VOblcdyqN3e6gFNqtz5YZZ/KDfemRIcCKIACK1dgHFQe7heQ2IKk6rs2MFZAtXeQo131cd1b/CS1ldptO0wNqfvZoTfP3doHVCr4q87zPn4qO9InytxZ1blTeU2qT5mR2q0PKJVGQOXKe3eyjwIogAIbVmAEVFaw5HA3Hu7nniUDII8O9nL4zKHKylRhZ30vtZXaFf5EYfxSuyFhqjzW0A1UDjpu8ejU8bJ+WEcU1vWm+l5qF2s4edfCASo33JsSHQqgAAqsXIERUFl6Cl1DuW0488FnM8zccKnUVmpX4F857N6BXzt+qd2QMDsU3fXseioenspqOHv/TgtEm2Hu/WIYXGq3Ti8lnsqV9+xkHwVQAAW2oMBoqOzCmhrBVkOU1dzKo4NsrwOfJZDuH1pgKrWV2pUuRVn8UrshYdoFOcpT+XYOTiu8jk6V5Xbqe0b+y2Hu/TvLf4vfpHZr1LDK89Vv/lV28R5O1NlCv0qUKIACKLBKBUZApWLHcgFFywlYwZkfKjVQKp2reZE6gA7YeWyldk4A3GCYQOV4IO7AogZKBdjVHErlxZTaAZWcqLPKrp1MowAKoMDmFRgFlSWzqfmSxupcNZfS66k0gS4ElT22LahMOEygMhJUmkDZB5U9dkAlULn5fpUYUQAFUGCVCoyGSpdarTmVNQAeVEPe5h2+4e+A7a6ECVRGgMpT1ZC3OQXANfwdsAMqgcpVdu1kGgVQoKWAcnqZO9HsujyKhxLMT0SorBa81Jls9mfsrJXpbD8ktZXaGd5Qe5i++KncnqZM1xxhWrWVOZUDILMa4i7mUFpzSu/8UFluxfdSuxXOS2VO5a4/Lgakv1l4KNkHd0DAmKLAchQY8AzelUzXo8WJgWU8qHTsU+naOqhkuu6WQlJbqZ0vHtf3c4TZeUPyrJi3K3Cz+nu9MFSWx4fyLYXaGtjfS+1WueAp146FOrvyeJiSzthQaTsHpqSNe4cpID2AQ2qnYpfaSu3mCNM+SMWaVleLKLWzVbfWcHR+Lp1MzeU7yMUff/eFbojtsFoyli0mxDLo1ihQqRfueIU1XZXOTdINj2HQ1lFBkgzTKIcBb0lApTV3UoNly0upYdNYuNNrt05AjwWVL375S9l9735X9tPvnh/UuWC8iwoAldspNemhHlI745kaPHwkjTDDnnb/doZ9ZeZzGhX3FM9mcy9tDdcusBwS/xDbaTWuzJ8PhKeFPebucVBZQVJN9r3uV+lxjkYjqN8apG8MfYJK45faCdNpa9R6E7JWzhslB1RawFjrdjw/BtQFh80weFkffXbrA8tYUHnhwfsLqFRwyWfpCgCV2yhh6QEcUrvCn7jFwz+kcZdaSwFMameUoHPLwEAJ651suvP2vHt0d0MckdbRFS/giR0d7rgbx0HluLi4S6AAULk++JtreD4WVF65eDF74L3vyR7/9V/N1N/jP90hNts7UT6Mui+JHW9D0fErO2v4t36ZS+fNfbxevf6X4gFnDts5DjkzwMLS3nIEdHbzsMJ2nYw2T77WGKr0AA6pXYGUWzz8Qxq3LmspgEntmjrU66X0VjUfpA2Jf4jt9Do/Lp/T43WFAFTOo+voUIFKoDIWZMaCSlWZ9RD4ueuvy96+/NaI+u0YYlM+iv02/A2Dyma/3OK+vb0cNNVQlv8o2REJT/8W7/Sf9tZvDcD3eTbwVG68wKUHcEjtCqbc4uEf0rhroaUAJrXTAY/sB3bOU1l0pN29wzdekcsIgcotCe+LFqgEKlOESlVfX7jt1mIY/Fsfvza7dOHCsJYjHIYaDJWVx0172kpv3crASACVtkfY79lYmXbDavE81tJDPaR2Tqgsgay144n6z7bDLBSVwqLUThfTUPvyPufhLkY624t6fFPZ3At1XKMJUSqVsH+NElcgEKByEyoPiAOoBCpThUpVjc9/5qAAS3Wpv+Vw2XSyfRPyh0KlDqt938rAKAiVgukEdR+1Mu0G9M2zmUoP9ZDadaDSBMoG4oqjlrcdZg+sKXhr9xUDV1SPAK2h2/TU9gJadNv27d7Qzm9/FOnMqwQqZ+spxgWsofKd117MuNBgSh24+vgt2cUz08/+tmvy60+fK7yVGi7Vv0997KPZt2/4ZPbKY4/2VPzYcyqbhw5Q6faYiCEdqBzXYce4S3qoh9SuBZWJHygyp6dyKFTW87HN1eDhAh6y+rptq2G/7BfbAF1+14CkshUsSBbAbThH0yyAymn6Rb9bQ+Xle09lXGgwtQ5cOnty8ok6rkquwPKx/Q+2wFLDpaxRGIBpdIRiCLIeGEAlUCmrdylaNR6p/oNCpHaGN3Irh38MSWeT1vhbCg0Y/h4JlEXqB2zp47Z1QKV9+k9oW8KhAD1jMwAqZxR3TNB4KvFOTvFOmvfO4al84/nnWl5K5Z1Ucy1fPnsmU6A5bBFPd6jVDZX6IWV4EIDKpnth+HtMV5vUPdIDOKR2Dex0vW52GNsOc745lcKpHHphzqi9HoVxFLXNZ9uFyqIfrN4wykWIB9mh8V2n8rJQJ6n2nFRi6jmVb1/NMi40mFAHrj71V9nFe+INfyugfOj97xsxn7J4na87yWak1bFC1bNwoJwcD1Q6O6uoUNmsGE9gJC2pvnnexDjmxDnLVWpneCt35ECR+J5K9+l9rXKMAZQiGO3bVN0PlQXwm3DpaZRsKTRv69zp0IFKYDrWy0RMqFQLctRwt9qv8tWnnhzVxlx7ITr7SOvggHI9gdq/Eqishe89XKGZeyWeTmCVaLeshs0zG1VBVn+TvRBlhw//KMpyWH7mgEr31kqmk7+912vvym5Xm/O9eQ2xrTyYrfw7hrsVOLo1SmeRjlKW4e/EOjKgEqhMESqf+MiHCw+lGubmgwIogAK7okBKXjy3Zq6FOtbCnPqwh24IQ+Z0bqLMgMpNqDwgDqASqEwNKtWZ33oLoQFVGVMUQAEU2L4Ceoi79zjpbSSzuxuG8pTWzs96aL7nbO/QAp4tZGsCVEpd213h/HN1pLZSO6Wo1FZqNyDMjgs8fHQcUKmh8nx2cNw6hu5OF3BK7dYHq7GGv39812EBlf3bBW2h9yJKFEABFJAooJ/FS5oo7D35RyLIfDbjoNJFx32Tis03BC9ZO45xc9pK7ZRoUlup3YAwi7Sb85D6Juo2BQxUKvi7ozzX+PjJ7EgvVLnzQ8UxVHunzhuLd6R26wNK5e2MBZX6JB21UIcPCqAACuykAvkzeS+HyqOdTHw30XpVeGr5GQGV/vM0i7F9AyA7k+srXVxzHKS2UrvCn2hP7vfEL7UbEqaz3greLIDKq9nRqeM5QH4oO7RWPh9+SHkum++ldrGGk3ctnNhQKT89ZyG9NtlAARRAARQYpMAIqPRvKNqGMx98NsPMjSdaaiu1K/Cv2JFeL8dvVLHjl9oNCdNXBuFVWkBlNZz9oTus7YSaYe79YhhcardOL+UcnkqgclDfijEKoAAKrE6B0VDZhbVcu2LIt5o36NzhXR9LZIGp1FZqV7oUsz3P2aH7h0b8UrshYfqqEZ7K8L6T3ztZlptjmHv/znK4u/hNajdhn8dd80za6cVTubr+nAyjAAqgwFYVGAGVekNR61gwexNRzybGpXfS8thJbaV2TgDUQGvFP0eYniIth/3dx6npW1bvqezAYgmSpXeymkOpvJhSO6By8jGNek4lnsqt9tVEjgIogALJKzAKKktmU5sRG6tz1VxKr6fSBLoQVPbYtgAw4TAdxV7rFdjWoITKL+YAdWWd1/dOVJ7KZ2uI3L9Ta2FCpdBurTrm+cZTmXz/GzeB9nnBcUNffmjq+ZLctjPLl50cLkuB0VDpkqE1p7IGwIPS01R4KPXHN/wdsN2VMG1xBhxWD1RqWDxReShNuNbD3zlw1vAZsAMq8VQuq89252aD+9X5TunZdZmlL/67nk/SjwJzKhARKu3D0pt9LDtbQ3W2H5LaSu0Mb6hruLkV/xxhmvys5pla5xb3lOjqoVIPcRdD3pa39s5ryukDxfeV1zJot1KPL57KOfvNxMIOLwCsX+erKTjt7c6GZWc+qLSfIcPSFcV6g3AeJb0EggKJKRAPKh37VPqOR3J9L7WV2hVYWXSg3TNr7e+ldkPCLMp5xGH1QOWVrNw66Jp8S6E2ENrfS+3WOpWA4e/EetuZkiM+hq51GMP4s7wXDZX1cyN8UMVMxUmwKLDTCkSBSr0ApXvYueMN2rlJuuFZNN2afRuqB+22HOYIoFQpBioNL2SxrVAFli0vpWOOZa/dOr2VQOVO982yxDt3r3Dd2vTFYgj1pGDpUNlZSCorCaxQAAVyBcZBpX38YO/kZulxjgYE1guAfG+L6YepQbu1mMlY2OQ7LaqGyqs5CK36aoa3Sw2PZwfnXZpI7danJ1C5/D5eCoimnfQen3omVLb6Ofs50LeFmvFbZ9GnuQDUO3Woe6xu16mhczDEtrxnqkbLr3nkEAXcCoyDStScTQGgcn3wN9fLA1A5WzNNJGD/6WatBFojPlOBSUPlXn64RANyjqNu9QEUjilIbm+ndE6lIy4vwLrSpaAxMLztHVFLpOhJBgokqgBQmVjBAJVAZSzIBCoTa9zRk+M/3ayJqjsFKQ5UmkBZxWZuKacT4ISzwClmgW19fMfqOr8XTw+wCmfsfdHLmABRYLcUACoTKy+gEqgEKhNrlKkmRwA+QxZFSrPpnVNZpce1fVzrBDavF1DiqezxzvbNwe+crhbKrXxFfSgkfkeBNSkAVCZW2kAlUAlUJtYoU01OCCqdkDd9vmAIKu25jbZ9AbpOb6QEKu359MYBHNVczO589eFzKlmsk2qlJ12pKwBUJlZCGirfefWFjAsNptSBq4/fkl08c4LNzxNr4/GS0z/8HV4AI98/10yzFyp9HkjHSWjuRTUSqBTOI/WKbACmb7WkujcE7PEKkZBQYFEKAJWJFaeGysv3nsq40GBqHbh09iRQmVgbj5ccCYR1Y4szp7K70MU311GloPZOFuDp2yNTlp+p6c+JMTvIFxm5vaWVXizUiVdNCWlVCgCViRW3hsqrzz+ccaHBlDpw5dGbszfPAJWJNfGoyRkDWGPuCXoqQyfRGNvQ+bf+UQ7CvfLUrNaxvpZkeqW35JxuFa8dmMALOVWjqIVMYCiwQwoAlYkVVjOn8nK+TyUXGoyvA6z+Tqxxz5EcASDZ0U4GpvpgB3M+Y+gEGj3sHLJrwLLZ49fl2ezOkyzsHaDpmgbQC60Zi3TmqKqEuQ4FgMrEyhmoHA9RAGhbO6AyscY9U3ImQ+JM6WoHKxhy3kg6wpGUeobhNxwSFiiwPgWAysTKHKgEKmPBMVCZWOOeKzlDhoPnSkMo3F2Zoxgaxg/lk99RYOUKTIBK6VGJ3WEK/9CD1FZqp0pXaiu1E4Y5aojIOPt71UPft2f7naPaqqG24yeyo1obqd06QRWoXFHvrucs9o/rbkeQvuMat5Mid6y7ks6UNCMtKGApMA4qXW9zfRvPmvNcvG+CjuO0nLZSO5VTqa3UbkiY3bomGVZpPJVv5YS51uurBVTunXwmoIHUbp06Xn3qL7OL97Cl0Gp6/by/3Muh8iiRDJtzGfsW5ySS3HKRkGTxTyoJJh0okKACI6DSv0+Yvamtb4sJ1xwgqa3UrvAnFisJu5O87fildkPCdJa1YFI9UKkAUAqLUjugckrf88Jtt2b3vftd2aULF6YEw70ogAIogAILV2AEVPo33G3DWeB819a2EVJbqZ0xRN0ZDmqGucuf5gjTU2s8J1yY1gVUPvLFLLuSg9BqrwoWT+Seyl4NpHbr1BJP5cJ7b7KHAiiAAokpMBoqO3t/FSPDamPbatWc0ytXAun+oQWmUlupXelSzPY657064pfaDQnT7aYMb7ib3wdUKgCUwqLUDqic0u/gqZyiHveiAAqgwHoUGAGV+uxYa4PaemGKDyo10BX0WS7E0F7EDth5bKV2TgDcYJh1/bEXM/lOkmgqHFAJVMbyUOOpXE9HTk5RAAVQIAUFRkFlyWzlyQf1pSY4ez2VJtCFoLLH1nGGbDO63QeqGw7TU7Jas75J60BlA5Wt+lXVtb3WkHjpqQzb4amc0tngqZyiHveiAAqgwHoUGA2VLolacyprADyohrzNO3zD3wHbXQmzp/6ENioGKvFU4qlcTwdMTlEABVBgSQpEhEr7xIRm6LezVqaz/ZDUVmpneENd58i24p8jTH8V8a0013cAlUBlalB5/jMHxervt15/bUl9H3lBARRAARSIrEA8qHTsU+nzyrm+l9pK7QqsLI7bCm8pJLUbEqa7nMJHlQGVQGVKUPn25beyR37lA8XFBwVQAAVQAAX6FIgClSWU5ZtVH9jb7lrzHEsqK2y7Bz9IbaV2hrfSjKxvk/ag3ZAwu7KLNz9nS6Fy83O2FJq0rVSMhTraS/nS7V+lJ0UBFEABFECBXgXGQaU+Ekwvkug9hUB6nKMBbPXii2oleScL6YfZWchkrnbvKZLGU/nPOVCs9dJbBX0noIHUbp06ToXK5285XQx7P3Pi03SjKIACKIACKBBUYBxUBoPFYKwCQOU6AXCOF4ixUPnqU09m3/r4tQVQnrv+ukwNgfNBARRAARRAgZACQGVIoQ3/DlQClbEAUwKVChhff/pc9vLZM5naOuiJj3y4gMkH3vue7Ps33wRQbrj9Ex0KoAAK7LICQGVipQdUApWbhEq9B6UCSRMmWemdWMdAclAABVBgBxQAKhMrJKASqNwkVL7x/HOFh/LCg/cXHks+KIACKIACKDBWAaByrHIz3aeh8p1Xns+40GBKHbj6+C3ZxTMnsvN3n56pthIsCqAACqAACjQKAJWJ1QYNlZfvPZVxocHUOnDp7MleqFTD3MpDyWKcxDoCkoMCKIACO6gAUJlYoTWeyudyTyUXGoyvAxJP5Ytf/lIxl1Jfj+1/sNhC6Md3HWY/+9FLibUOkoMCKIACKJCyAkBlYqVTz6m8fCnLuNBgQh2QrP5WXko1p1Kt9FbbCD31sY+2IFN9p+Zd8kEBFEABFECBkAJAZUihDf8OVALTsV4mJFDpq94KNvVpOsqLyYk6G+4IiA4FUAAFdlABoDKxQgMqgcoUoFI3i0sXLmSP//qvFvtWMu8ysc6C5KAACqBAYgoAlYkVSD2nMh/2fIcLDSbUgSmeSrNZ6L0sFWDyQQEUQAEUQAGfAuOh8ugg26vP6D6WHcv/3js4csRzlB3slb/X1/6hJz1SW6mdikZqK7UbEmaVTUsrb/Zzc6BSwfR/y/atulXXneOfzo5q0JLarRPQgUo6fhRAARRAgU0qMA4qD/fbkOgDRgd41nCwd5DjnvGR2krtCvbrgq8zfqndkDDrrHVhVQaVb+ZwtdarhMXjJ54OaCC1W6eOQOUmu1LiQgEUQAEUGAGVh40XyaCjw33tidzLSoelAVMtgGzub26X2krthsQ/R5hGxXIAOFAZgjwpLErtQvEt83egkg4eBVAABVBgkwoMh8oakjQ8dod4C2iqvX9+u2OarqS2UruWRzEQ/xxh1iVoArQLprtF3Qx/LxN0ZN5XKSxK7dapJVC5ya6UuFAABVAABeJBpeGZLOZW1vC5n9UzKDteu+o3qa3UTpWr1FZqNyTMmrP3ymkCBTwPhMq3chBa7VXB4u/nw9+9Gkjt1qnl1Sf/Mrt4z/RjGlmow4MCBVAABVBAosBwqDTmH7YX5jTQpL4/OqiAqhr6rv9/LPccHug5mSVUSm0PdiTMAqI7HlCgUg7JUliU2gGVks7AZwNUTlGPe1Fg4Qoox4y9RiK1LKvnceppTE2zkekZDpWFE9Baze1YBW6C4kFt7/ZMSm1NqEw5zMIvWeW5AW+gcihUtnYMqOrY8Zb30r/6u20HVI7sH4rbgMop6m333rJvtaYAbTdJxL4kBaqRPvfOL+lk1HZcpZOy5aVkFFQqGWyw3D+0oMke6jbeEjoFLLWV2pUJbK9Q98UvtRsTZnCBUrdC1XMq3/pZPvS71utvytXfv38uoIHUbp06Xn3yvzL8vbw+e1CO0oDKajEknqKesjMWwNrbqXmeI52X7o6+c4RpZqEKv2/l6aDa2h7tHHSrxHhHAFiSlZRtRkNlJ1P2cK+5TY9V6Wog7SzU0fMPm9BbtjsSZsiTW3YGxlxTQ0ygUgGgFBaldkDllE4IT+UU9bZ7L1C5Xf3lsZdAFfb4Se0KL8gMYdrPZvdzTJ5vZal3YMnDmhn8ymcznvth5TPMOhJUurYZMrbqMaCymVt5LHNuKdRruxthApVTIU4Ki1K7qenZzfvxVA7rDJdoDVTuSqnOAYBzhFnpWTl4whAc1l89L+twZobKesFsNO9qOH9rsxgFlSYYtl3w1luLdJP04qVKuKG61G7bYXZq0tA5lbsJMnGG7KWwKLVbp5bpQaVjOM7ZufcM23Xsu4cLxHjQ7caDIJx3EypbL7veoWjByWIVUJSbWrT7bVN7/3NCz8mP4eXajZIKp3IOAJwjzDInZV2aofxmh8oZ0x4u5FVYRINKP/h3HxDTbXclTLMOAZVy4JTCotQOqJzSm8UZ/lb13/PSaXYIeoqLY8SiC4tVmzIByXH/lLyne68j78XDvj20p6FyLz8qt7No0O6IXdrp71waW9N4NER2+3fmVIbr0RwAOEeYxnD1HN6+DUClfhGaI/nhcl6+xSioXL4s28shcyrXCYBy4Jbrk56nstuuCo9HZxGdPefJvSCghJiut8T3/fZa9QwxC4cfNejZQO7yNNllUae6etDXD2EXaBasUR6L24V/oDJcA+YAwDnCLPyUwrma4Vx3B/RKz/esow3CtjMi9dySKwBUJlYNaqj854vZO1xoMKEOxILKl27/anbfu9+VvfrUk9Fbiw037jmALqisQMXlbrAhKHqqUwhQtlLWN6eyC5V9oGD9NvihDFSGa4x/yodvP2h79bfXk2+vJu9AmzTuKheDyz+ce/sFxg2VzdSMUF77vZCxV60PyN8KTIHKxAoZqASmY71MxILKt15/LXvo/e/LHnjve4o9K9++/Na4VuOdD214G3uGv9sPip55l9VDdPnDW8PmVJqF1oHKXlCwHsKDoQKoDDcYqfdPajfEozgkzD6PdDuX7jm1gXmY3uHvMo37h2VdakNl+V3T3pVt3wpvoDJcH8dbAJXjtZvlTqASqEwNKlVF/+l3z2dPfOTDhcdSAea3b/hkpjyYrz99rriuXLzY2x7Ew7BO8HQ9IHo8lbO0zNQD7dsZo6vfIE+lDZFA5QyVQQp2UrsZoXKrw98OqLRP9AnNyxxcf2co7gUHCVQmVrgaKt/+yVHGhQZT6sDVx/8su3hm+tnfZhN5+eyZ7Fsfv7aAS9d17vrrnC3Kt1rU/t47r88R6mwrUBPrE+TJ6XoE5cPfPd7E4iFtgOnghzKeynAZSmFRajcnVM5YniEgrPa07OwyULkpi/qez9E+VP/6hipWMT0mXOPmsgAq51J2ZLgaKi/feyrjQoOpdeDS2ZPZ+btPj6yN7dsuXbiQnf/MQQcm1bC4Ak11vfjlL/VApWdvWmOxzSBQ9C0YiZLbxANRD0bP6u3utj4ST2WeX+0lDqzG9y/I8WvmXxmeuM4bS54UFqV2c0LljNvyTIDKou8w4dIDlYP6mI2V/3IiAioTK8sSKm/Krn7/fi40mFQHrjzyxezNM3GgUsGi9kwqb6Qa+n7j+ecGtJ7u/D/V53dXavfMlXQ+JBz7Kqo5lSs4EtA1Z63Lme6zv70PVvPUMt/c1MGeyrKadNM7wz6HA2pkWqZSWJTazQuVY14svHr37T1dzKM07/QMf1uLj1obqrciZj7l3PUeqJxb4YHha6h855/fyFc+c6HB+DoQa6GOmjOpgFLNqVRzK+f7GMe12ZG4vGjzJYSQUQAFAgpsx+PnWqhjLcwpXnrcC3U4pnH+ag1Uzq/xoBiAyvEQBYC2tYsFldpLOcwzOajaa1dWsc+hcy7UajY1H6Ebt6DANhTY6PQT94hEZ+/UwrvuWfkdHFrfhojLixOoTKxMgUqgMhYcx4LKOCfqSBqaHvruDovqIwaXv02QRCdsUCARBXZlBIGX0o1VmAlQac998u0L5Z5L5c6h1FZqp2KR2krtpGEO3FC2EgSoVFD5lWJPMntz3+L//+ZT2VE9LUBqt05Q3T2odLetsh4w/25jTwUiQoEhCuRguZe/7R0NuWfDtnpVeMpp3LAks0U3DipdbmTnMv0KrMxJ84HNTVsT7J22uxXm0OOmaqi8lIPQaq8SFo9/+u8CGkjt1qnlbkLlbH0dAaMACqAACsyswAio9G867D7H1zeU1f7ed16v+xi39MMcez5qA5X/lAPVWq+/rqDymwENpHbr1BGonLn3JHgUQAEUQIGWAiOg0r+lQRsMffDZDDM386OktlI7YxitMwnLjn+OMFX8Q7Z+aMoEqFQAKIVFqR1QOaXf29ycyimp5F4UQAEUQIFtKzAaKp0rNM2TF5x7menzOy3gktpK7QqmVNsK2GeEOuKX2g0JsyhVoHK8p1UKi1I7oHJKRwNUTlGPe1EABVBgPQqMgEq9m761KWm9aW61YKcDaxroGuCqwVRqK7VzAqAn/jnCNKDSXmwSWr2KpxJP5XgYb8Mzw9/r6cjLLic/ZWcFm77PVqrqWYB+s8lLwOtQYBRUlsymTmowVuiqxuj1VJpAF4LKHtsWACYcpqfu1Jr1kCVQ2UCla/X38U+b8yxLT2XYDk/llO4MT+UU9TZ07wb34POdJ76hnM4WTd0/A5azaUzAy1dgNFS6pGnNqawB8KB48Lc5yjf8HbDdlTB76k1oR/8GKn+azy1c62UOa/dpILVbp45Xn7wtu3jPiclnfwOVqT8IAkfPdY7B823/JsvnfFBZzW/fJtRtEM5lamOFArulQESotDuEZp/GjmOus/2Q1FZqZ3hDO0BbDRPV388Rpr8SAJUSwJPCotROEufybIDK3eqMx6a297i8oq81d8vQCxXHg+WiobJ4PPScyjK2kLgPBVaiQDyodOxT6evsXN9LbaV2BVYWnUN4+yGp3ZAw3fUn/CZeeyrfzCFntVcFi7+XD3X3aiC1W6eWQOUKenHnQsNAvieeLrJ0qNSLLJ2LUVdQpcgiCkxRIApU6iPUuht9O4ZlnJukG55F063Zt6F60G7bYdrFIvMQAJUKAKWwKLUDKqd0Egx/T1Fv3nt7vZTeqAPD5UEmVfPpS0+n7vuLec32sHUfvBq/debnd+ZJu05T6p6A5j9oYohtmflxus5b1oSOArugwDiotOfo9M6BkR7naEBg3an4hmh2IMzOPKa80w0t/c4lACqBylgeajyVu9AFT0mj/yCK3lAjeSr39swt2xwnndVH5Hah0O3tDI/kVMhXLtAznzvePLnSpaAxMPzvdX5MKS/uRYHlKzAOKpevy9Zy2EDlP+YeOy40GF8HYkHl87eczu5797uySxcubK1dELFLgXF74WrvouAd1ym79ix2PIPm7h/6TiecBQ6cCCzU8Z2+5vx+zPQAlfax91FRUWDlCgCViVUAoHI8RAGgbe1iQOVLt381e+j978se+ZUPJNZSSM4Y8ImxbY53TmUFYq6dPlqjNF4voMRT2eOd7Zsu1TkII1R/pk0RCIXO7yiwVAWAysRKFqgEKmPB8RiofPvyW9nrT5/L1DzKx/Y/WHgo1b9vPP9cYi2F5AyGynpKjmuOolzPEFTaHkzbvvCUOr2REqi0pz5196ntemCHz6lksY68PmCJAqYCQGVi9aGGyp/lcMWFBhPqwNUnwvtUvnz2TPatj19beCIVQJqX+u7FL38pU6DJJ0UFBgx/RwLKcmS4WajTUsXngXQcWuFeVCOBypHzSOuEGoDZN/7P8HeKFZ407YACQGVihaSh8u1/eDbjQoMpdeDq109nF8/0b36uPZIKLNV1/jMH2Y/vOsx+9qOXEmsZJKergATCCgrM9orFj+P3pjTj9kGlb66jurf2Tnb2zWyFnB3ki39CR01OX5kt0I2FOjQ4FBilAFA5Srb5btJQefneUxkXGkytA5fOnpx8os58tZ2QpyoQBKzIQOn1VIZOojF2w/Bv/dMc/9u7iEjnSXLyjorXDkzghQzqOrXguB8FFqoAUJlYweKpxDs5xTtp3ivxVCZW/UnOUAUCgNTaR7Kz/6N9fK4w8hpUzfmMIS+obJ/eBlrNsGX7VDr3yiwctWq4vj33sn/lO4t0hDUBMxToKABUJlYpmjmVr+fzCbnQYHwdkMypfOv119gqKLE+YGhydsOrJhhyHprxmew5pnEmYQl2FQoAlYkVcwOVr+VQyYUG4+uABCrVlkFqcc4D731P9r0bPwtgJtYfiJIzZDhYFOAMRrsyRzE0jD+DNASJAktSAKhMrDSByvEQBYC2tZNA5SuPPVrA5OO//qv1ym8Fmnx2TAE9Z3HsjuZzZnfiCT5zJq0V9q6kc2OCEBEKDFcAqByu2ax3AJUmGP1VeRxbfh3/vScdntvmd3vO1LF/87vZ0co9vRKoNCvzq089We9N+f2bb5q1nhP4DArkYLmXQ2V+JHcSH3MuY9/inCQSmyeiSK9k8U8qCSYdKJCgAuOh0jFZu3fvMXOitPdturtJrfu8bKmdUlxqK7UbEqbHtqfjqqHyYg5Xq72ezE79awWT/yG78yv/oYTKT+VQ2dGjhEr3b2vWr8z7UKhUtfXKxYvF1kJqSByPZYI9NklCARRAgYQVGAeVxvYQHQ+RCYzOVYLVKjwbrKS2UruC5/T+bN1TF1pvpFK7IWEqW59OQGUvMN/5vxmgCFSOfrkYA5UaLNUpOmqeJSfpJNx7kzQUQAEUSEyBEVBpHJNlAGSzdYXeWsLw/LUgqrm/uV1qK7WzPIS98c8RZhtohwz94Km0PIxA5cahUrUeBZPKW/ntGz6ZWJdFclAABVAABVJVYDhU1t43a18yw9tXwKJv013TK6ipUmortWt5FP3pLIbW5wizcFJW3tGBE+cbqHw1hwmud2qofMKhx19Ww9+u39Du6hO3Zhfv6T9Rp69jOnf9dQVYcrpOqt036UIBFECBtBSIB5XG3MXCM+c6a7YzHFxtaiu1ldq1hp6NjXNd8c8RZkuLw/LosXpOaf8mwUClBYNA5eiXi6lQqVaGK6hk0U5anTapQQEUQIFUFRgOlYansT2s2wxrq+/rlX/V0HOzEjCHqoP86KwCskrgk9oe6JMREg/zMM+VXrXcmXMaOIMXqBwOlS6Nj38K7+VUqFSd1hMf+XAxt1Jtks4HBVAABVAABfoUGA6V5tCu49gv9YC3ofJADwVXEGl7MU2o7LM1oTLlMNtQaR4x5p6PahZQA5X/I/dQcb3zlQ9Uq78fd+jxX6vhb9dvaBcDKi88eD8rwXmGoAAKoAAKiBQYBZXl6LJ9lqq1AMceajYWy9ieyc4qaZ/troRpeCrtKZW1bp4V4EClBYNA5eiXixhQqbYYYsGOqC/FCAVQAAVWr8BoqOwoZy94cS3IqW7qLGKR2krtVDxSW6ndkDDt+aWGWCKofPim7J03crjiylqeyo4ehqcSrTr1JQZUqqqrthdSFx8UQAEUQAEUiD783Q3QNaxrbNVjuOvMUxacWwr12u5KmKYn1xj+9s5HbRQtPJVAZQNIpqcSqBz0ohELKp858enCW8kHBVAABVAABaJDpQmG7UUS5vzBPFrpJukqhVJbqd22wxyyobpRQkBl7qGtQNK9yOlYtv8V7cXFU9nnzY4Flec/c1BAJYt1eJigAAqgAApsBCr92zF2V0JPt93dMN3HTtqeyi/kHqlXuNBgUh2IBZXP33K6gMpLFy7Qm6IACqAACqCAV4F4cyoROYoCpacSqASqp79UxILKF267FaiM0roJBAVQAAWWrQBQmVj5ApXTYQogLTUEKhNr3CQHBVAABRauAFCZWAHXUPlPP8ne4UKDCXUAqEyscZMcFEABFFi4AkBlYgUMVALTsV4mgMrEGjfJQQEUQIGFKwBUJlbAGirf/vHTGRcaTKkDV7/+p9nFMyey83efnlTLmVM5ST5uRgEUQIHVKABUJlbUGiov33sq40KDqXXg0tmTQGVibZzkoAAKoMBSFQAqEytZDZVXv3s240KDKXXgyiM3ZW+eASoTa+IkBwVQAAUWqwBQmVjRNnMqL+SLVLjQYHwduPrEX2QX72H4O7EmTnJQAAVQYLEKAJWJFW0NlT/NYYILDSbUgavfACoTa94kBwVQAAUWrQBQmVjxApXAdKyXCaAyscZNclAABVBg4QpMgEr7qMS97ODIpdZRdrB3LDPPcfYf0yi1ldqp9EhtpXaSMLvHSNrnWPs0aKDyH3Iv3VqvW7P9Y+06U+v3r6/PjmpdpHbr1BGoXHjvTfZQAAVQIDEFxkHl4X4BiXsmRVbftWGpgqu9gxztqo/r3uInqa3Ubtthukv6cF/B0n6eW/cHqFQAWMLi8RseC4C11A6onNLvsKXQFPW4FwVQAAXWo8AIqKw8eg5XWwFMBkAeHew5AcoFVlJbqV3hTxTGL7UbEqazCh0dZHs2jFuGQCVQGctDjadyPR05OUUBFECBFBQYAZWlp7Dlpaxy0oYzH3w2w8wNl0ptpXYF/pXD7h34teOX2g0Js89L6ZsmUN7TQOXLuZdurddfVJ7KRwIaSO3WqSNQmUIXSxpQAAVQYD0KjIbKLqzlohVD2xU0Ob1yJZDuH1pgKrWV2pUuRYdX0BG/1G5ImM76Uw3b+yeUApU1REthUWoHVE7p0hj+nqIe96IACqDAehQYAZWKHctFFC0+quDMD5Ua6JS4FmB1wM5jK7VzAuAGw3TUn9KL2++lbHkq/zEHodVeBiz2aiC1W6eWeCrX05GTUxRAARRIQYFRUFkym4IkY4Wumkvp9VSaQBeCyh7bFlQmHGanZGVeSqBSw18Ji/aKefX/4zfkQ+I1aErtgMopnQ2eyinqcS8KoAAKrEeB0VDpkqg1p7IGwINqyNu8wzf8HbDdlTAtcaReSqCyDZVtgHSBIZ7KPm82nsr1dOTkFAVQAAVSUCAiVFYLXurV381ejZ1phJ3th6S2UjvDG2oP0xc/lVsilemaI8wuQJur4vsKvl6o849/n3vk1nr9ebVQ5+GABlK7deoIVKbQxZIGFEABFFiPAvGg0rFPpW9PRtf3UlupXcmO7j0h7e+ldkPC1FVITxMIrM+paxxQqQBQCotSO6BySpfG8PcU9bgXBVAABdajQBSo1At3utsMOeYSOjdJNzyGJn31bagetNt2mEb85ubvgboFVAKVsTzUeCrX05GTUxRAARRIQYFxUFnBXr2QoheapMc5toeiy7B9q6V3I8yhXkqlgIbKt1//cbbe65bsQ2pRzu8+HNBAardOLa9848+zi/ecyM7ffXpSX4OncpJ83IwCKIACq1FgHFSuRp7NZxSoXCcAzvECAVRuvv0SIwqgAAqsWQGgMrHSByqByliACVQm1rhJDgqgAAosXAGgMrECbqDyR/nQLxcajK8DQGVijZvkoAAKoMDCFQAqEytgoHI8RAGgbe2AysQaN8lBARRAgYUrAFQmVsA1VP7wm9nbXGgwoQ5ceexPsotnWKiTWBMnOSiAAiiwWAWAysSKtoTKz2eX7z3FhQaT68ClsydZ/Z1YGyc5KIACKLBUBYDKxEpWQ+XbP3wq99JxocH4OoCnMrHGTXJQAAVQYOEKAJWJFXANla+9lL3NhQYT6gBzKhNr3CQHBVAABRauAFCZWAE3UPnDHKi40GB8HQAqE2vcJAcFUAAFFq4AUJlYAQOV4yEKAG1rB1Qm1rhJDgqgAAosXIEJUCk9KvEoO9hTRy42l3lsd1tfqa3UToUutZXaDQnT1ijXwJ/5QooaKl/NAWG11+nimEazztR//6+fyL5X6yK1W6eWVx7nmMaF999kDwVQAAWSUmAcVFZnf+8dHDWZqb5rM1MFVebZ4K57i1CktlK7NMJsaeTKo1UdgEoFgCUsHv/kAwGwltoBlVN6Hc7+nqIe96IACqDAehQYAZWVR8/hcTvcz71LBkAeHezl3qb9HKXan8LO+l5qK7Ur/InC+KV2McIs49rLTB431QEqgcpYHmo8levpyMkpCqAACqSgwAioLD2FbQ9cmZU2nPngsxlmbrhUaiu1K1JTDrt34NeOX2o3JMzc71qAcxce5VD5Yu6lW+v1p5Wn8v6ABlK7dep45fFbsov3sPl5Ch0taUABFECBNSgwGiqdcwOLoe0KpI4Osr0OfJZAun9oganUVmpXEq4sfqndkDCVbTXM39bJMXRv1bLGU7lOECpBWgqLUrt1aglUrqELJ48ogAIokI4CI6BSe+EUHBoZqeDMD5UaKAviKuCyBq4O2HlspXZOANxgmJUspbdS51N7SP1D3+o2oBKojOWhBirT6WhJCQqgAAqsQYFRUFkym5obaKzQVXMpvZ5KE+hCUNlj24LKhMM0a472WBZadeeX2pWshsr/8YPs7dVef+Jd/X38/86HxGtdpHbr1BKoXEMXTh5RAAVQIB0FRkOlKwutOZU1AB5UQ94t0mrPy5TaSu1anspA/HOEWWRVbyfUgGQN4j3bCgGVCgBLWGwDpAsMpXZA5ZQuh9XfU9TjXhRAARRYjwIRobIa3q1Xfzd7NHYYqrP9kNRWamdCnTVMX/yk5n7q7+cIU08R6HomNVj6uBKoBCpjeajxVK6nIyenKIACKJCCAvGg0rFPpWvroJLpukPBUlupnS8e1/fxw9TzJ6dA5Qu5x26tl/ZA3hfQQGq3Th2ByhS6WNKAAiiAAutRIApU6gUp3W2GrAU5HS9hd0i8tVq6b0N109XntDO8lUHb+OlsL9Kp8lkvZvLPrWw8lesEoRKkpbAotVunlkDlejpycooCKIACKSgwDipbi0/aG553MyU9zrE9ZF0uAvKtlN6NMDuLmVSezNOFHDUAqAQqY3mogcoUuljSgAIogALrUWAcVK5Hn43nFKhcp1cxFkia4QCVG2++RIgCKIACq1YAqEys+AuofOjz2duvPM+FBpPqAFCZWOMmOSiAAiiwcAWAysQKGKgEpmO9UACViTVukoMCKIACC1cAqEysgIFKoBKoTKxRkhwUQAEUQAGRAkClSKbNGWmovHzvqYwLDabWgUtnT2bn7z49qQKz+fkk+bgZBVAABVajAFCZWFFrqLzyncOMCw2m1IHLD38+e/MMUJlYEyc5KIACKLBYBYDKxIq2Hv7+yXPZ21xoMKEOXHn8z7KL95zAU5lYGyc5KIACKLBUBYDKxEq2gcrv50DFhQbj6wBQmVjjJjkogAIosHAFgMrEChioHA9RAGhbO6AyscZNclAABVBg4QoAlYkVMFAJVMaCY6AyscZNclAABVBg4QoAlYkVcAmVN+ZD30dcaDCpDgCViTVukoMCKIACC1dgAlRKz98+yg721DnezbV/6FNVaiu1U/FIbaV2Q8KUatToAVQqmP5i9iGjvph159i/+q3sezVsSu3WCehA5cJ7b7KHAiiAAokpMA4qD/cLSNw7OGqyU33XBsYKqvYOcrSrPq57i5+ktlK7LYcp1qhdI2qovJCD0GqvEhaP/86ZgAZSu3VqeeXrrP5OrL8lOSiAAiiwaAVGQGXl0XO4Gw/3c2+kAZBHB3s5fO7nuNj+FHbW91JbqV3hTxTGL7WThynXyK5dDVR+LweqtV4aFu8JaCC1W6eOQOWi+24yhwIogALJKTACKktPYctLWWWrDWc+sGqGmRsuldpK7Qr8K4fdO/Brxy+1GxKmVKNufQAqFQBKYVFqB1RO6Xn0iTpvPP/clGC4FwVQAAVQYOEKjIbKLqzlShVDvntZMSp+dJDtdeCzhK39Qwu6pLZSu9KlKItfajckTD2U75o8amrkqFxAJVAZy0Mdy1P50u1fze5797uy158+t/DukOyhAAqgAApMUWAEVCp2LBfdtJipgjM/VGqgVMmt5kXqADpg57GV2jkBcINhFnwt0KgPKv8hh6vVXpUH8vp8+LtXA6ndOrWMBZUvnz1TQOUrjz06pa/hXhRAARRAgYUrMAoqS2ZT8yWNVd1qLqXXU2kCXQgqe2xbUJlwmFWlCWoEVHqg0b+q+3gLNKV2QOWUfkzBpILKH9/l3bZhSvDcG1EB13z1iMEXQZX9WjUiFQzc3gHDckYE78cABVBglxQYDZWuTLbmVNYAeFANeZt3+Ia/A7a7EmZPDfAtCtK31MPf//DdHLjWet1Urv6+/u6ABlK7dep45euno5z9fenChQIqv3fjZ3epb1tlWtODSqMYnDuErLKYejLdQLhr3UI9yufacs3cZaWIoQv0tSOoZSu1I0w1fa/lTNP/X7z28nYaESqrBS+1uE1F7Uwt7HQuUlupXbvy98c/R5i+ArA16toBlQoApbAotQMq5V2C2/Kh978ve+IjH54aDPfPrABQObPAswWvF5Dmu6V4t91rnmtu4LQT518w2raU2g2Jf81hLlEnecWPB5WOt1BfB+f6XmortSuK1bF1ket7qd2QMJ1FIHhTByqBylge6lieSlWXnznx6cJb+dbrr8l7Fyw3rgBQuXHJo0Soyq0GRaDSo+mugCpQOblR6EUp3bcna0FOSWXdRT5FCqS2Urtth2m9C1YLd0JvmA1Uns89dmu9vlANf/9tQAOp3Tp1jAmVel7li1/+0oT+wjHMZg4j6MV+rl0TvL91T8LqtLHq3iLYqv/RQ1iDhxjbqxM7p4WF2vcE8Tzvqa7hOHtv4K5Grt07fHMlbVA17XTfX+jZGQK0khx8qRaUZWwBUwwPqAQq3a3du52jRRtCuyHwK28o4zyVVsfc35kMOapQaiu1M8Cyngvhm2AeOcxBGjUFBlQqAJTCotQOqJR3CW7Lty+/lT3yKx/IHtv/YKb+Hv5R7cuCHd1GalAzhgCtCNzAU7VZE2Zc8FnvTNE+dEEvpHPuYmF8qe3awCiMe7hQwjscL9cFM1sHS/TpYUHgUKjcy/cBbjRx6GHnpBcqt62nUPZNmAGVQOXqoHITDWulcdRQ+XIOQlxoMKEOxPRUquao96tU/8b62KdwuUcy3HORfYveOt9rsLI9aY49anvhtQOa3dPCQgvxouomOK2so69OgAPwhkGl4wCMwB68/lEq/+lnm9IzVrlECQeoBCqByihNiUByBRqofDYHKi40GF8HYkOl9lYqj6VaER7j050D6PDAmcPXdaT+o1A78OI84MCdehlUDog7hkidMALHwNaw2TcHrfvbMKh0jPg4y8lIvNdTuW09Zymk8YEKoNK1Atk7/cyxYtnpdQ/aqSz5V4oTplnkS9NJXp3HDX/Lw8dyoAI1VD73cPY2FxpMqANXHr05u3jmRHb+7tMDa6Hf/MKD9xcLdtRK8MHD4PaUkPoh1vb42d4pt7eqZxuUKtxmVN11upYnj47h4u4w+YC4oynveGA55p62IL0XprvwHgsqvfNKQ/Ppfdu12AdtzKJpQoEKoFI2d1e6sEVq10BlOP41h7lEneTtA6iUa7URSw2Vl+89lXGhwdQ6cOnsyahQqRrB87ecLsDyqY99NLty8aKoXbjnJXp2aGh5vEovVvch1uPdslM0wFNpL+QpPUK2V25A3CJ1hhq551MWj7LWnMqeB7t46L9bRt7Nz0MLccZ4KodKswR7oNJTirsCqkDlEprhYvKgofLK03dkXGgwpQ5cfujG7M0z8aFSNbbv33xTAZZqKFydtBOCyyHbduUz7MpV1coT1zNPT7x9zgCo9M5BtHoYcdyz9Eye/W7rBUna89uzL65D196hf2P+pg8qg/Mfe6Bzu3rOUkjjAwUqgUqnAlKoltoNgV95dcZTKddqI5b18PffP5O9zYUGE+pA7DmVdgNQMKk2RVdwqS61Mlx5MV0fvfVMM2Jrbh/TXfBSwuR+dqCOBHRtMaQi8S3AmeCpFMONNO65eg0b0Ir07GX7++oIRUPPzgp7Qzdb1w58m8P8TZhOqOwFoUqEPk/mtvWcq5zGhAtUApVA5ZiWwz0uBYBKYDrWy8TcUPn60+eKuZUaKtW/566/ztOwu3sQKqbxe7caoPExZRmRYw9Ge8/EAZ7K3qPtOgkRxD1jN6enFJRD9CX0OfVsbalU7mvp1dSa9+osI0d43rPAvfNoe6YV2HMrQ/tfzqjxxoLu1cksrzm8UIQZniM61Ksn1VRqNyT+OcKUtwQ8lXKtNmIJVAKVuwCVL589kz3w3vcU1/nPHGSvPvXk8IU7G2lRQyLx75NZz7XsJ9whkWGLAiiAAotTAKhMrEgbqPxOPvTLhQbj68CVr/9pdvGeuKu/VXPRK8DVcPcbzz+XWAuakJxRJ/pMiI9bUQAFUGBhCgCViRWohsqrOVByocGUOjAHVCqIVN7JmHtVptME9ZB7d45nd05oOqkmJSiAAiiQigIToFJ6rKF7LpVbAKmt1E7FIrWV2g0JU9kaOgmGzoBKBZI3Fmd/uzb4PfavfjM7XwO31G6dcDoHVKpthNTcSTWfcpkfzzxJx+k1y8w/uUIBFECB8QqMg0rX6jTnyj7Hea7elW1SW6mdAXTmRG9n/HOEWRWKuYpV8GCqofLH386urvb6XAGVxz9xGNBAardOLa88Fnf4W3kpFVB++4ZPju9xuBMFUAAFUGCxCoyAysARYQbA+VZ2urbtkNpK7Qp/otqORHA+rtRuSJi6xhR5rffb61l1Wd0AVCoAlMKi1A6ojNGDKZhUULmoeZQxhCEMFEABFECBQoERUOlfrt6GMx98NsNLnT3rerbsKH/alTBrpMz26+07/KdgmHURqAQqY3moY3oqtZfSv2UQPSoKoAAKoMDaFRgNlc4Nic1TGpx7w5VgtX9oganUVmpXuhTzzYDt490c8UvthoTZuClbR7xJTusoofJzubfu6RVfn62Gv+8MaCC1W6eWMaFSn6DzymOPrr3PJP8ogAIogAIeBUZApT4L1hrKrTfErc7J9ZzOUHocLa+d1FZq5wRADZRW/HOEWYndgcieI+d0+QCVCgClsCi1Ayqn9oBq+yB18UlYAdW/rGGj8LmKQD0LUtKP8pyrpNcV7obr9SioLJlNzVc0Vuiqxuj1VJpAF4LKHtsWACYcZlFlXdMEwjvdA5UNVLpWfx//hOm9LKEybAdUTulF33r9NRboTBFwE/dKjkmMlA7f2d+Rgt9aMPUzLQWw3GB5bk1wIt6IApuu16Oh0qVGa05lDYAHxrxCfZdv+DtguythFkypzi6uvLa1WNWc0J5Oq4bKH53Lrq720h7I/x7QQGq3Ti1jDX+rIW+1QOel27+6kU6QSIYqEJqvbW//Vi0eHBpNZT8fVIb7x5FJlt+WBMyFyrPJjt4/1bUgVZ7ptmV/mI66VL3Yd486HLJNn+Fs6kxba3ODy4nQidt5lGjlgBj70jDkeNIiydL8x22fznLfYL2OCJV2h9Bzdm9n+yGprdSuXUE7639a8c8RZjNFwLnXYgc2m2oAVCoAlMKi1A6oHPuAUfepIxkVVKqTdPikp4BrNw0DO4qX+vZD17GF2oBsLRoqC3+A61zyAQJNNO0vTyPw1nnh3Q37RyUjGGZ4tK2Md8g2fcbxqL3wI41b8ZxrTcUoRXpv8tcVaf79I5qxp7Jsql7Hg0rHPpW+xuH6XmortSuqddE5+E7HaL6X2snD7Kn8gcoOVAKVsTzUsTyVP77rcOEbnsd/2GwsxEB/4tsubQoYTrm3X5cEPJUmEAkOq4hezmIYaryZYggNJlYSpgzshmzTp9Jfv/TsGFT64FWa/znap7+Y5R7wYFXpMYgCldpd3nV/OzLh3CTdeLMxG3LfhupBuy2G6c2jSlN/x9lA5d/lHru1Xn9Urf6+I6CB1G6dOl557E+inP39wm23FlD50++en9LXcO8MCoSAwuedmAKG5r3NUGn+Am8PKwrPUu/Mz+/Mk3Z54bpDi93njxZ8iG3lZ/M4JGYowlaQofLUxqad9J5Q2mVhSqByyNZ/Vqp2FCrb7x/y/M/RPvvKOVZd6YtjHFS2XOSOzqTdTIrhl2YY2J5naBrbcwt8tlI7AyzrNMwfZqjg+jp0oFIBoBQWpXZAZeiB0ve7hspLFy5MCYZ7oyvgP4iijkr31a2nXpzh7709c1jdFaYxrGnl3d0HSj2Vjri8AOvO6+F+33MoT2yvYyB6QVYBCsqzeKSp+frN7iuh540oteIwBVA5ZJs+O3E7BZWe+jok/zO0z97y3kC9HgeVolqK0RgFgMp1AuAcXunYnkqgckyLnvMewQO+YJDqpb4ASw16AajqSbb2LHY8g67Fic6HWMCTE1hI0T9kaHk1xcPJHep17HM8Z1k2DhC/x9VwkhgvCdOhsjui6A/TvVCn9c4yZJu+EVBpr1NwzlLoWajTr2+ojO38O7zoA/Mfu3325mBsewjJYvwOVA4QaxOmBVQ+mG9+/tK3uNBgUh0AKjfRYrcYx5AHRHABhjwf3pGWKj3th/yQKVAST2WPN69vupR3RbEv35uZf9aKXVCeQ9YjSEt0apj19AVd8EO2/hsEld0cdeLWJgItpfr02TlfsMbkP9g+mykc3mmG1Whs/1Tg+es1UBmjZkUMA6gEpmO9UACVERtmikGJHpzas9J4VLwPYmEeQ1BpP/Rs+wJinN5ICVS6PWWm96r7UB0+p7JzQIdQm0lmofJ0Qrt/QaooLZHCbM0NHLL130SoLHy3rtX6IS2NeN1zeuWr6TtQPij/kvZZ2uwflvW43b7K75o6r2wFUwxnXIQGVIpa3uaMgEqgEqjcXHvb7ZjCw9++YUz9IB3zbPFCpW++lsNz4x6ClEClcN6ht2ANwOzL/AAoiVeH+sszvKDJvduJxNPm3vpOr4UIA1Yb7Brw79/Oz5GyEfspToXKqeXXnY4hz/+w9umASqWX+YIW0m8D9RqonFqjIt+vofLyvacyLjSYWgcunT2Znb/79KRaykKdSfLNeHMIwkILZayjdoUp9UGlb65j7U2qT13zQUooP2UCp88hFMSzgQUNXbkF6XJyWAgmeyDHU+bDNO6me8g2fa0khKCok94hi2WEFXyQmTt+Wf6Hts8uVBZtriL34u+8jR0a33WysoF6DVQOqkDzG2uovPJ3f5NxocGUOnD5oc9lb54BKudvtduLIfTwby8CqNJZL2IIe6BcOXNCZQgGjDljfQslRB5UnX7JySgqXttdJvDWhHSdq8THxBu8x5yvJ3RNB8OsBfAt/Boyl9ZQM1SPWsL3LDoTlHGMMvRtCeScPuHdy9s64crbPv1QWaTDhEtPOcvLdbw6QOV47Wa5sx7+/uE3s6tcaDChDjCncpYmmlaggoenc9hUAmS+nDpX1oZWk8tXnXfTK9unshjCdeTLlf9tL2bwViJBedr3hkEhoqfS3k5Qae4VU7j1nytMYxvCOvghcfes/h57Uo2zHfVWJFn+5e3TM/xtLUJT9cH94jb/Ih1VN4HKtB4RGVAJTMd6mQAqE2vcMyUnDBUzRTwo2HFDu4OiiGTs9z5FiiAQzG6U52a0IBZTAddCHWthTgHT7he8TdVroDKxWttA5VO5l44LDcbXAaAyscY9V3KGDAfPlYZQuBuYyxVKguj3QcOvohCHG+1CeQ7PFXeMVqC7e4G5+b0+KrJcbOUZMdhgvQYqRxf0PDcCleMhCgBtawdUztNGkwzVeTJHIinVkCScz7e1VKeUzpTLc2sFRMSjFNhwvQYqR5XSfDcBlUBlLDgGKudrp0mGnIPIXg5uR4kkzpwrNu0Uk81kSK+eTUU/dRxjSuW5mVIgltgKbLpeT4BK2STU5liw5vxv/wtr183rtpXaqeKR2krtZGH69hQLda4NVD6ZD3+v9fpM9qHWefHG2fH/y/+Zna91kdqtU8crj/1xdvGeE2wpFLuXJjwUQAEUQAGnAuOg0jU+33dElmhzzgpSg7ZSO5Vfqa3UTh5m37Yb/tVyWbNQ58UchFZ7lbB4/Lr/FtBAardOLa88ClTS76MACqAACmxOgRFQ6T/RwD5+y7cZrmt1m9RWalf4E9UmoMe621HY8UvthodpT5oNr4CsPZWrBUoFgFJYlNoBlVO6FDY/n6Ie96IACqDAehQYAZX+o6TacOaDz2aYuRnaltpK7Ywh6s74uR3/HGFqoAUqx3lbpbAotQMqp3RpQOUU9bgXBVAABdajwGiodA7hFkPgFUg5N3HVB6NbYCq1ldqVLsV8vyZ7E1BH/FK7IWHWXtI2VEpOi8BTiadyHIh3wZnh7/V05OQUBVAABVJQYARU6rNXrXNj6x3sfVCpgU5l29rZvQN2HlupnRMANxhmDZXGApNq4Yl4oc6LT+TDwGu9/t9qTuXfBDSQ2q1TR6AyhS6WNKAACqDAehQYBZUls6n5igY0qQU2Xk+lCXQhqOyxbUFlwmF6PJVqiwjfUWK6yjWeynWCUAnSJSy26lf1/+PXmaAptVunlkDlejpycooCKIACKSgwGipdiW/NqawB8CDbz4GgPbXRN/wdsN2VMH1Q2fM9UGmCn9QDKbUDKqd0NsypnKIe96IACqDAehSICJX2yuaeQ+w72w9JbaV2hje0A7Rq9L30GJagO0eYvoU6dtzdilZ6Kj+bXf3BN1Z8VbD4f+VeyV4dpHbr1BJP5Xo6cnKKAiiAAikoEA8qHftUurYOKjBuXw1ttrf6kdpK7XzxuL6fI0znPpViTyVQWexTCVROerEAKlPoYkkDCqAACqxHgShQWUKZvdLa8AKaY9/OTdKH2FqLfEpKNDyPZuFJbaV28nQ6odK50rxd2fBUKq+i1AMptcNTOaVLY/h7inrciwIogALrUWAcVOoFJ3oxhXkKTkc76XGOBrDVizTsfR514OmH6T6m0ZefRrQGKh/P4Wqtl4bFrwQ0kNqtU0c8levpyMkpCqAACqSgwDioTCHlC00DULlOAJzjBQKoXGgnQbZQAAVQIFEFgMrECgaoBCpjASZQmVjjJjkogAIosHAFgMrECriGymfvya5yocGEOnDl4S9kF8+cyM7ffXpSLWdO5ST5uBkFUAAFVqMAUJlYUWuovHzvqYwLDabWgUtnTwKVibVxkoMCKIACS1UAqEysZDVUXvnmX2dcaDClDlzO9zt98wxQmVgTJzkogAIosFgFgMrEirYe/n7h69lVLjSYUAeuPHpzdvEehr8Ta+IkBwVQAAUWqwBQmVjRApXAdKyXCaAyscZNclAABVBg4QoAlYkVcAOVj+VeOi40GF8HgMrEGjfJQQEUQIGFKwBUJlbAQOV4iAJA29oBlYk1bpKDAiiAAgtXAKhMrICBSqAyFhwDlYk1bpKDAiiAAgtXYAJUSo9KPMoO9sqzwfVlHgXe1ldqK7VToUttpXZDwlTRH2R7Rt7dZ6Q3KtRQ+fyj2dXVXiezD1ma1fXnf/6N7Hyti9RunVoClQvvvckeCqAACiSmwDiorM7+3js4arJTfdcGxgo8zbPBXfcWoUhtpXbbDlPx5F4B0i2dVE73/WeAA5UKAEtYPP5f/ioA1lI7oHJKv8Pm51PU414UQAEUWI8CI6Cy8ug53I2H+7k30gDIEqr2c1xsfwo763uprdSu8CcK45faDQkzJ0cnUIaqFlAJVMbyUOOpDLU2fkcBFEABFIipwAioLD2FtvetC1w++GyGmRsuldpK7YrUlMPuHfi145faDQlTeSO74CwpOKASqAQqJS0FGxRAARRAgdQUGA2VXVjLs1Z456qh3WouYRs+SyDdP7TAVGortSsJt5jLGIxfajckTNdQvrDkgUqgEqgUNhbMUAAFUAAFklJgBFRqL5yCQyMv9YIUH1RqoFT3VPMidQAdsPPYSu2cALj5MJ3gHSj+BiofyecTrvU6Ycyp7NNAardOHRn+TqqvJTEogAIosHgFRkFlyWzlIpT6UnMpvZ5KE+hCUNlj24LK9MOcBJXP5SC02quExVb9qv5fLN6pdZHarVPLK49wTOPie3AyiAIogAIJKTAaKl15aC14qQHwoBryNu/wDX8HbHclzBjD36sFSgWAhgeyVwepHVA5pc9h9fcU9bgXBVAABdajQESorBa81Ku/m30sO2tlOtsPSW2ldoY3tJjDaRVoK/45wtSLgbor30NVqx7+fu7hHK7WemlY/MuABlK7dep45ZEvZhfvOZGdv/t0qNr1/g5UTpKPm1EABVBgNQrEg0rHPpW+FdCu76W2UrsCKz0rsO3vpXZDwvTtURmqWUClAkApLErtgMpQvev7Haicoh73ogAKoMB6FIgClSWUubYZshbklFRW2Ha3uZTaSu0Mb6UZWd8m7UG7IWE2WxeN2vx8tV5KoDKWhxpP5Xo6cnKKAiiAAikoMA4qKzBrLdLx5kZ6nKMBbPUiDd/JM7sSZgPRsmMqswxPJVAJVKbQNZIGFEABFECBoQqMg8qhsWAvVgCoXOdQdSyQNMPBUyludhiiAAqgAApEUACojCBizCAaqHwon1vIhQbj6wBQGbNlEhYKoAAKoEBIAaAypNCGf6+h8vs5THChwYQ6AFRuuPESHQqgAAqsXAGgMrEKAFQC07FeJoDKxBo3yUEBFECBhSsAVCZWwCVU/lF2+d5TXGgwuQ5cOnuSfSoTa+MkBwVQAAWWqgBQmVjJaqi88tRfZlxoMKUOXH7ws9mbZ4DKxJo4yUEBFECBxSoAVCZWtBoqr37/wXw+IRcajK8DDH8n1rhJDgqgAAosXAGgMrECBirHQxQA2tYOqEyscZMcFEABFFi4AkBlYgXcQOUDuaeSCw3G1wGgMrHGTXJQAAVQYOEKAJWJFTBQOR6iANC2dkBlYo2b5KAACqDAwhUAKhMr4AIqH/ij7OpRDghcaDChDgCViTVukoMCKIACC1dgAlRKz98+yg72jmWys6+ltlI7VXpSW6mdJExbG53//ewwUKGASgXTn84+VJ//3q47x37h/8jO16AltVsnoAOVC++9yR4KoAAKJKbAOKg83C8gce/gqMlO9d1+i5oquNo7yNGu+rjuLX6S2krtthlmlca2GNnhfglILd2sCgFUNlB5/LduC3gqS6gM2wGVU/qdF267Nbvv3e/KLl24MCUY7kUBFEABFFi4AiOgsvLoWcBUIJyCJgMgjw72cojqeudKuGp/L7WV2hX+RGH8Ujt5mG6orDU6tpeZPG7WsQYq78+Baq3X71WweGtAA6ndOnW88shN2cV7Tkze/Pz8Zw6AyoU/CMgeCqAACsRQYARUlsDk8ra14cwHn80wc8OlUlupXYF/5bB7B37t+KV2Q8L0Q2VO3r3eSqBSAaAUFqV2QOWUzkJD5ZQwuBcFUAAFUGD5CoyGyi6sFa7KHJgqL9zRQbbXgc8StvYPLTCV2krtSpeiLH6p3ZAw9VC+w5ur0+XUL48DqAQqY3moY3kqn/jIh7NHfuUDy+8NySEKoAAKoMAkBUZAZTXMXcChEXcFZ36o1EBZDAIXcFmDVQfsPLZSOycAbjDMPqh0zR01ZGyg8r7cY7fW61PV8PdfBDSQ2q1TxxhQ+fblt4qh72/f8MlJHQ03owAKoAAKLF+BUVBZMpuaL2mszFVzKb2eShPoQlDZY9uCyoTDBConAnEJi636Vf3/+G+ZoCm1AyrHdmWvP32ugEq1WIcPCqAACqAACvQpMBoqXYG25lTWAHhQDXmbd/iGvwO2uxJmjOHv7+UgtNrL8ED2aiC1W6eWMTyV37vxswVUvvH8c/SkKIACKIACKNCrQESorBa81Ku/m70aO1MLO9sPSW2ldoY31B6mL34qF8uU6ZoxTNecSulCndUCpQJAKSxK7YDKMf2gGvp+6P3vy9ScSj4ogAIogAIoEFIgHlQ69ql0bR1UMl13SyGprdTOF4/r+/hh+lZ/65Xn/k3Q6zmVQGW+/2Q+1I2ncrTHeqqn8qXbv1p4KX98V2jL/lA3w+8ogAIogAJrUCAKVPo39XbAlXOTdMNjaHr3+jZUD9ptM0wXVGqPqH+PSpViBZWX82Mar+Qwtd7rU9k1xabmfxHQQGq3Ui0n7FP51uuv1V5K5bHkgwIogAIogAIhBcZBZQV79UIK88ScTozS4xwNCKwXafgALPUwPcc0uobDLb2ASgWAUliU2gGVoY7A/v1bH7+28FK+8tijQ2/FHgVQAAVQYKUKjIPKlYq1iWw3UHlvDldcaDChDoz0VOrNztUiHT4ogAIogAIoIFUAqJQqtSE7oHICRAHh7ReRgVCphry1h/Lc9ddlDHtvqNETDQqgAAosRAGgMrGCrKHy6TuyK1xoMKUOPHRjdvFM/9nfP/vRS9mLX/5Spr2TashbeSgBysQ6BpKDAiiAAjugAFCZWCFpqLx876mMCw2m1oFLZ09m5+8+7a3lCigVSKrrqY99lDmUifUHJAcFUAAFdkkBoDKx0qqh8onbsstcaDClDuS7CLx5ph8q1abmrz71ZKY8lnxQAAVQAAVQYIoCQOUU9Wa4tx7+/u7/l13hQoMpdeDhm7KL9/QPf89QhQkSBVAABVBgpQoAlYkVPFAJTEd7mQAqE2vdJAcFUAAFlq0AUJlY+QKVQCVQmVijJDkogAIogAIiBYBKkUybMwIqgcptQKU6kvGB976n2FLomROfLlaEqy2G+KAACqAACqCAVAGgUqrUhuwaqDybzyfkQoMJdeDhL4jnVKrzvRVQKrDUq8HV39+/+SbgckNtn2hQAAVQYNcVGA+VRwfZXn2c4rFMHdm4d3Dk0OMoO9grf68v73GFUlupnUqO1FZqJwzTPsqypdV+duipOUClhqgbivO/m3rzL7MTd7sA68+yE7/Qrl/X3DQBxJYE8gOg0qyOao/KCw/eX2wxpABTwaVaIc4HBVAABVAABfoUGAeVfcBkAqMDPL3nhUttpXYF+3XB1xm/1G5ImEDleE/rTf++gMnj1/5ZE0b1XRsYK/D8hV/LntUw6Lp3SaA4JC8jodLsMF5/+lz20PvfB1jyHEEBFEABFAgqMAIqD7N97UEyAPJwX3uL9rLSYWl4/vYO8v/pT3N/c7vUVmo3JP45wszjr6HS75V0lQ6eysrz+Ms3dKD0jl/O65gBkM9e+y9z+Pz32R0WaBV2ju9XN5QeASpVHVV7WWqwVH/zQQEUQAEUQAGXAsOhsoYlDY9VsIa3r4DF+v9+u2OaKqW2UruWRzEQ/xxhqviBypGeytL72PJSVtDYhkgffDbD4asfBo8Elao6//S754uh8G/f8El6UhRAARRAARRwKhAPKg3PZDG30gVVnSHhyosntZXa+aDOFf8cYcaAyvNnsiurvH63nEv5y7/bzf8X1LB4Prfyb3Nt/vbXsuMFfJ427Mp7r/lC+W/7txXqGREqVZU+d/11BVhyLjhPExRAARRAgTieSsMj2V6Y0wxrq++PDvbKRRbV0Hf9/2O55/Bgv1qAUUKl1PZgR8IsFuH0zalsTQdoF0s9/L1KoCzBrxy+VnBogGAFkX6o1ECp7ukB0zXpGhkq1UpwBZWXLlygN0UBFEABFECBjgLDPZUFL1mruR2rwE1QPKjt3Z5Jqa0JlSmHCVRO9wqWQ91GPVNzKb2eShMogcrawx0ZKl+47VagkocICqAACqCAV4FRUFk64tpguX9oLcCxPXWGd872THa8ej7bXQmT4e9Zhu7rOZXK21gPf/9aNeRtgizD3wVYApV0/SiAAiiAAhtUYDRUdtJoL3gxt+mx9qWsgbSzUCcH1T7bXQkTqJwBKk+X+1Eqj2UxhF0NcdvD5Oq3wqNpDZ+vadhb5xWo3GBXSlQogAIogAKRoNK1zZCxVY8Bis3cymOZc0uhXttdCbNw5bbmjUqrGnMqPUPnDlCstw6ygNH3/eoWPgGV0maHHQqgAAqgQAQFRkGlCYateW/HrD0ZpZuktzx7jvmapvdyCWHaOhkFWULlH+aeuHu4Kg30wp1yNbepyyerleKfbL6v4RP9GP6O0EMSBAqgAAqggFiBaFDpPXkxX99db5ZeLbyYbrsDYU46UWflUFmBYf3C8gu/mg95+yCxAst6Uc/P5VsOAZQFfOOpFHeEGKIACqAACkxXYBRUTo+WEHwK4KkECKN5qYFKOhoUQAEUQIENKgBUblBsSVRAJVAJVEpaCjYogAIogAKpKQBUJlYiQCVQCVQm1ihJDgqgAAqggEgBoFIk0+aMaqh8NocrLjSYUgcY/t5cwyUmFEABFECBDKhMrBJoqLx876mMCw2m1oFLZ09m5+8+HaWWc6JOFBkJBAVQAAUWqwBQmVjR1lD5jb/ILnOhwZQ68MAfZW+eASoTa+IkBwVQAAUWqwBQmVjRNsPfd+dDv1xoMKEOMPydWOsmOSiAAiiwbAWAysTKF6icAFFAePtFBKhMrHWTHBRAARRYtgJAZWLlC1QCldG8s0BlYq2b5KAACqDAshUAKhMrX6ASqAQqE2uUJAcFUAAFUECkAFApkmlzRkClhso/zU78Qvsc+Gu+4AJOqd0KYRVP5eYaLjGhAAqgAApM2VLIPn97Lzs4cil6lB3steHAf/a31FZqp9IjtZXaScPsnk9en2W9d5Cnyv0BKhX8Ved5qzO/9TzJL/y7TOl3/D//qTFvUGq3QqBUugGVdPEogAIogAIbVGCcp/Jwv3jA75kUWX3XBsYKrEyIct1bZFhqK7VLI8yWRoKCbaDyb3N4Wuf17H/+ubx+/bvsDiv/d7xXvZw030vt1qrjlYc/n1285wT7VAraHSYogAIogALTFRgBlZVHz+FuPNzPH/oGQB4d7OUQsJ/jYvtT2FnfS22ldoU/URi/1G5ImBqSgcqhYPzH5bD3e3/Hgurq+/xl5povqDCldkPjX5A9UDm9hyQEFEABFEABsQIjoLL0FLpgqQ1nPvhshpkbLpXaSu0K/CuH3Tvwa8cvtRsSZuMlBSoHQtrf/sfseDHM/ccGVP5Odk0Bk+W/xW9Su5V6ewvvLFAp7ggxRAEUQAEUmK7AaKjswlqemGJou5pbeXSQ7XXgswTS/UMLTKW2UrvSpSiLX2o3JMyiXPzw3Vdsqx/+7sCiBkoFp+XfhRdTagdUMvw9vZ8kBBRAARRAAYECI6BSsWO58KblBKzgzA+VGigb4KrBtAN2HlupnRMANxhmDKh8JoeoNV53GZ7KZyqg/LzWwoBKqd0aNdR5xlMp6AIxQQEUQAEUiKXAKKgsmU3NlzRWdau5lF5PpQl0IajssW1BZcJhGlDZ0qjSq29IvPZUrhWGalj8j+WQdw2UCiyN4W+p3Vp1VPkGKmP1k4SDAiiAAiggUGA0VLrCbs2prAHwoBryNu/wDX8HbHclTDyVE7yslTeyA5Q5JH2+3FaoBE2p3Uo9vkCloPvDBAVQAAVQIKYCEaGyWvBSr/5u9mnsrJXpbD8ktZXaGd5Qe5i++KncEqlM1xxhNuGOXqizYg9bvXWQpYH9vdRuldMIgMqY/SRhoQAKoAAKCBSIB5WOfSpdWweVTNfdUkhqK7XzxeP6fo4wJy/Ueeau3Bu31suYO6k1+PwvVl5KUxOp3Up1ZPhb0AUuwaTZ0WLoS2yU3Ku+v+dAhyhxEAgKoMBOKBAFKvXCnW6HVnkBTVelc5N0w2MYtN2tMId28s2cypWCUA3SzfB2OS/157ITd7k0kdqtUM+dhkp75CNGf+o45cp/vFeMCDcURmyoFGivpiJp7VSfXv2tpkAN7fM2JNKORMNJdeY6BHfzHHL63Y4U+4KSOQ4qKzCUHDtoDi+X9r7jHNtD0f220oa3zTAnbim0Wi/lCuFvrrKODJUvfvlL2X3vflf20++e30AXKACbIanQu1PYT6m8LwOCbCEF2tfPgPxwiwoqtXPBud3ckLJaqy0n1bU93s7T94acqLfWirTdfI+Dyu2medGx46kEKqNNe4gMlRcevL+ASgWX838EYDMgEb4pLgOCWJGpXPvWLiAMgU+oI5xUJzl9b8jpdxMKg1snKABUThBvjluBSqAyVai8cvFi9sB735M9/uu/mqm/h36aB4I1fNU52tXYqszctqz42zr2tfJAFg5IawSl8UDq+LpHxrryUKazO6LSAtMiXmVjDT3XaegbkRmqnM++O5zvGi6U6K5i6GwTF9LevgeonFCwnFQX9/S7CUXBrZMUAConyRf/ZqASqEwVKlVt10Pg566/Lnv78luDGoAJLQ3wOYazilCF3rL60IU2cOq4NGQ1cYfBUg6VzSEQxT17+XzCAnr9XqdBgg0x9s5Vb8NiR3fnpDWB9gx/Dykdga1jrYC+i5PqyikqQ06/EyiOyTwKAJXz6Do61Boqv/WV7AoXGkypAw99Lrt45kS0Yxp1pX7htluLYfBvffza7NKFC+K6rsGuM4fRfGjWoQnApnSvFcexdlYfOx5AtifOt0ZnEFRW3rk2xArTLlZOYCiASlt3/5QAQfpZqCMolGEmnFSXg2PxiXD63TDpsY6oAFAZUcwYQWmovHzvqYwLDabWgUtnT0aHSlXPz3/moABLdam/JXDpgzUNhm3IE4CNAZVDFtuE4HIIVOp42/cI0x6jw2h5s6yjc6vfRPlppWVg+tlSKFpJclJdpBP1opUIAQ1VAKgcqtjM9jVUfuOW7DIXGkypAw/8YfbmmXmgUjWD158+V3grNVyqf5/62Eezb9/wyeyVxx7ttJQQVLbBUAg2ziExYSOth87b8x9FEGbFu2qoFMqN2TgFOKnumDX8LTilb5zU3BVBAaAygogxg2jmVH4t3/ycCw0m1IHIq79d9VyB5WP7H2yBpYZL294Llc6h2w1AZZ5Ae+5l6fyULtSpHnade4Rpj9lxBIe/AwuPpngqY+aDsCwFOKlu3Ol3VKRtKQBUbkt5T7xA5QSIAsLbLyIzQuUbzz/X8lIq76Saa/ny2TOFB9O1iMcHa+5tQoRgNsVTOQgq9UrraqEPnsrEes6FJoeT6lo7Pgw5/W6hNSL5bAGViRURUAlURvPOzgSVCigfev/7Bs2n9HoAnRscl43S5UXsNFcRVCogdKz6Fi/yMbfuWQNUCrVPrO9cWnI4qS4/qSlfhNeeaz3kRL2l1YjdyA9QmVg5AZVAZcpQqRbkqOFutV/lq089Oaj1uPdB7N/PsXuPe5/K8EIdxxGNnQeWkR1rz0v1YHPPbStXrG5lTqV9sllrX8lGV9FwvqMkg9oPKn2MgwpwUl3+8mfuUevrG4acqBdUHYPICkyASmnBDjmnU2ortSu6++xgr72ZcpzzRJv8+x9o0ribUq2h8js5XK36ujk78fPtcrvmRpcmUrsV6vnQ57OL98TdUuiJj3y48FCqYe6hH++cyqEBYY8CKIACKJCkAuOgctVnlBqnc/QM3dVnnpunTPTal/UDqFTwd312jXpj/fn/PXtWg/WNv1gMhRz/zZsN2JbarRAolW6RoVKd+a23EBrTmwGVY1TjHhRAARTYHQVGQOW6zyhV81xqz2RwPlh3HlfoDGKg8mvZs7/5czlA/mJ2h+WpveOXlOey+V5qt1qPb2So/PFdhwVUurYLknR5QKVEJWxQAAVQYHcVGAGVaz6j1CpoL1T6wLsZDved5tFA5WHukVvjVQ1n/9JvW/lvhrmvuVHpIrVbo4ZVniNDpT5JRy3UGfMBKseoxj0ogAIosDsKjIbK7uHveaaXfkapXa4+qJxwRunqofJr+9nxephbA+FvF8Ph19xY/lsMgUvtVgnm80Kl5PSc3ekCSSkKoAAKoEAsBUZApWLHcgFFy9tmn07RASvPeZ4qJ1Jbqd1cYY6Gyp68W2EClTZUaqBUoFT+fUx5MTtQ6bEDKqMd06g9lUBlrO6XcFAABVBgWQqMgsqS2dSpE8bqXLUgxeup7DnPswOAkc7+bAFopDBHQWUg70Ble5i7BYsmKPZBZY8dUAlULqvPJjcogAIokKwCo6HSlaPFn1E6GCqHn1GKp1J7KverIW9zTqRr+DtgB1QClcl2vyQMBVAABZalQESoXMMZpVbhexfqNHtYdhbk9JzRq0JfPVTqIe5iDqW1yKbaVqj8vhoKD9qxUOf83aej9FoMf0eRcd5AVP9ibmM2b2zLC12NcKHf8sqVHG1MgXhQuZIzSlsl07Ol0NgzSoHKw6zZOqgNhPb3Urt1rqLPtZtp9TdzKjfWPw+LSLAP7rAA/dZLXclfT+sCLGNVFcJZmQJRoHJdZ5QaNUSy+bnpqgx4KfFUtld7Fwty9PB1y0s51G6l3kqgckXdueNMZE/udX99zHUeulCx+aDSHvESJiim2QbhPGayCQsFUlBgHFSu+YzS3vN2rRXxmfQoy6Yq4Km0gLFeDPYvshNfc8FhMwxeLhzz2a0QLIHKFPrYjaQhdKhCnYhW/9U9nEGa2EVDZS5CqWf/ufRSrbBDgTUpMA4q16TQhvMKVK4Q/uZaTARUbrj1bik65764rrQ03kwxhHqytHSorI/Z9Z1SsaWiJloUSF0BoDKxEgIqgcpoc0CBysRa9zzJkQKiaSe9x5diEyqb4fTcu2fPRdT7F7vgzPits0WduV1d8bfLq9qcUKa3t6uP0O0kfIhtefNUjeYpbUJFgbQVACoTKx+gEqgEKhNrlEknx3ckrJVoaz73VGDSULm3dyxrQK7yhLbAUsNcFwrd3k7pnEpHXF6AdaVLQWNgeFswBz7pqkHiUGALCgCVWxC9L0qgEqgEKhNrlEknpwQmv4eu8LkVNubRunGg0hGveQCG1s0JZz4YlkFla09ko3yc34unB1gFPfa+pOsLiUOBeRUAKufVd3DoDVTema985kKDCXXgoRuzi/ecYPPzwa1wh24QgI8LIONApcPTV6WnPdrtWJnu9QJKoLLHO+sMt1kw2Q/fdrnLV9TvUI0hqSgwqwJA5azyDg9cQ+Xle09lXGgwtQ5cOnsSqBzeDHfnjhBUOiFv+nxB70IdT3ps+wJqnXtBSqDS3lXDOC64movZncI5fE4li3V2pxmQ0nQUACrTKYsiJTVUPv5n2WUuNJhSBx74w+zNM0BlYk08cnL6h7/DC2B8i2D6k+mFSp8HsgWbfWmWQKVwHqk3CwZg9q3uDgF75JIkOBRYggJAZWKlyPD3hOFepgu0p0ww/J1Y654jORII68Y71/C3b66jSkHtnSzA07dHpiw/U9OfZYJ4WKgzR4UlzIUrAFQmVsBAJVAZbR4pUJlY654nOWMAa8w9ZuqdnsrQSTTGxut9cxu1d7V3i0i90ltynKKK1w5M4IWcqtE8pU2oKJC2AkBlYuUDVAKVQGVijTL15AgAyc7CZGDSUNfaTzJ0Ao0edg7Z5X7Eg73cm2nOlZTtU1nc4wBN1zSA/n3NWaSTerUnfWkqMAEqpUcQdidI+xuz1FZqp0SX2krtdEFKVxRK7cpwgUoNlV/MTvx8ewL+NTe6gFNqt0JYxVOZZq87Q6omQ+IMaeoGKRhy3kg6wpFwTGNYIyxQwKXAOKh0DXP0beVgvjl6h0gcG9Q6baV2KrtSW6mdCan5m3PvcI+x6W9oWMgoGaBSwV91nvfP72fP6nmSN/7bwnNx/De/aMwblNqtECiVbkDlenr9IcPB21JlV+YoDuivtyUl8aJAqgqMgEr/yjt7mwjfpG3XW7XUVmpX4F8xhNIdNrHjl9oVmJpvhVHPB+rpfKR2dsUAKu/Mnv3Nf5GX27/N7rAW3tzxS8pz2XwvtYs2nLxrC4GAylT73XnSpecspnhedd9xjfOoMS7UXUnnuNxxFwrMrsAIqPRvB9GGs8CJCbnXqen7pLZSO8Oj2Olgm2Hu8qchYVrlIX2jldrlwddQ+e3c07TKqxrO/qXftvLfDHNf8zmljdRurTriqZy990wxgryv2cs7tqNE0mbOZRy28fh2MlCkV7L4ZzvJI1YUSF6B0VDZWU1XuvFyT1I1Cds5ebwE0v1DC0yltlK70k2Z7XWOL3PEL7VzFaUUFqV2QGV2JdfquBrm/lg+zF1DdTnMfc3nyn+L36R2qwTzCqTxVCbfAZNAFEABFFiSAiOgUp/GYHoaG4jzQ6UGuoI+22fRdsDOYyu1c0JlhDDtkpfCotQOqHTAogZKBUrVHErlxexApccOqOREnSX12OQFBVAABRJWYBRUlsxmbfmghgy8nkoT6EJQ2WPrOJWhGd3uA9VIYQKV8w/Jt2DRBMU+qOyxAyqByoQ7YJKGAiiAAktSYDRUukRozamsAfCgGvI27/ANfwdstx0mULlBqNyvhrzNOZGu4e+AHVAJVC6pxyYvKIACKJCwAhGh0t6DrNmfsbNWprO1hNRWamd4Q1sLgqqSaMU/JEyrJKXD2lK71vD3f88Bbo3XJwqYVNsHXfM5K/+fK7cVKr+X2q1RwyrPzKlMuOslaSiAAiiwPAXiQaVjDzLfhryu76W2UrsCK/PtfyRbCkntOsUvhUWpHVBZgHS9dZAF1fb3Urt1wnkOlkDl8npscoQCKIACCSsQBSpLKDP2b6wz7DjqyrsBrtRWamd4K01Xad8m7UE7PJWbAbTKC/lLn2i8tS0vpfY+Su1W6q2MDJXnP3OQ3ffud2Vvvf5awl0aSUMBFEABFNiWAuOgUm+yq89m7d3XS3qcY3vIujz31XdG7BbDtPPeOp/WWBEvtbNKvtmncqUgVHsnm+Htsi78i+zEoUsTqd0K9YwIlW9ffit75Fc+UFx8UAAFUAAFUMClwDioRMvZFAAqVwh/c82djQiV2kv50u1fna3uEzAKoAAKoMBuKwBUJlZ+QCVQGW2KQSSofP6W08Ww9zMnPp1YayE5KIACKIACKSkAVKZUGnlagEqgMhWofPWpJ7NvffzaAijPXX9dpobA+aAACqAACqCATwGgMrG6oaDyyv1/kF1R/3KhwYQ6cPnBz2YX7zkh2qdSAePrT5/LXj57JnvhtluzJz7y4QImH3jve7Lv33wTQJlYP0FyUAAFUCBFBYDKxEql8FTee4oLDaLUASlUKpBUEKkvDZOs9E6sgyA5KIACKJCwAkBlYoXz9svfya6+8Gj25rfvyn741U9xocGkOvDC3/w/Ik/lG88/V3goLzx4f+Gx5IMCKIACKIACQxUAKocqtiH7f/qHH2TfuOV6LjSYXAfO3316Q7WWaFAABVAABdasAFCZaOkDlQB1rJcKoDLRRk6yUAAFUGBhCgCVCytQsoMCKIACKIACKIAC21AAqNyG6sSJAiiAAiiAAiiAAgtTAKhcWIGSHRRAARRAARRAARTYhgJA5TZUJ04UQAEUQAEUQAEUWJgCQOXCCpTsoAAKoAAKoAAKoMA2FAAqt6E6caIACqAACqAACqDAwhQAKhdWoGQHBVAABVAABVAABbahAFC5DdWJEwVQAAVQAAVQAAUWpgBQaRXoT07l5x//xpeyn1Xf2/9PsfzTTOOPsh/8RlvLsdqlmT8jN4+dzM/M/k/ZD340Nof2ffG0k6QoeX0lmcAGBVAABVBg6wqMgsqf/fV/yh+iOTC8+2T2EzsL0R+wsTWqHth5+r/zWDdsoDKW3vHAKHnoiV7n42knKc3k9ZVkAhsUQAEUQIGtKzARKt+VPf7XlntmygN2yr1SKYs4TmbfUR7JU12qBCqlQm7OLnno2US9nVHu5PWdMe8EjQIogAIoEE+BCVB5MvtB4bG0hv2mPGCn3CvUpHiAKpis4NL2tAKVQiE3aJY89Gyg3s4pd/L6zpl5wkYBFEABFIimwCSo/En2WPYdNQxuevx8D9jiezVkrq/20HnxYGv9bnlB7fttL2P1e8dz2pKqTG857F3+bduPgco2qOp8tGHb+eC2tHKHU+n0oy9lj9f6eMK2NOoM7wc01PF3pje04nZPG3DVSKeWNdC7deoNp5V+xxzGvvxVv7U06dTVZmqErouuKRKNPtUUEFedD9XXPKPtcNq6yrQL140sC+cJqIzWnxIQCqAACqxagYlQqR+MxgPe8YAtH54OEBJ6Ocv7TQitHpQdmHUMx5vFa3knXQ/T0VCpgK9ngY8YKlvhmECg89+db1cDuRG/rblEQ1c4XfhW8Tvm0jqakVPLgE5eqAzcJ8+fTrv9UlHqakKkq952vqvhsanfkrR0w1bpaXQNayepG7I8AZWrfgaQeRRAARSIpsBkqKw9IRpoOlDp9gg6PYVOL6fpXTTy7Rm+9ivjA9F+j6LkgSsGRgP6inS6PJWWTRdQZPe19ZVpWEKlDYy+8gvXQRGgC4aOw/rK8qc1UZ51SblmlYe2AU2PFq08SNIS1lSinaRudEqpk6dMpkW4uLFAARRAARRYuQIRoFJDTuXlsSHB8RArNZdBnn6w20Pj5f8HbOPiTEf34S55mNt1Jgw9ngf3rFBp6GsNX7e1bDT0gVYzTDtA71wkkZYxoFKYvwbkfXWnO1SstKqh0leXzTxI0uJtE03Nkmgng8pAnhzltPI+keyjAAqgAAqMVCAOVGpAVF62maDSNbdtSJ7t+Wu++Z2Sh/muQmVIw5D3rpn3OmH4O+CtdZVpENoFkKbDNetBWw/H/GA73AFQ2au1IL2SehiGSkGegMoh3Qi2KIACKIACPQpEgkrleCwXknznlL0RdJzh7/4FOKEydnhF9S3WAg7Jw3w3oNLUPTzcqvIUgsoi3wIg0vqItIzhqfQsuurUiirtqi51hvpd+Zow/C1ZMNZnI9EuCJWiPAnLPdTE+B0FUAAFUGD1CsSDSg0ljmHp8gHuWqhjebw8wOJaMFHMRzS9Xn2rv10rf+uib3tzJA/zMVBpz58s/9/WxQV1QXAwdbcXChnzIyUaej2CHZ1lw+AiLaNApWPBmCqkVh2xFzjZXjz7/+5N8jt12btQx7HVVqd8TBvBQp3B820H5Mn2IK++a0QAFEABFECBoQpEhcp6IYRjrmNn+NnzEGuGWNsruYP390ClewFKI5X5uwiELJWDw7OVvZm3AogLiO6f0yiGynzxSVujLviFNPR5Klvp9pxE5Kp4Ii0jQaWKvy9/Xqg282NtA/Sdx9yLbkLlGEpLy5NrbKNlDplLtJPUjeblpdzCyZUnkYd6aM+CPQqgAAqgwOoUGAWVq1OJDKMACqAACqAACqAACvQqAFRSQVAABVAABVAABVAABSYrAFROlpAAUAAFUAAFUAAFUAAFgErqAAqgAAqgAAqgAAqgwGQFgMrJEhIACqAACqAACqAACqAAUEkdQAEUQAEUQAEUQAEUmKwAUDlZQgJAARRAARRAARRAARQAKqkDKIACKIACKIACKIACkxX4/wF6R7jFQBUBHwAAAABJRU5ErkJggg==" alt="MemoryAddressContent.png">
+
+<h4>1.1&nbsp;&nbsp;Pointer Variables (or Pointers)<a id="zz-1.1"></a></h4>
+<p>A <em>pointer variable</em> (or <em>pointer</em> in short) is basically the same as the other variables, which can store a piece of data. Unlike normal variable which stores a value (such as an <code>int</code>, a <code>double</code>, a <code>char</code>), a <em>pointer stores a memory address</em>.</p>
+
+<h4>1.2&nbsp;&nbsp;Declaring Pointers<a id="zz-1.2"></a></h4>
+
+<p>Pointers must be declared before they can be used, just like a normal variable. The syntax of declaring a pointer is to place a <code>*</code> in front of the name. A pointer is associated with a type (such as <code>int</code> and <code>double</code>) too.</p>
+<pre class="color-syntax"><em>type</em> *<em>ptr</em>;   <span class="color-comment">// Declare a pointer variable called <em>ptr</em> as a pointer of <em>type</em></span>
+<span class="color-comment">// or</span>
+<em>type</em>* <em>ptr</em>;
+<span class="color-comment">// or</span>
+<em>type</em> * <em>ptr</em>;  <span class="color-comment">// I shall adopt this convention</span></pre>
+
+<p>For example,</p>
+<pre class="color-example">int * iPtr;     <span class="color-comment">// Declare a pointer variable called iPtr pointing to an int (an int pointer)</span>
+                <span class="color-comment">// It contains an address. That address holds an int value.</span>
+double * dPtr;  <span class="color-comment">// Declare a double pointer</span></pre>
+
+<p>Take note that you need to place a <code>*</code> in front of each pointer variable, in other words, <code>*</code> applies only to the name that followed. The <code>*</code> in the declaration statement is not an operator, but indicates that the name followed is a pointer variable. For example,</p>
+<pre class="color-example">int *p1, *p2, i;    <span class="color-comment">// p1 and p2 are int pointers. i is an int</span>
+int* p1, p2, i;     <span class="color-comment">// p1 is a int pointer, p2 and i are int</span>
+int * p1, * p2, i;  <span class="color-comment">// p1 and p2 are int pointers, i is an int</span></pre>
+
+<p><span class="line-heading">Naming Convention of Pointers:</span> Include a "<code>p</code>" or "<code>ptr</code>" as <em>prefix</em> or <em>suffix</em>, e.g., <code>iPtr</code>, <code>numberPtr</code>, <code>pNumber</code>, <code>pStudent</code>.</p>
+
+<h4>1.3&nbsp;&nbsp;Initializing Pointers via the Address-Of Operator (<span class="font-code">&amp;</span>)<a id="zz-1.3"></a></h4>
+
+<p>When you declare a pointer variable, its content is not initialized. In other words, it contains an address of "somewhere", which is of course not a valid location. This is dangerous! You need to initialize a pointer by assigning it a valid address. This is normally done via the <em>address-of operator</em> (<code>&amp;</code>).</p>
+
+<p>The <em>address-of operator</em> (<code>&amp;</code>) operates on a variable, and returns the address of the variable. For example, if <code>number</code> is an <code>int</code> variable, <code>&amp;number</code> returns the address of the variable <code>number</code>.</p>
+<p>You can use the address-of operator to get the address of a variable, and assign the address to a pointer variable. For example,</p>
+<pre class="color-example">int number = 88;     <span class="color-comment">// An int variable with a value</span>
+int * pNumber;       <span class="color-comment">// Declare a pointer variable called pNumber pointing to an int (or int pointer)</span>
+<span class="color-highlight">pNumber = &amp;number;</span>  <span class="color-comment"> // Assign the address of the variable number to pointer pNumber</span>
+ 
+int * pAnother = &amp;number; <span class="color-comment">// Declare another int pointer and init to address of the variable number</span></pre>
+
+<img class="image-center" src="data:image/png;base64,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" alt="PointerDeclaration.png">
+
+<p>As illustrated, the <code>int</code> variable <code>number</code>, starting at address <code>0x22ccec</code>, contains an <code>int</code> value <code>88</code>. The expression <code>&amp;number</code> returns the address of the variable <code>number</code>, which is <code>0x22ccec</code>. This address is then assigned to the pointer variable <code>pNumber</code>, as its initial value.</p>
+
+<p>The address-of operator (<code>&amp;</code>) can only be used on the RHS.</p>
+
+<h4>1.4&nbsp;&nbsp;Indirection or Dereferencing Operator (<code>*</code>)<a id="zz-1.4"></a></h4>
+
+<p>The <em>indirection operator</em> (or <em>dereferencing operator</em>) (<code>*</code>) operates on a pointer, and returns the value stored in the address kept in the pointer variable. For example, if <code>pNumber</code> is an <code>int</code> pointer, <code>*pNumber</code> returns the <code>int</code> value "<em>pointed to</em>" by <code>pNumber</code>.</p>
+<p>For example,</p>
+<pre class="color-example">int number = 88;
+int * pNumber = &amp;number;  <span class="color-comment">// Declare and assign the address of variable number to pointer pNumber (0x22ccec)</span>
+cout &lt;&lt; pNumber&lt;&lt; endl;   <span class="color-comment">// Print the content of the pointer variable, which contain an address</span><span class="color-comment"> (0x22ccec)</span>
+cout &lt;&lt; <span class="color-highlight">*pNumber</span> &lt;&lt; endl; <span class="color-comment">// Print the value "pointed to" by the pointer, which is an int (88)</span>
+*<span class="color-highlight">pNumber</span> = 99;            <span class="color-comment">// Assign a value to where the pointer is pointed to, NOT to the pointer variable</span>
+cout &lt;&lt; <span class="color-highlight">*pNumber</span> &lt;&lt; endl; <span class="color-comment">// Print the new value "pointed to" by the pointer (99)</span>
+cout &lt;&lt; number &lt;&lt; endl;   <span class="color-comment">// The value of variable number changes as well (99)</span></pre>
+
+<p>Take note that <code>pNumber</code> stores a memory address location, whereas <code>*pNumber</code> refers to the value stored in the address kept in the pointer variable, or the value pointed to by the pointer. </p>
+<p>As illustrated, a  variable (such as <code>number</code>) <em>directly</em> references a value, whereas a pointer <em>indirectly</em> references a value  through the memory address it stores. Referencing a value indirectly via a  pointer is called <em>indirection</em> or <em>dereferencing</em>.</p>
+<p>The indirection operator (<code>*</code>) can be used in both the RHS (<code>temp = *pNumber</code>) and the LHS (<code>*pNumber = 99</code>) of an assignment statement.</p>
+<p>Take note that the symbol <code>*</code> has different meaning in a declaration statement and in an expression. When it is used in a declaration (e.g., <code>int * pNumber</code>), it denotes that the name followed is a pointer variable. Whereas when it is used in a expression (e.g., <code>*pNumber = 99</code><code>; temp &lt;&lt; *pNumber;</code>), it refers to the value pointed to by the pointer variable.</p>
+
+<h4>1.5&nbsp;&nbsp;Pointer has a Type Too<a id="zz-1.5"></a></h4>
+<p>A pointer is associated with a type (of the value it points to), which is specified during declaration. A pointer can only hold an address of the declared type; it cannot hold an address of a different type.</p>
+
+<pre class="color-example">int i = 88;
+double d = 55.66;
+int * iPtr = &amp;i;    <span class="color-comment">// int pointer pointing to an int value</span>
+double * dPtr = &amp;d; <span class="color-comment">// double pointer pointing to a double value</span>
+ 
+iPtr = &amp;d;   <span class="color-error">// ERROR, cannot hold address of different type</span>
+dPtr = &amp;i;   <span class="color-error">// ERROR</span>
+iPtr = i;    <span class="color-error">// ERROR, pointer holds address of an int, NOT int value</span>
+ 
+int j = 99;
+iPtr = &amp;j;  <span class="color-comment">// You can change the address stored in a pointer</span></pre>
+
+<h5>Example</h5>
+
+<table class="table-program">
+<colgroup><col class="col-line-number">
+<col class="col-program">
+</colgroup><tbody>
+<tr>
+<td>
+<pre class="text-right">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23</pre></td>
+<td>
+<pre><span class="color-comment">/* Test pointer declaration and initialization (TestPointerInit.cpp) */</span>
+#include &lt;iostream&gt;
+using namespace std;
+ 
+int main() {
+   int number = 88;    <span class="color-comment">// Declare an int variable and assign an initial value</span>
+   int * pNumber;      <span class="color-comment">// Declare a pointer variable pointing to an int (or int pointer)</span>
+   pNumber = &amp;number;  <span class="color-comment">// assign the address of the variable number to pointer pNumber</span>
+ 
+   cout &lt;&lt; pNumber &lt;&lt; endl;  <span class="color-comment">// Print content of pNumber (0x22ccf0)</span>
+   cout &lt;&lt; &amp;number &lt;&lt; endl;  <span class="color-comment">// Print address of number (0x22ccf0)</span>
+   cout &lt;&lt; *pNumber &lt;&lt; endl; <span class="color-comment">// Print value pointed to by pNumber (88)</span>
+   cout &lt;&lt; number &lt;&lt; endl;   <span class="color-comment">// Print value of number (88)</span>
+ 
+   *pNumber = 99;            <span class="color-comment">// Re-assign value pointed to by pNumber</span>
+   cout &lt;&lt; pNumber &lt;&lt; endl;  <span class="color-comment">// Print content of pNumber (0x22ccf0)</span>
+   cout &lt;&lt; &amp;number &lt;&lt; endl;  <span class="color-comment">// Print address of number (0x22ccf0)</span>
+   cout &lt;&lt; *pNumber &lt;&lt; endl; <span class="color-comment">// Print value pointed to by pNumber (99)</span>
+   cout &lt;&lt; number &lt;&lt; endl;   <span class="color-comment">// Print value of number (99)</span>
+                             <span class="color-comment">// The value of number changes via pointer</span>
+ 
+   cout &lt;&lt; &amp;pNumber &lt;&lt; endl; <span class="color-comment">// Print the address of pointer variable pNumber (0x22ccec)</span>
+}</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+<p>Notes: The address values that you get are unlikely to be the same as mine. The OS loads the program in available free memory locations, instead of fixed memory locations.</p>
+
+<h4>1.6&nbsp;&nbsp;Uninitialized Pointers<a id="zz-1.6"></a></h4>
+
+<p>The following code fragment has a serious logical error!</p>
+
+<pre class="color-example">int * iPtr;
+*iPtr = 55;
+cout &lt;&lt; *iPtr &lt;&lt; endl;</pre>
+
+<p>The pointer <code>iPtr</code> was declared without initialization, i.e., it is pointing to "somewhere" which is of course an invalid memory location. The <code>*iPtr = 55</code> corrupts the value of "somewhere"! You need to initialize a pointer by assigning it a valid address. The compiler, surprisingly, does not signal an error or a warning for uninitialized pointer?!</p>
+
+<h4>1.7&nbsp;&nbsp;Null Pointers<a id="zz-1.7"></a></h4>
+
+<p>You can initialize a pointer to 0 or <code>NULL</code>, i.e., it points to nothing. It is called a <em>null pointer</em>. Dereferencing a null pointer (<code>*p</code>) causes an <code>STATUS_ACCESS_VIOLATION</code> exception.</p>
+
+<pre class="color-example">int * iPtr = 0;         <span class="color-comment">// Declare an int pointer, and initialize the pointer to point to nothing</span>
+cout &lt;&lt; <strong>*iPtr</strong> &lt;&lt; endl;  <span class="color-error">// ERROR! STATUS_ACCESS_VIOLATION exception</span>
+ 
+int * p = NULL;         <span class="color-comment">// Also declare a NULL pointer points to nothing</span></pre>
+
+<p>Initialize a pointer to null during declaration is a good software engineering practice.</p>
+<p>C++11 introduces a new keyword called <code>nullptr</code> to represent null pointer.</p>
+
+<h3>2.&nbsp;&nbsp;Reference Variables<a id="zz-2."></a></h3>
+
+<p>C++ added the so-called <em>reference variables</em> (or <em>references</em> in short). A reference is an <em>alias</em>, or an <em>alternate name</em> to an existing variable. For example, suppose you make <code>peter</code> a reference (alias) to <code>paul</code>, you can refer to the person as either <code>peter</code> or <code>paul</code>.</p>
+
+<p>The main use of references is acting as function formal parameters to support pass-by-reference. In an reference variable is passed into a function, the function works on the original copy (instead of a clone copy in pass-by-value). Changes inside the function are reflected outside the function.</p>
+
+<p>A reference is similar to a pointer. In many cases, a reference can be used as an alternative to pointer, in particular, for the function parameter.</p>
+
+<h4>2.1&nbsp;&nbsp;References (or Aliases) (<span class="font-code">&amp;</span>)<a id="zz-2.1"></a></h4>
+
+<p>Recall that C/C++ use <code>&amp;</code> to denote the <em>address-of</em> operator in an expression. C++ assigns an additional meaning to <code>&amp;</code> in declaration to declare a reference variable.</p>
+<p>The meaning of symbol <code>&amp;</code> is different in an expression and in a declaration. When it is used in an expression, <code>&amp;</code> denotes the address-of operator, which returns the address of a variable, e.g., if <code>number</code> is an <code>int</code> variable, <code>&amp;number</code> returns the address of the variable <code>number</code> (this has been described in the above section).</p>
+
+<p>Howeve, when <code>&amp;</code> is used in a <em>declaration </em>(including <em>function formal parameters</em>), it is part of the type identifier and is used to declare a <em>reference variable</em> (or <em>reference</em> or <em>alias</em> or <em>alternate name</em>). It is used to provide <em>another name</em>, or <em>another reference</em>, or <em>alias</em> to an existing variable.</p>
+
+<p>The syntax is as follow:</p>
+
+<pre class="color-syntax"><em>type </em>&amp;<em>newName</em> = <em>existingName</em>;
+<span class="color-comment">// or</span>
+<em>type</em>&amp; <em>newName</em> = <em>existingName</em>;
+<span class="color-comment">// or</span>
+<em>type</em> &amp; <em>newName</em> = <em>existingName</em>;  <span class="color-comment">// I shall adopt this convention</span></pre>
+
+<p>It shall be read as "<code><em>newName</em></code><em> is a reference to <code>exisitngName</code></em>", or "<code><em>newNew</em></code><em> is an alias of <code>existingName</code></em>". You can now refer to the variable as <code><em>newName</em></code> or <code><em>existingName</em></code>.</p>
+
+<p>For example,</p>
+
+<table class="table-program">
+<colgroup><col class="col-line-number">
+<col class="col-program">
+</colgroup><tbody>
+<tr>
+<td>
+<pre class="text-right">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20</pre>
+</td>
+<td>
+<pre><span class="color-comment">/* Test reference declaration and initialization (TestReferenceDeclaration.cpp) */</span>
+#include &lt;iostream&gt;
+using namespace std;
+ 
+int main() {
+   int number = 88;          <span class="color-comment">// Declare an int variable called number</span>
+   <span class="color-new">int &amp; refNumber = number;</span> <span class="color-comment">// Declare a reference (alias) to the variable number</span>
+                             <span class="color-comment">// Both refNumber and number refer to the same value</span>
+ 
+   cout &lt;&lt; number &lt;&lt; endl;    <span class="color-comment">// Print value of variable number (88)</span>
+   cout &lt;&lt; <span class="color-new">refNumber</span> &lt;&lt; endl; <span class="color-comment">// Print value of reference (88)</span>
+ 
+   <span class="color-new">refNumber = 99</span>;            <span class="color-comment">// Re-assign a new value to refNumber</span>
+   cout &lt;&lt; <span class="color-new">refNumber</span> &lt;&lt; endl;
+   cout &lt;&lt; number &lt;&lt; endl;    <span class="color-comment">// Value of number also changes (99)</span>
+ 
+   number = 55;               <span class="color-comment">// Re-assign a new value to number</span>
+   cout &lt;&lt; number &lt;&lt; endl;
+   cout &lt;&lt; <span class="color-new">refNumber</span> &lt;&lt; endl; <span class="color-comment">// Value of refNumber also changes (55)</span>
+}</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+<img class="image-center" src="data:image/png;base64,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" alt="PointerReferencing.png">
+
+
+<h4>2.2&nbsp;&nbsp;How References Work?<a id="zz-2.2"></a></h4>
+
+<p>A reference works as a pointer. A reference is declared as an alias of a variable. It stores the address of the variable, as illustrated:</p>
+
+<img class="image-center" src="data:image/png;base64,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" alt="ReferenceIsAPointer.png">
+
+
+<h4>2.3&nbsp;&nbsp;References vs. Pointers<a id="zz-2.3"></a></h4>
+<p>Pointers and references are equivalent, except:</p>
+
+<ol>
+<li>A reference is a <em>name constant for an address</em>. You need to initialize the reference during declaration.
+
+<pre class="color-example"><span class="color-error">int &amp; iRef;</span>   <span class="color-comment">// Error: 'iRef' declared as reference but not initialized</span></pre>
+
+Once a reference is established to a variable, you cannot change the reference to reference another variable.</li>
+
+<li>To get the value pointed to by a pointer, you need to use the dereferencing operator <code>*</code> (e.g., if <code>pNumber</code> is a <code>int</code> pointer, <code>*pNumber</code> returns the value pointed to by <code>pNumber</code>. It is called <em>dereferencing</em> or <em>indirection</em>). To assign an address of a variable into a pointer, you need to use the address-of operator <code>&amp;</code> (e.g., <code>pNumber = &amp;number</code>).<br>
+
+On the other hand, referencing and dereferencing are done on the references implicitly. For example, if <code>refNumber</code> is a reference (alias) to another <code>int</code> variable, <code>refNumber</code> returns the value of the variable. No explicit dereferencing operator <code>*</code> should be used. Furthermore, to assign an address of a variable to a reference variable, no address-of operator <code>&amp;</code> is needed.</li>
+</ol>
+
+<p>For example,</p>
+
+<table class="table-program">
+<colgroup><col class="col-line-number">
+<col class="col-program">
+</colgroup><tbody>
+<tr>
+<td>
+<pre class="text-right">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31</pre>
+</td>
+<td>
+<pre><span class="color-comment">/* References vs. Pointers (TestReferenceVsPointer.cpp) */</span>
+#include &lt;iostream&gt;
+using namespace std;
+ 
+int main() {
+   int number1 = 88, number2 = 22;
+ 
+  <span class="color-comment"> // Create a pointer pointing to number1</span>
+   int * pNumber1 = &amp;number1; <span class="color-comment"> // Explicit referencing</span>
+   *pNumber1 = 99;            <span class="color-comment"> // Explicit dereferencing</span>
+   cout &lt;&lt; *pNumber1 &lt;&lt; endl; <span class="color-comment"> // 99</span>
+   cout &lt;&lt; &amp;number1 &lt;&lt; endl;  <span class="color-comment"> // 0x22ff18</span>
+   cout &lt;&lt; pNumber1 &lt;&lt; endl;  <span class="color-comment"> // 0x22ff18 (content of the pointer variable - same as above)</span>
+   cout &lt;&lt; &amp;pNumber1 &lt;&lt; endl; <span class="color-comment"> // 0x22ff10 (address of the pointer variable)</span>
+   pNumber1 = &amp;number2;       <span class="color-comment"> // Pointer can be reassigned to store another address</span>
+ 
+  <span class="color-comment"> // Create a reference (alias) to number1</span>
+   int &amp; refNumber1 = number1; <span class="color-comment"> // Implicit referencing (NOT &amp;number1)</span>
+   refNumber1 = 11;            <span class="color-comment"> // Implicit dereferencing (NOT *refNumber1)</span>
+   cout &lt;&lt; refNumber1 &lt;&lt; endl; <span class="color-comment"> // 11</span>
+   cout &lt;&lt; &amp;number1 &lt;&lt; endl;   <span class="color-comment"> // 0x22ff18</span>
+   cout &lt;&lt; &amp;refNumber1 &lt;&lt; endl;<span class="color-comment"> // 0x22ff18</span>
+  <span class="color-comment"> //refNumber1 = &amp;number2;     // Error! Reference cannot be re-assigned</span>
+                               <span class="color-comment"> // error: invalid conversion from 'int*' to 'int'</span>
+   refNumber1 = number2;        <span class="color-comment">// refNumber1 is still an alias to number1.</span>
+                                <span class="color-comment">// Assign value of number2 (22) to refNumber1 (and number1).</span>
+   number2++;   
+   cout &lt;&lt; refNumber1 &lt;&lt; endl;  <span class="color-comment">// 22</span>
+   cout &lt;&lt; number1 &lt;&lt; endl;     <span class="color-comment">// 22</span>
+   cout &lt;&lt; number2 &lt;&lt; endl;     <span class="color-comment">// 23</span>
+}</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+<p>A reference variable provides a new name to an existing variable. It is <em>dereferenced implicitly</em> and does not need the dereferencing operator <code>*</code> to retrieve the value referenced. On the other hand, a pointer variable stores an address. You can change the address value stored in a pointer. To retrieve the value pointed to by a pointer, you need to use the indirection operator <code>*</code>, which is known as <em>explicit dereferencing</em>. Reference can be treated as a <code>const</code> pointer. It has to be initialized during declaration, and its content cannot be changed.</p>
+
+<p>Reference is closely related to pointer. In many cases, it can be used as an alternative to pointer. A reference allows you to manipulate an object using pointer, but without the pointer syntax of referencing and dereferencing.</p>
+<p>The above example illustrates how reference works, but does not show its typical usage, which is used as the function formal parameter for pass-by-reference.</p>
+
+<h4>2.4&nbsp;&nbsp;Pass-By-Reference into Functions with Reference Arguments vs. Pointer Arguments<a id="zz-2.4"></a></h4>
+
+<h5>Pass-by-Value</h5>
+
+<p>In C/C++, by default, arguments are passed into functions <em>by value</em> (except arrays which is treated as pointers). That is, a clone copy of the argument is made and passed into the function. Changes to the clone copy inside the function has no effect to the original argument in the caller. In other words, the called function has no access to the variables in the caller. For example,</p>
+
+<table class="table-program">
+<colgroup><col class="col-line-number">
+<col class="col-program">
+</colgroup><tbody>
+<tr>
+<td>
+<pre class="text-right">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19</pre>
+</td>
+<td>
+<pre><span class="color-comment">/* Pass-by-value into function (TestPassByValue.cpp) */</span>
+#include &lt;iostream&gt;
+using namespace std;
+ 
+int square(int);
+ 
+int main() {
+   int number = 8;
+   cout &lt;&lt;  "In main(): " &lt;&lt; &amp;number &lt;&lt; endl; <span class="color-comment"> // 0x22ff1c</span>
+   cout &lt;&lt; number &lt;&lt; endl;        <span class="color-comment"> // 8</span>
+   cout &lt;&lt; square(number) &lt;&lt; endl;<span class="color-comment"> // 64</span>
+   cout &lt;&lt; number &lt;&lt; endl;        <span class="color-comment"> // 8 - no change</span>
+}
+ 
+int square(int n) {  <span class="color-comment">// non-const</span>
+   cout &lt;&lt;  "In square(): " &lt;&lt; &amp;n &lt;&lt; endl; <span class="color-comment"> // 0x22ff00</span>
+   n *= n;       <span class="color-comment">    // clone modified inside the function</span>
+   return n;
+}</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+<p>The output clearly shows that there are two different addresses.</p>
+
+<h5>Pass-by-Reference with Pointer Arguments</h5>
+
+<p>In many situations, we may wish to modify the original copy directly (especially in passing huge object or array) to avoid the overhead of cloning. This can be done by passing a pointer of the object into the function, known as <em>pass-by-reference</em>. For example,</p>
+
+<table class="table-program">
+<colgroup><col class="col-line-number">
+<col class="col-program">
+</colgroup><tbody>
+<tr>
+<td>
+<pre class="text-right">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18</pre>
+</td>
+<td>
+<pre><span class="color-comment">/* Pass-by-reference using pointer (TestPassByPointer.cpp) */</span>
+#include &lt;iostream&gt;
+using namespace std;
+ 
+void square(int *);
+ 
+int main() {
+   int number = 8;
+   cout &lt;&lt;  "In main(): " &lt;&lt; &amp;number &lt;&lt; endl; <span class="color-comment"> // 0x22ff1c</span>
+   cout &lt;&lt; number &lt;&lt; endl;  <span class="color-comment"> // 8</span>
+   square(<span class="color-new">&amp;number</span>);         <span class="color-comment"> // Explicit referencing to pass an address</span>
+   cout &lt;&lt; number &lt;&lt; endl;  <span class="color-comment"> // 64</span>
+}
+ 
+void square(<span class="color-new">int * pNumber</span>) { <span class="color-comment"> // Function takes an int pointer (non-const)</span>
+   cout &lt;&lt;  "In square(): " &lt;&lt; pNumber &lt;&lt; endl; <span class="color-comment"> // 0x22ff1c</span>
+   <span class="color-new">*pNumber</span> *= <span class="color-new">*pNumber</span>;     <span class="color-comment"> // Explicit de-referencing to get the value pointed-to</span>
+}</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+<p>The called function operates on the same address, and can thus modify the variable in the caller.</p>
+
+<h5>Pass-by-Reference with Reference Arguments</h5>
+
+<p>Instead of passing pointers into function, you could also pass references into function, to avoid the clumsy syntax of referencing and dereferencing. For example,</p>
+
+<table class="table-program">
+<colgroup><col class="col-line-number">
+<col class="col-program">
+</colgroup><tbody>
+<tr>
+<td>
+<pre class="text-right">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18</pre>
+</td>
+<td>
+<pre><span class="color-comment">/* Pass-by-reference using reference (TestPassByReference.cpp) */</span>
+#include &lt;iostream&gt;
+using namespace std;
+ 
+void square(int &amp;);
+ 
+int main() {
+   int number = 8;
+   cout &lt;&lt;  "In main(): " &lt;&lt; &amp;number &lt;&lt; endl; <span class="color-comment"> // 0x22ff1c</span>
+   cout &lt;&lt; number &lt;&lt; endl; <span class="color-comment"> // 8</span>
+   square(<span class="color-new">number</span>);         <span class="color-comment"> // Implicit referencing (without '&amp;')</span>
+   cout &lt;&lt; number &lt;&lt; endl; <span class="color-comment"> // 64</span>
+}
+ 
+void square(<span class="color-new">int &amp; rNumber</span>) { <span class="color-comment"> // Function takes an int reference (non-const)</span>
+   cout &lt;&lt;  "In square(): " &lt;&lt; &amp;rNumber &lt;&lt; endl; <span class="color-comment"> // 0x22ff1c</span>
+   <span class="color-new">rNumber</span> *= <span class="color-new">rNumber</span>;       <span class="color-comment"> // Implicit de-referencing (without '*')</span>
+}</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+<p>Again, the output shows that the called function operates on the same address, and can thus modify the caller's variable.</p>
+
+<p>Take note  referencing (in the caller) and dereferencing (in the function) are done implicitly. The only coding difference with pass-by-value is in the function's parameter declaration.</p>
+<p>Recall that references are to be initialized during declaration. In the case of function formal parameter, the references are initialized when the function is invoked, to the caller's arguments.</p>
+
+<p>References are primarily used in passing reference in/out of functions to allow the called function accesses variables in the caller directly.</p>
+
+<h5>"<span class="font-code">const</span>" Function Reference/Pointer Parameters</h5>
+
+<p>A <code>const</code> function formal parameter cannot be modified inside the function. Use <code>const</code> whenever possible as it protects you from inadvertently modifying the parameter and protects you against many programming errors.</p>
+
+<p>A <code>const</code> function parameter can receive both <code>const</code> and non-<code>const</code> argument. On the other hand, a non-<code>const</code> function reference/pointer parameter can only receive non-<code>const</code> argument. For example,</p>
+
+<table class="table-program">
+<colgroup><col class="col-line-number">
+<col class="col-program">
+</colgroup><tbody>
+<tr>
+<td>
+<pre class="text-right">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42</pre>
+</td>
+<td>
+<pre><span class="color-comment">/* Test Function const and non-const parameter (FuncationConstParameter.cpp) */</span>
+#include &lt;iostream&gt;
+using namespace std;
+ 
+int squareConst(const int);
+int squareNonConst(int);
+int squareConstRef(const int &amp;);
+int squareNonConstRef(int &amp;);
+ 
+int main() {
+   int number = 8;
+   const int constNumber = 9;
+   cout &lt;&lt; squareConst(number) &lt;&lt; endl;
+   cout &lt;&lt; squareConst(constNumber) &lt;&lt; endl;
+   cout &lt;&lt; squareNonConst(number) &lt;&lt; endl;
+   cout &lt;&lt; squareNonConst(constNumber) &lt;&lt; endl;
+ 
+   cout &lt;&lt; squareConstRef(number) &lt;&lt; endl;
+   cout &lt;&lt; squareConstRef(constNumber) &lt;&lt; endl;
+   cout &lt;&lt; squareNonConstRef(number) &lt;&lt; endl;
+   <span class="color-comment">// </span><span class="color-new">cout &lt;&lt; squareNonConstRef(constNumber) &lt;&lt; endl;</span>
+      <span class="color-comment"> // error: invalid initialization of reference of</span>
+      <span class="color-comment"> //  type 'int&amp;' from expression of type 'const int'</span>
+}
+ 
+int squareConst(const int number) {
+   <span class="color-comment">//</span> <span class="color-new">number *= number;</span>  <span class="color-comment">// error: assignment of read-only parameter</span>
+   return number * number;
+}
+ 
+int squareNonConst(int number) { <span class="color-comment"> // non-const parameter</span>
+   number *= number;
+   return number;
+}
+ 
+int squareConstRef(const int &amp; number) { <span class="color-comment"> // const reference</span>
+   return number * number;
+}
+ 
+int squareNonConstRef(int &amp; number) { <span class="color-comment"> // non-const reference</span>
+   return number * number;
+}</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+
+<h4>2.5&nbsp;&nbsp;Passing the Function's Return Value<a id="zz-2.5"></a></h4>
+
+<h5>Passing the Return-value as Reference</h5>
+
+<p>You can also pass the return-value as reference or pointer. For example,</p>
+
+<table class="table-program">
+<colgroup><col class="col-line-number">
+<col class="col-program">
+</colgroup><tbody>
+<tr>
+<td>
+<pre class="text-right">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34</pre>
+</td>
+<td>
+<pre><span class="color-comment">/* Passing back return value using reference (TestPassByReferenceReturn.cpp) */</span>
+#include &lt;iostream&gt;
+using namespace std;
+ 
+int &amp; squareRef(int &amp;);
+int * squarePtr(int *);
+ 
+int main() {
+   int number1 = 8;
+   cout &lt;&lt;  "In main() &amp;number1: " &lt;&lt; &amp;number1 &lt;&lt; endl; <span class="color-comment"> // 0x22ff14</span>
+   int &amp; result = squareRef(number1);
+   cout &lt;&lt;  "In main() &amp;result: " &lt;&lt; &amp;result &lt;&lt; endl; <span class="color-comment"> // 0x22ff14</span>
+   cout &lt;&lt; result &lt;&lt; endl;  <span class="color-comment"> // 64</span>
+   cout &lt;&lt; number1 &lt;&lt; endl; <span class="color-comment"> // 64</span>
+ 
+   int number2 = 9;
+   cout &lt;&lt;  "In main() &amp;number2: " &lt;&lt; &amp;number2 &lt;&lt; endl; <span class="color-comment"> // 0x22ff10</span>
+   int * pResult = squarePtr(&amp;number2);
+   cout &lt;&lt;  "In main() pResult: " &lt;&lt; pResult &lt;&lt; endl; <span class="color-comment"> // 0x22ff10</span>
+   cout &lt;&lt; *pResult &lt;&lt; endl;  <span class="color-comment"> // 81</span>
+   cout &lt;&lt; number2 &lt;&lt; endl;   <span class="color-comment"> // 81</span>
+}
+ 
+int &amp; squareRef(int &amp; rNumber) {
+   cout &lt;&lt;  "In squareRef(): " &lt;&lt; &amp;rNumber &lt;&lt; endl; <span class="color-comment"> // 0x22ff14</span>
+   rNumber *= rNumber;
+   return rNumber;
+}
+ 
+int * squarePtr(int * pNumber) {
+   cout &lt;&lt;  "In squarePtr(): " &lt;&lt; pNumber &lt;&lt; endl; <span class="color-comment"> // 0x22ff10</span>
+   *pNumber *= *pNumber;
+   return pNumber;
+}</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+<h5>You should not pass Function's local variable as return value by reference</h5>
+
+<table class="table-program">
+<colgroup><col class="col-line-number">
+<col class="col-program">
+</colgroup><tbody>
+<tr>
+<td>
+<pre class="text-right">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25</pre>
+</td>
+<td>
+<pre><span class="color-comment">/* Test passing the result (TestPassResultLocal.cpp) */</span>
+#include &lt;iostream&gt;
+using namespace std;
+ 
+int * squarePtr(int);
+int &amp; squareRef(int);
+ 
+int main() {
+   int number = 8;
+   cout &lt;&lt; number &lt;&lt; endl; <span class="color-comment"> // 8</span>
+   cout &lt;&lt; *squarePtr(number) &lt;&lt; endl; <span class="color-comment"> // ??</span>
+   cout &lt;&lt; squareRef(number) &lt;&lt; endl;  <span class="color-comment"> // ??</span>
+}
+ 
+int * squarePtr(int number) {
+   int localResult = number * number;
+   return &amp;localResult;
+     <span class="color-comment"> <span class="color-new">// warning: address of local variable 'localResult' returned</span></span>
+}
+ 
+int &amp; squareRef(int number) {
+   int localResult = number * number;
+   return localResult;
+     <span class="color-comment"> <span class="color-new">// warning: reference of local variable 'localResult' returned</span></span>
+}</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+<p>This program has a serious logical error, as local variable of function is passed back as return value by reference.  Local variable has local scope within the function, and its value is destroyed after the function exits. The GCC compiler is kind enough to issue a warning (but not error).</p>
+<p>It is safe to return a reference that is passed into the function as an argument. See earlier examples.</p>
+
+<h5>Passing Dynamically Allocated Memory as Return Value by Reference</h5>
+
+<p>Instead, you need to dynamically allocate a variable for the return value, and return it by reference.</p>
+
+<table class="table-program">
+<colgroup><col class="col-line-number">
+<col class="col-program">
+</colgroup><tbody>
+<tr>
+<td>
+<pre class="text-right">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23</pre>
+</td>
+<td>
+<pre><span class="color-comment">/* Test passing the result (TestPassResultNew.cpp) */</span>
+#include &lt;iostream&gt;
+using namespace std;
+ 
+int * squarePtr(int);
+int &amp; squareRef(int);
+ 
+int main() {
+   int number = 8;
+   cout &lt;&lt; number &lt;&lt; endl; <span class="color-comment"> // 8</span>
+   cout &lt;&lt; *squarePtr(number) &lt;&lt; endl; <span class="color-comment"> // 64</span>
+   cout &lt;&lt; squareRef(number) &lt;&lt; endl;  <span class="color-comment"> // 64</span>
+}
+ 
+int * squarePtr(int number) {
+   int * dynamicAllocatedResult = new int(number * number);
+   return dynamicAllocatedResult;
+}
+ 
+int &amp; squareRef(int number) {
+   int * dynamicAllocatedResult = new int(number * number);
+   return *dynamicAllocatedResult;
+}</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+<h4>2.6&nbsp;&nbsp;Summary<a id="zz-2.6"></a></h4>
+<p>Pointers and references are highly complex and difficult to master. But they can greatly improve the efficiency of the programs.</p>
+
+<p>For novices, avoid using pointers in your program.  Improper usage can lead to serious logical bugs. However, you need to understand the syntaxes of pass-by-reference with pointers and references, because they are used in many library functions.</p>
+<ul>
+<li>In <em>pass-by-value</em>, a clone is made and passed into the function. The caller's copy cannot be modified.</li>
+<li>In <em>pass-by-reference</em>, a pointer is passed into the function. The caller's copy could be modified inside the function.</li>
+<li>In <em>pass-by-reference with reference arguments</em>, you use the variable name as the argument.</li>
+<li>In <em>pass-by-reference with pointer arguments</em>, you need to use <code>&amp;<em>varName</em></code> (an address) as the argument.</li>
+</ul>
+
+<h3>3.&nbsp;&nbsp;Dynamic Memory Allocation<a id="zz-3."></a></h3>
+
+<h4>3.1&nbsp;&nbsp;<span class="font-code">new</span> and <span class="font-code">delete</span> Operators<a id="zz-3.1"></a></h4>
+
+<p>Instead of define an <code>int</code> variable (<code>int number</code>), and assign the address of the variable to the <code>int</code> pointer (<code>int *pNumber  = &amp;number</code>), the storage can be dynamically allocated at runtime, via a <code>new</code> operator. In C++, whenever you allocate a piece of memory dynamically via <code>new</code>, you need to use <code>delete</code> to remove the storage (i.e., to return the storage to the heap).</p>
+<p>The <code>new</code> operation returns a pointer to the memory allocated. The <code>delete</code> operator takes a pointer (pointing to the memory allocated via <code>new</code>) as its sole argument.</p>
+<p>For example,</p>
+
+<pre class="color-example"><span class="color-comment">// Static allocation</span>
+int number = 88;
+int * p1 = &amp;number;  <span class="color-comment">// Assign a "valid" address into pointer</span>
+ 
+<span class="color-comment">// Dynamic Allocation</span>
+<strong>int * p2;</strong>            <span class="color-comment">// Not initialize, points to somewhere which is invalid</span>
+cout &lt;&lt; p2 &lt;&lt; endl; <span class="color-comment">// Print address before allocation</span>
+<strong>p2 = new int</strong>;       <span class="color-comment">// Dynamically allocate an int and assign its address to pointer</span>
+                    <span class="color-comment">// The pointer gets a valid address with memory allocated</span>
+*p2 = 99;
+cout &lt;&lt; p2 &lt;&lt; endl;  <span class="color-comment">// Print address after allocation</span>
+cout &lt;&lt; *p2 &lt;&lt; endl; <span class="color-comment">// Print value point-to</span>
+<strong>delete p2</strong>;           <span class="color-comment">// Remove the dynamically allocated storage</span></pre>
+
+<p>Observe that <code>new</code> and <code>delete</code> operators work on <em>pointer</em>.</p>
+<p>To initialize the allocated memory, you can use an initializer for fundamental types, or invoke a constructor for an object. For example,</p>
+
+<pre class="color-example"><span class="color-comment">// use an initializer to initialize a fundamental type (such as int, double)</span>
+int * p1 = new int(88);
+double * p2 = new double(1.23);
+ 
+<span class="color-comment">// C++11 <em>brace initialization</em> syntax</span>
+int * p1 = new int {88};
+double * p2 = new double {1.23};
+ 
+<span class="color-comment">// invoke a constructor to initialize an object (such as Date, Time)</span>
+Date * date1 = new Date(1999, 1, 1);  
+Time * time1 = new Time(12, 34, 56);</pre>
+
+<p>You can dynamically allocate storage for <em>global</em> pointers inside a function. Dynamically allocated storage inside the function remains even after the function exits. For example,</p>
+
+<table class="table-program">
+<colgroup><col class="col-line-number">
+<col class="col-program">
+</colgroup><tbody>
+<tr>
+<td>
+<pre class="text-right">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22</pre>
+</td>
+<td>
+<pre><span class="color-comment">// Dynamically allocate global pointers (TestDynamicAllocation.cpp)</span>
+#include &lt;iostream&gt;
+using namespace std;
+ 
+int * p1, * p2;  <span class="color-comment">// Global int pointers</span>
+ 
+<span class="color-comment">// This function allocates storage for the int*</span>
+<span class="color-comment">// which is available outside the function</span>
+void allocate() {
+   p1 = new int;     <span class="color-comment">// Allocate memory, initial content unknown</span>
+   *p1 = 88;         <span class="color-comment">// Assign value into location pointed to by pointer</span>
+   p2 = new int(99); <span class="color-comment">// Allocate and initialize</span>
+}
+ 
+int main() {
+   allocate();
+   cout &lt;&lt; *p1 &lt;&lt; endl;  <span class="color-comment">// 88</span>
+   cout &lt;&lt; *p2 &lt;&lt; endl;  <span class="color-comment">// 99</span>
+   delete p1;  <span class="color-comment">// Deallocate</span>
+   delete p2;
+   return 0;
+}</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+<p>The main differences between static allocation and dynamic allocations are:</p>
+<ol>
+<li>In static allocation, the compiler allocates and deallocates the storage automatically, and handle memory management. Whereas in dynamic allocation, you, as the programmer, handle the memory allocation and deallocation yourself (via <code>new</code> and <code>delete</code> operators). You have full control on the pointer addresses and their contents, as well as memory management.</li>
+
+<li>Static allocated entities are manipulated through named variables. Dynamic allocated entities are handled through pointers.</li>
+</ol>
+
+
+<h4>3.2&nbsp;&nbsp;<span class="font-code">new[]</span> and <span class="font-code">delete[]</span> Operators<a id="zz-3.2"></a></h4>
+<p>Dynamic array is allocated at runtime rather than compile-time, via the <code>new[]</code> operator. To remove the storage, you need to use the <code>delete[]</code> operator (instead of simply <code>delete</code>). For example,</p>
+
+<table class="table-program">
+<colgroup><col class="col-line-number">
+<col class="col-program">
+</colgroup><tbody>
+<tr>
+<td>
+<pre class="text-right">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24</pre>
+</td>
+<td>
+<pre><span class="color-comment">/* Test dynamic allocation of array  (TestDynamicArray.cpp) */</span>
+#include &lt;iostream&gt;
+#include &lt;cstdlib&gt;
+using namespace std;
+ 
+int main() {
+   const int SIZE = 5;
+   int * pArray;
+ 
+   pArray = new int[SIZE];  <span class="color-comment">// Allocate array via new[] operator</span>
+ 
+   <span class="color-comment">// Assign random numbers between 0 and 99</span>
+   for (int i = 0; i &lt; SIZE; ++i) {
+      *(pArray + i) = rand() % 100;
+   }
+   <span class="color-comment">// Print array</span>
+   for (int i = 0; i &lt; SIZE; ++i) {
+      cout &lt;&lt; *(pArray + i) &lt;&lt; " ";
+   }
+   cout &lt;&lt; endl;
+ 
+   delete[] pArray;  <span class="color-comment">// Deallocate array via delete[] operator</span>
+   return 0;
+}</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+<p>C++03 does not allow your to initialize the dynamically-allocated array. C++11 does with the brace initialization, as follows:</p>
+
+<pre class="color-example"><span class="color-comment">// C++11</span>
+int * p = new int[5] {1, 2, 3, 4, 5};</pre>
+
+
+<h3>4.&nbsp;&nbsp;Pointer, Array and Function<a id="zz-4."></a></h3>
+
+<h4>4.1&nbsp;&nbsp;Array is Treated as Pointer<a id="zz-4.1"></a></h4>
+
+<p>In C/C++, an array's name is a pointer, pointing to the first element (index 0) of the array. For example, suppose that <code>numbers</code> is an <code>int</code> array, <code>numbers</code> is a also an <code>int</code> pointer, pointing at the first element of the array. That is, <code>numbers</code> is the same as <code>&amp;numbers[0]</code>. Consequently, <code>*numbers</code> is <code>number[0]</code>; <code>*(numbers+i)</code> is <code>numbers[i]</code>.</p>
+<p>For example,</p>
+
+<table class="table-program">
+<colgroup><col class="col-line-number">
+<col class="col-program">
+</colgroup><tbody>
+<tr>
+<td>
+<pre class="text-right">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16</pre></td>
+<td>
+<pre><span class="color-comment">/* Pointer and Array (TestPointerArray.cpp) */</span>
+#include &lt;iostream&gt;
+using namespace std;
+ 
+int main() {
+   const int SIZE = 5;
+   int numbers[SIZE] = {11, 22, 44, 21, 41};  <span class="color-comment">// An int array</span>
+ 
+   <span class="color-comment">// The array name numbers is an int pointer, pointing at the</span>
+   <span class="color-comment">// first item of the array, i.e., numbers = &amp;numbers[0]</span>
+   cout &lt;&lt; &amp;numbers[0] &lt;&lt; endl; <span class="color-comment">// Print address of first element (0x22fef8)</span>
+   cout &lt;&lt; numbers &lt;&lt; endl;     <span class="color-comment">// Same as above (0x22fef8)</span>
+   cout &lt;&lt; *numbers &lt;&lt; endl;         <span class="color-comment">// Same as numbers[0] (11)</span>
+   cout &lt;&lt; *(numbers + 1) &lt;&lt; endl;   <span class="color-comment">// Same as numbers[1] (22)</span>
+   cout &lt;&lt; *(numbers + 4) &lt;&lt; endl;   <span class="color-comment">// Same as numbers[4] (41)</span>
+}</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+<h4>4.2&nbsp;&nbsp;Pointer Arithmetic<a id="zz-4.2"></a></h4>
+<p>As seen from the previous section, if <code>numbers</code> is an <code>int</code> array, it is treated as an <code>int</code> pointer pointing to the first element of the array. <code>(numbers + 1)</code> points to the next <code>int</code>, instead of having the next sequential address. Take note that an <code>int</code> typically has 4 bytes.  That is <code>(numbers + 1)</code> increases the address by 4, or <code>sizeof(int)</code>. For example,</p>
+
+<pre class="color-example">int numbers[] = {11 22, 33};
+int * iPtr = numbers;
+cout &lt;&lt; iPtr &lt;&lt; endl;        <span class="color-comment">// 0x22cd30</span>
+cout &lt;&lt; iPtr + 1 &lt;&lt; endl;    <span class="color-comment">// 0x22cd34 (increase by 4 - sizeof int)</span>
+cout &lt;&lt; *iPtr &lt;&lt; endl;       <span class="color-comment">// 11</span>
+cout &lt;&lt; *(iPtr + 1) &lt;&lt; endl; <span class="color-comment">// 22</span> 
+cout &lt;&lt; *iPtr + 1 &lt;&lt; endl;   <span class="color-comment">// 12</span></pre>
+
+<h4>4.3&nbsp;&nbsp;<span class="font-code">sizeof</span> Array<a id="zz-4.3"></a></h4>
+
+<p>The operation <code>sizeof(<em>arrayName</em>)</code> returns the <em>total bytes</em> of the array. You can derive the length (size) of the array by dividing it with the size of an element (e.g. element 0). For example,</p>
+
+<pre class="color-example"><strong></strong><span class="color-new">int numbers[100];</span>
+cout &lt;&lt; <span class="color-new">sizeof(numbers)</span> &lt;&lt; endl;     <span class="color-comment">// Size of entire array in bytes (400)</span>
+cout &lt;&lt; <span class="color-new">sizeof(numbers[0])</span> &lt;&lt; endl;  <span class="color-comment">// Size of first element of the array in bytes (4)</span>
+cout &lt;&lt; "Array size is " &lt;&lt; sizeof(numbers) / sizeof(numbers[0]) &lt;&lt; endl;  <span class="color-comment">// (100)</span><span class="color-comment"></span></pre>
+
+<h4>4.4&nbsp;&nbsp;Passing Array In/Out of a Function<a id="zz-4.4"></a></h4>
+<p>An array is passed into a function as <em>a pointer to the first element</em> of the array. You can use array notation (e.g., <code>int[]</code>) or pointer notation (e.g., <code>int*</code>) in the function declaration. The compiler always treats it as pointer (e.g., <code>int*</code>). For example, the following declarations are equivalent:</p>
+
+<pre class="color-example">int max(<span class="color-new">int numbers[]</span>, int size);
+int max(<span class="color-new">int *numbers</span>, int size);
+int max(<span class="color-new">int number[50]</span>, int size);</pre>
+
+<p>They will be treated as <code>int*</code> by the compiler, as follow. The size of the array given in <code>[]</code> is ignored.</p>
+<pre class="color-example">int max(<span class="color-new">int*</span>, int);</pre>
+
+
+<p>Array is passed by reference into the function, because a pointer is passed instead of a clone copy. If the array is modified inside the function, the modifications are applied to the caller's copy. You could declare the array parameter as <code>const</code> to prevent the array from being modified inside the function.</p>
+<p>The size of the array is not part of the array parameter, and needs to be passed in another <code>int</code> parameter. Compiler is not able to deduce the array size from the array pointer, and does not perform array bound check.</p>
+
+<p><span class="line-heading">Example:</span> Using the usual array notation.</p>
+
+<table class="table-program">
+<colgroup><col class="col-line-number">
+<col class="col-program">
+</colgroup><tbody>
+<tr>
+<td>
+<pre class="text-right">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46</pre>
+</td>
+<td>
+<pre><span class="color-comment">/* Passing array in/out function (TestArrayPassing.cpp) */</span>
+#include &lt;iostream&gt;
+using namespace std;
+ 
+<span class="color-comment">// Function prototypes</span>
+int max(<span class="color-new">const int arr[]</span>, int size);
+void replaceByMax(<span class="color-new">int arr[]</span>, int size);
+void print(<span class="color-new">const int arr[]</span>, int size);
+ 
+int main() {
+   const int SIZE = 4;
+   int numbers[SIZE] = {11, 22, 33, 22};
+   print(numbers, SIZE);
+   cout &lt;&lt; max(numbers, SIZE) &lt;&lt; endl;
+   replaceByMax(numbers, SIZE);
+   print(numbers, SIZE);
+}
+ 
+<span class="color-comment">// Return the maximum value of the given array.</span>
+<span class="color-comment">// The array is declared const, and cannot be modified inside the function.</span>
+int max(const int arr[], int size) {
+   int max = arr[0];
+   for (int i = 1; i &lt; size; ++i) {
+      if (max &lt; arr[i]) max = arr[i];
+   }
+   return max;
+}
+ 
+<span class="color-comment">// Replace all elements of the given array by its maximum value</span>
+<span class="color-comment">// Array is passed by reference. Modify the caller's copy.</span>
+void replaceByMax(int arr[], int size) {
+   int maxValue = max(arr, size);
+   for (int i = 0; i &lt; size; ++i) {
+      arr[i] = maxValue;
+   }
+}
+ 
+<span class="color-comment">// Print the array's content</span>
+void print(const int arr[], int size) {
+   cout &lt;&lt; "{";
+   for (int i = 0; i &lt; size; ++i) {
+      cout &lt;&lt; arr[i];
+      if (i &lt; size - 1) cout &lt;&lt; ",";
+   }
+   cout &lt;&lt; "}" &lt;&lt; endl;
+}</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+<p>Take note that you can modify the contents of the caller's array inside the function, as array is passed by reference. To prevent accidental modification, you could apply  <code>const</code> qualifier to the function's parameter. Recall that  <code>const</code> inform the compiler that the value should not be changed. For example, suppose that the function <code>print()</code> prints the contents of the given array and does not modify the array, you could apply <code>const</code> to both the array name and its size, as they are not expected to be changed inside the function.</p>
+
+<pre class="color-example">void print(<span class="color-new">const</span> int arr[], <span class="color-new">int</span> size);</pre>
+
+<p>Compiler flags out an error "assignment of read-only location" if it detected a <code>const</code> value would be changed.</p>
+
+<p><span class="line-heading">Example:</span> Using pointer notation.</p>
+
+<table class="table-program">
+<colgroup><col class="col-line-number">
+<col class="col-program">
+</colgroup><tbody>
+<tr>
+<td>
+<pre class="text-right">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21</pre>
+</td>
+<td>
+<pre><span class="color-comment">/* Passing array in/out function using pointer (TestArrayPassingPointer.cpp) */</span>
+#include &lt;iostream&gt;
+using namespace std;
+ 
+<span class="color-comment">// Function prototype</span>
+int max(<span class="color-new">const int *arr</span>, int size);
+ 
+int main() {
+   const int SIZE = 5;
+   int numbers[SIZE] = {10, 20, 90, 76, 22};
+   cout &lt;&lt; max(numbers, SIZE) &lt;&lt; endl;
+}
+ 
+<span class="color-comment">// Return the maximum value of the given array</span>
+int max(<span class="color-new">const int *arr</span>, int size) {
+   int max = <span class="color-new">*arr</span>;
+   for (int i = 1; i &lt; size; ++i) {
+      if (max &lt; <span class="color-new">*(arr+i)</span>) max = <span class="color-new">*(arr+i)</span>;
+   }
+   return max;
+}</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+<h4>4.5&nbsp;&nbsp;Pass-by-Reference and <span class="font-code">sizeof</span><a id="zz-4.5"></a></h4>
+
+<table class="table-program">
+<colgroup><col class="col-line-number">
+<col class="col-program">
+</colgroup><tbody>
+<tr>
+<td>
+<pre class="text-right">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21</pre>
+</td>
+<td>
+<pre><span class="color-comment">/* Test sizeof array (TestSizeofArray.cpp) */</span>
+#include &lt;iostream&gt;
+using namespace std;
+ 
+<span class="color-comment">// Function prototypes</span>
+void fun(const int *arr, int size);
+ 
+<span class="color-comment">// Test Driver</span>
+int main() {
+   const int SIZE = 5;
+   int a[SIZE] = {8, 4, 5, 3, 2};
+   cout &lt;&lt; "sizeof in main() is " &lt;&lt; <span class="color-new">sizeof(a)</span> &lt;&lt; endl;
+   cout &lt;&lt; "address in main() is " &lt;&lt; a &lt;&lt; endl;
+   fun(a, SIZE);
+}
+ 
+<span class="color-comment">// Function definitions</span>
+void fun(const int *arr, int size) {
+   cout &lt;&lt; "sizeof in function is " &lt;&lt; <span class="color-new">sizeof(arr)</span> &lt;&lt; endl;
+   cout &lt;&lt; "address in function is " &lt;&lt; arr &lt;&lt; endl;
+}</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+<pre class="output">sizeof in main() is 20
+address in main() is 0x22fefc
+sizeof in function is 4
+address in function is 0x22fef</pre>
+
+<p>The address of arrays in <code>main()</code> and the function are the same, as expected, as array is passed by reference.</p>
+<p>In <code>main()</code>, the <code>sizeof</code> array is 20 (4 bytes per <code>int</code>, length of 5). Inside the function, the <code>sizeof</code> is 4, which is the <code>sizeof</code> <code>int</code> pointer (4-byte address). This is why you need to pass the size into the function.</p>
+
+<h4>4.6&nbsp;&nbsp;Operating on a Range of an Array<a id="zz-4.6"></a></h4>
+
+<table class="table-program">
+<colgroup><col class="col-line-number">
+<col class="col-program">
+</colgroup><tbody>
+<tr>
+<td>
+<pre class="text-right">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25</pre>
+</td>
+<td>
+<pre><span class="color-comment">/* Function to compute the sum of a range of an array (SumArrayRange.cpp) */</span>
+#include &lt;iostream&gt;
+using namespace std;
+ 
+<span class="color-comment">// Function prototype</span>
+int sum(const int *begin, const int *end);
+ 
+<span class="color-comment">// Test Driver</span>
+int main() {
+   int a[] = {8, 4, 5, 3, 2, 1, 4, 8};
+   cout &lt;&lt; sum(a, a+8) &lt;&lt; endl;       <span class="color-comment"> // a[0] to a[7]</span>
+   cout &lt;&lt; sum(a+2, a+5) &lt;&lt; endl;     <span class="color-comment"> // a[2] to a[4]</span>
+   cout &lt;&lt; sum(&amp;a[2], &amp;a[5]) &lt;&lt; endl; <span class="color-comment"> // a[2] to a[4]</span>
+}
+ 
+<span class="color-comment">// Function definition</span>
+<span class="color-comment">// Return the sum of the given array of the range from</span>
+<span class="color-comment">// begin to end, exclude end.</span>
+int sum(const int *begin, const int *end) {
+   int sum = 0;
+   for (const int *p = begin; p != end; ++p) {
+      sum += *p;
+   }
+   return sum;
+}</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+<p>Program Notes:</p>
+
+<ul>
+<li>To write a function that operates on a range of the given array, you can pass the begin pointer and the end pointer into the function. By convention, the operation shall start at the begin pointer, up to the end pointer, but excluding the end pointer.</li>
+
+<li>In "<code>const int *p</code>", <code>*p</code> (content pointed-to) is constant, but <code>p</code> is not constant.</li>
+</ul>
+
+<h4>4.7&nbsp;&nbsp;C-String and Pointer<a id="zz-4.7"></a></h4>
+
+<p>C-string (of the C language) is a character array, terminated with a null character <code>'\0'</code>. For example,</p>
+
+<table class="table-program">
+<colgroup><col class="col-line-number">
+<col class="col-program">
+</colgroup><tbody>
+<tr>
+<td>
+<pre class="text-right">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27</pre>
+</td>
+<td>
+<pre><span class="color-comment">/* Testing C-string (TestCString.cpp) */</span>
+#include &lt;iostream&gt;
+#include &lt;cstring&gt;
+using namespace std;
+ 
+int main() {
+   char msg1[] = "Hello";
+   char *msg2 = "Hello";
+     <span class="color-comment"> // warning: deprecated conversion from string constant to 'char*'</span>
+ 
+   cout &lt;&lt; strlen(msg1) &lt;&lt; endl;   <span class="color-comment"> // 5</span>
+   cout &lt;&lt; strlen(msg2) &lt;&lt; endl;
+   cout &lt;&lt; strlen("Hello") &lt;&lt; endl;
+ 
+   int size = sizeof(msg1)/sizeof(char);
+   cout &lt;&lt; size &lt;&lt; endl; <span class="color-comment"> // 6 - including the terminating '\0'</span>
+   for (int i = 0; msg1[i] != '\0'; ++i) {
+      cout &lt;&lt; msg1[i];
+   }
+   cout &lt;&lt; endl;
+ 
+   for (char *p = msg1; *p != '\0'; ++p) {
+         <span class="color-comment"> // *p != '\0' is the same as *p != 0, is the same as *p</span>
+      cout &lt;&lt; *p;
+   }
+   cout &lt;&lt; endl;
+}</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+<p>Take note that for C-String function such as <code>strlen()</code> (in header <code>cstring</code>, ported over from C's <code>string.h</code>), there is no need to pass the array length into the function. This is because C-Strings are terminated by <code>'\0'</code>. The function can iterate thru the characters in the array until <code>'\0'</code>. For example,</p>
+
+<table class="table-program">
+<colgroup><col class="col-line-number">
+<col class="col-program">
+</colgroup><tbody>
+<tr>
+<td>
+<pre class="text-right">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26</pre>
+</td>
+<td>
+<pre><span class="color-comment">/* Function to count the occurrence of a char in a string (CountChar.cpp) */</span>
+#include &lt;iostream&gt;
+#include &lt;cstring&gt;
+using namespace std;
+ 
+int count(const char *str, const char c);  <span class="color-comment">// No need to pass the array size</span>
+ 
+int main() {
+   char msg1[] = "Hello, world";
+   char *msg2 = "Hello, world";
+ 
+   cout &lt;&lt; count(msg1, 'l') &lt;&lt; endl;
+   cout &lt;&lt; count(msg2, 'l') &lt;&lt; endl;
+   cout &lt;&lt; count("Hello, world", 'l') &lt;&lt; endl;
+}
+ 
+<span class="color-comment">// Count the occurrence of c in str</span>
+<span class="color-comment">// No need to pass the size of char[] as C-string is terminated with '\0'</span>
+int count(const char *str, const char c) {
+   int count = 0;
+   while (*str) {   <span class="color-comment">// same as (*str != '\0')</span>
+      if (*str == c) ++count;
+      ++str;
+   }
+   return count;
+}</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+
+<h3>5.&nbsp;&nbsp;<span class="color-new">*</span>More On Pointers<a id="zz-5."></a></h3>
+
+<h4>5.1&nbsp;&nbsp;Function Pointer<a id="zz-5.1"></a></h4>
+<p>In C/C++, functions, like all data items, have an address. The name of a function is the starting address where the function resides in the memory, and therefore, can be treated as a pointer. We can pass a function pointer into function as well.  The syntax for declaring a function pointer is:</p>
+
+<pre class="color-syntax"><span class="color-comment">// Function-pointer declaration</span>
+<em>return-type</em> (* <em>function-ptr-name</em>) (<em>parameter-list</em>)
+ 
+<span class="color-comment">// Examples</span>
+double (*fp)(int, int)  <span class="color-comment">// fp points to a function that takes two ints and returns a double (function-pointer)</span>
+double *dp;             <span class="color-comment">// dp points to a double (double-pointer)</span>
+double *fun(int, int)   <span class="color-comment">// fun is a function that takes two ints and returns a double-pointer</span>
+
+double f(int, int);      <span class="color-comment">// f is a function that takes two ints and returns a double</span>
+fp = f;                 <span class="color-comment">// Assign function f to fp function-pointer</span></pre>
+
+<h5>Example</h5>
+
+<table class="table-program">
+<colgroup><col class="col-line-number">
+<col class="col-program">
+</colgroup><tbody>
+<tr>
+<td>
+<pre class="text-right">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25</pre></td>
+<td>
+<pre><span class="color-comment">/* Test Function Pointers (TestFunctionPointer.cpp) */</span>
+#include &lt;iostream&gt;
+using namespace std;
+ 
+int arithmetic(int, int, <span class="color-new">int (*)(int, int)</span>);
+    <span class="color-comment">// Take 3 arguments, 2 int's and a function pointer
+    //   int (*)(int, int),</span> <span class="color-comment">which takes two int's and return an int</span>
+int add(int, int);
+int sub(int, int);
+ 
+int add(int n1, int n2) { return n1 + n2; }
+int sub(int n1, int n2) { return n1 - n2; }
+ 
+int arithmetic(int n1, int n2, <span class="color-new">int (*operation) (int, int)</span>) {
+   return <span class="color-new">(*operation)</span>(n1, n2);
+}
+ 
+int main() {
+   int number1 = 5, number2 = 6;
+ 
+   <span class="color-comment">// add</span>
+   cout &lt;&lt; arithmetic(number1, number2, add) &lt;&lt; endl;
+   <span class="color-comment">// subtract</span>
+   cout &lt;&lt; arithmetic(number1, number2, sub) &lt;&lt; endl;
+}</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+<h4>5.2&nbsp;&nbsp;Generic Pointer or void Pointer (<span class="font-code">void *</span>)<a id="zz-5.2"></a></h4>
+<p>A <code>void</code> pointer can hold address of any data type (except function pointer). We cannot operate on the object pointed to by <code>void</code> pointer, as the type is unknown. We can use a <code>void</code> pointer to compare with another address.</p>
+<p>[TODO] Example</p>
+
+<h4>5.3&nbsp;&nbsp;Constant Pointer vs. Constant Pointed-to Data<a id="zz-5.3"></a></h4>
+
+<ol>
+<li>Non-constant pointer to constant data: Data pointed to CANNOT be changed; but pointer CAN be changed to point to another data. For example,
+  <pre class="color-example">int i1 = 8, i2 = 9;
+<span class="color-new">const</span> int * iptr = &amp;i1;  <span class="color-comment">// non-constant pointer pointing to constant data</span>
+// *iptr = 9;   <span class="color-error">// error: assignment of read-only location</span>
+iptr = &amp;i2;  <span class="color-comment">// okay</span></pre></li>
+
+<li>Constant pointer to non-constant data: Data pointed to CAN be changed; but pointer CANNOT be changed to point to another data. For example,
+  <pre class="color-example">int i1 = 8, i2 = 9;
+int * <span class="color-new">const</span> iptr = &amp;i1;  <span class="color-comment">// constant pointer pointing to non-constant data
+                         // constant pointer must be initialized during declaration</span>
+*iptr = 9;   <span class="color-comment">// okay</span>
+// iptr = &amp;i2;  <span class="color-error">// error: assignment of read-only variable</span></pre></li>
+
+<li>Constant pointer to constant data: Data pointed to CANNOT be changed; and pointer CANNOT be changed to point to another data. For example,
+  <pre class="color-example">int i1 = 8, i2 = 9;
+<span class="color-new">const</span> int * <span class="color-new">const</span> iptr = &amp;i1;  <span class="color-comment">// constant pointer pointing to constant data</span>
+// *iptr = 9;   <span class="color-error">// error: assignment of read-only variable</span>
+// iptr = &amp;i2;  <span class="color-error">// error: assignment of read-only variable</span></pre></li>
+
+<li>Non-constant pointer to non-constant data: Data pointed to CAN be changed; and pointer CAN be changed to point to another data. For example,
+  <pre class="color-example">int i1 = 8, i2 = 9;
+int * <span class="color-new"></span>iptr = &amp;i1;  <span class="color-comment">// non-constant pointer pointing to non-constant data</span>
+*iptr = 9;   <span class="color-comment">// okay</span>
+iptr = &amp;i2;  <span class="color-comment">// okay</span></pre></li>
+
+</ol>
+
+
+
+<a class="references" href="http://www.ntu.edu.sg/home/ehchua/programming/howto/References.html#cpp">Link to "C++ References &amp; Resources"</a>
+
+</div> <!-- End the content-main division -->
+
+<div id="content-footer">
+<p>Latest version tested: Cygwin/MinGW GCC 4.6.2<br>
+Last modified: April, 2013</p>
+</div>
+
+</div>  <!-- End the wrap-inner division -->
+
+<!-- footer filled by JavaScript -->
+<div id="footer" class="header-footer"><p>Feedback, comments, corrections, and errata can be sent to Chua Hock-Chuan (ehchua@ntu.edu.sg) &nbsp;&nbsp;|&nbsp;&nbsp; <a href="http://www.ntu.edu.sg/home/ehchua/programming/index.html">HOME</a></p></div>
+
+</div>  <!-- End the wrap-outer division -->
+
+
+<div class="selection_bubble_root"></div><div id="gritter-notice-wrapper" class="bottom-left"><div id="gritter-item-1" class="gritter-item-wrapper "><div class="gritter-top"></div><div class="gritter-item"><div class="gritter-close"></div><div class="gritter-without-image"><span class="gritter-title">Text Zoom</span><p>Level 100%</p></div><div style="clear:both"></div></div><div class="gritter-bottom"></div></div></div></body></html>

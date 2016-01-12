@@ -1,0 +1,2032 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><!--
+ Archive processed by SingleFile 
+ url: http://www.ntu.edu.sg/home/ehchua/programming/cpp/cp5_OOPExamples.html 
+ saved date: Mon Aug 25 2014 15:16:47 GMT+0900 (Tokyo Standard Time) 
+--><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Examples on Classes and Objects</title>
+
+<!-- @@ start change in v1 -->
+<style rel="stylesheet" type="text/css" data-href="http://www.ntu.edu.sg/home/ehchua/programming/css/programming_notes_v1.css">/* 
+ * Universal selector - clear all the margin and padding to get consistent layout for Firefox and IE 
+ */
+* { 
+	margin: 0;
+	padding: 0;
+}
+
+/* 
+ * Set default style for all the tags.
+ * Apply to the main content division as well.
+ */
+body {
+	background-color: rgb(202, 251, 237);
+	color: #000;
+	font-family: "Segoe UI", Segoe, Calibri, "Ubuntu", Tahoma, Arial, Helvetica, Verdana, sans-serif;
+	font-size: 14px;
+	text-align: justify;
+	line-height: 1.5;
+}
+
+/*
+ * "wrap-outer" wraps header, wrap-inner and footer
+ */
+#wrap-outer {
+	margin: 20px 20px 20px 20px;
+	padding: 0;
+	
+}
+/*
+ * "wrap-inner" wraps content-header, content-main and content-footer
+ */
+#wrap-inner {
+	background-color: #fff;
+	margin: 0;
+	border: 1px solid #ddd;
+	padding: 25px 15px;
+	box-shadow: 5px 5px 0 #ddd;
+}
+#content-header {
+	margin: 0;
+	padding: 50px 0 10px 0;
+}
+
+#content-main {
+	margin: 0;
+	padding: 30px 0 20px 0;
+}
+#content-footer {
+	font-family: "Century Gothic", "Segoe UI", Segoe, "Ubuntu", Verdana, Tahoma, Arial, Helvetica, sans-serif;
+	font-size: 13px;
+	text-align: right;
+	color: rgb(192, 80, 77);
+/*	color: rgb(11, 83, 149); */
+	margin: 30px 0 0 0;
+    padding: 0;
+	border-top: 4px solid rgb(12, 155, 116);
+}
+/*
+ *  The main "header" & "footer" divisions
+ */
+.header-footer {
+	font-family: "Century Gothic", "Segoe UI", Segoe, "Ubuntu", Verdana, Tahoma, Arial, Helvetica, sans-serif;
+	color: rgb(192, 80, 77);
+/*	color: rgb(11, 83, 149); */
+	font-size: 13px;
+	text-align: right;
+	margin: 10px 0 5px 0;
+	padding: 5px 4px;
+}
+.header-footer a {
+	color: rgb(192, 80, 77);
+	text-decoration: underline;
+}
+.header-footer a:focus, .header-footer a:hover {  /* change color and remove underline */
+	text-decoration: none;
+ 	color: rgb(11, 83, 149);
+/*	color: rgb(192, 80, 77); */
+}
+
+h1, h2, h3, h4, h5, h6 {  /* main title and sub-title */
+	font-family: "Century Gothic", "Trebuchet MS", "Segoe UI", Segoe, "Ubuntu", Verdana, Tahoma, Arial, Helvetica, sans-serif;
+	margin: 0;
+	color: rgb(10, 132, 100);
+	letter-spacing: 1px;
+	line-height: 1.2;
+	text-align:left;
+}
+h1 {
+	font-size: 40px;
+	font-weight: 400;
+	padding: 0.2em 0;
+}
+h2 {
+	font-size: 36px;
+	font-weight: 400;
+	padding: 0.2em 0;
+}
+h3 {
+	font-size: 22px;
+	border-bottom: thin solid rgb(12, 155, 116);
+	padding: 1.5em 0 0.3em 0;
+}
+h4 {
+	font-family: "Segoe UI", Segoe, "Ubuntu", Verdana, Tahoma, Arial, Helvetica, sans-serif;
+	font-size: 18px;
+	padding: 1.3em 0 0.2em 0;
+	border-bottom: thin dotted rgb(12, 155, 116);
+}
+h5, h6 {
+	font-family: "Segoe UI", Segoe, "Ubuntu", Verdana, Tahoma, Arial, Helvetica, sans-serif;
+	font-size: 15px;
+	color: #444;
+	padding: 1.2em 0 0 0;  /* top right bottom left */
+	letter-spacing: 1px;
+}
+.line-heading {
+	color: #444;
+	font-size: 15px;
+	font-weight: bold;
+	letter-spacing: 1px;
+	padding: 0.2em 0;
+}
+.line-heading-code-new {
+	font-family: Consolas, "Lucida Console", "Courier New", Courier, monospace;
+	color: #E31B23;
+	font-size: 15px;
+    font-weight: normal;
+/*	letter-spacing: 0.5px; */
+}
+p {
+	margin-top: 0.6em;
+	margin-bottom: 0.4em;
+}
+pre {
+	font-family: Consolas, "Lucida Console", "Courier New", Courier, monospace;
+	font-size: 13px;
+	margin: 5px 0 8px 0;
+	border: solid 2px #f8f8f8;  /* slight 3D shape */
+	padding: 5px 10px;
+	line-height: 135%;
+}
+code {
+	font-family: Consolas, "Lucida Console", "Courier New", Courier, monospace;
+}
+
+ul {   /* first level ul */
+	margin: 0.3em 0 0.2em 1.8em;
+	padding: 0;
+/*	list-style-type: square;  */
+	list-style-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAANAQMAAABBztZFAAAABlBMVEUAAwBjjJzG2b5OAAAAAXRSTlMAQObYZgAAABBJREFUCNdjYMAG7FARAwMADXkBNzRuJgIAAAAASUVORK5CYII=);
+}
+ul ul li {   /* 2nd level ul */
+	list-style-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAANAQMAAABb8jbLAAAABlBMVEX///8AUow5QSOjAAAAAXRSTlMAQObYZgAAABNJREFUCB1jYEABBQw/wLCAgQEAGpIDyT0IVcsAAAAASUVORK5CYII=);
+/*
+	list-style-type: disc;
+	list-style-image: none; */
+}
+ul ul u1 li {   /* 3rd level ul */
+	list-style-type: circle;
+	list-style-image: none;
+}
+ol {   /* first level ol */
+/*    list-style-position:inside; */
+/*    display: table  */
+    list-style-type: decimal;
+	margin: 0.3em 0 0.2em 2.5em;
+	padding: 0;
+}
+ol ol li {   /* 2nd level ol */
+	list-style-type: lower-alpha;
+}
+ol ol o1 li {  /* 3rd level ol */
+	list-style-type: lower-roman;
+}
+
+li {
+	margin: 0.4em 0;
+}
+
+.float-left-ol-ul {
+	overflow:hidden;
+}
+
+/* li after a left-float image */
+.float-left-li {
+   position: relative; left: 20px;
+   margin-right: 20px;
+}
+
+a {
+	color: rgb(11, 83, 149);
+	text-decoration: none;
+}
+a:hover, a:focus {
+	color: rgb(192, 80, 77);
+	text-decoration: underline;
+}
+
+a.references {
+	display: block;
+	width: 30em;
+	font-size: 18px;
+	font-weight: bold;
+	margin: 4em 0 0 0;
+}
+
+p.references {
+	font-size: 18px;
+	font-weight: bold;
+	margin: 4em 0 0 0;
+}
+
+/*
+ * General classes
+ */
+.center-block {
+	margin: 10px auto;  /* auto margin-left and margin-right to center the table */
+}
+.text-center {	
+    text-align: center; 
+}
+.text-right {	
+    text-align: right; 
+}
+.underline {
+	text-decoration: underline;
+}
+.font-code {
+	font-family: Consolas, "Lucida Console", "Courier New", Courier, monospace;
+}
+.font-code-text {
+	font-family: Consolas, "Lucida Console", "Courier New", Courier, monospace;
+	font-size: 14px;
+}
+.font-code-smaller {
+	font-family: Consolas, "Lucida Console", "Courier New", Courier, monospace;
+	font-size: 13px;
+}
+.font-normal {
+	font-family: "Segoe UI", Segoe, Calibri, "Ubuntu", Tahoma, Arial, Helvetica, Verdana, sans-serif;
+}
+.pre {
+    white-space: pre;	
+}
+/* color control mainly for <pre>, <div>, <span> */
+.color-example {
+	background-color: rgb(215, 236, 211);  /* darker */
+}
+.color-example-light {
+	background-color: rgb(236, 246, 234);  /* lighter */
+}
+.color-syntax, .color-command {
+	background-color: rgb(204, 238, 241);  /* darker */
+}
+.color-explanation {
+	background-color: #eee;   /* grey */
+}
+/* Character level control for code listing */
+.color-comment {
+	color: #009900;  /* green */
+}
+.color-new {
+	color: #E31B23;  /* dark red to highlight new terms */
+}
+.color-error {
+	color: #ff0099;  /* bright red */
+/*	font-weight:bold; */
+}
+.color-plain {
+	background-color: #fff;
+}
+.color-highlight {
+	background-color: #ff0;
+}
+.color-highlight-new {
+    background-color: #FFC;  /* lighter */
+}
+
+.output {  /* Output of program or DOS session */
+    background-color: rgb(236, 246, 234);  /* lighter */
+	border: solid 2px #f8f8f8;   /* slight 3D shape */
+	padding: 4px 8px;
+}
+.side-note {
+	margin-top: 15px;
+    margin-left: 40px;
+	padding: 3px 8px; 
+	background-color: #e7e7e7;
+}
+
+
+/*
+ * for positioning images 
+ */
+img.image-center {      /* center horizontally an image */
+	display: block;
+	margin: 10px auto;
+}
+img.image-border {
+    border: #ddd thin solid;
+}
+img.image-float-left {
+	float: left;
+	margin: 8px 15px 15px 0;
+    border: #ddd thin solid;
+}
+img.image-float-right {
+	float: right;
+	margin: 8px 0 15px 15px;
+    border: #ddd thin solid;
+}
+.float-clear {
+   clear: both;	
+}
+/*
+ *  Table - for tablulating data with alternate row colors or different column colors
+ */
+table.table-zebra, table.table-program {
+	border-collapse: collapse;
+	border: 0;
+	margin: 0 auto; /* center */
+	padding: 0;
+    width: 100%;
+	/* Default setting for all cells in this table, inherited */
+    background-color: rgb(231, 240, 248);  /* lighter */
+	text-align: left;
+	vertical-align: top;
+}
+table.table-zebra th {  /* header cells */
+	color: #ffffff;     /* white text on dark background */
+	background-color: rgb(0, 157, 217);
+	margin: 0;
+	border: 2px solid white;
+	padding: 4px 10px;
+	font-size: 15px;
+	letter-spacing: 1px;
+	text-align: center;
+}
+table.table-zebra td {  /* data cells */
+    margin: 0;
+	border: 2px solid white;
+	padding: 2px 8px;
+	/* color, font, text inherited from table */
+	vertical-align: top;
+}
+
+table.table-program th {  /* header cells */
+	color: #ffffff;     /* white text on dark background */
+	background-color: rgb(0, 157, 217);
+	margin: 0;
+	border: 2px solid white;
+	padding: 4px 10px;
+	font-size: 15px;
+	letter-spacing: 1px;
+	text-align: center;
+}
+table.table-program td {  /* data cells */
+    margin: 0;
+	border: 0;
+	padding: 0;
+	/* color, font, text inherited from table */
+}
+
+table.table-program td pre {
+	margin: 0;
+	border: solid 2px #f8f8f8;   /* slight 3D shape */
+	padding: 5px 10px;
+}
+
+table.table-program td pre.text-right {
+	text-align: right;
+}
+
+/* Setting the color for row (2 colors) or column (3 colors) */
+/* can only set the background, border, width of <col>, NOT font, text, color */
+/* for table-zebra */
+table .col-desc {       /* same as default color */
+    background-color: rgb(231, 240, 248);  /* lighter */
+}
+table .col-code, table .tr-alt {
+	background-color: rgb(203, 223, 241);  /* darker */
+}
+table .col-example {
+    background-color: #eee;  /* grey */
+}
+
+/* for table-program */
+table .col-line-number {
+	width: 40px;
+    background-color: rgb(225, 233, 207);
+}
+table .col-program {
+    background-color: rgb(240, 244, 233);
+}
+
+/*
+ * For the "Table of Content" generated by JavaScript
+ * in <div id="toc">
+ */
+#wrap-toc {
+    display: block;
+	background: none repeat scroll 0 0 rgb(231, 246, 239);
+	float: right;
+	width: 230px;
+	z-index: 100;
+	line-height: 1.5;
+	margin: 0 0 0 15px;
+	padding: 5px 8px 10px 8px;
+	text-align: left;
+	white-space: nowrap;
+/*	min-height: 180px;  */
+}
+#wrap-toc h5 {
+   letter-spacing: 1px;
+   margin: 0;
+   text-transform: uppercase;
+	color: #444;
+	padding: 0.5em 0;
+}
+a#show-toc {
+	color: rgb(192, 80, 77);
+	text-decoration: none;
+   letter-spacing: 1px;
+}
+#toc {
+	overflow: auto;
+}
+#toc a.toc-H3 {
+    margin-left: 0px;
+	font-size: 15px;
+}
+#toc a.toc-H4 {
+    margin-left: 20px;
+	font-size: 14px;
+}
+#toc a.toc-H5 {
+    margin-left: 40px;
+	font-size: 14px;
+}
+</style>
+
+<link rel="shortcut icon" href="data:image/x-icon;base64,AAABAAEAEBAQAAEABAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAgAAAAAAAAAAAAAAAEAAAAAAAAADy8O0APrMnACEdGADb2tkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMzMzMzMzMzMyIiIiIiIiIzIiIiIiIiIjMgIiIgAAAiMyACIiAAACIzIgAiIiIiIjMiIAIiIiIiMyIiACIiIiIzIiACIiIiIjMiACISEiESMyACIhISEiIzICIiERISIjMiIiISEhIiMyIiIhISIRIzIiIiIiIiIjMzMzMzMzMzMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" type="image/x-icon"></head>
+
+<body class="">
+
+<div id="wrap-outer" class="">
+
+<!-- header filled by JavaScript -->
+<div id="header" class="header-footer"><p class="">yet another insignificant programming notes... &nbsp;&nbsp;| &nbsp;&nbsp;<a href="http://www.ntu.edu.sg/home/ehchua/programming/index.html" class="">HOME</a></p></div>
+
+<div id="wrap-inner" class="">
+
+<div id="wrap-toc" class="">
+<h5 class="">TABLE OF CONTENTS <a id="show-toc" href="#show-toc" class="">(HIDE)</a></h5>
+<div id="toc" class=""><a class="toc-H3" href="#zz-1.">1.&nbsp;&nbsp;Example: The <span class="font-code">Time</span> Class Version 2 - Using References</a><br class=""><a class="toc-H3" href="#zz-2.">2.&nbsp;&nbsp;Example: The <span class="font-code">Time</span> Class Version 3 - Exception Handling</a><br class=""><a class="toc-H3" href="#zz-3.">3.&nbsp;&nbsp;Object Reference, Pointer and Array with Dynamic Allocation (Advanced)</a><br class=""><a class="toc-H3" href="#zz-4.">4.&nbsp;&nbsp;Example: The <span class="font-code">Complex</span> Class</a><br class=""><a class="toc-H3" href="#zz-5.">5.&nbsp;&nbsp;Example: The <span class="font-code">Date</span> Class</a><br class=""><a class="toc-H3" href="#zz-6.">6.&nbsp;&nbsp;Example: The <span class="font-code">Point</span> and <span class="font-code">Polyline</span> Class</a><br class=""><br class=""></div>  <!-- for showing the "Table of Content" -->
+</div>
+
+<div id="content-header" class="">
+<h1 class="">C++ Programming Language</h1>
+<h2 class="">Examples on Classes and Objects</h2>
+</div>
+
+<div id="content-main" class="">
+
+<!-- @@ end change in v1 -->
+
+<h3 class="">1.&nbsp;&nbsp;Example: The <span class="font-code">Time</span> Class Version 2 - Using References<a id="zz-1." class="" style=""></a></h3>
+
+<p class="">Further to our <a href="http://www.ntu.edu.sg/home/ehchua/programming/cpp/cp3_OOP.html#timeclass" class="">earlier version of Time class</a>, suppose that we wish to support cascaded operations on a <code class="">Time</code> instance, such as  <code class="">t.nextSecond().nextSecond().print()</code>. We could let <code class="">nextSecond()</code> to return "<code class="">this</code>" instance <em class="">by reference</em>. The cascaded operations <code class="">t.nextSecond().nextSecond().print()</code> shall be read as <code class="">((t.nextSecond()).nextSecond()).print()</code>.  <code class="">t.nextSecond()</code> returns a reference to "<code class="">this</code>"<code class="" style=""></code> instance, which is then used to invoke the second operation, and so on.</p>
+
+<h5 class="font-code">Time.h</h5>
+
+<pre class="color-example">class Time {
+private:
+   ......
+public:
+   <span class="color-new">Time &amp;</span> nextSecond();  <span class="color-comment">// Return a reference to "this" instance</span>
+   ......
+};</pre>
+
+<p class="">In the function prototype, we declare that the <code class="">nextSecond()</code> member function returns a <em class="">reference</em> to a <code class="">Time</code> object. The return reference can be used to invoke a member function of the class. For example, <code class="">t.nextSecond().nextSecond()</code> is interpreted as <code class="">(t.nextSecond()).nextSecond()</code>. Our previous version returns <code class="">void</code>, which cannot be used further.</p>
+
+<h5 class="font-code">Time.cpp</h5>
+
+<pre class="color-example"><span class="color-comment">// Increase this instance by one second and return this instance by reference</span>
+<span class="color-new">Time &amp; Time::nextSecond()</span> {
+   if (++second == 60) {
+      second = 0;
+      if (++minute == 60) {
+         minute = 0;
+         if (++hour == 24) {
+            hour = 0;
+         }
+      }
+   }
+   <span class="color-new">return *this;</span>  <span class="color-comment">// Return this instance by reference</span>
+                  <span class="color-comment">// "this" is a pointer to this instance. *this refers to this instance.</span>
+}</pre>
+
+<p class="">C++ has a special keyword <code class="">this</code>, which contains a pointer to <em class="">this</em> instance. Hence, <code class="">*this</code> refers to this instance, which is returned by reference back to the caller corresponding to the return type <code class="">Time &amp;</code>.</p>
+
+<p class=""><span class="line-heading font-code">TestTime.cpp</span></p>
+
+<pre class="color-example">Time t1(23, 59, 58);<br class="">t1.print();     <span class="color-comment">// 23:59:58</span><br class="">t1.nextSecond();<br class="">t1.print();     <span class="color-comment">// 23:59:59</span><br class="">t1.nextSecond().nextSecond().print();  <span class="color-comment">// 00:00:01</span><br class="">t1.print();     <span class="color-comment">// 00:00:01</span></pre>
+
+<h5 class="">Exercise</h5>
+<p class="">Try modifying <code class="">setHour()</code>, <code class="">setMinute()</code> and <code class="">setSecond()</code> to support cascaded operations such as <code class="">aTime.setHour(22).setMinute(29).setSecond(20).print()</code>.</p>
+
+<h3 id="time_exception" class="">2.&nbsp;&nbsp;Example: The <span class="font-code">Time</span> Class Version 3 - Exception Handling<a id="zz-2." class="" style=""></a></h3>
+
+<p class="">Input validation is necessary. For example, in <code class="">setHour(int h)</code>, we should check that the given input <code class="">h</code> is between 0 and 23. Checking input is simple, but what to do if the input is invalid is tricky. For example, we could print an error message and abruptly terminate the program (via the <code class="">exit(1)</code> in <code class="">&lt;cstdlib&gt;</code>); we could print a warning message, set the hour to 0, and continue the program with a hour value may or may not be desired. Both approaches are less than ideal.</p>
+
+<pre class="color-example">void Time::setHour(int h) {
+   if (h &gt;= 0 &amp;&amp; h &lt;= 23) {
+      hour = h;
+   } else {
+      <span class="color-new">cout &lt;&lt; "Error: Invalid hour! Hour shall be 0-23." &lt;&lt; endl;
+      exit(1);</span>  <span class="color-comment">// Terminate the program abruptly!!!</span>
+   }
+}</pre>
+
+<pre class="color-example">void Time::setHour(int h) {
+   if (h &gt;= 0 &amp;&amp; h &lt;= 23) {
+      hour = h;
+   } else {
+      <span class="color-new">cout &lt;&lt; "Warning: Invalid hour! Hour shall be 0-23. Set to 0." &lt;&lt; endl;
+      hour = 0;</span>  <span class="color-comment">// Program continues with a hour value may or may not be desired?</span>
+   }
+}</pre>
+
+<p class="">Instead, C++ provides an exception handling facility (in header <code class="">&lt;stdexcept&gt;</code>) to properly and gracefully handle exceptions. Let's modify the codes to perform input validation using the C++ exception handling facility.</p>
+
+<h5 class=""><span class="font-code">Time.h</span></h5>
+
+<table class="table-program">
+<colgroup class="" style=""><col class="col-line-number" style="">
+<col class="col-program" style="">
+</colgroup><tbody class="">
+<tr class="">
+<td class="">
+<pre class="text-right">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23</pre>
+</td>
+<td class="">
+<pre class=""><span class="color-comment">/* Header for the Time class (Time.h) */</span>
+#ifndef TIME_H
+#define TIME_H
+ 
+class Time {
+private:
+   int hour;    <span class="color-comment"> // 0 - 23</span>
+   int minute;  <span class="color-comment"> // 0 - 59</span>
+   int second;  <span class="color-comment"> // 0 - 59</span>
+ 
+public:
+   Time(int h = 0, int m = 0, int s = 0);
+   int getHour() const;
+   void setHour(int h);
+   int getMinute() const;
+   void setMinute(int m);
+   int getSecond() const;
+   void setSecond(int s);
+   void setTime(int h, int m, int s);
+   void print() const;
+};
+ 
+#endif</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+<h5 class="font-code">Time.cpp</h5>
+
+<table class="table-program">
+<colgroup class="" style=""><col class="col-line-number" style="">
+<col class="col-program" style="">
+</colgroup><tbody class="">
+<tr class="">
+<td class="">
+<pre class="text-right">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65</pre>
+</td>
+<td class="">
+<pre class=""><span class="color-comment">/* Implementation for the Time Class (Time.cpp) */</span>
+#include &lt;iostream&gt;
+#include &lt;iomanip&gt;
+#include &lt;stdexcept&gt;   <span class="color-comment"> // Needed for exception handling</span>
+#include "Time.h"
+using namespace std;
+ 
+Time::Time(int h, int m, int s) {
+  <span class="color-comment"> // Call setters to perform input validation</span>
+   <span class="color-new">setHour(h);
+   setMinute(m);
+   setSecond(s);</span>
+}
+ 
+int Time::getHour() const {
+   return hour;
+}
+ 
+void Time::setHour(int h) { <span class="color-comment"> // with input validation</span>
+   if (h &gt;= 0 &amp;&amp; h &lt;= 23) {
+      hour = h;
+   } else {
+      <span class="color-new">throw invalid_argument("Invalid hour! Hour shall be 0-23.");</span>
+           <span class="color-comment"> // need &lt;stdexcept&gt;</span>
+   }
+}
+ 
+int Time::getMinute() const {
+   return minute;
+}
+ 
+void Time::setMinute(int m) {
+   if (m &gt;= 0 &amp;&amp; m &lt;= 59) {
+      minute = m;
+   } else {
+      <span class="color-new">throw invalid_argument("Invalid minute! Minute shall be 0-59.");</span>
+           <span class="color-comment"> // need &lt;stdexcept&gt;</span>
+   }
+}
+ 
+int Time::getSecond() const {
+   return second;
+}
+ 
+void Time::setSecond(int s) {
+   if (s &gt;= 0 &amp;&amp; s &lt;= 59) {
+      second = s;
+   } else {
+      <span class="color-new">throw invalid_argument("Invalid second! Second shall be 0-59.");</span>
+           <span class="color-comment"> // need &lt;stdexcept&gt;</span>
+   }
+}
+ 
+void Time::setTime(int h, int m, int s) {
+   <span class="color-comment">// Call setters to validate inputs</span>
+   <span class="color-new">setHour(h);
+   setMinute(m);
+   setSecond(s);</span>
+}
+ 
+void Time::print() const {
+   cout &lt;&lt; setfill('0');
+   cout &lt;&lt; setw(2) &lt;&lt; hour &lt;&lt; ":" &lt;&lt; setw(2) &lt;&lt; minute &lt;&lt; ":"
+        &lt;&lt; setw(2) &lt;&lt; second &lt;&lt; endl;
+}</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+<p class="">Program Notes:</p>
+
+<ul class="">
+<li class=""><span class="line-heading-code-new">void Time::setHour(int h)<br class="">
+&nbsp;&nbsp;&nbsp;if (h &gt;= 0 &amp;&amp; h &lt;= 23) {<br class="">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;hour = h;<br class="">
+&nbsp;&nbsp;&nbsp;} else {<br class="">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;throw invalid_argument("Invalid hour! Hour shall be 0-23.");<br class="">
+&nbsp;&nbsp;&nbsp;}<br class="">
+}<br class="">
+</span>
+We shall illustrate the input validation with the <code class="">setHour()</code> member function. It assigns the given <code class="">h</code> to <code class="">hour</code> if <code class="">h</code> is a valid hour. Otherwise, we use the C++ <em class="">exception handling facility</em> to throw an <em class="">exception object</em> of the type <code class="">invalid_argument</code> (defined in <code class="">&lt;stdexcept&gt;</code> header). This allows the caller to catch the exception and gracefully process the abnormal condition (to be illustrated later in the test driver).</li>
+
+<li class=""><span class="line-heading-code-new">Time::Time(int h, int m, int s) {<br class="">
+&nbsp;&nbsp;&nbsp;setHour(h);<br class="">
+&nbsp;&nbsp;&nbsp;setMinute(m);<br class="">
+&nbsp;&nbsp;&nbsp;setSecond(s);<br class="">
+}<br class="">
+</span>
+In the constructor, we invoke the <code class="">setHour()</code>, <code class="">setMinute()</code> and <code class="">setSecond()</code>, which perform input validation, instead of direct assignment. We also modified <code class="">setTime()</code> in a similar manner.</li>
+
+</ul>
+
+<h5 class="font-code">TestTime.cpp</h5>
+
+<table class="table-program">
+<colgroup class="" style=""><col class="col-line-number" style="">
+<col class="col-program" style="">
+</colgroup><tbody class="">
+<tr class="">
+<td class="">
+<pre class="text-right">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22</pre>
+</td>
+<td class="">
+<pre class=""><span class="color-comment">/* Test Driver for the Time class (TestTime.cpp) */</span>
+#include &lt;iostream&gt;
+#include &lt;stdexcept&gt; <span class="color-comment"> // Needed for exception handling</span>
+#include "Time.h"
+using namespace std;
+ 
+int main() {
+  <span class="color-comment"> //   <span class="color-new">Time t2(25, 0, 0);</span> // program terminates abruptly</span>
+  <span class="color-comment"> //   t2.print();        // The rest of program will not be run</span>
+ 
+  <span class="color-comment"> // Graceful handling of exception</span>
+   <span class="color-new">try</span> {
+      Time t1(25, 0, 0);<span class="color-comment"> // Skip the remaining statements in try-clause and</span>
+                        <span class="color-comment"> // jump to catch-clause if an exception is thrown</span>
+      t1.print();
+        <span class="color-comment"> // Continue to the next statement after try-catch, if there is no exception</span>
+   } <span class="color-new">catch (invalid_argument&amp; ex)</span> { <span class="color-comment"> // need &lt;stdexcept&gt;</span>
+      <span class="color-new">cout &lt;&lt; "Exception: " &lt;&lt; ex.what() &lt;&lt; endl;</span>
+        <span class="color-comment"> // Continue to the next statement after try-catch</span>
+   }
+   cout &lt;&lt; "Next statement after try-catch" &lt;&lt; endl;
+}</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+<p class="">Program Notes:</p>
+
+<ul class="">
+<li class=""><span class="line-heading-code-new">Time t1(25, 0, 0);</span><br class="">
+If you run the above statements (un-comment lines 8 and 9) without catching the exception, the program terminates abruptly (i.e., the remaining statements will not be run) with the following error message:
+
+<pre class="output">terminate called after throwing an instance of 'std::invalid_argument'
+  what():  Invalid hour! Hour shall be 0-23.</pre></li>
+
+<li class=""><span class="line-heading-code-new">try {<br class="">
+&nbsp;&nbsp;&nbsp;Time t2(25, 0, 0);<br class="">
+&nbsp;&nbsp;&nbsp;t2.print();<br class="">
+} catch (invalid_argument&amp; ex) {<br class="">
+&nbsp;&nbsp;&nbsp;cout &lt;&lt; "Exception: " &lt;&lt; ex.what() &lt;&lt; endl;<br class="">
+}<br class="">
+</span>
+However, if you enclose the statements in a <em class="">try-catch construct</em> as above, when an exception occurs in one of the statement in the try-clause, the remaining statements in the try-clause are skipped, and control transferred to the catch-clause. In this case, the catch-clause catches the <code class="">invalid_argument</code> exception thrown, run the catch-body. The program then continues to the next statement after the try-catch. In this way, your program can gracefully process the abnormal condition (e.g., to close the file and resource) instead of abrupt termination.</li>
+
+</ul>
+
+<h3 class="">3.&nbsp;&nbsp;Object Reference, Pointer and Array with Dynamic Allocation (Advanced)<a id="zz-3." class="" style=""></a></h3>
+
+<p class="">We shall use the above <code class="">Time</code> class to illustrate object pointer, reference and array, with dynamic allocation.</p>
+
+<table class="table-program">
+<colgroup class="" style=""><col class="col-line-number" style="">
+<col class="col-program" style="">
+</colgroup><tbody class="">
+<tr class="">
+<td class="">
+<pre class="text-right">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47</pre>
+</td>
+<td class="">
+<pre class=""><span class="color-comment">/* Test object pointer, reference and array (TestTimeObject.cpp) */</span>
+#include &lt;iostream&gt;
+#include "Time.h"
+using namespace std;
+ 
+int main() {
+  <span class="color-comment"> // Ordinary object</span>
+   Time t1(1, 2, 3);
+   t1.print(); <span class="color-comment"> // 01:02:03</span>
+ 
+  <span class="color-comment"> // Object pointer</span>
+   Time* ptrT1 = &amp;t1;
+   (*ptrT1).print();<span class="color-comment"> // 01:02:03</span>
+   ptrT1-&gt;print();  <span class="color-comment"> // 01:02:03</span>
+     <span class="color-comment"> // anObjectPtr-&gt;member is the same as (*anObjectPtr).member</span>
+ 
+  <span class="color-comment"> // Object reference</span>
+   Time&amp; refT1 = t1;<span class="color-comment"> // refT1 is an alias to t1</span>
+   refT1.print();   <span class="color-comment"> // 01:02:03</span>
+ 
+  <span class="color-comment"> // Dynamic allocation</span>
+   Time* ptrT2 = new Time(4, 5, 6);<span class="color-comment"> // allocate dynamically</span>
+   ptrT2-&gt;print();<span class="color-comment"> // 04:05:06</span>
+   delete ptrT2;  <span class="color-comment"> // deallocate</span>
+ 
+  <span class="color-comment"> // Object Array</span>
+   Time tArray1[2];   <span class="color-comment"> // tArray1 is an array of Time with 2 elements</span>
+                      <span class="color-comment"> // Use default constructor for all elements</span>
+   tArray1[0].print(); <span class="color-comment"> // 00:00:00</span>
+   tArray1[1].print(); <span class="color-comment"> // 00:00:00</span>
+ 
+   Time tArray2[2] = {Time(7, 8, 9), Time(10)};<span class="color-comment"> // Invoke constructor</span>
+   tArray2[0].print(); <span class="color-comment"> // 07:08:09</span>
+   tArray2[1].print(); <span class="color-comment"> // 10:00:00</span>
+ 
+   Time* ptrTArray3 = new Time[2];<span class="color-comment"> // ptrTArray3 is a pointer to Time</span>
+           <span class="color-comment"> // Dynamically allocate an array of Time with 2 elements via new[]</span>
+   ptrTArray3[0].print(); <span class="color-comment"> // 00:00:00</span>
+   ptrTArray3[1].print(); <span class="color-comment"> // 00:00:00</span>
+   delete[] ptrTArray3;   <span class="color-comment"> // Deallocate dynamic array via delete[]</span>
+ 
+  <span class="color-comment"> // C++11 syntax, compile with -std=c++0x</span>
+   Time* ptrTArray4 = new Time[2] {Time(11, 12, 13), Time(14)};<span class="color-comment"> // Invoke constructor</span>
+   ptrTArray4-&gt;print();       <span class="color-comment"> // 11:12:13</span>
+   (ptrTArray4 + 1)-&gt;print(); <span class="color-comment"> // 14:00:00</span>
+   delete[] ptrTArray4;
+}</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+<p class="">Program Notes:</p>
+
+<ul class="">
+<li class="">[TODO]</li>
+</ul>
+
+<h3 class="">4.&nbsp;&nbsp;Example: The <span class="font-code">Complex</span> Class<a id="zz-4." class="" style=""></a></h3>
+
+<img class="image-float-right" src="data:image/png;base64,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" alt="class diagram">
+
+<p class="">A class <code class="">Complex</code> models a complex number is designed as shown in the class diagram. It contains:</p>
+
+<ul class="">
+<li class="">Two <code class="">private</code> data members: <code class="">real</code> and <code class="">imag</code>, with default values of 0.0.</li>
+
+<li class="">Constructor, public getters/setters for private data members.</li>
+
+<li class=""><code class="">setValue()</code> which sets both the <code class="">real</code> and <code class="">imag</code>.</li>
+<li class="">A <code class="">public</code> member function <code class="">print()</code> which prints "(<em class="">real</em>, <em class="">imag</em>)".</li>
+<li class=""><code class="">bool</code> member functions <code class="">isReal()</code> and <code class="">isImaginary()</code> which returns true if <code class="">imag</code> is 0 and <code class="">real</code> is 0, respectively.</li>
+<li class=""><code class="">addInto()</code>, which adds the given complex number (by reference) into <code class="">this</code> instance, and return <code class="">this</code> instance by reference.</li>
+<li class=""><code class="">addReturnNew()</code>, which adds the given complex number (by reference) and <code class="">this</code> instance, and returns a new instance of my complex. <code class="">this</code> instance shall not change.</li>
+</ul>
+
+<h5 class="font-code float-clear">Complex.h</h5>
+
+<table class="table-program">
+<colgroup class="" style=""><col class="col-line-number" style="">
+<col class="col-program" style="">
+</colgroup><tbody class="">
+<tr class="">
+<td class="">
+<pre class="text-right">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28</pre>
+</td>
+<td class="">
+<pre class=""><span class="color-comment">/* Header for the Complex class (Complex.h) */</span>
+#ifndef COMPLEX_H
+#define COMPLEX_H
+ 
+class Complex {
+private:
+   double real;
+   double imag;
+ 
+public:
+   Complex(double real = 0.0, double imag = 0.0);
+   double getReal() const;
+   void setReal(double real);
+   double getImag() const;
+   void setImag(double imag);
+   void setValue(double real, double imag);
+   void print() const;
+   bool isReal() const;
+   bool isImaginary() const;
+   <span class="color-comment">// Add the given Complex instance into this instance, and return this instance by reference</span>
+   Complex &amp; addInto(const Complex &amp; another);
+   Complex &amp; addInto(double real, double imag);
+   <span class="color-comment">// Add the given Complex instance and this instance, return the sum in a new instance by value</span>
+   Complex addReturnNew(const Complex &amp; another) const;
+   Complex addReturnNew(double real, double imag) const;
+};
+ 
+#endif</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+<p class="">Explanation: [TODO]</p>
+
+<h5 class="font-code">Complex.cpp</h5>
+
+<table class="table-program">
+<colgroup class="" style=""><col class="col-line-number" style="">
+<col class="col-program" style="">
+</colgroup><tbody class="">
+<tr class="">
+<td class="">
+<pre class="text-right">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64</pre>
+</td>
+<td class="">
+<pre class=""><span class="color-comment">/* Implementation for the Complex Class (Complex.cpp) */</span>
+#include &lt;iostream&gt;
+#include "Complex.h"
+using namespace std;
+ 
+Complex::Complex(double real, double imag)
+   : real(real), imag(imag) { }
+ 
+double Complex::getReal() const {
+   return real;
+}
+ 
+void Complex::setReal(double real) {
+   this-&gt;real = real;
+}
+ 
+double Complex::getImag() const {
+   return imag;
+}
+ 
+void Complex::setImag(double imag) {
+   this-&gt;imag = imag;
+}
+ 
+void Complex::setValue(double real, double imag) {
+   this-&gt;real = real;
+   this-&gt;imag = imag;
+}
+ 
+<span class="color-comment">// Print this Complex instance in the format of "x + iy"</span>
+void Complex::print() const {
+   cout &lt;&lt; '(' &lt;&lt; real &lt;&lt; ',' &lt;&lt; imag &lt;&lt; ')' &lt;&lt; endl;
+}
+ 
+bool Complex::isReal() const {
+   return (imag == 0);
+}
+ 
+bool Complex::isImaginary() const {
+   return (real == 0);
+}
+ 
+<span class="color-comment">// Add the given Complex instance into this instance and</span>
+<span class="color-comment">//  return a reference of this instance</span>
+Complex &amp; Complex::addInto(const Complex &amp; another) {
+   real += another.real;
+   imag += another.imag;
+   return *this;
+}
+ 
+Complex &amp; Complex::addInto(double real, double imag) {
+   this-&gt;real += real;
+   this-&gt;imag += imag;
+   return *this;
+}
+ 
+<span class="color-comment">// Add the given Complex instance and return the sum in a new instance by value</span>
+Complex Complex::addReturnNew(const Complex &amp; another) const {
+   return Complex(real + another.real, imag + another.imag);
+}
+ 
+Complex Complex::addReturnNew(double real, double imag) const {
+   return Complex(this-&gt;real + real, this-&gt;imag + imag);
+}</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+<h5 class="">Return-by-reference vs. Return-by-value</h5>
+
+<ul class="">
+<li class="">The <code class="">addInto()</code> returns this instance (which already constructed in <code class="">main()</code> and existed) by reference.</li>
+
+<li class="">The <code class="">addReturnNew()</code> constructs a <em class="">temporary</em> (<em class="">local</em>) instance of <code class="">Complex</code> class, and passes this temporary instance as the return value. The caller receives and copy the temporary instance into its own variable, via memberwise assignment (i.e., return by value). The temporary local instance goes out-of-scope when the function returns.</li>
+</ul>
+
+<h5 class="font-code">TestComplex.cpp</h5>
+
+<table class="table-program">
+<colgroup class="" style=""><col class="col-line-number" style="">
+<col class="col-program" style="">
+</colgroup><tbody class="">
+<tr class="">
+<td class="">
+<pre class="text-right">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30</pre>
+</td>
+<td class="">
+<pre class=""><span class="color-comment">/* Test Driver for the Complex class (TestComplex.cpp) */</span>
+#include &lt;iostream&gt;
+#include &lt;iomanip&gt;
+#include "Complex.h"
+using namespace std;
+ 
+int main() {
+   Complex c1, c2(4, 5);
+   c1.print(); <span class="color-comment"> // (0,0)</span>
+   c2.print(); <span class="color-comment"> // (4,5)</span>
+ 
+   c1.setValue(6, 7);
+   c1.print(); <span class="color-comment"> // (6,7)</span>
+ 
+   c1.setReal(0);
+   c1.setImag(8);
+   c1.print(); <span class="color-comment"> // (0,8)</span>
+ 
+   cout &lt;&lt; boolalpha; <span class="color-comment"> // print true/false instead of 0/1</span>
+   cout &lt;&lt; "Is real? " &lt;&lt; c1.isReal() &lt;&lt; endl;          <span class="color-comment"> // false</span>
+   cout &lt;&lt; "Is Imaginary? " &lt;&lt; c1.isImaginary() &lt;&lt; endl;<span class="color-comment"> // true</span>
+ 
+   c1.addInto(c2).addInto(1, 1).print(); <span class="color-comment"> // (5,14)</span>
+   c1.print(); <span class="color-comment"> // (5,14)</span>
+ 
+   c1.addReturnNew(c2).print();  <span class="color-comment"> // (9,19)</span>
+   c1.print(); <span class="color-comment"> // (5,14) - no change in c1</span>
+   c1.addReturnNew(1, 1).print();<span class="color-comment"> // (6,15)</span>
+   c1.print(); <span class="color-comment"> // (5,14) - no change in c1</span>
+}</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+<p class="">Program Notes:</p>
+
+<ul class="">
+<li class="">[TODO]</li>
+</ul>
+
+<h5 class="">Don't Return a Reference of Local Variable</h5>
+
+<p class="">Suppose that we modify the <code class="">addReturnNew()</code> to return a reference, as follows:</p>
+
+<pre class="color-example"><span class="color-new">Complex &amp;</span> Complex::addReturnNew(const Complex &amp; another) const {
+   return Complex(real + another.real, imag + another.imag);
+}</pre>
+
+<p class="">You will receive this compilation error: "<code class="">invalid initialization of non-const reference of type
+'Complex&amp;' from an rvalue of type 'Complex'</code>". This is because the temporary local variable constructed inside the function will go out-of-scope when the function returns and ceases to exist. The caller's reference becomes invalid.</p>
+
+<h3 class="">5.&nbsp;&nbsp;Example: The <span class="font-code">Date</span> Class<a id="zz-5." class="" style=""></a></h3>
+
+<img class="image-float-right" src="data:image/png;base64,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" alt="class diagram">
+
+<h5 class="font-code float-clear">Date.h</h5>
+
+<table class="table-program">
+<colgroup class="" style=""><col class="col-line-number" style="">
+<col class="col-program" style="">
+</colgroup><tbody class="">
+<tr class="">
+<td class="">
+<pre class="text-right">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42</pre>
+</td>
+<td class="">
+<pre class=""><span class="color-comment">/* Header for the Date class (Date.h) */</span>
+#ifndef DATE_H
+#define DATE_H
+ 
+#include &lt;string&gt;
+using namespace std;
+ 
+class Date {
+private:
+   int year;   <span class="color-comment"> // 1753-9999</span>
+   int month;  <span class="color-comment"> // 1-12</span>
+   int day;    <span class="color-comment"> // 1-31</span>
+   const static string STR_MONTHS[];
+   const static string STR_DAYS[];
+   const static int DAYS_IN_MONTHS[];
+   const static int YEAR_MIN = 1753;
+   const static int YEAR_MAX = 9999;
+ 
+public:
+   static bool isLeapYear(int y);
+   static bool isValidDate(int y, int m, int d);
+   static int getDayOfWeek(int y, int m, int d);
+ 
+   Date(int y, int m, int d);
+   void setDate(int y, int m, int d);
+   int getYear() const;
+   int getMonth() const;
+   int getDay() const;
+   void setYear(int y);
+   void setMonth(int m);
+   void setDay(int d);
+   void print() const;
+ 
+   Date &amp; nextDay();
+   Date &amp; previousDay();
+   Date &amp; nextMonth();
+   Date &amp; previousMonth();
+   Date &amp; nextYear();
+   Date &amp; previousYear();
+};
+ 
+#endif</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+<p class="">Program Notes:</p>
+
+<ul class="">
+<li class="">[TODO]</li>
+</ul>
+
+<h5 class="font-code">Date.cpp</h5>
+
+<table class="table-program">
+<colgroup class="" style=""><col class="col-line-number" style="">
+<col class="col-program" style="">
+</colgroup><tbody class="">
+<tr class="">
+<td class="">
+<pre class="text-right">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219</pre>
+</td>
+<td class="">
+<pre class=""><span class="color-comment">/* Implementation for Date Class (Date.cpp) */</span>
+#include &lt;iostream&gt;
+#include &lt;stdexcept&gt;
+#include "Date.h"
+using namespace std;
+ 
+<span class="color-comment">// Initialize static non-integer variable (must be done outside the class declaration)</span>
+const string Date::STR_MONTHS[] = {"Jan", "Feb", "Mar", "Apr", "May", "Jun",
+                                   "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
+ 
+const int Date::DAYS_IN_MONTHS[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+ 
+const string Date::STR_DAYS[] = {"Sunday", "Monday", "Tuesday", "Wednesday",
+                                 "Thursday", "Friday", "Saturday"};
+ 
+<span class="color-comment">// A static function that returns true if the given year is a leap year</span>
+bool Date::isLeapYear(int year) {
+   return ((year % 4 == 0 &amp;&amp; year % 100 != 0) || (year % 400 == 0));
+}
+ 
+<span class="color-comment">// A static function that returns true if the given y, m, d constitutes a valid date</span>
+bool Date::isValidDate(int y, int m, int d) {
+   if (y &gt;= YEAR_MIN &amp;&amp; y &lt;= YEAR_MAX &amp;&amp; m &gt;= 1 &amp;&amp; m &lt;= 12) {
+      int lastDayOfMonth = DAYS_IN_MONTHS[m-1];
+      if (m == 2 &amp;&amp; isLeapYear(y)) {
+         lastDayOfMonth = 29;
+      }
+      return (d &gt;= 1 &amp;&amp; d &lt;= lastDayOfMonth);
+   } else {
+      return false;
+   }
+}
+ 
+<span class="color-comment">// A static function that returns the day of the week (0:Sun, 6:Sat) for the given date</span>
+<span class="color-comment">// Wiki "Determination of the day of the week" for the algorithm</span>
+int Date::getDayOfWeek(int y, int m, int d) {
+   int centuryTable[] = {4, 2, 0, 6, 4, 2, 0, 6};<span class="color-comment"> // 17xx, 18xx, ...</span>
+   int MonthTable[] = {0, 3, 3, 6, 1, 4, 6, 2, 5, 0, 3, 5};
+   int MonthLeapYearTable[] = {6, 2, 3, 6, 1, 4, 6, 2, 5, 0, 3, 5};
+ 
+   int century = y / 100;
+   int twoDigitYear = y % 100;
+   int centuryTableIndex = (century - 17) % 8;
+  <span class="color-comment"> // Date before 17xx are not valid, but needed to prevent negative index</span>
+   if (centuryTableIndex &lt; 0) {
+      centuryTableIndex += 8;
+   }
+   int sum = centuryTable[centuryTableIndex] + twoDigitYear + twoDigitYear / 4;
+   if (isLeapYear(y)) {
+      sum += MonthLeapYearTable[m-1];
+   } else {
+      sum += MonthTable[m-1];
+   }
+   sum += d;
+   return sum % 7;
+}
+ 
+<span class="color-comment">// Constructor</span>
+Date::Date(int y, int m, int d) {
+   setDate(y, m, d);
+}
+ 
+<span class="color-comment">// With Input validation</span>
+void Date::setDate(int y, int m, int d) {
+   setYear(y);
+   setMonth(m);
+   setDay(d);<span class="color-comment"> // need to set the day after year and month</span>
+}
+ 
+int Date::getYear() const {
+   return year;
+}
+ 
+void Date::setYear(int y) {
+   if (y &gt;= YEAR_MIN &amp;&amp; y &lt;= YEAR_MAX) {
+      year = y;
+   } else {
+      throw invalid_argument("Error: Invalid year (1753-9999)!");
+   }
+}
+ 
+int Date::getMonth() const {
+   return month;
+}
+ 
+void Date::setMonth(int m) {
+   if (m &gt;= 1 &amp;&amp; m &lt;= 12) {
+      month = m;
+   } else {
+      throw invalid_argument("Error: Invalid month (1-12)!");
+   }
+}
+ 
+int Date::getDay() const {
+   return day;
+}
+ 
+<span class="color-comment">// Assuming that the year and month are already set</span>
+void Date::setDay(int d) {
+   int lastDayOfMonth = DAYS_IN_MONTHS[month-1];
+   if (month == 2 &amp;&amp; isLeapYear(year)) {
+      lastDayOfMonth = 29;
+   }
+   if (d &gt;= 1 &amp;&amp; d &lt;= lastDayOfMonth) {
+      day = d;
+   } else {
+      throw invalid_argument("Error: Invalid day (1-28|29|30|31)!");
+   }
+}
+ 
+<span class="color-comment">// Print this instance in the format "xxxday, d mmm yyyy".</span>
+void Date::print() const {
+   cout &lt;&lt; STR_DAYS[getDayOfWeek(year, month, day)] &lt;&lt; ", "
+        &lt;&lt; day &lt;&lt; " " &lt;&lt; STR_MONTHS[month-1] &lt;&lt; " " &lt;&lt; year &lt;&lt; endl;
+}
+ 
+<span class="color-comment">// Increment this instance to the next day and return this instance by reference</span>
+Date&amp; Date::nextDay() {
+   int lastDayOfMonth = DAYS_IN_MONTHS[month-1];
+   if (month == 2 &amp;&amp; isLeapYear(year)) {
+      lastDayOfMonth = 29;
+   }
+ 
+  <span class="color-comment"> // check day against the end of month</span>
+   if (++day &gt; lastDayOfMonth) {
+      day = 1;
+      if (++month &gt; 12) {
+         month = 1;
+         if (++year &gt; YEAR_MAX) {
+            throw out_of_range("Error: Next day is out of range!");
+         }
+      }
+   }
+   return *this;
+}
+ 
+<span class="color-comment">// Decrement this instance to the previous day and return this instance by reference</span>
+Date&amp; Date::previousDay() {
+   int lastDayOfMonth = DAYS_IN_MONTHS[month-1];
+   if (month == 2 &amp;&amp; isLeapYear(year)) {
+      lastDayOfMonth = 29;
+   }
+ 
+  <span class="color-comment"> // check day against the end of month</span>
+   if (--day &lt; 1) {
+      day = lastDayOfMonth;
+      if (--month &lt; 1) {
+         month = 12;
+         if (--year &lt; YEAR_MIN) {
+            throw out_of_range("Error: Previous day is out of range!");
+         }
+      }
+   }
+   return *this;
+}
+ 
+<span class="color-comment">// Increment this instance to the next month and return this instance by reference</span>
+Date&amp; Date::nextMonth() {
+   if (++month &gt; 12) {
+      month = 1;
+      if (++year &gt; YEAR_MAX) {
+         throw out_of_range("Error: Next month is out of range!");
+      }
+   }
+  <span class="color-comment"> // may need to adjust the last day of the month</span>
+   int lastDayOfMonth = DAYS_IN_MONTHS[month-1];
+   if (month == 2 &amp;&amp; isLeapYear(year)) {
+      lastDayOfMonth = 29;
+   }
+   if (day &gt; lastDayOfMonth) {
+      day = lastDayOfMonth;
+   }
+   return *this;
+}
+ 
+<span class="color-comment">// Decrement this instance to the previous month and return this instance by reference</span>
+Date&amp; Date::previousMonth() {
+   if (--month &lt; 1) {
+      month = 12;
+      if (--year &lt; YEAR_MIN) {
+         throw out_of_range("Error: Previous month is out of range!");
+      }
+   }
+  <span class="color-comment"> // may need to adjust the last day of the month</span>
+   int lastDayOfMonth = DAYS_IN_MONTHS[month-1];
+   if (month == 2 &amp;&amp; isLeapYear(year)) {
+      lastDayOfMonth = 29;
+   }
+   if (day &gt; lastDayOfMonth) {
+      day = lastDayOfMonth;
+   }
+   return *this;
+}
+ 
+<span class="color-comment">// Increment this instance to the next year and return this instance by reference</span>
+Date&amp; Date::nextYear() {
+   if (++year &gt; YEAR_MAX) {
+      throw out_of_range("Error: Next year is out of range!");
+   }
+  <span class="color-comment"> // may need to adjust the last day of the month for leap year (29 Feb)</span>
+  <span class="color-comment"> //  to non-leap year (28 Feb)</span>
+   if (month == 2 &amp;&amp; day == 29 &amp;&amp; !isLeapYear(year)) {
+      day = 28;
+   }
+   return *this;
+}
+ 
+<span class="color-comment">// Decrement this instance to the previous year and return this instance by reference</span>
+Date&amp; Date::previousYear() {
+   if (--year &lt; YEAR_MIN) {
+      throw out_of_range("Error: Previous year is out of range!");
+   }
+  <span class="color-comment"> // may need to adjust the last day of the month for leap year (29 Feb)</span>
+  <span class="color-comment"> //  to non-leap year (28 Feb)</span>
+   if (month == 2 &amp;&amp; day == 29 &amp;&amp; !isLeapYear(year)) {
+      day = 28;
+   }
+   return *this;
+}</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+<p class="">Program Notes:</p>
+
+<ul class="">
+<li class="">[TODO]</li>
+</ul>
+
+
+<h5 class="font-code float-clear">TestDate.cpp</h5>
+
+<table class="table-program">
+<colgroup class="" style=""><col class="col-line-number" style="">
+<col class="col-program" style="">
+</colgroup><tbody class="">
+<tr class="">
+<td class="">
+<pre class="text-right">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58</pre>
+</td>
+<td class="">
+<pre class=""><span class="color-comment">/* Test Driver Program (TestDate.cpp) */</span>
+#include &lt;iostream&gt;
+#include &lt;stdexcept&gt;
+#include "Date.h"
+ 
+int main() {
+   Date d1(2012, 1, 1);
+   d1.print(); <span class="color-comment"> // Sunday, 1 Jan 2012</span>
+   d1.nextDay().print(); <span class="color-comment"> // Monday, 2 Jan 2012</span>
+   d1.print(); <span class="color-comment"> // Monday, 2 Jan 2012</span>
+ 
+   d1.setDate(2012, 1, 31);
+   d1.print(); <span class="color-comment"> // Tuesday, 31 Jan 2012</span>
+   d1.nextDay().print(); <span class="color-comment"> // Wednesday, 1 Feb 2012</span>
+ 
+   d1.setDate(2012, 2, 28);
+   d1.print(); <span class="color-comment"> // Tuesday, 28 Feb 2012</span>
+   d1.nextDay().print(); <span class="color-comment"> // Wednesday, 29 Feb 2012</span>
+ 
+   d1.setDate(2012, 12, 31);
+   d1.print(); <span class="color-comment"> // Monday, 31 Dec 2012</span>
+   d1.nextDay().print(); <span class="color-comment"> // Tuesday, 1 Jan 2013</span>
+ 
+<span class="color-comment">//   Date d2(2011, 2, 29); <span class="color-comment"> // abrupt termination!</span></span>
+<span class="color-comment">//   d2.print();</span>
+ 
+   try { <span class="color-comment"> // graceful handling of exception</span>
+      Date d3(2011, 2, 29);
+      d3.print();
+   } catch (invalid_argument &amp;ex) {
+      cout &lt;&lt; ex.what() &lt;&lt; endl; <span class="color-comment"> // Error: Invalid day (1-28|29|30|31)!</span>
+   }
+   cout &lt;&lt; "Next Statement after try-catch" &lt;&lt; endl;
+ 
+   try { <span class="color-comment"> // graceful handling of exception</span>
+      Date d4(9999, 12, 30);
+      d4.nextDay().print();<span class="color-comment"> // Friday, 31 Dec 9999</span>
+      d4.nextDay();
+      d4.print();
+   } catch (out_of_range &amp;ex) {
+      cout &lt;&lt; ex.what() &lt;&lt; endl; <span class="color-comment"> // Error: Next day is outside the valid range!</span>
+   }
+ 
+   Date d5(2012, 1, 1);
+   d5.previousDay().print(); <span class="color-comment"> // Saturday, 31 Dec 2011</span>
+ 
+   Date d6(2012, 3, 31);
+   d6.nextMonth().print(); <span class="color-comment"> // Monday, 30 Apr 2012</span>
+ 
+   Date d7(2012, 3, 31);
+   d7.previousMonth().print(); <span class="color-comment"> // Wednesday, 29 Feb 2012</span>
+ 
+   Date d8(2012, 2, 29);
+   d8.nextYear().print();<span class="color-comment"> // Thursday, 28 Feb 2013</span>
+ 
+   Date d9(2012, 2, 29);
+   d9.previousYear().print(); <span class="color-comment"> // Monday, 28 Feb 2011</span>
+}</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+<p class="">Program Notes:</p>
+
+<ul class="">
+<li class="">[TODO]</li>
+</ul>
+
+
+
+<h3 class="">6.&nbsp;&nbsp;Example: The <span class="font-code">Point</span> and <span class="font-code">Polyline</span> Class<a id="zz-6." class="" style=""></a></h3>
+<p class="">[TODO] Using STL <code class="">vector&lt;Point&gt;</code>..</p>
+
+<a class="references" href="http://www.ntu.edu.sg/home/ehchua/programming/howto/References.html#cpp">Link to "C++ Language References &amp; Resources"</a>
+
+</div> <!-- End the content-main division -->
+
+<div id="content-footer" class="">
+<p class="">Latest version tested: GCC g++ 4.6.2<br class="">
+Last modified: May, 2013</p>
+</div>
+
+</div>  <!-- End the wrap-inner division -->
+
+<!-- footer filled by JavaScript -->
+<div id="footer" class="header-footer"><p class="">Feedback, comments, corrections, and errata can be sent to Chua Hock-Chuan (ehchua@ntu.edu.sg) &nbsp;&nbsp;|&nbsp;&nbsp; <a href="http://www.ntu.edu.sg/home/ehchua/programming/index.html" class="">HOME</a></p></div>
+
+</div>  <!-- End the wrap-outer division -->
+<!-- @@ end change in v1 -->
+
+
+<div class="selection_bubble_root" style=""></div></body></html>

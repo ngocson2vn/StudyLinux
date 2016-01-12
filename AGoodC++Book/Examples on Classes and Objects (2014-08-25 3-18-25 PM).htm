@@ -1,0 +1,1380 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><!--
+ Archive processed by SingleFile 
+ url: http://www.ntu.edu.sg/home/ehchua/programming/cpp/cp11_TipsTraps.html 
+ saved date: Mon Aug 25 2014 15:18:25 GMT+0900 (Tokyo Standard Time) 
+--><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Examples on Classes and Objects</title>
+
+<!-- @@ start change in v1 -->
+<style rel="stylesheet" type="text/css" data-href="http://www.ntu.edu.sg/home/ehchua/programming/css/programming_notes_v1.css">/* 
+ * Universal selector - clear all the margin and padding to get consistent layout for Firefox and IE 
+ */
+* { 
+	margin: 0;
+	padding: 0;
+}
+
+/* 
+ * Set default style for all the tags.
+ * Apply to the main content division as well.
+ */
+body {
+	background-color: rgb(202, 251, 237);
+	color: #000;
+	font-family: "Segoe UI", Segoe, Calibri, "Ubuntu", Tahoma, Arial, Helvetica, Verdana, sans-serif;
+	font-size: 14px;
+	text-align: justify;
+	line-height: 1.5;
+}
+
+/*
+ * "wrap-outer" wraps header, wrap-inner and footer
+ */
+#wrap-outer {
+	margin: 20px 20px 20px 20px;
+	padding: 0;
+	
+}
+/*
+ * "wrap-inner" wraps content-header, content-main and content-footer
+ */
+#wrap-inner {
+	background-color: #fff;
+	margin: 0;
+	border: 1px solid #ddd;
+	padding: 25px 15px;
+	box-shadow: 5px 5px 0 #ddd;
+}
+#content-header {
+	margin: 0;
+	padding: 50px 0 10px 0;
+}
+
+#content-main {
+	margin: 0;
+	padding: 30px 0 20px 0;
+}
+#content-footer {
+	font-family: "Century Gothic", "Segoe UI", Segoe, "Ubuntu", Verdana, Tahoma, Arial, Helvetica, sans-serif;
+	font-size: 13px;
+	text-align: right;
+	color: rgb(192, 80, 77);
+/*	color: rgb(11, 83, 149); */
+	margin: 30px 0 0 0;
+    padding: 0;
+	border-top: 4px solid rgb(12, 155, 116);
+}
+/*
+ *  The main "header" & "footer" divisions
+ */
+.header-footer {
+	font-family: "Century Gothic", "Segoe UI", Segoe, "Ubuntu", Verdana, Tahoma, Arial, Helvetica, sans-serif;
+	color: rgb(192, 80, 77);
+/*	color: rgb(11, 83, 149); */
+	font-size: 13px;
+	text-align: right;
+	margin: 10px 0 5px 0;
+	padding: 5px 4px;
+}
+.header-footer a {
+	color: rgb(192, 80, 77);
+	text-decoration: underline;
+}
+.header-footer a:focus, .header-footer a:hover {  /* change color and remove underline */
+	text-decoration: none;
+ 	color: rgb(11, 83, 149);
+/*	color: rgb(192, 80, 77); */
+}
+
+h1, h2, h3, h4, h5, h6 {  /* main title and sub-title */
+	font-family: "Century Gothic", "Trebuchet MS", "Segoe UI", Segoe, "Ubuntu", Verdana, Tahoma, Arial, Helvetica, sans-serif;
+	margin: 0;
+	color: rgb(10, 132, 100);
+	letter-spacing: 1px;
+	line-height: 1.2;
+	text-align:left;
+}
+h1 {
+	font-size: 40px;
+	font-weight: 400;
+	padding: 0.2em 0;
+}
+h2 {
+	font-size: 36px;
+	font-weight: 400;
+	padding: 0.2em 0;
+}
+h3 {
+	font-size: 22px;
+	border-bottom: thin solid rgb(12, 155, 116);
+	padding: 1.5em 0 0.3em 0;
+}
+h4 {
+	font-family: "Segoe UI", Segoe, "Ubuntu", Verdana, Tahoma, Arial, Helvetica, sans-serif;
+	font-size: 18px;
+	padding: 1.3em 0 0.2em 0;
+	border-bottom: thin dotted rgb(12, 155, 116);
+}
+h5, h6 {
+	font-family: "Segoe UI", Segoe, "Ubuntu", Verdana, Tahoma, Arial, Helvetica, sans-serif;
+	font-size: 15px;
+	color: #444;
+	padding: 1.2em 0 0 0;  /* top right bottom left */
+	letter-spacing: 1px;
+}
+.line-heading {
+	color: #444;
+	font-size: 15px;
+	font-weight: bold;
+	letter-spacing: 1px;
+	padding: 0.2em 0;
+}
+.line-heading-code-new {
+	font-family: Consolas, "Lucida Console", "Courier New", Courier, monospace;
+	color: #E31B23;
+	font-size: 15px;
+    font-weight: normal;
+/*	letter-spacing: 0.5px; */
+}
+p {
+	margin-top: 0.6em;
+	margin-bottom: 0.4em;
+}
+pre {
+	font-family: Consolas, "Lucida Console", "Courier New", Courier, monospace;
+	font-size: 13px;
+	margin: 5px 0 8px 0;
+	border: solid 2px #f8f8f8;  /* slight 3D shape */
+	padding: 5px 10px;
+	line-height: 135%;
+}
+code {
+	font-family: Consolas, "Lucida Console", "Courier New", Courier, monospace;
+}
+
+ul {   /* first level ul */
+	margin: 0.3em 0 0.2em 1.8em;
+	padding: 0;
+/*	list-style-type: square;  */
+	list-style-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAANAQMAAABBztZFAAAABlBMVEUAAwBjjJzG2b5OAAAAAXRSTlMAQObYZgAAABBJREFUCNdjYMAG7FARAwMADXkBNzRuJgIAAAAASUVORK5CYII=);
+}
+ul ul li {   /* 2nd level ul */
+	list-style-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAANAQMAAABb8jbLAAAABlBMVEX///8AUow5QSOjAAAAAXRSTlMAQObYZgAAABNJREFUCB1jYEABBQw/wLCAgQEAGpIDyT0IVcsAAAAASUVORK5CYII=);
+/*
+	list-style-type: disc;
+	list-style-image: none; */
+}
+ul ul u1 li {   /* 3rd level ul */
+	list-style-type: circle;
+	list-style-image: none;
+}
+ol {   /* first level ol */
+/*    list-style-position:inside; */
+/*    display: table  */
+    list-style-type: decimal;
+	margin: 0.3em 0 0.2em 2.5em;
+	padding: 0;
+}
+ol ol li {   /* 2nd level ol */
+	list-style-type: lower-alpha;
+}
+ol ol o1 li {  /* 3rd level ol */
+	list-style-type: lower-roman;
+}
+
+li {
+	margin: 0.4em 0;
+}
+
+.float-left-ol-ul {
+	overflow:hidden;
+}
+
+/* li after a left-float image */
+.float-left-li {
+   position: relative; left: 20px;
+   margin-right: 20px;
+}
+
+a {
+	color: rgb(11, 83, 149);
+	text-decoration: none;
+}
+a:hover, a:focus {
+	color: rgb(192, 80, 77);
+	text-decoration: underline;
+}
+
+a.references {
+	display: block;
+	width: 30em;
+	font-size: 18px;
+	font-weight: bold;
+	margin: 4em 0 0 0;
+}
+
+p.references {
+	font-size: 18px;
+	font-weight: bold;
+	margin: 4em 0 0 0;
+}
+
+/*
+ * General classes
+ */
+.center-block {
+	margin: 10px auto;  /* auto margin-left and margin-right to center the table */
+}
+.text-center {	
+    text-align: center; 
+}
+.text-right {	
+    text-align: right; 
+}
+.underline {
+	text-decoration: underline;
+}
+.font-code {
+	font-family: Consolas, "Lucida Console", "Courier New", Courier, monospace;
+}
+.font-code-text {
+	font-family: Consolas, "Lucida Console", "Courier New", Courier, monospace;
+	font-size: 14px;
+}
+.font-code-smaller {
+	font-family: Consolas, "Lucida Console", "Courier New", Courier, monospace;
+	font-size: 13px;
+}
+.font-normal {
+	font-family: "Segoe UI", Segoe, Calibri, "Ubuntu", Tahoma, Arial, Helvetica, Verdana, sans-serif;
+}
+.pre {
+    white-space: pre;	
+}
+/* color control mainly for <pre>, <div>, <span> */
+.color-example {
+	background-color: rgb(215, 236, 211);  /* darker */
+}
+.color-example-light {
+	background-color: rgb(236, 246, 234);  /* lighter */
+}
+.color-syntax, .color-command {
+	background-color: rgb(204, 238, 241);  /* darker */
+}
+.color-explanation {
+	background-color: #eee;   /* grey */
+}
+/* Character level control for code listing */
+.color-comment {
+	color: #009900;  /* green */
+}
+.color-new {
+	color: #E31B23;  /* dark red to highlight new terms */
+}
+.color-error {
+	color: #ff0099;  /* bright red */
+/*	font-weight:bold; */
+}
+.color-plain {
+	background-color: #fff;
+}
+.color-highlight {
+	background-color: #ff0;
+}
+.color-highlight-new {
+    background-color: #FFC;  /* lighter */
+}
+
+.output {  /* Output of program or DOS session */
+    background-color: rgb(236, 246, 234);  /* lighter */
+	border: solid 2px #f8f8f8;   /* slight 3D shape */
+	padding: 4px 8px;
+}
+.side-note {
+	margin-top: 15px;
+    margin-left: 40px;
+	padding: 3px 8px; 
+	background-color: #e7e7e7;
+}
+
+
+/*
+ * for positioning images 
+ */
+img.image-center {      /* center horizontally an image */
+	display: block;
+	margin: 10px auto;
+}
+img.image-border {
+    border: #ddd thin solid;
+}
+img.image-float-left {
+	float: left;
+	margin: 8px 15px 15px 0;
+    border: #ddd thin solid;
+}
+img.image-float-right {
+	float: right;
+	margin: 8px 0 15px 15px;
+    border: #ddd thin solid;
+}
+.float-clear {
+   clear: both;	
+}
+/*
+ *  Table - for tablulating data with alternate row colors or different column colors
+ */
+table.table-zebra, table.table-program {
+	border-collapse: collapse;
+	border: 0;
+	margin: 0 auto; /* center */
+	padding: 0;
+    width: 100%;
+	/* Default setting for all cells in this table, inherited */
+    background-color: rgb(231, 240, 248);  /* lighter */
+	text-align: left;
+	vertical-align: top;
+}
+table.table-zebra th {  /* header cells */
+	color: #ffffff;     /* white text on dark background */
+	background-color: rgb(0, 157, 217);
+	margin: 0;
+	border: 2px solid white;
+	padding: 4px 10px;
+	font-size: 15px;
+	letter-spacing: 1px;
+	text-align: center;
+}
+table.table-zebra td {  /* data cells */
+    margin: 0;
+	border: 2px solid white;
+	padding: 2px 8px;
+	/* color, font, text inherited from table */
+	vertical-align: top;
+}
+
+table.table-program th {  /* header cells */
+	color: #ffffff;     /* white text on dark background */
+	background-color: rgb(0, 157, 217);
+	margin: 0;
+	border: 2px solid white;
+	padding: 4px 10px;
+	font-size: 15px;
+	letter-spacing: 1px;
+	text-align: center;
+}
+table.table-program td {  /* data cells */
+    margin: 0;
+	border: 0;
+	padding: 0;
+	/* color, font, text inherited from table */
+}
+
+table.table-program td pre {
+	margin: 0;
+	border: solid 2px #f8f8f8;   /* slight 3D shape */
+	padding: 5px 10px;
+}
+
+table.table-program td pre.text-right {
+	text-align: right;
+}
+
+/* Setting the color for row (2 colors) or column (3 colors) */
+/* can only set the background, border, width of <col>, NOT font, text, color */
+/* for table-zebra */
+table .col-desc {       /* same as default color */
+    background-color: rgb(231, 240, 248);  /* lighter */
+}
+table .col-code, table .tr-alt {
+	background-color: rgb(203, 223, 241);  /* darker */
+}
+table .col-example {
+    background-color: #eee;  /* grey */
+}
+
+/* for table-program */
+table .col-line-number {
+	width: 40px;
+    background-color: rgb(225, 233, 207);
+}
+table .col-program {
+    background-color: rgb(240, 244, 233);
+}
+
+/*
+ * For the "Table of Content" generated by JavaScript
+ * in <div id="toc">
+ */
+#wrap-toc {
+    display: block;
+	background: none repeat scroll 0 0 rgb(231, 246, 239);
+	float: right;
+	width: 230px;
+	z-index: 100;
+	line-height: 1.5;
+	margin: 0 0 0 15px;
+	padding: 5px 8px 10px 8px;
+	text-align: left;
+	white-space: nowrap;
+/*	min-height: 180px;  */
+}
+#wrap-toc h5 {
+   letter-spacing: 1px;
+   margin: 0;
+   text-transform: uppercase;
+	color: #444;
+	padding: 0.5em 0;
+}
+a#show-toc {
+	color: rgb(192, 80, 77);
+	text-decoration: none;
+   letter-spacing: 1px;
+}
+#toc {
+	overflow: auto;
+}
+#toc a.toc-H3 {
+    margin-left: 0px;
+	font-size: 15px;
+}
+#toc a.toc-H4 {
+    margin-left: 20px;
+	font-size: 14px;
+}
+#toc a.toc-H5 {
+    margin-left: 40px;
+	font-size: 14px;
+}
+</style>
+
+<link rel="shortcut icon" href="data:image/x-icon;base64,AAABAAEAEBAQAAEABAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAgAAAAAAAAAAAAAAAEAAAAAAAAADy8O0APrMnACEdGADb2tkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMzMzMzMzMzMyIiIiIiIiIzIiIiIiIiIjMgIiIgAAAiMyACIiAAACIzIgAiIiIiIjMiIAIiIiIiMyIiACIiIiIzIiACIiIiIjMiACISEiESMyACIhISEiIzICIiERISIjMiIiISEhIiMyIiIhISIRIzIiIiIiIiIjMzMzMzMzMzMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" type="image/x-icon"></head>
+
+<body class="">
+
+<div id="wrap-outer" class="">
+
+<!-- header filled by JavaScript -->
+<div id="header" class="header-footer"><p class="">yet another insignificant programming notes... &nbsp;&nbsp;| &nbsp;&nbsp;<a href="http://www.ntu.edu.sg/home/ehchua/programming/index.html" class="">HOME</a></p></div>
+
+<div id="wrap-inner" class="">
+
+<div id="wrap-toc" class="">
+<h5 class="">TABLE OF CONTENTS <a id="show-toc" href="#show-toc" class="">(HIDE)</a></h5>
+<div id="toc" class=""><a class="toc-H3" href="#zz-1.">1.&nbsp;&nbsp;Exception Handling</a><br class=""><a class="toc-H4" href="#zz-1.1">1.1&nbsp;&nbsp;<span class="font-code">throw</span>, <span class="font-code">try</span> and <span class="font-code">catch</span></a><br class=""><a class="toc-H4" href="#zz-1.2">1.2&nbsp;&nbsp;Example: The <span class="font-code">Time</span> Class</a><br class=""><a class="toc-H4" href="#zz-1.3">1.3&nbsp;&nbsp;Class <span class="font-code">exception</span> and its subclasses</a><br class=""><a class="toc-H4" href="#zz-1.4">1.4&nbsp;&nbsp;Creating Your Own <span class="font-code">exception</span> subclass</a><br class=""><a class="toc-H3" href="#zz-2.">2.&nbsp;&nbsp;Storage Duration, Scopes and Linkages</a><br class=""><a class="toc-H4" href="#zz-2.1">2.1&nbsp;&nbsp;Automatic Local Variables ("<span class="font-code">auto</span>" Specifier)</a><br class=""><a class="toc-H4" href="#zz-2.2">2.2&nbsp;&nbsp;Static Variables ("<span class="font-code">static</span>" Specifier)</a><br class=""><a class="toc-H4" href="#zz-2.3">2.3&nbsp;&nbsp;External Variables ("<span class="font-code">extern</span>" Specifier)</a><br class=""><a class="toc-H4" href="#zz-2.4">2.4&nbsp;&nbsp;Summary</a><br class=""><a class="toc-H4" href="#zz-2.5">2.5&nbsp;&nbsp;CV-Qualifiers (<span class="font-code">const</span> and <span class="font-code">volatile</span>) and <span class="font-code">mutable</span></a><br class=""><a class="toc-H4" href="#zz-2.6">2.6&nbsp;&nbsp;Function and Linkage</a><br class=""><a class="toc-H4" href="#zz-2.7">2.7&nbsp;&nbsp;Other Scopes</a><br class=""><a class="toc-H3" href="#zz-3.">3.&nbsp;&nbsp;Summary of <span class="font-code">static</span> Keyword</a><br class=""><a class="toc-H3" href="#zz-4.">4.&nbsp;&nbsp;Type Casting Operators</a><br class=""><a class="toc-H3" href="#zz-5.">5.&nbsp;&nbsp;Summary of <span class="font-code">const</span> Keyword</a><br class=""><a class="toc-H3" href="#zz-6.">6.&nbsp;&nbsp;C++ Keywords</a><br class=""><br class=""></div>  <!-- for showing the "Table of Content" -->
+</div>
+
+<div id="content-header" class="">
+<h1 class="">C++ Programming Language</h1>
+<h2 class="">Miscellaneous, Tips and Traps</h2>
+</div>
+
+<div id="content-main" class="">
+
+<!-- @@ end change in v1 -->
+
+
+<h3 class="">1.&nbsp;&nbsp;Exception Handling<a id="zz-1." class="" style=""></a></h3>
+
+<p class="">C++ build the exception handling into the language via keyword <code class="">throw</code>, <code class="">try</code> and <code class="">catch</code> and headers <code class="">&lt;exception&gt;</code>, <code class="">&lt;stdexcept&gt;</code>.</p>
+
+<p class="">In building your classes, you often need to validate the inputs in member functions such as constructors and setters. In the case of invalid inputs, instead of abnormally terminate the program (via <code class="">abort()</code> or <code class="">exit()</code>); or setting them to some default values, it is better to <em class="">throw an exception</em> to the caller and let the caller decides what to do with the exception.</p>
+
+<h4 class="">1.1&nbsp;&nbsp;<span class="font-code">throw</span>, <span class="font-code">try</span> and <span class="font-code">catch</span><a id="zz-1.1" class="" style=""></a></h4>
+
+<p class="">Suppose that we have a class called <code class="">PositiveInteger</code>, which maintains a data member <code class="">value</code> containing a positive integer.</p>
+
+<h5 class="font-code">PositiveInteger.h</h5>
+
+<table class="table-program">
+<colgroup class="" style=""><col class="col-line-number" style="">
+<col class="col-program" style="">
+</colgroup><tbody class="">
+<tr class="">
+<td class="">
+<pre class="text-right">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15</pre>
+</td>
+<td class="">
+<pre class=""><span class="color-comment">/* Header for the PositiveInteger class (PositiveInteger.h) */</span>
+#ifndef POSITIVE_INTEGER_H
+#define POSITIVE_INTEGER_H
+ 
+class PositiveInteger {
+private:
+   int value; <span class="color-comment"> // positive integer (&gt;0) only</span>
+ 
+public:
+   PositiveInteger(int value = 1);
+   void setValue(int value);
+   int getValue() const;
+};
+ 
+#endif</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+<h5 class="font-code">PositiveInteger.cpp</h5>
+
+<table class="table-program">
+<colgroup class="" style=""><col class="col-line-number" style="">
+<col class="col-program" style="">
+</colgroup><tbody class="">
+<tr class="">
+<td class="">
+<pre class="text-right">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26</pre>
+</td>
+<td class="">
+<pre class=""><span class="color-comment">/* Implementation for the PositiveInteger Class (PositiveInteger.cpp) */</span>
+#include &lt;iostream&gt;
+#include &lt;stdexcept&gt;   <span class="color-comment"> // Needed for exception handling</span>
+#include "PositiveInteger.h"
+using namespace std;
+ 
+<span class="color-comment">// Constructor with input validation</span>
+PositiveInteger::PositiveInteger(int value) {
+  <span class="color-comment"> // Call setter to perform input validation</span>
+   setValue(value);
+}
+ 
+<span class="color-comment">// Setter with input validation</span>
+void PositiveInteger::setValue(int v) {
+   if (v &gt; 0) {
+      value = v;
+   } else {
+      <span class="color-new">throw invalid_argument("value shall be more than 0.");</span>
+           <span class="color-comment"> // need &lt;stdexcept&gt;</span>
+   }
+}
+ 
+<span class="color-comment">// Getter</span>
+int PositiveInteger::getValue() const {
+   return value;
+}</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+<p class="">Program Notes:</p>
+
+<ul class="">
+<li class="">The constructor calls the setter <code class="">setValue()</code>, which validates the input value.</li>
+<li class="">In <code class="">setValue()</code>, if the input is invalid, instead of print an error message or terminate the program (via <code class="">abort()</code> or <code class="">exit()</code>), we <code class="">throw</code> an <code class="">invalid_argument</code> exception with an appropriate message. The <code class="">invalid_argument</code> is one of the system-defined exception classes in header <code class="">&lt;stdexcept&gt;</code>.</li>
+
+</ul>
+
+<h5 class="font-code">TestPositiveInteger.cpp</h5>
+
+<table class="table-program">
+<colgroup class="" style=""><col class="col-line-number" style="">
+<col class="col-program" style="">
+</colgroup><tbody class="">
+<tr class="">
+<td class="">
+<pre class="text-right">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42</pre></td>
+<td class="">
+<pre class=""><span class="color-comment">/* Test Driver for the PositiveInteger class (TestPositiveInteger.cpp) */</span>
+#include &lt;iostream&gt;
+#include &lt;stdexcept&gt; <span class="color-comment"> // Needed for exception handling</span>
+#include "PositiveInteger.h"
+using namespace std;
+ 
+int main() {
+  <span class="color-comment"> // Valid input</span>
+   PositiveInteger i1(8);
+   cout &lt;&lt; i1.getValue() &lt;&lt; endl;
+ 
+  <span class="color-comment"> // Invalid input without try-catch</span>
+<span class="color-error">//</span> PositiveInteger i2(-8); <span class="color-error"> // Program terminate abruptly</span>
+ 
+  <span class="color-comment"> // Graceful handling of exception with try-catch</span>
+   <span class="color-new">try</span> {
+      cout &lt;&lt; "begin try 1..." &lt;&lt; endl;
+      PositiveInteger i3(-8);
+        <span class="color-comment"> // Exception thrown.</span>
+        <span class="color-comment"> // Skip the remaining statements in try and jump to catch.</span>
+      cout &lt;&lt; i3.getValue() &lt;&lt; endl;
+      cout &lt;&lt; "end try 1..." &lt;&lt; endl;
+        <span class="color-comment"> // Continue to the next statement after try-catch, if there is no exception</span>
+   } <span class="color-new">catch</span> (<span class="color-new">invalid_argument &amp; ex</span>) { <span class="color-comment"> // need &lt;stdexcept&gt;</span>
+      cout &lt;&lt; "Exception: " &lt;&lt; <span class="color-new">ex.what()</span> &lt;&lt; endl;
+        <span class="color-comment"> // Continue to the next statement after try-catch</span>
+   }
+   cout &lt;&lt; "after try-catch 1..." &lt;&lt; endl;
+ 
+  <span class="color-comment"> // Graceful handling of exception with try-catch</span>
+   <span class="color-new">try</span> {
+      cout &lt;&lt; "begin try 2..." &lt;&lt; endl;
+      PositiveInteger i4(8);<span class="color-comment"> // no exception thrown</span>
+      cout &lt;&lt; i4.getValue() &lt;&lt; endl;
+      cout &lt;&lt; "end try 2..." &lt;&lt; endl;
+        <span class="color-comment"> // Continue to the next statement after try-catch, if there is no exception</span>
+   } <span class="color-new">catch</span> (invalid_argument &amp; ex) { <span class="color-comment"> // need &lt;stdexcept&gt;</span>
+      cout &lt;&lt; "Exception: " &lt;&lt; ex.what() &lt;&lt; endl;
+        <span class="color-comment"> // Continue to the next statement after try-catch</span>
+   }
+   cout &lt;&lt; "after try-catch 2..." &lt;&lt; endl;
+}</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+<p class="">Program Notes:</p>
+
+<ul class="">
+<li class="">Without the <code class="">try-catch</code> statement, the program abnormally terminated, when a <code class="">throw</code> statement is encountered.</li>
+<li class="">With <code class="">try-catch</code>, the execution skips the rest of the <code class="">try</code>-clause, when a <code class="">throw</code> statement is encountered. It jumps into the <code class="">catch</code>-clause; and continues to the next statement after the <code class="">try-catch</code>. Take note that the program is not abnormally terminated.</li>
+<li class="">If no exception is encountered, the execution completes the <code class="">try</code> clause, skip the <code class="">catch</code>-clause, and continues to the next statement after the <code class="">try-catch</code>.</li>
+<li class="">The <code class="">catch</code> takes a parameter of a reference to <code class="">exception</code> class (in header <code class="">&lt;exception&gt;</code>) or its subclass (such as <code class="">invalid_argument</code> in header <code class="">&lt;stdexcept&gt;</code>).</li>
+<li class="">The <code class="">exception</code> class has a member function <code class="">what()</code>, which prints the exception message.</li>
+<li class="">You can have multiple <code class="">catch</code>-clauses, each catching a exception type. If an exception is thrown, the catch-clauses are matched in sequential manner. The <code class="">catch</code> clause catches an exception also catches its subclass.</li>
+<li class="">If an exception is thrown, but no catch-clause matches the exception type. The program returns to its caller (unwinding the function stack), and repeat the exception handling process in the caller.</li>
+</ul>
+
+<h4 class="">1.2&nbsp;&nbsp;Example: The <span class="font-code">Time</span> Class<a id="zz-1.2" class="" style=""></a></h4>
+<p class=""><a href="http://www.ntu.edu.sg/home/ehchua/programming/cpp/cp5_OOPExamples.html#time_exception" class="">HERE</a>.</p>
+
+<h4 class="">1.3&nbsp;&nbsp;Class <span class="font-code">exception</span> and its subclasses<a id="zz-1.3" class="" style=""></a></h4>
+
+<img class="image-center" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnoAAAFgCAYAAAAsD9RsAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAG2iSURBVHhe7b37kxVVmu+9fzvzHxzjjTjzxjsRJ8IzRwwuBa/NRHcTE9EdfY62o3YjonLRiWH6nTnTbWt346VVECzGtqcHHBF1kGq5VVEooGgVxa1AKKgqKcoCAeV+K26FXEUuVcXz5srMlbedlyf3zsydmfu7I1ZA7Vq51vN81rNWfmutXCsLhA8IgAAIgAAIgAAIgEAuCRRy6RWcAgEQAAEQAAEQAAEQIAg9BAEIgAAIgAAIgAAI5JQAhF5OGxZugQAIgAAIgAAIgACEHmIABEAABEAABEAABHJKAEIvpw0Lt0AABEAABEAABEAAQg8xAAIgAAIgAAIgAAI5JQChl9OGhVsgAAIgAAIgAAIgAKGHGAABEAABEAABEACBnBKA0Mtpw8ItEAABEAABEAABEIDQQwyAAAiAAAiAAAiAQE4JJCL0+rfOo5sf/dZIt9bWFuG8fe2CLY81/8C+lqL84jtrHuv/B/sOFuV32iDzwxZ724BLTns63AIBEAABEKhKAokIPSEerr/1YyPdWDShWOhdOWPLY83f37mwWLgp31nzWP8/2NtTlN9pg8wPW+xtAy5VOQ7AaRAAARAAgZwSSEzouQmqnDKFWyAAAiAAAiAAAiCQCgIQeqloBhgBAiAAAiAAAiAAAtETSEToRW82SgSBaAjc2vhH9REAfEAABEAABEAgjwQg9PLYqvCJTQBCj40KGUEABEAABDJIAEIvg40Gk6MjAKEXHUuUBAIgAAIgkD4CEHqxt8kBmj26QIXRs+mAX11NU6hQUPIVplBT7DahAkkAQg+xAAIgAAIgkGcCEHpxt64UcBB6cZMuqXwIvZKw4SIQAAEQAIGMEEhE6Ikz7EIdr3JgNo3Oy8wWV+glGDBNUwo0erbv/GKC1lS2Kgi9yvJH7SAAAiAAAvESSJ/QM5YwlWXMKY5FTFUAiuVNmSzLnMZ1o8mqYYSoUfPbZtT05VRLWc6qyK8uZRFWXY4VYtSRTwqoA7NHW+y02iz+b9pYnM996TY4X7BNaihZ7Q2aZYw39lJR+sDhNnI7kDsVxsEIEAABEAABECiTQKqEniHKLELI8M8qAIPEnhQwrrNpTTTFdr2faHQKNCnCioWiKT4LJERjlELP5OItGJUadfHpzGMXlhpPa148E1hmH8LlIAACIAACIJBaAikRehbh4TrLZP7eOvMmBZB1GdL8brYu6Dxm+BxLw01TikWcd13uQskQZPYLXWYUXeLBmGlzCC/LDJxZrKV+40urTdJnd26ydqsYLZrRTG3IwjAQAAEQAAEQAAEugcoLPetSopfaKFpGdcxa2a6zz2zZi/QXPtpkl3N52K0uj3LcZhC5z+h5CT2v64u+d7OJ4a9lphTP7XG7DfKBAAiAAAiAQDYIVF7oaerKXHZ0m9FjiS9jnsq2hGkXLwzhw6orH0IPM3rZ6KSwEgRAAARAAARKJZCI0BvY10L9PSsCbfR+Rs98ri5oiVErQyxdymvCLt1y6nITeuZ1NnHJPR+vxKVbs64wM3p4Rk8GIzZjBHZLZAABEAABEMgwgUSEXig+HrtuvTc3uOxglWrQTWR5ztiZz8YF1+W38cH7GTtzw0bxM3TWzRzy/1LEeW/GsNbFFHrYdWsLRxyvEqp3IjMIgAAIgEDGCKRP6KkruR7n6LnuvNVEkynO7ELLFEnW74t33hbNFPrU5bnD1eu4kqKywgk9gaRI7BXVxRR6ell4Hk/rqRB6GRuxYC4IgAAIgEAoAukUeqFcqERmxrN+lTALdYYmAKEXGhkuAAEQAAEQyBABCL2SGgtCryRsKbwIQi+FjQKTQAAEQAAEIiOQiNDjbsaIzKvYC4LQix1xQhVA6CUEGtWAAAiAAAhUhEAiQi/0u24rggKVViMBCL1qbHX4DAIgAALVQwBCr3raGp66ELh94TgN9vaADQiAAAiAAAjkkgCEXi6bFU6BAAiAAAiAAAiAABGEHqIABEAABEAABEAABHJKAEIvpw0Lt0AABEAABEAABEAAQg8xAAIgAAIgAAIgAAI5JZCI0BvsO0iDZ/bmFCHcyjKB/q4GErvC8QEBEAABEACBPBJIROjlERx8ygcBHK+Sj3aEFyAAAiAAAu4EIPQQGVVNAEKvqpsfzoMACIBA7glA6OW+ieGgHwEIPcQHCIAACIBAngmkWujtO36J5q7ehwQGJcUAp+NC6HEoIQ8IgAAIgEBWCSQi9Pq3zqNba2tDM5JCb9nmI7Rq2zEkMGDFQN3aA6ow5Hwg9DiUkAcEQAAEQCCrBBIReqW+61YKvRN91+j2bUICA1YMbPjiFIReVkck2A0CIAACIBApgYwIvW9pcPA2EhiwYmB9N1/oRdqbUBgIgAAIgAAIpIxAJoTe8b5vaUAROUhgwIkBKfSaN32esu4Gc0AABEAABEAgWQKZEHrHzn1L/QODSGDAioF13b3q0m3d8pZkexNqAwEQAAEQAIGUEciE0Dt65lu6eWsQCQxYMbBuJ4ReysYZmAMCIAACIFAhApkQeofPXKHrN/uRwIAVA2t3nsSMXoUGFFQLAiAAAiCQLgKJCL1SXZa7bg+eukzfXr+FBAasGGjp4gs9HK9Sau/EdSAAAiAAAlkgkAmht7/3Ml25dhMJDFgxsGYHhF4WBh/YCAIgAAIgED+BTAi9r05cootXbyCBASsGmj8/wV66xYxe/IMMagABEAABEKgcgUwIvb3HL9L5y9eRwIAVA00QepUbUVAzCIAACIBAqghkQujtPnKBzlz4DonNYDe9MrJAhZF/oHa/axqfpEJByVd4kpayy05/O3zSiRm9VI0yMAYEQAAEQKBiBBIReuW+Aq3n0DfUqxyajMRk0KALuJGvUZsfN5lPEXqLcsR3dftxLN1WbEhBxSAAAiAAAmkikAmht/PAeTp25ioSl8HSJ7SZuprXaDP3mhzl+3j7MbbQGzjcRv2dC9PUJ2ELCIAACIAACERGIBNC7/Ov++iQsvO2IqltFg1XlzdlmkzvSVsWTda/H0Uvtpn2vfe4nnfELNpo2N1NL46wllOg8YscPvnV1SuvV+p35Bs+rVtls3HaKIud9roKBdPG4nwWnyyc/fMF21OR9lLsX7WNL/Qi60koCARAAARAAARSSCATQq9931n6+sTF5NNCKeScomky/ae0R+YZUUtrxXfOn9V8jTTOJhZN0VhUTlE+WddOet4hFE3xWaBxCy/S2mkjfYTeSHp+i8awOJ/FH92v/3zM6bP8WZbjZ49ZVyXabWXbUfaMXgr7JEwCARAAARAAgcgIZELobd1zhr48eiHh1EVTh2viZmydWfe8R7Xvhr7UZdhjfldLY1WhNpKmbi6+plCYRPMsfsx7VP7MqcvMYy1H1l14tNHkUzdJE3zDa6nJj9vmWhqq2mu360vje6vvlvrVuqz2SH/d/Ui67T7cCqEX2QiBgkAABEAABDJNIBNCb/PuM/SFsiEj0bTxVbrbdRZOn9kav8xizw76rS4KhcD6+XtWW83f2b+35GHV5VHOe1LUvUqrJSO379z4GfVOojetv/e63va9mz0MXxNox+VbjmBGL9PDEowHARAAARCIikAiQm9gXwv196wIbbN8BdrGL07Rjv19yaZ1M/2F3rgGiz0d9Mwwc6nz7hc6XH/30HwPH1h1mXXYypk/UZu9GzaTVkpGbt+58TPqnUhzrL/3ut72vZs9HjYm3HaNnx1mCz1sxgjdLXEBCIAACIBAhggkIvRK5SGF3vqdvdSx71zCqZ4e1Gf0HnzXv+7ZDwuRV0O/bpHXiP+b12i/F2kizbb4Mfth+TOnrg76tS4mTXvM64Y812HyeVcXf476ihi2zKAhLnZ1GN8XyKzLrF+ry80et++SbrdztGwzX+jhzRil9k5cBwIgAAIgkAUCmRB6LV29tG3P2cRT47M1HpsbauhXzZo9Rp6x9Zp9b0/Qr5lA/yZtbp5Bd7kuA5t5gutqp18N9dogYalL1Olan7TZr5wC3fVsu+rHv40Nqsss54G3Zdu4fZd8uzVsgtDLwuADG0EABEAABOInkAmhJ95dumX36cqktx53EXs19MtPT1PDVCkEH6fXLfa9bogk6/dL6H6H2Lv/LYdPPnVt2b2Nfukm9IZOpwY3NkVlaTZ7lqPbdtfUbQZn0w9d9NnqMu0x/XD7Lvl2W9p6iL10ixm9+AcZ1AACIAACIFA5ApkQep92HqdNPaeqPLXR/9GF3n1zq52Fv/9LIPQqN6KgZhAAARAAgVQRSETolbsZY3XHcRIbMqo7tdE/363NrN33ZrWz8Pd/yUbM6KVqlIExIAACIAACFSOQiNAr9123HyvvLl3f3VvlqY3+SRd6975Z7Sz8/V+88SCWbis2pKBiEAABEACBNBHIhND7aPtxWqfsvEUCA04MLAoh9G5fOE6DvT1p6pOwBQRAAARAAAQiI5AJobdKEXprlZ23SGDAiYFFG/gzepH1JBQEAiAAAiAAAikkkAmhN795Py1oQQIDXgy8/elX7KXbFPZJmAQCIAACIAACkRHIhNCbu3qfeuNGAoMwMVC3vCWyjoKCQAAEQAAEQCCLBFIt9KxAxU17Tt1KJDBgxwCEXhaHJNgMAiAAAiAQJYFEhN5g30EaPLO3LLvzJvT+ZeoMtmCBwC1N4HOEXn9XA4ld4fiAAAiAAAiAQB4JJCL0ogDXvecgtXfvy0WaPfdd+i//5S/o2d9Py4U/aW0XETNBH7wZI4gQfg8CIAACIJBlApkRelmGbLX94sWLdOedd9KRI0eMf/PiWxb9gNDLYqvBZhAAARAAAS4BCD0uqYjyTZ48merq6tTSWltbacyYMRGVjGJKIQChVwo1XAMCIAACIJAVAhB6CbZUc3Mz/eQnP7HV+Itf/ILmzZuXoBWoykoAQg/xAAIgAAIgkGcCiQi9/q3z6Nba2jxzDPRNLtmePn3alvf69etYwg2kF18GCL342KJkEAABEACByhNIROiV+q7byuOJzgLrkq2zVCzhRsc5bEkQemGJIT8IgAAIgECWCEDoJdBabku2zmqxhJtAQ6AKEAABEAABEKgyAhB6MTe4WKodOnQoOZdsndViCTfmhkDxIAACIAACIFCFBCD0Ym70Rx55hOrr61m1YAmXhQmZQAAEQAAEQAAEmAQg9JigSskmBJ4QemE+WMINQwt5QQAEQAAEQAAE/AhA6MUUH9wlW2f1WMKNqUFQLAiAAAiAAAhUIYFEhF4VclVn8rhLtk4+WMJNLmKw6zY51qgJBEAABEAgeQIQejEwL2XJ1mkGlnBjaBiXIpMQeuIcSXHE0GBf8bt35e/E763J7dzJ29cu2PJY8w/saynyTnznLFf+DFvsvMGFCPHyW5WB8wMu4OI1jiYdL6XeFSH0SiXncZ1Ysr3jjjtICLWXX3655PTss8/SX/zFX6jvxMUnPgJJCD0xSFx/68c02NtT5Ij8nfi9Nd1YNKEo7+0rZ2x5rPn7OxcW5RffOcuVP8MWO29wIUK8/Fhl4PyAC7h4jaOxxst7D7n+4VHK3RBCrxRqPtd0d3ezxN2vfvUrVj5RHj7xEUhS6MXnBUoGARAAARAAAXcCEHoViAw8g1cB6B5VQuilpy1gCQiAAAiAQPQEEhF6eAWaveEg9KIP5FJLhNArlRyuAwEQAAEQyAIBCL0KtBKEXgWge1Q5cLjN9bmcKC2Uz+FFWSbKAgEQAAEQAAEOAQg9DqWI80DoRQw05cXJnbUpNxPmgQAIgAAIpISA2Ojhtqu3FPMg9EqhVuY1EHplAsTlIAACIAACKSJwgGaPLlBh9Gw6wLJKz18o0JQm1gUpzxTW/2B3xE5fsRoUxQdCLwqKIcuA0AsJDNlBAARAAATSS6BpChUU0Va1Qi+0/8FNCaEXzCjVOSD0Ut08MA4EQAAEqo/Agdk0ujCFSppgCy10cjajx/C/aUqBRs/mzXeK4Muc0BPrzP09K6qv43h4DKGXnlBIYjNGeryFJSAAAiDgQkAKFTEr51hLPTB7tDZbZ016HtffGflGk03XWOuwlGWrThWb1roswtO43l6uEFDFs4mmkJR2Fy0R+9WlLECrS9FC+DryWcUa239rGczl7cwJPXQsOwEIvfRERBLHq4jXjbm9iSI9FGAJCIBAtRIwhFLBIcwUIJ5CJqTQM+twCEbrM3oeQlAVW7JxnDNnrjNpTTTFKUzVn91Eo9MemadYKFqFrhSNbKGn2m8tM3jmFEIv4z0SQi89DZiE0MPxKulpb1gCAiAgCViEh8cskxRogUuOfkuXltksc1bNuXTrvpTrVr/53Wxd0HnM8DmWoZumFIs46yyfvS53UWYIVuf0IGPp1qBumSH124gCoZfxngqhl54GhNBLT1vAEhAAgYQIWJcS/dSGyyyba3Y/oeP6O4ewK1pGdV8q1ujYZ9vs9jCe/WPV5VGOl58hhJ7qgoWrl4gWq0BiNSiKTyK7bqMwNE9lQOilpzUh9NLTFrAEBEAgSQLBM3pus1DaEqZj6bGCQs8ulNIv9KzLvUkdLZOI0MNmDHvnhdBLcjDzrwtCLz1tAUtAAASSJ+D3jF6RNcZsmNdGC5dnz1yuKRY75nN1QeJHs1fUL68Ju3TLqctNMJrXFc3CGTN0fs/ehXtGL8pISETo4V23EHpRBm2UZUHoRUkTZYEACGSSgMeuW+9NFA5B47ocKgVYuRsbTCFnCESpBt0ElufSrGmz9yYKjs1+Yta65GwRoCXsuo0yjsoSenPnzqVJkyaRmKHyS+tefYTWPv/jwHxB5eTl9x9++CH9wz/8A3gExE0S7b3x42W08YP3Ym0LEf8tT9XEWoeVlYit999/P7H6kmgn1OE/xlYjn+3bt0d5L0RZLufouQs9j1mrouf5rDNtjp2wilCTYss2g+e681YrxxRn9vpNG63fF++8LZop9KnL+RygsePW72gUX//FY3nhztGLMiDLEnrTp0+nO+64g8aMGeObfnDXf6Mf/I//GpgvqBz83p8z+KSTzw//5v+lH36vJrH4F33yzjvvTKw+xF064y7P7fKDH/yA7rnnHrp48WKU90OUBQI6AcazfjGzEiuh4j3pUXzKEnp1dXU0efLkQDuwdBuICBlAIDICok+KvokPCOSVAJ5zzmvLpsWvygu91ByvAqGXlqCEHSBgEoDQQzTknQCEXt5buNL+QegZLQChV+lgRP0gUEwAQg9RkXcCEHp5b2H4l7kZPfUVUGf2ouVAIHUE+rsaSDxakKcPhF6eWhO+uBGA0ENc5J1A5oRe3hsE/mWXQBLHq4gHapMUkxB62Y1HWM4jAKHH44Rc2SUAoZfdtoPlKSOQhNBL+l23EHopCzKYEzkBCL3IkaLAlBGA0EtZg8Cc7BKA0Mtu28Hy6iUAoVe9bQ/PwxNI5HiV8GbhChBIhgCEXjKcUQsIREkAQi9Kmigr7wQSEXriGaVba2vzzhL+ZZAAhF4GGw0mVz0BCL2qDwEACEEgEaGHA5NDtAiyJkoAQi9R3KgMBCIhAKEXCUYUUiUEIPSqpKHhZuUIYDNG5dij5nwSgNDLZ7vCq3gIQOjFwxWlgkDFCGDXbcXQo+KECEDoJQQa1VSMQOZ23WLptmKxgoqrkMAvfvELvOu2Ctu9mlyG0Kum1q5OX6tG6K3adoyQwKCUGDh29momR4d9xy+VHfNL1u6mxk37yy6nFO64prL9NYtBX0rMzHxzGd01/B7EeJXfI8V4mddP1Qi9uav3ERIYlBIDWR0AOr/uQ8yj35ccA1m86ZXSv//Y0ElTXnizZE6l1Ilr0ncvEuNlXj+ZE3qlNoToWBu+OEW3bxMSGLBi4ETfNXXw5wq9JHbdhol/KfSEH4h79HtuDIhZMRH3WfwIu4X9XF+RD/1CjvMQerwen8hmDJ4pxbnEALBeEXqDishBAgNODKRR6IXZdWsVehx/kQf9QsTAyowLPWE/YhmxzI0BCL1wqir9Qq/7FA0orY8EBpwYON73rTqz8enWfXT56rXA3pDEjF4pQk/4wfEXedAvRAysbNNm9PYeOBYY82nLIOwW9iOWEcvcGJDj/MrNvHE+bTHPsae/cyEN7GvhZA3Mk3qht667l/oHBpHAgBUDx85pQu+NpRvp5Ong5zfSKvSEH4h79HtuDKxsO6rG/YfNWwIH/bRl0ITeUcQ7xnh2DMhx/j+WbWGN82mL+aTtSb/Q29lLt/oHkcCAFQNHz+ZD6Ak/EPfo99wYyIPQ4/qKfOgXcpyH0ONJxkSEXqnn6Im/9NYqQu/6zQEkMGDFwOEzV3Mxoyf8QNyj33NjYMXWbM/oCfu5viIf+oUc5yH0ciL0WrpO0rXr/UhgwIqBQ6euhBJ6A4fbSDwLEeenlGf0hB+Ie/R7bgx8mHGhJ+zn+op86BdynIfQ4925Uj+jt0YRele/u4kEBqwYONB7OZTQ43WT8nL1b51HQuxxPnLXrfADcY9+z42BD7ceyfQzesJ+rq/Ih34hx/k8C73MbcYoZ+m2eccJuvTtDSQwYMXA1ycvpU7ocQSezCOFnvADcY9+z42BD7ZkW+gJ+7m+Ih/6hRzn8yz0MndgcjlCr+nzE3T+8nUkMGDFwN7jF3Mh9IQfiHv0e24MLP8s20JP2M/1FfnQL+Q4D6HHm0ZI/dLtp50n6OzF75hpN80YWaBCoUATGrnXcPPFWTbXhqTz6T6P/AO1+7VB45Mq80LhSapnt1U8vnx59EIuhJ7wgx/38bD0rj97cZFeltG0XWPGhZ6wP+o2aq+9Rx+XtHtCIuNTisbCqHmmqTw5zkPopUjoiUP/+ntW8Cyy5BK7bj/pOE6nzl9jpl00XRd6jzdwr+Hmi7Nsrg0J52vQBZwi9Nr82kDmU4TeYnZbxeNLz+FwQi+JzRhhAl8u3Qo/+HEfD0vP+jMYF6llGVF/adx8ONPP6An7o26jtpnFQi/28SlFY2HUPNNUnhznIfR4d5dEZvR4pri/Au3j9mN0/OxVZuqhaTXaX2+P1XOv4eaLs2yuDQnnq39C+0u45jX6jN0GCdvosGvnwfOhZvSSODB5sO8gDfb2sLqBFHrCD37cJ8w8g3GRWpYR9atlm7It9IT9sbVR+2s0Qp3Re4Lej4h3bLbCPlYcyHEeQo91W6HUC72Pth+jw6cuM1M3vagLvfGLP6DxaufW0vDp3WYZiyc7pvRFnlH0YpujHtd8BRq/mGuPnq9tFg232FIoTKYF0iejDnv9Cx7Xba+ZRa2G/6Z/0q8iW/zqOiWvV+p35LPyaZ0+yoWPZGnaWZzP4pelzfzz8WzixsDnX/elTuiVcryK8IPrs+SrxoK1XY3YsfYLGbvO74LbIaq40MpR4mi67IfK/xebfcTWV33jOUQ/ZJQTzPEycfKIdgvqG9xyuDHQsOlQpmf0hP1cX0PnM9q+lPFJizFjPLaN4+KPYG18Dmpv02bGGM653wXEMye+OHmk3UH+hSkrdPu58JDjPIReToSeOPF9/4lLzLSTXhhhijsphuS/4xbq5Sx0E3qa2Hthi5Zn/mOMcjh2edY1mebL62WeEbNonfjO+bOabzmNcw4y6s8u5RTlk3l4fNZN8xd6klFxPostum/eHCVrP5vM9uDGQPu+c7kQesIPrs+yHYZNm1UUI8Om7VTKMRkbfaDou+B2iCou/MtRYtrZDzzjmTkucPqgEq/BHHl5gmOeVw63/UW++tZsCz1hfxh/Q+XdMouGOcdK9vhktpXzfqL+rMcqZyxkjeER3VOiimX/e6E5PnPqC9VmARzkOJ9noSdWgcRqUBSfsmb0amtr6Y477qAxY8bEkv56xPdp4ZpdtEd5MJ2XuujZ4VKgTaK39eveflT/7tFGj3LM68bWKXVtrqWh+s1F/Vktx5GHZZP7NdKeoS91GfaY39XSWLXukfTsZtNvw4eC6Zew6+1H5c+cukLyqZukzewNr6VmP38NXnbbgjgW1Paw2iR9LoW1xqptz5lcCD3hBy/mL1DzSyPVdho6XPlXbyv5nZOxdzyHaIcy48Jmmy12pA0ijjjxzBkX+OUEc2SwDhg7tPZglMMaX0z/l2zMttAT9nPjPXS+SMYn69jWqI/RjvFOtJlXXepYXXxvso/h0cVzJLFs86dAbmNHXPEc1MZynM+z0ItC4MkyyhJ6dXV1dO+991Jra6tv2vD+67T+vVcC8znL+c0fG+gD5SDNnsPfMNMO+p0u9H6+wHLNAilYXqXVellzx7vP2KnXueTvOexRtp9tra8agtH1r8Hxyyx+meWLvDb7OXWz6uLzUZm7cnBpC6PuSTTXysPretv3bjaVwFqv97Pd+RB6wg9u3K9+URN64o+D37W69RUOY04evewy40Laq8a4jB21L0gblDhixTNjXAhRTjDHbygwDyvmGeWwxzyNweKNBzO9dCvs58Z76HxljU/fkNe9omAbv/VY9KqLM4Zz2pwZz4FxqtTFyeN5D3DEOassjn/MPHKch9DjycGyhd7kyZMDayrnHD2x7b7rwHlm6qRnhmkC7qH5lmvmT9RuhMNm0qoDZh438aVeZ8svy/Eo28+29TPpbtflVl1kPtJg8ctu190vdLr+zuaXtW5WXRw+Xtx82sCoeyK9YbXJlaOTr5tNJbDW623tOZ2LGT3hBzfuV72gCz01vt3aicOYk0cv26tdnXV7xIW0V41lmUftC9IGJY5Y8cwYF0KUE8zxPAXmYcU8oxz2mKcxWLQh20JP2M+N99D5yhqfLOOVdSz36mtedVnuO55jOKfNmfEcGKdKXZw87vfC4nskqyyOf8w8cpyH0AuUX2qG1Au9Zcq2+86vzjFTBz2tC70H35XX1NODegcd8nyHUo78eSLNMcp1XNcyg4ao19TQ0y1aOSuerzE2KJhlB9ll1h10zZxxsj55jVm3qF/7vUhWu8X38mdOXRw+Fp/e1QWyo86i9jB42W3rNL4vkOm/aYPWHm42uX0XxFr7/fru3lBC7/aF4+wdsbwuVZyrlM0Ywg9u3BuxOa7e45pinmY8ybYJ0Q5lxoW0V40JGSOq7dIGEUeceObEBL+cYI6WccCLNSvmGeWwxzyNwaL1GRd6iv3ceA+dr6zxSY+fYTNoBadNvOpijeHRxXMksSz8rVA8B7WxHOch9Hh3pdQLvQZF6G3fe5aZ2ukpXegVz9ZNoD+p5fjlKdAD73Dz8GxqfM4UiHabauipNVoZRp6H6zU/35mgizpps/LdGik+nUvOZp7gujh8LH651int9uc45Ll21Zc/Pey1qaW4PTT2dv7mdzzea7vCCT1eNykvVynHqwg/uHFfFD8u/cW7HYpjPrAdyowLaa9ajyxLjX0ZU1psBMczLya45XA4cvIEx7xLn2ePce4+L1x/INNLt8J+brzz8nHGec74VE8PeK3KKOKvkXFPkWMhZwzn+MaJZ06ccvLwxvDo4zmIgxzn8yz0xASBeE96FJ/UC72lyrb7LV+eYaZ2+uVQF2Ex9BVqsJbR9ArdZe28yu9fn6oJsvvnybqW0v3WPGOXUkNRHqZd86Rws9pWQ79sOmOUWShMoNctNr4+Vua1fu+wyWavbotPXVu+ZPKxsioqT7Pbsyyd2V1T2402M33RfbK1h2mTyd7tOx7r5h0nQ83oRdGJoixDnqMn/ODGvYzLghKj3tfYY0e0jz2eQ7ZDGXFhq1f2RdV2aYMl5n3jmRcTKhNGORyOnDyiPv+Yt/R73zbj+/f+umwLPWE/N955+TzGOn18Msea4LZyjx19LLPFrfsftdaxcMuXjDGcc78LiGdOnHLySNZJx3NQG8txPs9Cr6redbtE2Xa/addppEgYbKP/owvh+97KJ1PxyjzxRpU3lm6kk6f7otRgiZQlhZ7wA3GfzxiNo13/nHGhJ+yPg0vZZb71uLa6MnQ6LbGOwV7fRzJOI+6D2k2O8xB6vNtS6mf0xLb7jV+cSllaTPf5bbLQf3ffm2mzu43++W7tr8702RYNq9XKK/PyIPSEH+mL+2jaKBq/stoH42H457XZntET9kcTFxHzfVMXeh7jfXTjKOI5TPvLcR5CL0VCT31G6cxenkWOd92Kbffiwct0pUV0L0Po3ftm2uxuo3/ShV76bIuG1cft4YRef1cDiWch0vKRM3rCj3TFfDTtE51PWe2D8XCsW7s/08/oCfuji42IGbuKvRH0Tx9HWQ/iOUz7y3EeQo9350pkRo9nSnEuMTOzSBF663b2IoEBKwY+2h5O6CXxrlvxQC1XTEqhJ/xA3KPfc2MgD0KP6yvyoV/IcR5Cj6eu0i/0lPOVxA4bJDDgxMCqFAq9Uo5XEX5w/EUe9AsRA3UtGZ/RU+xHLCOWuTEgx3kIvZwIvfnN+6l+02EkMGDFgDw4lrsZI4kZvVKEnvADcY9+z42Bd5q/zvTSrbCf6yvyoV/IcT7PQo8n4Xi5Uj+jJ5ZvkcAgbAxkXeiF9Rf50UdEDHzYvIU38qcoF2IXsVtqDEDo8TpyIkJPPKN0a20tzyJLrpPnr5FI69qV4zIWtyCBATsG5ry/mnW8Stpm9K5cu6XGvEiIefT5sDGQRaGHcR5xHjbOjfzvf8Ia50OLj5xdkIjQK/Vdt5J1e/c+mlO3EgkMQsUA5xy9tAk96/iCmEefDxsDWRR6GOcR52Hj3JqfM87nTLeFdicTQm/vgWPqkgQSGISJgXPfXArdIeK4IMwzetb6w/gq8y78oBn9pIrHis0du+II4UTK5I7zf5y7gBDnuBfIMS8t43winaTESjIh9Er0DZeBQNURGDNmDP3iF7+oOr/hcHUQuHjxIt155530k5/8pDochpdVS6BqXoFWtS0Mx0GgBALz5s1TRZ64CTY3N5dQAi4BgXQTmDx5MtXV1ZH8N93WwjoQKJ0AhF7p7HAlCOSSwJEjR9SZjuvXr9Pp06fV/4vZD3xAIC8ExB8vciZPzuyJWMcHBPJIAEIvj60Kn0CgDAJiyba1tdUoQc56lFEkLgWB1BBwE3ZW4ZcaQ2EICEREIHNCLyK/UQwIRE4giV23kRvtKFAu2TrrwRJu3ORRflIEvJZqsYSbVAugnqQJQOglTRz15ZZAEkKv1F23HOjWJVtnfizhcggiT9oJ+M3cYQk37a0H+0olAKFXKjlcBwIOAlkXes4lW2cDYwkXIZ9lAhwhhyXcLLcwbPci0N+5kAb2tUQCKJHjVaSlNxZNIKFSnUnMeDg/g709rnnFtQKA8yO+cytbfHf7ypmi/LAFXKzxEklv8igkrhk9ryVbpxkPPPAArVy5Mk4XUTYIxEKAuzTLzReLkSgUBFJOIFGhJ16DJm56ziRekVYk9PoOuuYV17qpXPGdW9niu9vXLhSVD1vAxRovcfbTOISe35Kt0xexhDt06FB1Ny4+IJAVAmFm6jgzf1nxG3aCQNQEEhV6URuP8kAgCwTiEHpBS7ZOLvX19fTII49kARdsBAH1aCBxRFCYP07CCEMgBoFqIgChV02tDV8rQiBqocddsnU6K4SeEHz4gEDaCZS6FFvqdWnnAftAoBwCEHrl0MO1IMAgIB5NcHsOlXFpUZYwS7bOi7GEWwpxXJM0gXJm5kqZCUzaP9QHAhwCmd2MwXEOeUAABLwJhF2ydZaEJVxEV5oJRCHUyhGKaWYD26qLQKaOV3FuesDGC2xISfvmmLQOJ2LJVgo98RYMt/Thhx9SS0uL6+9kfrExA0u4aW3l6rZLLL3ec8899PLLL3umcePG0dSpU33z3HHHHeo7cfEBgawSyJTQcx5jgqNUcMRM2o+7SevAIJ6xE0LPL/3lX/4l/dVf/VVgvqeeeiqtbsKuKiUg3tM8a9YsXwEnBKD4Q+Xv/u7vAvPhSKEqDaScuJ05oRfV80k5aT+4AQKxEZAzIbFVgIJBoMIEsOGiwg2A6hMhAKGXCGZUkncCg8pZjeJg7rg/SdUj/Iha6K3adoyQwKCUGDh29mosXStKobfv+CXEN/p44jHA6RiZEnoch5AHBCpBIOpjT7x8SKqeOITe3NX7CAkMSokBIaLi+EQp9Dq/7kN8o48nHgOcfgGhx6GEPCAQQCApAZZUPXEJvQ1fnKLbtwkJDFgxcKLvmnrjzJLQu/ztLZZv6AcYB8qJATGWir7B+YjVJrEaFMUH5+hFQRFlZJJAUgIsqXriEnrrlcFpUBE5SGDAiYEsCr1LitDj+IY86APlxIAYS7lCL8qbKoRelDRRVqYIJCXAkqonNqHXfYoGlNENCQw4MXC871v1Zvbp1n10+eq1yMeEOJZuL169ifhGH489BtYrY6noG917opmp43YuCD0uKeTLHYGkBFhS9cQl9NZ191L/wCASGLBi4Ng5Tei9sXQjnTzdF/m4EYvQu3KD5Rv6AcaBcmJAjKWib9Qtb4m8X/gVGLvQE+fosY9XOTCbRhemUFOiCOyVNU0p0OjZBypoAapOikBSAiypemITejt76Vb/IBIYsGLg6NnsCb0LitBDjKOPxx0D65SxtLqFXtMUKhQKWpoipd4Bmj1afKeIP1UE6r9X/i0SY47fq9eoisFShouCEMKuUBhNqrazljF6tnIlPnkmMLCvhcT7BOP+ZPl4FTEorVUGp+s3B5DAgBUDh89czdyMXt+l6yzf0A8wDpQTA2Is5Qo9MUHg9iaxUu5XqZjR08SWRXAZnkiRZgo8QwxKcSbyWkWiRQxKsWcTcw5K2u+ss4jWOis7u1hKg+Ka6iYQ9Tl6YlBq6TpJ1673I4EBKwYOnbqSOaF39sJ1lm/oBxgHyokBMZZyhV6mjlfxX7q1iCrXGTSr6NJn3YwZugJpE39mHmMiUNV+mjgUM3+us3ZqZu/ZvgOzRxszjNZyq1tGwPu0E4hD6K1RBqer391EAgNWDBzovZw5oXfmm2ss39APMA6UEwNiLK0uoWddJvVUUm4izvFd0ZKtY/ZPKVuKNlGNKeDEbJ1eltcyrWWmEM/tpV3iwL64ntFr3nGCLn17AwkMWDHw9clLmRN6vcpOYcQ4+njcMSDG0uoSerbn5xRxFjCjZ2rB8EJPLu2Ont2kPvM3esoU9Xm/KU1NNMX2TKApFjCjB+GURQJxzOg1fX6Czl++jgQGrBjYe/xi5oSeeF0bYhx9PO4YEGNpLoVef88KEg+9+304z+h5Cj1lXk4Va6pw86hFn/UbPXu2klcsAWtiUQo++2wdntHLosApxeakNmOIB2rZO89LccRyTRxC79POE3T24ndIYMCKgS+PXsic0Dty+oq7b41P6o/wPEn1FWz/9tp7zM2K6v3Ox55QNu+mGSO1++eERvTx8OOczm/kH6idER9iLM2l0GPft3x33VpFXPFyrnX2zdysYd3cYYpBOXPoOmOHXbfs5spDxqSOPUmqnriWbj/pOE6nzl9DAgNWDPQczp7QO3jysrtvDabQW1zB9m+bWSz0PO0JZfMumq4Lvccb0MdDj3OStSL02hjxIcbS6hZ66r4K5zl6jGf0pOJw3XlbvIHDOLrFyC/zaAXhHL08SDieD0kJsKTqiUvofdx+jI4rS1tIYMCJgZ0Hz2duRu/r45eyEd/tr9EIdUbvCXo/kj7ZQ9NqtBm9x+oR35z4tuWpf0Kbaa15jT5jtIcYS7lCj3cX4+WK/XgVnhnIBQLJE0hKgCVVT1xC76Ptx+jwqcuRptbpo9QBcvxipdy2WTRcHotUM4taZV2LJzuWq8QNaRS92CZt6aYX1ZvUZFpgLUMpa/j0bpu9Cx53O6JJDNCW+hxlqOWW4ndAORzfOXlkm8i85mqG3e4wZUXRzp9/3Zc5obfnyAVbvAQxPXwqOPaMmHv8A3vfMeJDb6fAOLf0Pee1lvgMtlkvx7U+vS9y451pMzf2/PunZG210f6dVo8yNkyXY4by/8XmuGIbD3z7Z3C7ij5SzNo6vljHKPu4KcZSCL3k7/WosYoJJCXAkqonLqG3su0o7T9xKdK0bpom9IZNm0XjbGdfiu92anUtdBN6mth7YYuwZye9MMJDwBl5LpGsy/5Yh37diFm0zreuyTQ/jO+eNpvlcHzn5BGM5j/G99+XdRgfA/K27zuXOaG369A3tvgujhlnHDBib8ssGqbGtv1as225cW7pex5lilgIttkvXgo0bmGIPh7YN7WyOHEc3D9N1qaN9u98yxBtwO7njHZ1ZW0Xetr4VJzEWJpLocfZjFHFWgOuV5BAUgIsqXriEnofbj1Ke5QH7KNMzS+NVIXe0OHKv8NrqVkpX35XeLTRo64uena4NqCOrRP2mD8XCiPp2c327+x5JtHbhg+NNFa9AcvvnOVqvr79qFbX0Je6mL7zyuH4zsmzZ3MtDdVFsuarg4nOUZb1l//3/xOCdent3bbnTKxCb9y4cTR16lRqbW0tOy1Y1qza2rW/z72NDcbW+AkbezJerdfJeHXj7B5Havt62mMpxytPQLyYMVRK27vbHBzH8rqw/dNen23ssPlvLZ/TPzljioVP3SRt1UEfw4LGSDGW5lLohXrXbQVv+qi6+ggkJcCSqke04KRJ+sDjmCVznc1i5HnlvfX0wdYj1HP4m0jT6hc1oScE2u9avcueO959xurnC8Q1O+h3uvDTfnb/zquMwvhl2jWtrxqCyZWTzBfEgFkOx3dOnp4F8ibzKq222ub43izr//JlHVUbf7Y7XqH3ox/9iO68804aM2ZM2el73/9b+mNDJ3V+dc49vo02nURzbe3Piz2jjZyx5ogp/zi39A9Pexh5XOPFzQ9eX+fYzInjwP7J6OeyHnUckIxUxtI/pf1Y/ZPZrjIWvPqgx1ghxlIIverTGvAYBCIlEMfxKo2fHaGuA+cjTate0IXesJm0yrXsTnpmmNeyZIEemi/sMfNoP3t8N39i8bN+1nrXz6S7/UTvIw0835nlBPt+njh5uqRfToaO742y7vhbD9bRtm1rz+lYZ/QmT55MdXV1kfSbTv15wm17z7q3sdGmE+kNW5wyY+9AAz2kxpZ2vWwLt3h1+yPDzKe3kac9ljb0yuMaL25+BMUDp29qZYSKY2sftMV0MGsbV+m/2m/ltQp/Vv8Mrss2Fnr1QY/xUoylXKGXo1egRdJXUQgIgIBOIA6ht2zzYXXGI8q04vkaTXyNq/cot54e1G+Qc4y6O+hpXfw9+K6wx/mz23d6OcNm0ApPH2RdBdLKLTXxygn2/Rxx8nS2zKAh+s3RtNtkMuT5DtUXo6z/+bMyfOMzWd+tvbj9jaUb6eTpvsj7ZhxCb6syC+na7gbjiWTGITf2NGaS/4Pv6m1ji0VOnFvYe9rDyGNcW0NPt9htE32RH/t8m4PjmNM/i/v5nHHmH4HCbpOx4pf0Ux1b5LWi/Tj9kzOmWFi/K/+IdMaHe38RYymEXuRDAgoEgeoiEIfQa1AGp+3KjEeUqfE5Xeg9XO9Rbjs95TOj98A7wh4zj/az23f19IDXbJ1yw23U/TLsKcpbQ0+t4fvOKSfY97PEySP8/dPDXrOeE+hPTt8UoRdlG3qVtbYre0JvszILafrjH3tDnmtnxp4eN2t0QT6sRhXm2vXF8eo2o+eM81LzOG32LocT65y+qZUTHMe8/ukd5wUSjGQ9Ki/JWx1bpK1afwjun5wxxcJI1mUbN7zHDDGWQujp9+Q+5VVDq7YdQwKDkmJAxE+1fuIQeks3HaItX56JNDVM1YXe2KXe5Ta9QndZB9Chr9Dr+nX3zxP2tNMvh2pCR/vZ47t5E1yOadEFkrV+13w19MumkL4HlMPxnZNHtsnrYx1iT+HUYGkvo6y//lmkbegVE807tBe3Z2lGb2P3KQsbM67cBNFdU9v5sae3g9lGE+h1Z18KEedu9jj7grfNIo6X0v3WPqXEv4wPsw8x4j3QZq0MVhyz+qfdbtEGVrttPkjb1L4t29LC3bd/MscUaxsWlec9ZoixFEJPvzufVE6YFjCQwKCUGBDxU62fOITektZDtGnX6Wymtx7XRN7Q6bTE6oPX91n1M8Duyf/fMyRSEu0oX/OUJaG3bmdvImyS4J+pOqqsf4qxNJdCb/DMXhrsOxjqviuFnnhQ9vZtQgIDVgzIB6u5Qi+p3bBJ1RPX8SpLNh6ijV+cymZ6Uxd6Hsu3973J8Wsx3cfYocwri1Nf9Hkm/eIZEimJdlytv+YpS0KvRZmFTIJNuuuoQJxH0j+j7y9xtZMYS3Mp9EIpPMeMXoci9AYVkYMEBpwYEPEiOhGE3suldDvXawTPxRsPknjAPrPJ9WYygv7pY65Pi+hehtC7901uecnnm/iPT5NISbThx+3a+zyzJPSaPz+RCJsk+JdeR4XivOz+mXx/KpWxGEu5Qq+/cyEN7GuJZCxP5SvQ5Ixex1d9NKDc4ZHAgBMDIl5EJ1rXvo/VOZKaaUuqnrhm9BYpg5NY2kLKLoMJisgTKYk2/Gh7BoVe54lE2CTBH3Wkt5+KsZQr9Fg3MWamVAu9dmVrev/AIBIYsGJAxIs6k7CY91dQUgIsqXpiE3obDpLYSYmUXQYTpihCT0lJtOGqDAq9po4TibBJgj/qSG8/XaSMpRB6jqVb8c7EW/2DSGDAigHjHZsQesy/84KziUFpfvN+qt90GCnDDH42+VckUhLtKG9mWVq6FQ/JJ8EGdVT3OCLG0lwKvVtra6l/67zgO4olh1y63bb3HF2/OYAEBqwYEPGCGb2XSey8jepTyq5nXJO+3fL/e/w/k0hJtk2WhF6SXFBX+vpH0m1St5y36hTVOB770m0p77qVQq9tz1m6dr0fCQxYMSDiJYzQE3+AiGXVuD9J1RPH0q3oiyKJ5x7FkjhSNhn8r4ceJ5GSbL85769O/Zsxrly7pca3SEmyQV3Z7EdRtRtH6GVqM0Y5Qm/rnjN09bubSGDAigERL2GEXtwCrxLlR32OnvShvXsfzalbiZRRBg+Of5JESroN0/4KNGsfTZoN6qve8YQj9HL/rls5oydO1r707Q0kMGDFgIgXCL1ol27ljXDvgWP0YfMWJDAIFQPnvrkU+d87Ub7r1moc4hv9O6kYaN70eWC/qBqht1k57f288jorJDDgxICIFwi9eIRe4KiEDCCQEIG4hF5C5qMaEGARqBqh16q8aPrsxe8STrtpxkjt3ZETGqOuO76y22vvcbzP80mqd7Dj5Emed3SMRbxA6EHosUZRZMosAQi9zDYdDA9BoGqEnngNySnlIdlk0y6argu9xxuirju+sttmFgu9xQ52nDzJso6Wr4iXMEJPvJpvsLcnRNcrLWtS9cSxGaM0j3EVCMRHAEIvPrYoOT0EMiX0SsEmn9Fbr5zGf/zs1YRTD02r0Wb0HquPuu44y9ZtbX+NRqiva3qC3vdix8mTOPfyWYt4CSP0kjrIOKl6IPRKGW1wTdYIQOhlrcVgbykEUiP0amtr6Y477qAxY8ZEmr73N9+n/z5kFI0cPYa++Oo4HT51OcHUTS/qQm/84g9ovOUdl8Ond5t2LJ7sWCoV4moUvdjmsNU1X4HGLw7hE7cuwaltFg1XbZ5MC7y4BeRpnT7K4ZtbWSYnIYpFCuVTDG26tuskhJ5yhl6U5+iVMkDhGhCIkwCEXpx0UXZaCIjVJrEaFMWn7HP07r33XmptbY00Lf9oDT1V+z7NXvAx7T9xKeG0k14YoQkXtzRuoW7PQjehp4m9F7ZoeeY/xiiH4x+jLoPTllk0TBd6873K9snjbbPp1/4Ty2mcK5/J5Fknx88y86z5HEIvruNVohhsUAYIREEAQi8KiiijmgiULfREp4v6I5duP1VeNL3n6IWEUxc9O1wKtEn0tl7/24/q3z3a6GGPed3YOsXmzbU0VBdD6s9qOY48JfvmU45Rr2l7EUOvPAE2F3TfDRYFex1vP+pTZ8m+8ttfxAuWbjGjF/V4hPLSRQBCL13tAWvSTyDVQm91x3HqOfxNwmkH/U4Xej9fYKl7wSRthm/4q7Rat2nuePcZO/U6l/w9hz3KZvjoW5f1+tZXdYE5ieZ6leuVx9Vmpy+l+xB3W4p4gdCD0Ev/sAsLyyEAoVcOPVxbjQRiF3rlvBnjo+3HqevA+YRTJz0zTBNwD8231D1/oib0hs2kVQfMPG7Lu+p1tvyyHI+yfX1k1GW9fv1MuludSZxIb3iV65XH1WanL6X4kEwbiniB0IPQq8aBvJp8htCrptaGr1EQSLXQW7XtGHV+dS7h1EFP60LvwXdl3fX0oL4MO+T5DsUe+fNEmmPY57iuZQYNUa+poadbtHJWPF9jPPdnlh3kH6MuKyOjXqttjjq88hjfF8i0z/RL8/0czRknZzLtdcwZ51NnAu0o4iWM0BvY10LifYJxf3C8StyEUX41EYDQq6bWrl5fxWkN4j3pUXxSLfRWtB2l7XvPJpza6Sld6BXP1k2gP6n2+OUp0APvcPNwfIuqLk45Z+lPD3ttIJG+KzavkSLWmdeSJ/F2O0siXsIIvSg6UNrKiHozRufXfYQEBqXEQJ/yVqM4PlEKPfE8eCm+4Rr0iXJigNMvUnO8Sl1dHQVtxihn6faDrUdJvL802dROvxzqInaGvkINVluaXqG7rDtPld+/PlWbsbt/nrR5Kd1vzTN2KTUU5WH4F1iXh8163Zo9nDyaLa+Pdfjv9F3l4PDN5jfDpxjaVcQLhF60S7eCJxIYlBID+45H/55bcYOMUuiJm3UpvuEa9IlyYgBCTyEgd90u33KENinvL0UCA04MiHiB0Ite6K3uOEEn+q4hgQErBroPfqP2wywJva9PXmb5hn6AcaCcGBBjqegbnE/VzOg1fnaExGut8pkW030eZ/VZl4zvezOv/kfvl4gXCL3ohd4GpQ/evk1IYMCKAXEjzJrQu/ztLZZv6AcYB8qJATGW5lLo9fesIPHQe5iPnNFbtvkwre/uzWlaRPcyhN69b+bV/+j9EvESRugltRlDPFArHqxN4hP1M3qC5/ruUzQweBsJDFgxcLzvW7Ufbtt9km7cvBV52MexdHvx6k2Wb+gHGAfKiQExloq+cfrchcB+kakZvUBvXDJIodeg3LjXKe8vRQIDTgyIeAkj9JJ6B21S9YiuFIfQW6cMTv0Dt5HAgBUDx85pQu+NpRvp5Om+Um4BvtfEIvSu3GT5hn6AcaCcGBBjqegbdcuDJ7+qR+htOkxru3qRwIAVAw1KvEDoRb90K0T2rf5BJDBgxcDRs9kTeheu3GD5hn6AcaCcGBBjKVfoRfkXUuzHq5RirJzRW9Cyn+qVmzcSGHBiQMQLhF70Qm+tMjjduDWABAasGDhy5mrmZvTOK0fBIMbRx+OOATGWQujpqlAKvXK2L+Pa6t3+/sbi4GlxEWpJLakmVU9cS7dru07Sdzf6kcCAFQOHTl/JnNA7d/E6yzf0A4wD5cSAGEtzKfRK2YwhVLUQeyLVN7WTuHEjgQE3Bub8+SPWRHJSAiypeuISei3K4PTtd7eQwIAVAwd7L2dO6J355juWb+gHGAfKiQExluZS6JVyYLL1Lv1h8xaaU7cSCQxCxQBH6SUlwJKqJy6ht2bHSbr87U0kMGDFwH7lTLqsbcY4pRwJgxhHH487BsRYCqHncnfe3LGLhNhDAoMwMcARennME8eu2+bPT5B4WD2Lqetf7zHeL62eTznqj9Sl+FL0feHvqTGjPqatXcRByVkTeieUncJp4+huzx6qHWXGcRI2e/WhJOrOWx1iLOUKvUztui13Ri+PN2P4BAJxEYhD6H3aeYLOXfwuc6mj1iHyhNAb+QfqUHwp/t2TVJ9BH9PYLl8evZA5oXdUea4wjSyLbGp8UvvDRY/juG3260Nx153H8sVYCqEX190P5YJAlRCIQ+h90nGcTn9zLWNpF00fqb2zuebVXd627/gD1agHlz9JSzLnYzrbZNeR7Am9Q8pzhZmI8WWm0NsWe7wy+1DsdqQzzkuJFzGWQuhVyc0YboJAXATiEHoftx8nsbTll7bMGGVfIlWE00L9moUTNcFVmLjCXkbHazRCF1ky7wnjO/0aSzmiflnPY/WKPda8Na/RFpuNu2hajVaGmtfLfjcbLHm9/ZLlm35a69B8HkXTOvy5FdkVgf9cRn5tFo613Uf5rtssHZi8/8SlwBgP6gOl9o8T59xi1f5dcVvJ/lFanAW1veYLsw/5jA2sWKzXxavtTVHOvmPpb44+MmLGLlvbGeON881T1jEioJ+V09Z+14qxFEIvrrsfygWBKiEQh9D7aPsxOqIsbXmlusetNx37Deilbcp12/6VhquD7hNUZyln03RNHA6f3q2VveQJh1iUZZnXmdf8K413DORqOZ5laGWNX+Lww8M2YU+QX9rvR5Hqo4OP9ju7v34MI/NfsSOQEcM3YQ+nHDefduzvy9zS7d6jF31jPLDtyukfp7vpJf2PEjM+7d/JtrC+B938v3sMltxfw/YhH99ZMeRZn9Uvk0cxAzOfL6eaf6VNzHGmnPb2u1aMpbkUeoNn9tJg38Equc3CzSwRSGo3bFL1CPb/+I//SD/84Q+NV6FJ4Vfqv39s6KSV247SgZOX3NPWWTRMF1yPLJJ5dtILI3SR9thy5Trz5+I8o+iFreI6tzyXaP5jWjnDpu1U618/TROHw0Yo/46YRest3xVEXYsme4hFrRyzft1Ww/7JNN/qI8MvzTbdfpnf5q+jTC+G6vcR+c9hxPCNxdrDn46vzsUq9MaNG0dTp06l1tbWstOCZc2qrbsPfeMd477t5tEv5DUs1n79wxGzMr712Pfsl+X017B9yIdPYH91vdafh9HnivqMvM7a75bTI+r4JL/j9bPQXJkxIsbSXAq9LN34YWt1EUhKgCVVj2g9cQOMWuitaDtK+45ddE9/1oXViFpqseZxfi9/frRRK2dzrSYQnT87l1vkz3q+lpdH6kJuJD232cMm1Y6d9JwuNh/+s08+aYdyI3jXz375O4tf7+q2iPJNu0Q5et1OJl4MrTwi8D+QEbPNAsvx8Gfb3rOxCr0f/ehHdOedd9KYMWPKTt/7/t+S+GOm+8B57xj3a7eg37FYu8WqR/x6lRdkh0v8+vbXMH3Ip25uDL37qPuqgNl3eYy8ygk7zniOd1zOHvnEWMoVev2dC2lgH+/w/6A7dypfgRZkNH4PAlEQSEqAJVWPYBLH0u0HW4+SeMDeNdVN0oTX8Fr6xJqn6PtG+rkqYibRW0q+T17SBNvP6/RyN9XSUC+RI74f36jWL68rqq/Ivi763XDt5mHU4eaDUa9ml+Ejxy89z9CXGtW6ho6fpPrw8zrdV91mT3bW+iL0P5ARx7dQrO2x8dmXZ2IVepMnT6a6uroohgDq/FpbZv5c+ZfVTl79oKz+4RarHvHr1XZcu5htr7Fg9iGfugNj0VKH27K02XeZjKR/1rHEOjYx+1kssaBwEmMpV+hFEuB6IYkJvVtra9VXTjlT/9Z5Rf6IpV63vOI7N4UrvvPKf/vahaLyYctvCVx+Szfee4jEWUVxf7Iu9JZvOUI7D553Txtm0t36oPqz92SeTvqNLrLu/n2ncd1Hv9fE3c/e038/fCZ9ZJTbQD8rKqe4TllG4ZEGb5vUMk0bTLtcfDDsn0hvWH3k+KXnufv3MxXbR9JvNmh13v3IRJWJ1XdPfjH4H8iI45tiV2A5HjHRuut05oTedmUWMriNPPqAV98Q37NYF8fqG4+YM1y2+H1voj6j7YhXPxvCxrWRn9mHfOoOjiHZ763+uNXL+U4vyzauONuMN87EEgsKJzGW5lroifP0xE3VmcRN0PkZ7O1xzSuuFdOZzo/4zq1s8d3tK2eK8sMWcLHGC4SeNwExKC377LA64+GV5ozz2owxkeZYr1s7k4YIMTdspPrvkOc7bGWufF4uyzrLG0lPr9XqN/KMa/C16fOvO+jpYVo5D/2n03bzd26zCDJ/sF8N9JCcORg2k1Za7XOt15uhzbeimc1w/nMYBfsWhrXdrw1fnMqc0Gv78mxAPPm3Xbn9w7s9HPEr+5AtRsz48LND/o7T9lpevz7E4xEci7y+6G6L0z5Lf3T2Ib1/cvsZh2MpecRYmmuhF/fNFOWDQFoJZH1Gr2HzYWpXZjz80r8/7BBnw2bQBy7XmPkm0L+7lfnOBJfNFDX06zVa/R88V6P9/uH6AJva6de60HvwHaft5u/chJ41v79flnKkPYb9ps1B7Gy/j8B/LqOgNuOW4/RvXVdv5oTeZz2nA2M8VDs6YjuIdfveenrQIk6GPNduxHpR/BbFSPhYC7ZH9Bm/PuQ/HkhWrBhaM0P7A9D4o2kG/bvez03f3Wxx+c61/+hlW8eMgH5WTlv7XSvGUgi9tN6pYRcIlEFAPJ7gNnNdRpGel8bxjF79pkO0VXnuCgkMODEg3+eZpXP0NnafQnxnvY/P0/9IHPoKNVh98fq+Av6KsZQr9LAZI447JMoEgRwQiEPoLW09RJuV566QwjJYQj/122Ci/+6nb4UtN935m/TXPGVJ6K3f2Zvx+E4y1pKsK0Ssv/W479FKaehnYizlCr1Mves2B/dOuAACmSEQh9BbogxOrT2nkEIzWEz3MYTefXPzxfaTTu30/ywJvbVdJzMe30nGWpJ1hewbc93EXg398+qQ5YTu67zyxVgKoZeZ2ykMBYF0EohD6C3eeJA2fNGLBAasGFitv88zS0JvzY4TLN/QDzAOlBMDYizNrdCTD6PLnY5i16vzI3bHeu2cDbvTVuzadX6cNsAWjRC4/Jjc4iWdMi7YqriE3vruXkICA04MyPd5ZknoNX9+AvGNPh57DORe6Ikzy4RgU1PPimKhd+Oq+XuZT//X7UYsvjPKc+R3O1JFnLXnmh+2gIvLETzBkoqfQ5wLmZSYjEPoLdpwkNYqOymRwIATA6u2Z2/ptqnjBOIbfTz2GBBjaa5n9Nxm8fi3SuQEgXgIDBxucz2bMcrasn68ihicWpSbABIYcGIgi0LvU0XocXxDHvSBcmIg10JPnU1zmTmL8maKskCgFAK3Nv4x9rdjZF3oib9AkcAgbAxkaek2rG/Ij/5QTgzULQ9+h61YBRKrQVF8EnsFWhTGogwQiJoAhJ4/UfEuUJFWbt5H/7FsCxIYsGPgjUVNdPJ0X9RdlqJ81+3J89fU+BYJ8Y3+nVQMcIRelB0HQi9KmigrcwQg9HhN1t69j+bUrUQCg1AxkHahZ41+xDf6d1IxAKHHu+8gFwhEQgBCj4cRQg83wVJughB6iJtS4ibv10Do+d53DtDs0cp760bPpgO8+1P8uZqm6KdxT6GmMms7MHu0/WTvNPlZpm9pvRxCL60tA7tAwJ1AlEu3YAwC1UAgkaXbyDZjSFGVJgEUkdArEnniRP00+ZnT3pCE0Mvy8So5bXa4lWECEHoZbjyYziYgNvGJ96RH8UlE6AmDQx2vcmA2jS64zJClUehF0QrK/KQ6U6mIu9Gzy5urbJpSfhmRuIRCKkIg6nP0KuIEKgUBHwIQegiPaiCQuXfdhhJ6xgyZInymaIuhrrNdxjskR5PQRkLgCKEkrzECQRWN4ndCOEpBpfzf+N5DYDl+r11vfoptcgrTEHVZhJ7uclEcB9engtJ9xWxgNQwEbj5C6FVry1eP3xB61dPW1expboWeIdYKmniTH47QM0WOXXDJMrWZMnPmTBWFjmSILKvYtOUxyw4WXn516f551qPZJu0xuThttnPSeFnrLf+5wWruaFn0HUIvi60Gm8MQgNALQwt5s0ogh0LPIk78nkvzXbo1yzBnxZpoijGb5y2C7LOBbuWYM4ZFS6u2GUNrSFkFlxRkjrI5Qs8yS2f6ZSnbYwrQKkS9Zgmz2gFgtzcBCD1ER94JQOjlvYXhnyCQL6FnXW4MUiRBz+jJ35tTYY7lXHcRp6z7avmEyCxasnXMojltZAg9N4FmL8bDLtHaXj4HsbBeG8Gzf+h6pRMQD9SKxxeS+EDoJUEZdVSSAIReJemj7qQI5EvoqdSimNFTlY1tBk+bqbMub1aP0MOMHq87JrHrNsuvQONRRC4QSI4AhF5yrFFT5QhkTuipx0uc2RtIzOsZPeNCxlEmUuCMnjJF25hgmzrzW96Vu1WlWDSfkfM1PO4ZvYCl2+JdunhGLzDQLBkg9MLQQl4QqDwBCL3KtwEsyBaBRI5XCYXEZdetcb3rsqpjQ4Ijj9cSafFmDL+NFnL5tvhZO7dNHc6NH2Ut3Yp5SrmjuGgDiWOzBXbdhgo1kRlCLzQyXAACFSUAoVdR/Kg8gwTSJ/QERK9z9MTvijYwFO88NYRR0cYOj52wbhtAXDdKVEboaW47nhX02LSCc/TC9UIIvXC8kBsEKk0AQq/SLYD6s0YgnUKvLIp+S68+mx7KqhMXZ5UAhJ5/y81dvY+QwKCUGNh3/FIsw0KUQq/z6z7EN/p44jEQS8fwKTQ3Qq/oXDvXHbwQekkHWNrrg9ALFnrLNh8hcUNEAgNODGz44pR648yS0Nu65yziG3089hgQY6noG0l/EhF64niJW2trY/XNKvS8XyMGoRdrI2Sw8P6uhsSOPkkCT9THq4hBSdy4b98mJDBgxcCJvmuZE3qXv73F8g39AONAOTEg/wji3Asyt+s21CvQOASQBwRAwJVAHEJvffcpGhy8jQQGrBg40fdt5oTepas3Wb6hH2AcKCcGxFjKndGD0MNNHgRAIFGhN6CIHCQw4MTAcV3ovbF0I5083Rd5T43jGb2LitDj+IY86APlxIAUenXLWwL7BYReICJkAIHqJBDHjN667l7qHxhEAgNWDBw7p83oZUroXbnB8g39AONAOTEgxlLRNyD0qvP+DK9BIBICsQi9nb1089YAEhiwYuDomauZE3rfXL7O8g39AONAOTGwThlLIfQst7or124lvuW5lCMEcE06j544ef4aSzjdvnCcBnt7WHlLzZTlV6CJ+F7bdZKu3+hHAgNWDBw+fSVzQq/v4nWWb+gHGAfKiQExlkLouQi9VduOxb7lmXNkAPJk42iJps+1jsQVejheJfh4lRZlcPr2+i0kMGDFwMFTlzMn9M5c+I7lG/oBxoFyYkCMpVyh19+5kAb2BT/Lx5mASOR4FY4hzjxyRk8IrHK2M+Pa6toOv/fYJQi9l18upcu5XiMGpTU7TtKVazeRwIAVA/t7syf0TisrAIhx9PG4Y0CMpVyhF9kgrhSUeqHX8VUftr3jWAd2DOw9dhFCL2Kh1/z5Cbp49QYSGLBi4KsT2h9bWdqMcVLZKYwYRx+POwbEWAqh57J0K4ReOduZcW11bYffowu9Nxa30OWrwc/pYek2eOn2084T1HfpOhIYsGLA6IMZOl7lmLKBBDGOPh53DIixFELPRei1f3UO295xrAM7BvYc1Wb0IPSimfgXLD9RBifxDFO8aTe9MrJAhUKBJjTGV1d77T1qHUYa+QdqV3wr+r7wJC2N3ef4/Iy3rfzt3n3kQuZm9A6fuhJbfKcztvT+pse/PV6S6YuVjNFK1S3GUgg9F6G3fd85bHvHsQ7sGDBuMima0ROvABQ7b5P4xHG8yur24ySWtuJNu2iaLvQea4inrq0zR9lFnhB8I1+jrYpvxb97khbF7nM8fsbbTsE2f3Hom8wJvf0nL8UW36mMrYYntb6gx789ZuLvi5WO0UrVL8ZSrtDL3GaMUl6BJjdjbNt7FtvecawDOwZ2HdZnE5hCb+BwG4kOlZfPpEmTisWMdQYr5P9feW89fbT9GImz0eJNPfRSjTbT9ujSOOoyyx/+So+3L+2v0XCV0RNUF7vPcfhZ+TK7DpyPVeiNGzeOpk6dSq2trWWnBcuatde1KZu44o1vpV3SFFtLn9DGiZrXaHNRnMfdFysfo7G3tcfYIcZSrtCrijdjSKHXtucstr3jWAd2DBizCUyhlxeBJ/3o7u6mI0eOROaWGJTEEUcHlZ2UB3u76fcjNDH2yCLxs9t3Ms9keq9tli6atGuGT+vWr9GvXTTZVZSaZSv5HGUUCkq5ar1a2jBNm6VTr7HmHTGLNljyudtuliPLM8uw1+Osz1z+lfksftvq1ep473HBYBT9vs2lTpf8xfbI5ebw/nMZyXzFvoVjLU5KiHMzxo9+9CO68847acyYMWWn733/b+mPDZ20W/kD0WDu1x7l/M6IT/fY8o91fr/SYs0lKX3iPb2/uP7eiE9rP/+AHrGUVdSHOTwi6sNJx3Ec8SDGUgg9l6XbrV+ewbZ3HOvAjoHug/psQpUKvcgUnl6QGJRWtB2lr45fVNJOel4XeuPeFz+7fWfmKb6ZjKTnP9Oue/cxj5uRclMxyn7fXQgKsfeuWvdFapk2Ur2pDZtWS+McN7dh03bSV55laPWbfuj+fFZLw9RyzDo0P/1s1vzSfDJ9lNeZ1xaXac1T9P8o/OcwYvjGYq1z2q6swsQp9OJ41+0Xyrjh2xa6b2Xl8Ykt7ziVMcPrV7I/uAu9WnpX7y/uQk/GLq8uFouIYpgbf97jitkvA8eMKNraowwxlkLouQi9z3afwbZ3HOvAjgFj2QhCLxLNJwalD7cepS+VB+y/PNJFU4drAmlsnfjZ7TszjxA9Uze55NlUS0N1UcYpx8xzgeaN1+of+lKXWn/TS5rQGzpc+Xd4LTVZviuMb6Qv6/yXsq1lq/4Ytk2ieap/egqwWdSl2ab7LPMLGwxujjKt5Rf93411Cf5zGDF8Y7HWfRB/nGdN6O1QZiGNtvZtF0tMhM3nFVuu/crZ1ox+5RpnjTRW7WuO2JP9Qu8zdt85dXE4RBfDrPiLOI7jiAcxlkLouQi9TbtOY9s7jnVgx8DnctkoRUJvsO9g7K9Zi0TVuRQiBqXlW46QWBL/4tAO+q0u9H7+nvjZ7TtGnvd08TX8VVqtluFSzsZX6W6/5wnHL1OvW/2iJvSEwPrtRlmW279udrnkM+qdRG8atin5XG22f/+mbotgY9olytHrtvnrZ6vyuwj9D2TE8E20U2A5Oq/Nyh/nWRN6HcqmPy0OY0xescVqa0a/Umx/U/9DqGjGTu8vhn9ebc7u5wxOLL/4cRUYfxHHcRyxIMZSCD0Xodfaczq2be/8LdZxbjePs+woj2/w244fZT3llSUG7DDHqySxGSPJd91GLfgEy8bPDtOO/X1K6qBnhmkzag/NFz+7fcfIM3+iJs6GzaSVahku5ayb6S/0xjWo1618QRd6trJkmdZ/3exyyWfUO5HmGLYp+Vxtdnyv57n7hQaV093jJqo+PDS/gR4S/uo2a/4GpAj9D2TE8S0E641fnMqc0BPPgge2SVCbBf3eK7ZYbc3oV6J+2ZbWP5Lc+oZXm7P7ebIxzOrrEcdxHPEgxtLcCj3xvrb+nhWh7kFyM8aG7lOxbXvnb7GOc7t5nGUHH4XAZuC7HT/Ceso80kLs0g4j9PJ2YHKoTsbILFgu23yYhIDu2NdBv9aF3oPvip/P0eyHzWfttO+K8xR91zKDhqg3ohr6dYtWzofP1RgPkGvl1NOD+s1K1qXZYE/GdQ/XF/3OntfNruLyOgzbJtJsa13G9wUy7THLHPJcB8lrhzw3Q7Fd+Kb9fsjDE1V/1TwuPrh/F53/gYw4vlnbKID1+p29mRN6W3adCdE2LnHDaVev2GLFOqNfyXKGzaAPg+x5V/9jq+CIc49+7t6vgzhEF8O2McIr/iKOY35fDeJg/l6MpVyhN9jbQ2I1KIpP6l+Btk4ZNCq1FdqsN87t5nGWHeE2dt/t+BHWU+aRFlu/hNCLYmCQZYhBqX7TIWrbc0ZN/zbWexPF/W+LPO30q6FaHu1nt+/MPG4Phcvrlj1rij97vhr6VbNWtpFn7FLDRmmr/V83u4rt87PH2/cJ9G+qn0vpfjmTMvQVWma1z8ZD1uv/b1T+cxgF+8ZnLV/cnqVXoLUqs5DuccNrK+9ro4p1Tr+yxJ/zsQc9Hg07m1+hu4oejZD9ilMXj0tUMczt61HGcRzxIMZSrtCLchxPvdBrUV4CHMc253BlMrebux4X4XKkAudYCc62dctxF/IGZTuagmlP8bEKyo368Q9sx1f4b8cPeWQEy7fSytysPNOJGb3ohgjBcmnrIfps92k9LaGfWm4Qd03dRvVTNUH207dEnm30L7rQ0372+s5eTmHsEkc5+rVvPe5yVEQN/cun2u9l3eJ600ZZr/VfN7uK7XOLc9OP0/S6U+gOnU71BhuzDsMew37TZn87HbZH4D+Xkb9vfNZN+vs8syT0NnT3BsSPW0xxvrPEhMszp9bY+sy3rZn9yrUM/Y8zZx8pyitjlFmXEfcBHCKI4TB9Pao4DtVPmSzEWAqh5/KMnngJMGsbd4xboq3HSrjdCIKPgwh5rATLl8ai4yQ02yxHOHhubS/eal7k12ONtuMr/Lfjy6M2Kv+v+MscQi9aobdEGZw29ZxCAgNWDHzaqZ3+nyWht67rJMu3VPeDufofRcofH0usser1PeI58TYXY2nmhF5tbS3dcccdZR9a6Xbw5fe//0P66xHfp8b1e+Lf9h64Td663dzcpi6PelCPcXAtw7G9nHWsBGfburn13rltft54vyMcire7O4+r8NxS7rsdn2dzHNvVnWUazwcxd93iGT1/USgGpSUbD5F4wB4pCgaL6T6/3cT67+57M4q6KlPG6o7sCT2xcpT5+H7TbfbbfNQiupjKfwzHFQtiLM2c0Kurq6N777038DU0G95/nda/90pgPusrbT5ds45+88cGEu+Gi2Obc7gyPY5mcNnO7bW9XT2OgnOsBGt7P/OoCJ/t9sbxGNImy83HPDrDsoXedzs+Y6s9y6/yy1nbpT8IniKhl/XjVRZvPEjrlaUtpCgYLKJ7GULv3jejqKsyZXysv88zSzN6YuUoF/HtKvZG0D99HGUs5D+G44oFMZZyhZ44rUG8Jz2KTyLP6JXzrlvxbrg4tjmHK9PjaAbbdm4zj9syp3ocBedYiaAt+p7b353b3Rn2WOoyjmAwbkLM4yVY9jK24kdUTvPnJ0Mt3UbRifJchhiUFimDk9gUhQQGnBj4aHv2ZvSaO08gvtHHY48BMZZyhV5Vvet2Zdux+Le9B21Fdz0ywtw6rh2bIH+2bld3bIlnHSvB26ptHmth3x4/WznKQTsWgmGPm98uNqrbzH234/NsjmO7urPMTztOQOhFqDxVobfhIImZUiQw4MTAqgwKvSZl3OD4hjzoA+XEgBhLIfRcNmOIV4bEsc05XJl+W+Tl0QqcbfScPLxt622u2+PF8xhh7PE7LkOWo9vjux2fabN+REc49uHKFkv9YTZjRKiJclmUYPn2p1/Rgpb9SGDAioH5zfsztxnjPbQtq20xDpQ3DoqxFELPReh9oLwyJI5tzuHK9NgibztaQdli/ul0+9lEyu9ftx09IbahM4+VYG3XdpRlHHGhb3dn2FO0FV1dun2cXner33M7PueYgWTyiKV+CL3oNKdgiQQGpcRAlp7RK8U/XIN+UWoM1C1vCRykq2rpdvlnRxLfAp3qLfTYEu8bD6vatJdGv8HcjBHY2yLIIB6oFc+pZvnT3r2P5tStRAKDUDFw8nRf5GE/efJkEhsBo/4gvtG/k4oBCD2998pXoDUqQi+urc7pKxfb1sttkxUhhR6OV+HdLiH0cBMs5SYIoYe4KSVu8n5NLoWeerzEmb28O4pD6Il3w8W11Tl95WLberltIp7pDDOjB6HH65bihi3EHhIYhImBy1ev8QIsRK64ZvTC+IW86AflxED3nmjeYcvtNokcr8I1xppPzug1KEKPs6UfeXD0g4iBD7dA6JXS33ANCGSFQFxCLyv+w04QCEsg/UJv02Fse8fRFuwY+ABCL+wYgPwgkCkCEHqZai4YmwICqRd67zR/jW3f2PrPjoH/VOIFS7cpGFlgAgjERABCLyawKDa3BFIv9ErdvozrqnvrO3fXLZ7Ry+3YBsdySgBCL6cNC7diI5CI0BPHS9xaW1uyE2u3dIXa0p/3HTvwj7eTjfMgeH9XQ+aPPim5Y+FCEMggAQi9DDYaTA5NoCrO0bNSgdDjCRsIQDsnjtAL3ftwAQiAQEUJQOhVFD8qT4hA1Qm9Q8dO4VgHHG0ROgZu3LyVUJdENSAAAkkRgNBLijTqqSSBqhN6lYSNukEABEAABNJDAEIvPW0BS+IjAKEXH1uUDAIgAAIgkGICEHopbhyYFhkBCL3IUKKgaidw+8JxGuztiRWDeM+t6LT4gAAIlE8AQq98high/QQg9NLfRrAwIwRwvEpGGgpmgoBOIEqht+/4JVq17RgSGCQaA5zO3N+5kAb2tXCyBuZJ5HiVQCuQAQQqRABCr0LgUS0IlEggSqHX+XWfesA6EhgkGQMlhn7Jl0HolYwOF+aBAIReHloRPlQTgTiE3uVvb9Ht24QEBrHGwIYvTql/VCT9SaXQu3LtFom/tJDAoJQYEPHD/UDocUkhHwikg0AcQu+SIvQGFZGDBAZxxsB6CD1zEDl5/hqm0rGcUHIMiPjhfiD0uKSQDwTSQSAOoXfx6k0aUO7wSGAQZwys79Zm9Lr3HEy0M6VyRk8KPTGbg+l0LCdwY0A+b5M2oSdeASh23uIDAiBQPoFYhN6VG9Q/MIgEBrHGwLruXlXo1S0P3mSRuc0Y4iZ3Y9EEdg+XQq9DEXpxTqOi7HxN04t4EZ0ojNAbONxGokPhAwIgkA0CcQi9C4rQu9U/iAQGscbAup18oZf741UMofdVH6bSsZzAjoEOJV6E0FvXnvzDrtm4RcJKEMg+gTiEXt+l63T95gASGMQaA2sh9Iqf0WtXbtz9A7eRwIAVAyJehNB7Y3HwtHj2b3fwAASqk0AcQu/shet07Xo/EhjEGgMtXSfZS7dVM6PXvu9crNOomKrP11KFiBcIveq8+cPr6iEQh9A78801uvrdTSQwiDUG1kDoFc/obd97jm4oU8lIYMCJAREvaRR6g30HY3/NWvXc5uFptROIQ+j19n1Ll769gQQGscZA844TmNGTA5h8Rq9t71m6dkOZTkcCA0YMiHgJK/SS2IyBd91WuzSB/1ESiEPoHTt7lc5fvo4EBrHGQNPnORZ64n1t/T0r2H1dCr2te84q06i3kMCAFQMiXsIKPZyjx+6WyAgCqSAQh9A7cvoKnb34XUJpN80YWaBCoUATGpOq06WexidVGwqFJ6k+Md8r6G8KfPy0ky/0Bnt7SKwGRfFJ9Tl6W748E+s0Kqbq87VUIeIFQi+KYQFlgEB6CTz66KM0depUam1tLTstWNasjhkHT16mU8pB68mkXTRdF3qPNyRVp0s9DabQW5yY7xX0NwU+ftJxnL10G2UPTLXQ27z7NH1z5XqM6Ut6dZT2l9WkD6Kup5yy9WtHvU47YvU/hM8f/L3+19/f0zKWTeX4H8Iuiy0iXiD0ohweUBYIpI/AM888Q8OHD6cxY8aUnUaM+huatXALfX38Eh1Xlm+TST00rUa77zxWn1SdqCeZtvXn/HH7MQg95zN6m3pO0zllujW+ZE6hT1Sm0KOtp4yy5ZT6yD9QR6z+h/DZMc0fzKoM/0v0WcQLhF76bsywCATSSkC+TWfPkQt0+NTl+NLiyfofyprAk2n8YrPO1umjHHkm0wLdJu13o+jF6bIc5f+LZ9Fwvazh07s1213rUfK28erRGHTTi6oQVepvM+sQNhv1hGHlKEMt13K99FtlYc1bM4tay8hnci6tvjji4aPtEHrGWCCf0duovAA43qn0OKfQyyhbTqkrQq8tBdPNpbVBGf6X6LOIFwi9tN5SYRcIpI+AFHq7Dn1D+09ciiXNf8wu7qxCb9xCrU7vPKPohS2XaN00pwh0lDliFq0T9i90F5RCJIpyRF3FZU2m+Tbfd9ILI7xsNsth8fK0x6xT2jNs2iwaZxHBgtOwaTuNNuHkC+Jo9T+oPpZ/IWNmZdvR/M7olboZY71yinS8063WKfQV9JglyEbM6DHrrn/C5a+xUTSt3TFN65qPPz3/2Qy/zqzV9/4EvQNOWGFn0/4ajVDtf4LePyv9Uv5vfK9dZ/NLLFU4fq9db/pVbJP997b2KdP/cttaxEsahR6OV0nfDR4WgYAgIIVe1/4+2nP0QvRpcy0N1e8rY+tk+V307HBtPFa/C8hTeLSRml8aqd2DlP+b+SfR20dlWeL/bvY76rLmMep1XmteUyiMpGc3i3J9yvHk5n7N249qvg99qUvlLX0bOlzxcXgtNVu+U/3Vyw/Mx+AYpr444uHDrXyhJ05rEO9Jj+KTyDN6pb7rdm1XLx1WdkPFl+QUtftfL+OX6HUvcRN64hplSnyblmfB495/tRnlBPhSPHVvLVOva9u/6tP1T9ACS3myfnVq/XS5fpllF9tkr1e2TRT+l9vOIl7CCr0oOhHKAAEQyCYBKfQ6vzpHPYe/iT4tmKQJtOGv0mqj/B30O13o/XyBUqdrHvv3c1/UhJ6av/VVTTyOX6bYK8uaRHP18ueOd78XqddafZTlFMxrtd877PP8LoCXUb7HvVG1/xtarfsmROXvWr3LDMzH4CjaILCcOOJAL/ODrUfYM3qpeTNGT08P1dTUBD4Q+4O7/hv94H/818B88uHa7/3N9+m/DxlFo8f8hHYfOkP7TypTzrEk6xS1MpWs12FM/z623KNe87pxixTbts6iYfpfberPajmOPGHsX6RPv4vp+KLr3Mpdrk95Sx84frnbJ31Xp8ytdRs+mpyM30ftfxhWlrxrdmivl8Er0LJ504XVIJA0ASn0tilncHYdOB99mj9RE3rDZtIqo/xOemaYJn4emq/U6ZrH/v0bL2hCT82/fibdLcp8pEGxV5Y1kd4w/u8urNRrrT7KcgriWuvvHPapv3P7LoCXUb6H0FPtP0+rdN/sjIrLDszH4CjaILCcOOJAL7PxswwKPdEpOVvc1736CK19/sesvKK85R+toadq36c/LfiI9h67GGPaSc/pzyI8/GdLPX+WQquW1uj1v6NPN1ufrxD/V69zyb/3mEfZHH9cy3OxT5nWVvnI/PJnr7qt5SrT3FKcOn2SSwQ29kb+yfSO04eo/ecwcsnTpJ9RBKGX9O0S9YFANglIobd19xkSs3qRp5YZNESdBKihp1u08lc8X2M8CvTgu8p3Rp4CqT+rdnTQ07oYHPJ8h3GNLf+4eku+iTTnq3p6UK1L/L+4HLNs/XdGvdb89rrd7Ckqx5ObtMfqVzFjg4fqj3cbBOZjcLTxD6gv8lhQfFu2+XD2ZvS4XbvUpVtx5swuZcozvmSfojbqsUwBf2KZxnYTRGI6fJctv7TXo2yOP67lWTkso5+rHXoSvaWU95Y6Va9Ne2s+MPxiTKvbuFum+UWdtt9F7T+HkUseeUYRhB63ZyIfCFQ3ASn0Nis79rcrs3rRp3Z6ShdsbvePB97R6vzTw16P/kygPym/b3xOE4dq/jW6eHy4XrlWli/yceryzzPkuXZLmXp9KhfzOmkzh5W0u9j3Gnpqjea7kUf1x7sNOPmCOIapj+Nf2DwNEHrmgCN33X68/TjtVKY840ud9Bu9E/5MmdbW6mmgn+nLsHe/0Gn5WZve1vI4rjOmqEfSb9ZreT6S09FKWWbZTF/kFLQ+pe7mvyz/7kcmGtP4Zr4wfjHtc0zz22yK2v8S21zESxqXbsUDteKPHXxAAATSRUAKvY3dp0gcuB5PWkr3W3eTjl1KDVM14Xb/PLPO18c6xN7QV6hBt8mWv+kVukuUp5Sz5ct2+uVQcd0Eel3klb+T9SllvG6rS+Z3F5Z3TW23lGm1z7zOajOL17wJLpsZa+iXTZrv0jfNH+824Obz4ximPpZvIWNm6aZDmNGTQ4AUequ2HYt+Kt02NWxOjxf/xSGns/3yyClpTp4QywKWKWjTLnPqX51SduSxT6dz/LIvIdj9l3X5+yWWFJzLDG5/tfKn+kMwcpniF/ESVujhFWjpuvHCGhBIkoAUeuuUHfubdp1GAoNYY2BJa46Fnnq8xJm97P4rhd4K5cyZsFOj4fJ7TGMPm0GN1ilkOVUu/0pSfv8n61S6mreeHrD+1aZMQ9um28MuC7zj/CvInOqWPhrT1E57vabwi/IpdhfVoz1Pok2rc6b55VR7xP6H5aXkF/ECocfuZsgIAlVPQAq9FmUjlziHE4nDYDHd5zjvzu0P/Pve5JRVXXmWbOQLvSg7Z1nHq0RpiLUsKfTEmTNblalRJDcG5nKAmEq3M7JPs1cLP3lGUZhn9DCjF1cvRrkgkH4CUug1f36C1nf3IrEYLKJ7GULv3jfB0xlTizceZC/dRtl7Ui30lm85QpuVqeTspyX0U0bH+Olbwb4u/Z25Y0v9K+rnS1z4bKN/UZ/bKBCnzOzz1biJeMGMXpTDA8oCgXwTMISesmNfLN8igUGcMbAIQq94M4Y4c2ZjjzK1m/nEnOqeG+zrIovQ+5+/a/Ng00b/rAu9+xhlZp+vxk2eUYQZvXzfnOEdCERFQAq9po4TJA5cRwKDOGNg0QbM6Bl9Vy7dLvvsMG34ohcJDFgxIOIFM3pR3QJRDgjkn4AUeuIh+fpNh5HAINYYmN+8P79Lt+J4iVtra9mjhhR64syZOKdRUXa+punlGUVhZvT6uxpw9Am7ZyIjCOSLgBR64g9EJDBIKgbqlrcEdqTUvAIt0FI9Q6kHJjcof13EOY2KsvM1TS/iJeyMHjeGkQ8EQCB/BK5cu0ViYkEk8QciEhgkEQMQespYImf0xHr2KuUQXCQw4MSAfP4hzIxe/m5d8AgEQKAUAnPqVhISGCQRAxB6FqGX1DQq6snXlD2EXim3OVwDAtVN4MPmLYQEBknEQPOmzwM7W+6XbsV0unh2QqT3P+2i/1i2BQkM2DHwxvufBHYiZAABEAABEACBtBLIvdCzghfqOompVNSRryl7bue9feE4Dfb2cLOXlE88oyo6LT4gAAIgAAIgwCEAoYdnKSB+A2KA05FEHrwZg0sK+UAABEAABJIi0N+5kAb2Be/O5diTyjdjcAxHHhCIggCEXhQUUQYIgAAIgEBaCUDopbVlYFciBCD0EsGMSkAABEAABCpEAEKvQuBRbToIQOilox1gBQiAAAiAQDwEIPTi4YpSM0KgkkJvsO+g+lYOtzRwrHj7vXyLh1t+N9xeZYs31Tg/sOW3BC7usQgu4ILxxT0GkuZS6m0VQq9UcrguFwSSEnpCdBWJK2W3r9hZ5ZbcHsKVtrrld2sMr7JhiztzcAEX9CP3GACXdHAp9aabiNAL+wq0Up3BdSAQlsDA4TYSu5vwAQEQAAEQAIE8EoDQy2OrwicQAAEQAAEQAAEQUAhA6CEMQAAEQAAEQAAEQCCnBBITetffuU996Nzt2SPxndeD4+IhcedHPBzslv/W2tqivLevXfB+4N3lMELYUt1tlNN+DrdAAARAAASqlEByQk9/6NzteSjxndeD426vp5KvlHJec2PRhGKhd+WMZ9mwxf0B02rmUqXjANwGARAAARDIKYFEhF5O2cEtEAABEAABEAABEEg1AQi9VDcPjAMBEAABEAABEACB0glA6JXODleCAAiAAAiAAAiAQKoJQOilunlgHAiAAAiAAAiAAAiUTgBCr3R2uBIEQAAEQAAEQAAEUk0AQi/VzQPjQAAEQAAEQAAEQKB0AhB6pbPDlSAAAiAAAiAAAiCQagIQeqluHhgHAiAAAiAAAiAAAqUTgNArnR2uBAEQAAEQAAEQAIFUE/j/Afg1QnEy7pr/AAAAAElFTkSuQmCC" alt="ExceptionClasses.png">
+
+<p class="">The root class is called <code class="">exception</code> (in header <code class="">&lt;exception&gt;</code>). It contains a member function <code class="">what()</code> which returns the what-message:</p>
+
+<pre class="color-syntax">virtual const char* <strong class="">what()</strong> const throw();
+   <span class="color-comment">// what() is a virtual function, can be overridden by subclasses
+   // It returns a C-string.</span></pre>
+
+<p class="">Some commonly-used subclasses are pre-defined in header <code class="">&lt;stdexcept&gt;</code>:</p>
+
+<ol class="">
+<li class=""><code class="">logic_error</code>: indicating programming logic errors, such as <code class="">invalid_argument</code> (invalid argument passed into function), <code class="">out_of_range</code> (value, such as indexing subscript, out of range), <code class="">length_error</code> (length larger than the maximum allowable length), etc.
+  <pre class="color-syntax">class <strong class="">logic_error</strong> <span class="color-new">: public exception</span> {
+public:
+  explicit logic_error (const string &amp; what_message);
+};</pre>
+</li>
+
+<li class=""><code class="">runtime_error</code>: indicating execution-time error, such as <code class="">range_error</code> (range error in internal computation), <code class="">overflow_error</code> (result larger than the largest possible number), <code class="">under_flow_error</code> (result smaller than the smallest possible number).</li>
+<li class=""><code class="">bad_exception</code>: unexpected exception.</li>
+
+</ol>
+
+<h4 class="">1.4&nbsp;&nbsp;Creating Your Own <span class="font-code">exception</span> subclass<a id="zz-1.4" class="" style=""></a></h4>
+
+<p class="">You can create your own exception by subclassing <code class="">exception</code> or its subclasses (such as <code class="">logic_error</code> or <code class="">runtime_error</code>). For example,</p>
+
+<h5 class="font-code">MyException.h</h5>
+
+<table class="table-program">
+<colgroup class="" style=""><col class="col-line-number" style="">
+<col class="col-program" style="">
+</colgroup><tbody class="">
+<tr class="">
+<td class="">
+<pre class="text-right">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13</pre>
+</td>
+<td class="">
+<pre class=""><span class="color-comment">/* Header for the MyException class (MyException.h) */</span>
+#ifndef MY_EXCEPTION_H
+#define MY_EXCEPTION_H
+ 
+#include &lt;stdexcept&gt;
+ 
+class MyException <span class="color-new">: public std::logic_error</span> {
+public:
+   <span class="color-comment">// Constructor</span>
+   <span class="color-new">MyException() : std::logic_error("my custom error") { };</span>
+};
+ 
+#endif</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+<p class="">Program Notes:</p>
+
+<ul class="">
+<li class="">Your custom exception shall subclass <code class="">exception</code> or its subclass, in this case, <code class="">logic_error</code>.</li>
+<li class="">Provide a constructor with a custom what-message.</li>
+</ul>
+
+<h5 class="font-code">TestMyException.cpp</h5>
+
+<table class="table-program">
+<colgroup class="" style=""><col class="col-line-number" style="">
+<col class="col-program" style="">
+</colgroup><tbody class="">
+<tr class="">
+<td class="">
+<pre class="text-right">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16</pre>
+</td>
+<td class="">
+<pre class=""><span class="color-comment">/* Test Driver for the MyException class (TestMyException.cpp) */</span>
+#include &lt;iostream&gt;
+#include "MyException.h"
+using namespace std;
+ 
+void fun() {
+   <span class="color-new">throw MyException();</span>
+}
+ 
+int main() {
+   <span class="color-new">try</span> {
+      fun();
+   } <span class="color-new">catch (MyException &amp; ex)</span> {
+      cout &lt;&lt; <span class="color-new">ex.what()</span> &lt;&lt; endl;
+   }
+}</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+
+<h3 class="">2.&nbsp;&nbsp;Storage Duration, Scopes and Linkages<a id="zz-2." class="" style=""></a></h3>
+
+<p class="">Recall that a variable has a name, a type and stores a value of the particular type. It also have other attributes such as <em class="">storage duration</em>, <em class="">scope</em> and <em class="">linkage</em>, which is either set implicitly, or via so-called <em class="">storage class specifiers </em>such as <code class=""><strong class="">auto</strong></code> (automatic storage allocation/deallocation. C++11 reassigns this keyword to mean automatic derived type), <code class=""><strong class="">register</strong></code>, <code class=""><strong class="">static</strong></code>, <code class=""><strong class="">extern</strong></code>,  <code class=""><strong class="">mutable</strong></code> and <code class=""><strong class="">thread_local</strong></code> (added in C++11); or <em class="">CV-qualifiers</em>: <code class=""><strong class="">const</strong></code> and <code class=""><strong class="">volatile</strong></code> (CV stands for constant-volatile).</p>
+
+<h5 class="">Storage Duration - Automatic, Static and Dynamic</h5>
+
+<p class="">The <em class="">storage duration</em> (or <em class="">storage class</em>) determines the duration of a variable, i.e., when it is created and when it is destroyed. They are 3 types of storage durations:</p>
+
+<ol class="">
+<li class="">Automatic storage duration: Variables declared inside a function (including function parameters) or block have automatic storage duration. They are created when the program enters the function (or the block) in which they are defined, and destroyed (memory is deallocated and freed) when the program leaves the function (or the block). They are called automatic as they are managed (created/destroyed) automatically without programmer's explicit actions. They will be created/destroyed repeatably as the program enters and leaves the function (or block).</li>
+
+<li class="">Static storage duration: Variables declared outside all functions, or inside a function with <code class="">static</code> specifier have static storage duration. The term <code class="">static</code> means that (a) the variable is created when the program begins and destroyed when the program exits, i.e., it exists for the entire duration of the program; (b) the variable retains its memory and contents throughout the entire execution.</li>
+
+<li class="">Dynamic storage duration: Dynamic storage are managed by programmer explicitly (instead of automatically). Storage (on the heap) is allocated via <code class="">new</code> operator and persists until they are freed via the <code class="">delete</code> operator.</li>
+</ol>
+
+<p class="">Compiler typically allocates 3 chunks of storage for static variables, automatic variables, and dynamically allocated variables, respectively.</p>
+
+<h5 class="">Scope - Local or Global</h5>
+
+<p class="">The <em class="">scope</em> of a variable determines which parts of the program can reference the variable, i.e., the visibility. Some variables can be referenced throughout the program (file-scope or global-scope); while others can only be referenced in a limited part of the program (block-scope or local-scope). For example, a local automatic variable defined inside a function (or a block) is visible by that function (or block), and not outside the function (or block).</p>
+
+<p class="">There are two scopes:</p>
+
+<ol class="">
+<li class="">A variable having <em class="">local scope</em> (or <em class="">block scope</em>) is visible only inside the block.</li>
+<li class="">A variable having <em class="">global scope</em>  (or <em class="">file scope</em>) is visible throughout the file.</li>
+</ol>
+
+<h5 class="">Linkage - Internal or External</h5>
+
+<p class="">A C/C++ application may consist of many source files (or translational units).  The <em class="">linkage</em> of a variable determines how a variable is shared by different files. A variable with <em class="">external linkage</em> can be shared by other source files; while a variable with <em class="">internal linkage</em> can only be used in the file that it is defined. That is, <em class="">external linkage</em> extends the file-scope to other source files.</p>
+
+<p class="">In summary, with linkage, there are 3 combinations of scopes/linkages:</p>
+
+<ol class="">
+<li class="">block-scope (or local-scope) with no linkage,</li>
+<li class="">file-scope (or global scope) with internal linkage,</li>
+<li class="">file-scope (or global scope) with external linkage.</li>
+</ol>
+<p class="">Take note that a variable might exist in memory (determined by its storage duration) but not visible by a certain part of the program (determined by its scope and linkage). For examples, a local variable created within a function still exists when the function calls another function, but it is not visible by the second function. A <code class="">static</code> variable declared inside a function exists throughout the program duration, but visible only by that function. A <code class="">static</code> variable with internal linkage exists throughout the program duration, but visible only to the file in which it is defined.</p>
+
+<h4 class="">2.1&nbsp;&nbsp;Automatic Local Variables ("<span class="font-code">auto</span>" Specifier)<a id="zz-2.1" class="" style=""></a></h4>
+
+<p class="">Variables defined inside a function (block) and function parameters are "<code class="">auto</code>", by default. They have automatic storage duration, i.e., they are created when the program enters the function (block) and destroyed when the program leaves the function (block). They have local scope (i.e., can be used within the function or block immediately after they are declared) and no linkage (i.e., either internal or external linkage).</p>
+<p class="">Automatic storage is used to converse memory, as these variables does not exist throughout the entire program, but created when needed (and destroyed).</p>
+
+<p class="">You can use the <code class="">auto</code> specifier to explicitly specify <em class="">automatic storage class</em> for a variable. However, it is rarely used as <code class="">auto</code> is the default for local variables. In C++11, the keyword "<code class="">auto</code>" is assigned a new meaning to indicates <em class="">automatic type deduction</em>. The old meaning of <em class="">automatic storage class</em> is no longer valid in C++11.</p>
+
+<p class="">For example,</p>
+
+<table class="table-program">
+<colgroup class="" style=""><col class="col-line-number" style="">
+<col class="col-program" style="">
+</colgroup><tbody class="">
+<tr class="">
+<td class="">
+<pre class="text-right">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20</pre></td>
+<td class="">
+<pre class=""><span class="color-comment">/* Test Local Variable Duration and Scope (LocalVariableScope.cpp) */</span>
+#include &lt;iostream&gt;
+using namespace std;
+ 
+int main()
+{                    <span class="color-comment"> // localVar allocated when execution enters the block</span>
+   cout &lt;&lt; "Hello" &lt;&lt; endl;
+   <span class="color-new">int localVar</span>;     <span class="color-comment"> // localVar's scope begins after declaration</span>
+   localVar = 8;
+ 
+   {                 <span class="color-comment"> // blockVar allocated</span>
+      localVar = 88;
+      <span class="color-new">int blockVar</span>;  <span class="color-comment"> // blockVar's scope begins</span>
+      blockVar = 99;
+      cout &lt;&lt; blockVar &lt;&lt; endl;
+   }                 <span class="color-comment"> // blockVar's scope ends and deallocated</span>
+                     <span class="color-comment"> //   when execution leaves the block</span>
+ 
+   cout &lt;&lt; localVar &lt;&lt; endl;
+}                    <span class="color-comment"> // lcoalVar's scope ends and deallocated</span></pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+<p class="">Take that that C++ allocates local variable when the execution enters the block, but the local variable is only visible (i.e., scope begins) after its declaration statement. The variable's scope ends and is deallocated when the execution leaves the block. You can verify that local variables are allocated when execution enters the block using a graphic debugger (on CodeBlock or Eclipse) - Try it out!</p>
+<p class="">Automatic variables are not initialized. You MUST assign an initial value. Compiler may not issue a warning/error if you use uninitialized local variable.</p>
+<p class="">Automatic variables are typically allocated in a function stack (a Last-in-First-out LIFO queue), where the new data is stacked on top of the existing data. When a function is called, the caller pushes the arguments onto the stack. The function's local variables are also pushed (allocated) onto the stack. When the function exits, the top-of-stack pointer is reset and all variables are freed.</p>
+
+
+<p class="">If the inner block has a variable with the same name of the outer block (e.g., rename <code class="">blockVar</code> to <code class="">localVar</code> in the above example), we say that the inner block's variable <em class="">hides</em> the outer block's variable. The outer block's variable is temporarily out of scope, until the inner block exits.</p>
+
+<h5 class="">Register Automatic Variables ("<span class="font-code">register</span>" Specifier)</h5>
+
+<p class="">You can use  the "<code class="">register</code>" specifier to <em class="">suggest</em> to the compiler to put an <em class="">automatic</em> variable in a register for faster access. This is often unnecessary, as an optimizing compiler can do this automatically.</p>
+
+<h4 class="">2.2&nbsp;&nbsp;Static Variables ("<span class="font-code">static</span>" Specifier)<a id="zz-2.2" class="" style=""></a></h4>
+
+<p class="">As mentioned, a static variable:</p>
+
+<ol class="">
+<li class="">is allocated when the execution begins and lasts for the entire duration of the program;</li>
+
+<li class="">retains its memory and contents throughout the program execution. An static variable declared inside a function retains its value even when the function exits.</li>
+</ol>
+
+<p class="">Static variables are initialized to zero (all its bits set to 0), if no initial values are provided. All elements of static array and structures are initialized to zero too. On the other hand, automatic local variables are not initialized.</p>
+
+<p class="">Static variables are allocated at fixed memory locations (instead of function stack) as they last for the entire program duration.</p>
+
+<p class="">Static variables has three types of linkage:</p>
+
+<ol class="">
+<li class="">external: global static variables visible in other source files - defined outside all functions.</li>
+
+<li class="">internal: global static file-scope variables visible in the file that it is defined - defined outside all functions with keyword <code class="">static</code>.</li>
+
+<li class="">no linkage: local static variable visible within a function or block for which it is defined - defined inside a function with keyword <code class="">static</code>.</li>
+</ol>
+
+<p class="">For example,</p>
+
+<table class="table-program">
+<colgroup class="" style=""><col class="col-line-number" style="">
+<col class="col-program" style="">
+</colgroup><tbody class="">
+<tr class="">
+<td class="">
+<pre class="text-right">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31</pre></td>
+<td class="">
+<pre class=""><span class="color-comment">/* Test static variables of various linkage (TestStatic.cpp) */</span>
+#include &lt;iostream&gt;
+using namespace std;
+ 
+<span class="color-comment">// All static variables are allocated when the program starts and</span>
+<span class="color-comment">//   last for the entire program duration</span>
+<span class="color-comment">// Uninitialized static variables are initialized to zero (all bits set to zero)</span>
+<span class="color-new">int allFileVar;</span>         <span class="color-comment"> // static variable, external linkage</span>
+                        <span class="color-comment"> // accessible (scope) by other files with "extern" specifier</span>
+<span class="color-new">static int thisFileVar;</span> <span class="color-comment"> // static variable, internal linkage</span>
+                        <span class="color-comment"> // accessible (scope) by all functions in this file</span>
+void fun();
+ 
+int main() {
+   cout &lt;&lt; allFileVar &lt;&lt; endl;  <span class="color-comment"> // 0</span>
+   fun();
+   fun();
+   fun();
+   cout &lt;&lt; thisFileVar &lt;&lt; endl; <span class="color-comment"> // 0</span>
+}
+ 
+void fun() {
+   cout &lt;&lt; thisFileVar &lt;&lt; endl; <span class="color-comment"> // 0</span>
+   {
+      <span class="color-new">static int blockVar;</span> <span class="color-comment"> // static variable, no linkage</span>
+                           <span class="color-comment"> // scope is this block</span>
+                           <span class="color-comment"> // It retains its value across function calls</span>
+      ++blockVar;
+      cout &lt;&lt; "blockVar is " &lt;&lt; blockVar &lt;&lt; endl; <span class="color-comment"> // 1, 2, 3</span>
+   }
+}</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+<p class="">Try using a graphic debugger (CodeBlocks or Eclipse) to check the duration (created/destroyed) and scope (visible) of the variables.</p>
+
+<p class="">The <code class="">static</code> variable <code class="">blockVar</code>, which is declared inside the function <code class="">fun()</code>, has <em class="">local scope</em> and <em class="">no linkage</em>. It can only visible (scope) inside the block in which it is defined, just like an automatic variable. But unlike automatic variable, <code class="">static</code> variable retains its memory (and value) across multiple function calls. Both the <code class="">static</code> variables <code class="">allFileVar</code> and <code class="">thisFileVar</code> are visible (scope) immediately after their declarations. <code class="">thisFileVar</code>, with "<code class="">static</code>" specifier, has <em class="">internal linkage</em> and can be used by all functions in this file. On the other hand, <code class="">allFileVar</code>, without the "<code class="">static</code>" specifier, has <em class="">external linkage</em> and can be used in other files with "<code class="">extern</code>" specifier (which will be described later).</p>
+
+<h5 class=""><span class="font-code">static</span> class members</h5>
+
+<p class="">A <code class="">static</code> class member (data or function) belongs to the class, instead of instances. It can be referenced directly from the class, without creating instances, via <code class=""><em class="">Classname</em>::<em class="">staticMemberName</em></code>. A <code class="">static</code> data member retains its value throughout the program execution.</p>
+
+
+<h4 class="">2.3&nbsp;&nbsp;External Variables ("<span class="font-code">extern</span>" Specifier)<a id="zz-2.3" class="" style=""></a></h4>
+
+<p class="">The <code class="">extern</code> specifies linkage to another source file. It tells the compiler that the identifier is defined in another (external) source file.</p>
+
+<pre class="color-example"><span class="color-comment">// File1.cpp</span>
+extern int globalVar;  <span class="color-comment">// Declare that this variable is defined in another file (external variable).
+                       // Cannot assign an value.
+                       // Need to link to the other file.</span></pre>
+
+<pre class="color-example"><span class="color-comment">// File2.cpp</span>
+int globalVar = 88;    <span class="color-comment">     // Definition here</span>
+<span class="color-comment">// or</span>
+extern int globalVar = 88;  <span class="color-comment">// The "extern" specifier is optional.
+                            // The initialization indicates definition</span></pre>
+
+<p class="">C/C++ has the so-called "one definition rule", which states that a variable can only be defined once. In the above example, the statement "<code class="">int globalVar</code>" in <code class="">File2.cpp</code> is called the <em class="">defining declaration</em> (or simply <em class="">definition</em>), which causes memory to be allocated; the statement "<code class="">extern int globalVar</code>" in <code class="">File1.cpp</code> is called <em class="">referencing declaration</em> (or simply <em class="">declaration</em>), which does not allocate memory but links to an existing memory.</p>
+
+<h4 class="">2.4&nbsp;&nbsp;Summary<a id="zz-2.4" class="" style=""></a></h4>
+
+<p class="">Recap that the <em class="">duration</em> determines when the variable is created and destroyed; <em class="">scope</em> determines which part of the program can access the variable; and <em class="">linkage</em> determines whether the variable is available in other source files.</p>
+
+<table class="table-zebra">
+<tbody class=""><tr class="">
+<th class="" style=""></th>
+<th class="">Description</th>
+<th class="">Duration</th>
+<th class="">Scope</th>
+<th class="">Linkage</th>
+</tr>
+
+<tr class="">
+<td class="">Variables declared inside a function (or block)</td>
+<td class="">Automatic local variables</td>
+<td class="">Block</td>
+<td class="">Block (or Local)</td>
+<td class="">None</td>
+</tr>
+
+<tr class="tr-alt">
+  <td class="">Variables declared inside a function (or block) with  <code class="">static</code> specifier</td>
+  <td class="">Static variables with no linkage</td>
+  <td class="">Static (Entire program)</td>
+  <td class="">Block (or Local)</td>
+  <td class="">None</td>
+</tr>
+
+<tr class="">
+  <td class="">Variables declared outside all functions</td>
+  <td class="">Static variables with external linkage</td>
+  <td class="">Static (Entire program)</td>
+  <td class="">File (or Global)</td>
+  <td class="">External</td>
+</tr>
+
+<tr class="tr-alt">
+  <td class="">Variables declared outside all functions with <code class="">static</code> specifier</td>
+  <td class="">Static variables with internal linkage</td>
+  <td class="">Static (Entire program)</td>
+  <td class="">File (or Global)</td>
+  <td class="">Internal</td>
+</tr>
+</tbody></table>
+
+<h4 class="">2.5&nbsp;&nbsp;CV-Qualifiers (<span class="font-code">const</span> and <span class="font-code">volatile</span>) and <span class="font-code">mutable</span><a id="zz-2.5" class="" style=""></a></h4>
+
+<p class="">The  "<code class="">const</code>" qualifier indicates that the content of the storage location shall not be changed after initialized.</p>
+<p class="">The  "volatile" qualifier indicates that the content of the storage location could be altered outside your program, e.g., by an external hardware. This qualifier is needed to tell compiler not to optimize this particular location (e.g., not to store in register, not to re-order the statement, or collapse multiple statements).</p>
+<p class="">The  <code class="">mutable</code> specifier can be used in <code class="">struct</code> or <code class="">class</code> to indicate that a particular data member is modifiable even though the instance is declared <code class="">const</code>.</p>
+
+<h5 class="">"<span class="font-code">const</span>" Global Variables</h5>
+
+<p class="">By default, a global variable (defined outside all functions) has external linkage. However, <code class="">const</code> global variable has internal linkage (as if <code class="">static</code> specifier is used). As the result, you can place all <code class="">const</code> global variables in a header file, and include the header in all the source files. To set a <code class="">const</code> global variable to external linkage, include  "<code class="">extern</code>" specifier.</p>
+
+<h4 class="">2.6&nbsp;&nbsp;Function and Linkage<a id="zz-2.6" class="" style=""></a></h4>
+
+<p class="">So far, we were discussing about variables. By default, functions have duration of the entire program, and external linkage (can be shared across file).</p>
+<p class="">You use use the "<code class="">static</code>" specifier to confine the function to internal linkage (accessible in this file only). The "one definition only" rule applies to all non-inline functions. That is, there is only one function definition. Each file shall have the function prototype (declaration). Since inline functions are often placed in the header, which will be included in all file, the "one definition rule" makes an exception. However, all copies of inline function shall be identical.</p>
+<p class="">If a function is declared <code class="">static</code> in its prototype, the C++ compiler/linker search the current file only for the function definition<code class="" style=""></code>. Otherwise, C++ compiler/linker searches all the program files. It issues an error if it finds more than one definitions. If the function is not found in all the program files, it then searches the libraries.</p>
+
+<h5 class=""><span class="font-code">extern "C"</span> vs. <span class="font-code">extern "C++"</span></h5>
+
+<p class="">Many C++ compilers use a so-called "<a href="http://www.ntu.edu.sg/home/ehchua/programming/cpp/cp1_Basics.html#name_mangling" class="">name mangling scheme</a>" to support function overloading (i.e., many versions for the same function name differentiated by their parameter list). You can use keyword <code class="">extern</code> to indicate the naming protocol of the function, for example,</p>
+
+<pre class="color-example"><span class="color-new">extern "C"</span> void function1 (int, int);          <span class="color-comment">// Use C function naming protocol
+                                               //  without name manglind</span>
+<span class="color-new">extern "C++"</span> void function2 (double, double);  <span class="color-comment">// Use C++ naming mangling</span>
+<span class="color-new">extern</span> void function (double, double);         <span class="color-comment">// Same as above</span></pre>
+
+<h4 class="">2.7&nbsp;&nbsp;Other Scopes<a id="zz-2.7" class="" style=""></a></h4>
+
+<p class="">Besides the block-scope (local-scope), file-scope (global-scope) with internal or external linkage, there are:</p>
+
+<ul class="">
+<li class="">Function Scope: A label (identified by an identifier followed by a colon, e.g., <code class="">loop:</code>) can be referenced within the entire function in which it is defined.</li>
+<li class="">Function Prototype Scope: The optional identifiers defined in the function prototype is confined to the function prototype only. There are not bind to the function definition.</li>
+<li class="">Class Scope: Class members (data and function) have class scope and are visible inside the class definition. You can use the same identifier in two different classes. You cannot access a class member directly outside the class definition, even for public members (which is accessed via the dot operator in the form of <code class=""><em class="">objectName</em>.<em class="">memberName</em></code>).</li>
+<li class="">Namespace Scope: Name defined under a namespace are visible within the namespace definition only. You need to use the scope resolution operator to reference the name outside the namespace definition in the form of <code class=""><em class="">namespace</em>::<em class="">memberName</em></code>. With the introduction of namespace in C++, the global scope is changed to global namespace scope, identified by a nameless namespace or <code class="">::<em class="">memberName</em></code>.</li>
+</ul>
+
+<h3 class="">3.&nbsp;&nbsp;Summary of <span class="font-code">static</span> Keyword<a id="zz-3." class="" style=""></a></h3>
+
+<ul class="">
+<li class="">A <code class="">static</code> variable defined inside a block has block-scope, but having duration for the entire program. It retains its memory and value across multiple invocations.</li>
+<li class="">A <code class="">static</code> global variable defined outside all functions has file-scope with internal linkage (i.e., visible only to the file in which it is defined, but not other source files). It has duration for the entire program, and retains its memory and value throughout the program execution. On the other hand, a global variable without the static keyword has file-scope with external linkage. It can be referenced by other file via the <code class="">extern</code> keyword.</li>
+<li class="">A <code class="">static</code> class member belongs to the class, instead of the instances. There is one copy shared by all the instances. It has class scope. To reference it outside the class, use the scope resolution operator <code class=""><em class="">classname</em>::<em class="">static_membername</em></code>.</li>
+
+</ul>
+
+<h3 class="">4.&nbsp;&nbsp;Type Casting Operators<a id="zz-4." class="" style=""></a></h3>
+
+<p class="">C++ supports C's explicit type casting operations <code class="">(<em class="">new-type</em>)<em class="">value</em></code> (C-style cast), or <code class=""><em class="">new-type</em>(<em class="">value</em>)</code> (Function-style cast), called <em class="">regular cast</em>. Regular cast is too lax, and often produces expected result.</p>
+
+<p class="">C++ introduces 4 new type casting operators: <code class="">const_cast&lt;<em class="">new-type</em>&gt;(<em class="">value</em>)</code>, <code class="">static_cast&lt;<em class="">new-type</em>&gt;(<em class="">value</em>)</code>, <code class="">dynamic_cast&lt;<em class="">new-type</em>&gt;(<em class="">value</em>)</code>, <code class="">reinterpret_cast&lt;<em class="">new-type</em>&gt;(<em class="">value</em>)</code> to regulate type casting. Although the old styles is still acceptable in C++, new styles are preferable.</p>
+
+<h5 class=""><span class="font-code">static_cast</span></h5>
+
+<p class=""><code class="">static_cast</code> is used for force implicit conversion. It throws a type-cast error if the conversion fails.</p>
+
+<p class="">You can use <code class="">static_cast</code> to convert values of various fundamental types, e.g., from <code class="">double</code> to <code class="">int</code>, from <code class="">float</code> to <code class="">long</code>.</p>
+
+<p class="">[TODO] Example</p>
+
+<h5 class=""><span class="font-code">dynamic_cast</span></h5>
+
+<p class=""><code class="">dynamic_cast</code> can be used to verify the type of an object at runtime, before performing the type conversion. It is primarily used to perform "safe downcasting"</p>
+
+<p class="">The syntax is:</p>
+
+<pre class="color-syntax">dynamic_cast&lt;<em class="">Type</em> *&gt;(<em class="">ptr</em>)</pre>
+
+<p class="">It converts the pointer <code class=""><em class="">ptr</em></code> to a pointer of the type <em class=""><code class="">Type</code></em>, in runtime, if <em class=""><code class="">ptr</code></em> is pointing to an object of <code class=""><em class="">Type</em></code>, or its direct or indirect subclass. Otherwise, it returns 0, or null pointer.</p>
+
+<p class="">You can use <code class="">dynamic_cast</code> in a condition to ascertain the type of the object, before performing certain operations.</p>
+
+<p class="">[TODO] Example</p>
+
+<h5 class=""><span class="font-code">const_cast</span></h5>
+
+<p class="">The <code class="">const_cast</code> can be used to drop the <code class="">const</code> label, so as to alter its contents (i.e., cast away the <code class="">const</code>-ness or <code class="">volatile</code>-ness). This is useful if you have a variable which is constant most of the time, but need to be changed in some circumstances. You can declare the variable as <code class="">const</code>, and use <code class="">const_cast</code> to alter its value. The syntax is:</p>
+
+<pre class="color-syntax">const_cast&lt;<em class="">Type</em>&gt;(<em class="">expression</em>)</pre>
+
+<p class=""><code class="">const_cast</code> cannot change the type of an object.</p>
+
+<p class="">[TODO] Example</p>
+
+<h5 class="font-code">reinterpret_cast</h5>
+
+<p class="">Used for low-level casts that yield implementation-dependent result, e.g., casting a pointer to an <code class="">int</code>.</p>
+
+<h3 class="">5.&nbsp;&nbsp;Summary of <span class="font-code">const</span> Keyword<a id="zz-5." class="" style=""></a></h3>
+
+<p class="">A <code class="">const</code> variable (local or global) cannot be modified, and must be initialized during declaration. By convention, these <code class="">const</code> variable are named in uppercase.</p>
+
+<pre class="color-example"><span class="color-new">const</span> int SIZE = 5;
+
+int main() {
+   <span class="color-new">const</span> int ROWS = 8;
+   ......
+}</pre>
+
+<h5 class="">Function's Parameters</h5>
+
+<p class="">In C++, objects are pass-by-value into function by default, which has no side effect but involves calling the copy constructor to make a clone copy (an expensive operation for huge objects). Objects should be passed into function by reference as far as possible for performance. However, in pass-by-reference, changes made inside the function have side effect of modifying the caller's object. We could use keyword <code class="">const</code> to enforce immutability, if we do not wish to change the object inside the function. Instead of using pass-by-value to prevent side-effect, it is better to use pass-by-reference-to-<code class="">const</code>.</p>
+
+<pre class="color-example">void fun (MyClass obj);  <span class="color-comment">// pass-by-value (default)
+                         // Invoke copy constructor to make a clone copy
+                         // No side-effect</span>
+void fun (MyClass &amp; obj);       <span class="color-comment">// pass-by-reference, have side-effect</span>
+void fun (const MyClass &amp; obj)  <span class="color-comment">// pass-by-reference-to-const
+                                // No side-effect. Cannot modify caller's copy</span></pre>
+
+<p class="">You can also use <code class="">const</code> for array to prevent it from being modified inside the function (as array is an pointer).</p>
+
+<p class="">It is recommended to leave out the <code class="">const</code> for fundamental types (<code class="">int</code>, <code class="">double</code>), as they are passed by value. Although you can use <code class="">const</code> keyword to prevent modification of these local parameters (which is rarely necessary), the keyword can be confusing. If needed, you may include it in the implementation, but leave them out from the header.</p>
+
+<p class=""><code class="">const</code> function parameters = not modifying the caller's copy (in pass-by-reference).</p>
+
+
+<h5 class="">Function's Return Value</h5>
+
+<p class="">For object return type, we can use <code class="">const</code> to prevent it to be used as the <em class="">lvalue</em>, e.g., <code class="">f() = x</code>. A <code class="">const</code> return object cannot be a lvalue (e.g., for assignment); while a non-<code class="">const</code> return object can.</p>
+
+<p class="">For example, if we overload the <code class="">+</code> operator for the <code class="">MyComplex</code> class:</p>
+
+<pre class="color-example">MyComplex operator+ (const MyComplex &amp; lhs, const MyComplex &amp; rhs);
+    <span class="color-comment">// non-const return type can be used as lvalue</span>
+
+MyComplex c1, c2, c3;
+c1 + c2 = c3;   <span class="color-comment">// Valid if the return type is non-const
+                // Not meaningful and possibly a misspelling of
+                // c1 + c2 == c3 </span></pre>
+
+<p class="">Function return value of fundamental types can never be the lvalue, and trigger compilation error.</p>
+
+<h5 class="">Class</h5>
+
+<p class="">A <code class="">const</code> data member cannot be modified (as usual).</p>
+
+<p class="">A <code class="">const</code> member function (with <code class="">const</code> keyword at the end of the function) cannot modify data members.</p>
+
+<h5 class="">Object</h5>
+
+<p class="">A <code class="">const</code> object can only invoke <code class="">const</code> member function. It cannot invoke non-<code class="">const</code> member function. A non-<code class="">const</code> object can invoke both <code class="">const</code> and non-<code class="">const</code> member function.</p>
+<p class="">If a function is overloaded with a <code class="">const</code> and a non-<code class="">const</code> version, a <code class="">const</code> object will match with a <code class="">const</code> member function. A non-<code class="">const</code> object will match with a non-<code class="">const</code> function. For example, the <code class="">at()</code> function of <code class="">string</code> class has two versions:</p>
+
+<pre class="color-example">      char &amp; at (size_t pos);        <span class="color-comment">// non-const member function</span>
+const char &amp; at (size_t pos) const;  <span class="color-comment">// const member function</span></pre>
+
+<p class="">A <code class="">const</code> <code class="">string</code> object will invoke the <code class="">const</code> version, which returns a <code class="">const char &amp;</code> that cannot be used a lvalue.</p>
+
+<pre class="color-example">const string str1("hello"); <span class="color-comment">// const string object</span>
+cout &lt;&lt; str1.at(1);         <span class="color-comment">// okay</span>
+str1.at(1) = 'x';           <span class="color-comment">// error - returned const char &amp; cannot be lvalue</span>
+ 
+string str2("again"); <span class="color-comment">// non-const string object</span>
+str2.at(1) = 'x';     <span class="color-comment">// okay</span></pre>
+
+<h5 class="">Pointer</h5>
+
+<ol class="">
+<li class="">Non-constant pointer to constant data: Data pointed to CANNOT be changed; but pointer CAN be changed to point to another data. For example,
+  <pre class="color-example">int i1 = 8, i2 = 9;
+<span class="color-new">const</span> int * iptr = &amp;i1;  <span class="color-comment">// non-constant pointer pointing to constant data</span>
+// *iptr = 9;   <span class="color-error">// error: assignment of read-only location</span>
+iptr = &amp;i2;  <span class="color-comment">// okay</span></pre></li>
+
+<li class="">Constant pointer to non-constant data: Data pointed to CAN be changed; but pointer CANNOT be changed to point to another data. For example,
+  <pre class="color-example">int i1 = 8, i2 = 9;
+int * <span class="color-new">const</span> iptr = &amp;i1;  <span class="color-comment">// constant pointer pointing to non-constant data</span>
+*iptr = 9;   <span class="color-comment">// okay</span>
+// iptr = &amp;i2;  <span class="color-error">// error: assignment of read-only variable</span></pre></li>
+
+<li class="">Constant pointer to constant data: Data pointed to CANNOT be changed; and pointer CANNOT be changed to point to another data. For example,
+  <pre class="color-example">int i1 = 8, i2 = 9;
+<span class="color-new">const</span> int * <span class="color-new">const</span> iptr = &amp;i1;  <span class="color-comment">// constant pointer pointing to constant data</span>
+// *iptr = 9;   <span class="color-error">// error: assignment of read-only variable</span>
+// iptr = &amp;i2;  <span class="color-error">// error: assignment of read-only variable</span></pre></li>
+
+<li class="">Non-constant pointer to non-constant data: Data pointed to CAN be changed; and pointer CAN be changed to point to another data. For example,
+  <pre class="color-example">int i1 = 8, i2 = 9;
+int * <span class="color-new" style=""></span>iptr = &amp;i1;  <span class="color-comment">// non-constant pointer pointing to non-constant data</span>
+*iptr = 9;   <span class="color-comment">// okay</span>
+iptr = &amp;i2;  <span class="color-comment">// okay</span></pre></li>
+
+</ol>
+
+<p class="">If the keyword <code class="">const</code> appears before (to the left) of the <code class="">*</code>, what is pointed-to is a constant. If it appears after (to the right) of <code class="">*</code>, the pointer itself is a constant.</p>
+
+<h3 class="">6.&nbsp;&nbsp;C++ Keywords<a id="zz-6." class="" style=""></a></h3>
+
+<h5 class="">Keywords Ported from C Language (32)</h5>
+
+<ul class="">
+<li class="">Types: <code class="">int</code>, <code class="">short</code>, <code class="">long</code>, <code class="">char</code>, <code class="">float</code>, <code class="">double</code>, <code class="">void</code>, <code class="">signed</code>, <code class="">unsigned</code>, <code class="">typedef</code>.</li>
+
+<li class="">Flow Control: <code class="">if</code>, <code class="">else</code>, <code class="">switch</code>, <code class="">case</code>, <code class="">default</code>, <code class="">while</code>, <code class="">do</code>, <code class="">for</code>, <code class="">break</code>, <code class="">continue</code>, <code class="">goto</code>, <code class="">return</code>.</li>
+
+<li class="">Storage Qualifiers: <code class="">const</code><code class="" style=""></code>, <code class="">volatile</code>, <code class="">auto</code>, <code class="">extern</code>, <code class="">register</code>, <code class="">static</code>.</li>
+
+<li class="">Operators: <code class="">sizeof</code>.</li>
+
+<li class="">Compound Types: <code class="">enum</code>, <code class="">struct</code>, <code class="">union</code>.</li>
+
+</ul>
+
+<h5 class="">C++98/03 Keywords (42)</h5>
+
+<ul class="">
+<li class="">Class: <code class="">class</code>, <code class="">public</code>, <code class="">private</code>, <code class="">protected</code>, <code class="">friend</code>, <code class="">explicit</code> (constructor), <code class="">inline</code> (function), <code class="">virtual</code> (polymorphism), <code class="">operator</code> (overloading).</li>
+<li class="">Template: <code class="">template</code>, <code class="">export</code>, <code class="" style=""></code><code class="">typename</code>.</li>
+<li class="">Namespace: <code class="">this</code>,<code class="">namespace</code>, <code class="">using</code>.</li>
+<li class="">Types: <code class="">bool</code>, <code class="">true</code>, <code class="">false</code>, <code class="">wchar_t</code>.</li>
+<li class="">Memory Allocation: <code class="">new</code>, <code class="">delete</code>,</li>
+<li class="">Exception Handling: <code class="">try</code>, <code class="">catch</code>, <code class="">throw</code>.</li>
+
+<li class="">Operators: <code class="">and</code> (<code class="">&amp;&amp;</code>), <code class="">or</code> (<code class="">||</code>), <code class="">not</code> (<code class="">!</code>), <code class="">xor</code> (<code class="">^</code>), <code class="">compl</code> (<code class="">~</code>), <code class="">bitand</code> (<code class="">&amp;</code>), <code class="">bitor</code> (<code class="">|</code>), <code class="">and_eq</code> (<code class="">&amp;=</code>), <code class="">or_eq</code> (<code class="">|=</code>), <code class="">not_eq</code> (<code class="">!=</code>), <code class="">xor_eq</code> (<code class="">^=</code>).</li>
+<li class="">Type and Casting Operators:<code class="" style=""></code> <code class="" style=""></code><code class="">typeid</code>, <code class="">static_cast</code>, <code class="">const_cast</code>, <code class="">dynamic_cast</code>, <code class="">reinterpret_cast</code>.</li>
+<li class="">Storage Qualifier: <code class="">mutable</code>.</li>
+<li class="">Others: <code class="">asm</code> (inline assembly block).</li>
+</ul>
+
+<h5 class="">C++11 Keywords (10)</h5>
+
+<ul class="">
+<li class="">Types: <code class="">char16_t</code>, <code class="">char_32_t</code>, <code class="">nullptr</code>.</li>
+<li class="">Storage Qualifiers:  <code class="">thread_local</code>.</li>
+<li class="">Others: <code class="">alignas</code>, <code class="">alignof</code>, <code class="">constexpr</code>, <code class="">decltype</code>, <code class="">noexcept</code>, <code class="">static_asert</code>.</li>
+</ul>
+
+
+
+<a class="references" href="http://www.ntu.edu.sg/home/ehchua/programming/howto/References.html#cpp">Link to "C++ Language References &amp; Resources"</a>
+
+</div> <!-- End the content-main division -->
+
+<div id="content-footer" class="">
+<p class="">Latest version tested: GCC g++ 4.6.2<br class="">
+Last modified: May, 2013</p>
+</div>
+
+</div>  <!-- End the wrap-inner division -->
+
+<!-- footer filled by JavaScript -->
+<div id="footer" class="header-footer"><p class="">Feedback, comments, corrections, and errata can be sent to Chua Hock-Chuan (ehchua@ntu.edu.sg) &nbsp;&nbsp;|&nbsp;&nbsp; <a href="http://www.ntu.edu.sg/home/ehchua/programming/index.html" class="">HOME</a></p></div>
+
+</div>  <!-- End the wrap-outer division -->
+<!-- @@ end change in v1 -->
+
+
+<div class="selection_bubble_root" style=""></div><div id="gritter-notice-wrapper" class="bottom-left"><div id="gritter-item-1" class="gritter-item-wrapper "><div class="gritter-top"></div><div class="gritter-item"><div class="gritter-close"></div><div class="gritter-without-image"><span class="gritter-title">Text Zoom</span><p>Level 100%</p></div><div style="clear:both"></div></div><div class="gritter-bottom"></div></div></div></body></html>

@@ -1,0 +1,3405 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><!--
+ Archive processed by SingleFile 
+ url: http://www.ntu.edu.sg/home/ehchua/programming/cpp/DataStructureAlgorithm.html 
+ saved date: Mon Aug 25 2014 15:18:34 GMT+0900 (Tokyo Standard Time) 
+--><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Data Structure and Algorithm</title>
+
+<!-- @@ start change in v1 -->
+<style rel="stylesheet" type="text/css" data-href="http://www.ntu.edu.sg/home/ehchua/programming/css/programming_notes_v1.css">/* 
+ * Universal selector - clear all the margin and padding to get consistent layout for Firefox and IE 
+ */
+* { 
+	margin: 0;
+	padding: 0;
+}
+
+/* 
+ * Set default style for all the tags.
+ * Apply to the main content division as well.
+ */
+body {
+	background-color: rgb(202, 251, 237);
+	color: #000;
+	font-family: "Segoe UI", Segoe, Calibri, "Ubuntu", Tahoma, Arial, Helvetica, Verdana, sans-serif;
+	font-size: 14px;
+	text-align: justify;
+	line-height: 1.5;
+}
+
+/*
+ * "wrap-outer" wraps header, wrap-inner and footer
+ */
+#wrap-outer {
+	margin: 20px 20px 20px 20px;
+	padding: 0;
+	
+}
+/*
+ * "wrap-inner" wraps content-header, content-main and content-footer
+ */
+#wrap-inner {
+	background-color: #fff;
+	margin: 0;
+	border: 1px solid #ddd;
+	padding: 25px 15px;
+	box-shadow: 5px 5px 0 #ddd;
+}
+#content-header {
+	margin: 0;
+	padding: 50px 0 10px 0;
+}
+
+#content-main {
+	margin: 0;
+	padding: 30px 0 20px 0;
+}
+#content-footer {
+	font-family: "Century Gothic", "Segoe UI", Segoe, "Ubuntu", Verdana, Tahoma, Arial, Helvetica, sans-serif;
+	font-size: 13px;
+	text-align: right;
+	color: rgb(192, 80, 77);
+/*	color: rgb(11, 83, 149); */
+	margin: 30px 0 0 0;
+    padding: 0;
+	border-top: 4px solid rgb(12, 155, 116);
+}
+/*
+ *  The main "header" & "footer" divisions
+ */
+.header-footer {
+	font-family: "Century Gothic", "Segoe UI", Segoe, "Ubuntu", Verdana, Tahoma, Arial, Helvetica, sans-serif;
+	color: rgb(192, 80, 77);
+/*	color: rgb(11, 83, 149); */
+	font-size: 13px;
+	text-align: right;
+	margin: 10px 0 5px 0;
+	padding: 5px 4px;
+}
+.header-footer a {
+	color: rgb(192, 80, 77);
+	text-decoration: underline;
+}
+.header-footer a:focus, .header-footer a:hover {  /* change color and remove underline */
+	text-decoration: none;
+ 	color: rgb(11, 83, 149);
+/*	color: rgb(192, 80, 77); */
+}
+
+h1, h2, h3, h4, h5, h6 {  /* main title and sub-title */
+	font-family: "Century Gothic", "Trebuchet MS", "Segoe UI", Segoe, "Ubuntu", Verdana, Tahoma, Arial, Helvetica, sans-serif;
+	margin: 0;
+	color: rgb(10, 132, 100);
+	letter-spacing: 1px;
+	line-height: 1.2;
+	text-align:left;
+}
+h1 {
+	font-size: 40px;
+	font-weight: 400;
+	padding: 0.2em 0;
+}
+h2 {
+	font-size: 36px;
+	font-weight: 400;
+	padding: 0.2em 0;
+}
+h3 {
+	font-size: 22px;
+	border-bottom: thin solid rgb(12, 155, 116);
+	padding: 1.5em 0 0.3em 0;
+}
+h4 {
+	font-family: "Segoe UI", Segoe, "Ubuntu", Verdana, Tahoma, Arial, Helvetica, sans-serif;
+	font-size: 18px;
+	padding: 1.3em 0 0.2em 0;
+	border-bottom: thin dotted rgb(12, 155, 116);
+}
+h5, h6 {
+	font-family: "Segoe UI", Segoe, "Ubuntu", Verdana, Tahoma, Arial, Helvetica, sans-serif;
+	font-size: 15px;
+	color: #444;
+	padding: 1.2em 0 0 0;  /* top right bottom left */
+	letter-spacing: 1px;
+}
+.line-heading {
+	color: #444;
+	font-size: 15px;
+	font-weight: bold;
+	letter-spacing: 1px;
+	padding: 0.2em 0;
+}
+.line-heading-code-new {
+	font-family: Consolas, "Lucida Console", "Courier New", Courier, monospace;
+	color: #E31B23;
+	font-size: 15px;
+    font-weight: normal;
+/*	letter-spacing: 0.5px; */
+}
+p {
+	margin-top: 0.6em;
+	margin-bottom: 0.4em;
+}
+pre {
+	font-family: Consolas, "Lucida Console", "Courier New", Courier, monospace;
+	font-size: 13px;
+	margin: 5px 0 8px 0;
+	border: solid 2px #f8f8f8;  /* slight 3D shape */
+	padding: 5px 10px;
+	line-height: 135%;
+}
+code {
+	font-family: Consolas, "Lucida Console", "Courier New", Courier, monospace;
+}
+
+ul {   /* first level ul */
+	margin: 0.3em 0 0.2em 1.8em;
+	padding: 0;
+/*	list-style-type: square;  */
+	list-style-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAANAQMAAABBztZFAAAABlBMVEUAAwBjjJzG2b5OAAAAAXRSTlMAQObYZgAAABBJREFUCNdjYMAG7FARAwMADXkBNzRuJgIAAAAASUVORK5CYII=);
+}
+ul ul li {   /* 2nd level ul */
+	list-style-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAANAQMAAABb8jbLAAAABlBMVEX///8AUow5QSOjAAAAAXRSTlMAQObYZgAAABNJREFUCB1jYEABBQw/wLCAgQEAGpIDyT0IVcsAAAAASUVORK5CYII=);
+/*
+	list-style-type: disc;
+	list-style-image: none; */
+}
+ul ul u1 li {   /* 3rd level ul */
+	list-style-type: circle;
+	list-style-image: none;
+}
+ol {   /* first level ol */
+/*    list-style-position:inside; */
+/*    display: table  */
+    list-style-type: decimal;
+	margin: 0.3em 0 0.2em 2.5em;
+	padding: 0;
+}
+ol ol li {   /* 2nd level ol */
+	list-style-type: lower-alpha;
+}
+ol ol o1 li {  /* 3rd level ol */
+	list-style-type: lower-roman;
+}
+
+li {
+	margin: 0.4em 0;
+}
+
+.float-left-ol-ul {
+	overflow:hidden;
+}
+
+/* li after a left-float image */
+.float-left-li {
+   position: relative; left: 20px;
+   margin-right: 20px;
+}
+
+a {
+	color: rgb(11, 83, 149);
+	text-decoration: none;
+}
+a:hover, a:focus {
+	color: rgb(192, 80, 77);
+	text-decoration: underline;
+}
+
+a.references {
+	display: block;
+	width: 30em;
+	font-size: 18px;
+	font-weight: bold;
+	margin: 4em 0 0 0;
+}
+
+p.references {
+	font-size: 18px;
+	font-weight: bold;
+	margin: 4em 0 0 0;
+}
+
+/*
+ * General classes
+ */
+.center-block {
+	margin: 10px auto;  /* auto margin-left and margin-right to center the table */
+}
+.text-center {	
+    text-align: center; 
+}
+.text-right {	
+    text-align: right; 
+}
+.underline {
+	text-decoration: underline;
+}
+.font-code {
+	font-family: Consolas, "Lucida Console", "Courier New", Courier, monospace;
+}
+.font-code-text {
+	font-family: Consolas, "Lucida Console", "Courier New", Courier, monospace;
+	font-size: 14px;
+}
+.font-code-smaller {
+	font-family: Consolas, "Lucida Console", "Courier New", Courier, monospace;
+	font-size: 13px;
+}
+.font-normal {
+	font-family: "Segoe UI", Segoe, Calibri, "Ubuntu", Tahoma, Arial, Helvetica, Verdana, sans-serif;
+}
+.pre {
+    white-space: pre;	
+}
+/* color control mainly for <pre>, <div>, <span> */
+.color-example {
+	background-color: rgb(215, 236, 211);  /* darker */
+}
+.color-example-light {
+	background-color: rgb(236, 246, 234);  /* lighter */
+}
+.color-syntax, .color-command {
+	background-color: rgb(204, 238, 241);  /* darker */
+}
+.color-explanation {
+	background-color: #eee;   /* grey */
+}
+/* Character level control for code listing */
+.color-comment {
+	color: #009900;  /* green */
+}
+.color-new {
+	color: #E31B23;  /* dark red to highlight new terms */
+}
+.color-error {
+	color: #ff0099;  /* bright red */
+/*	font-weight:bold; */
+}
+.color-plain {
+	background-color: #fff;
+}
+.color-highlight {
+	background-color: #ff0;
+}
+.color-highlight-new {
+    background-color: #FFC;  /* lighter */
+}
+
+.output {  /* Output of program or DOS session */
+    background-color: rgb(236, 246, 234);  /* lighter */
+	border: solid 2px #f8f8f8;   /* slight 3D shape */
+	padding: 4px 8px;
+}
+.side-note {
+	margin-top: 15px;
+    margin-left: 40px;
+	padding: 3px 8px; 
+	background-color: #e7e7e7;
+}
+
+
+/*
+ * for positioning images 
+ */
+img.image-center {      /* center horizontally an image */
+	display: block;
+	margin: 10px auto;
+}
+img.image-border {
+    border: #ddd thin solid;
+}
+img.image-float-left {
+	float: left;
+	margin: 8px 15px 15px 0;
+    border: #ddd thin solid;
+}
+img.image-float-right {
+	float: right;
+	margin: 8px 0 15px 15px;
+    border: #ddd thin solid;
+}
+.float-clear {
+   clear: both;	
+}
+/*
+ *  Table - for tablulating data with alternate row colors or different column colors
+ */
+table.table-zebra, table.table-program {
+	border-collapse: collapse;
+	border: 0;
+	margin: 0 auto; /* center */
+	padding: 0;
+    width: 100%;
+	/* Default setting for all cells in this table, inherited */
+    background-color: rgb(231, 240, 248);  /* lighter */
+	text-align: left;
+	vertical-align: top;
+}
+table.table-zebra th {  /* header cells */
+	color: #ffffff;     /* white text on dark background */
+	background-color: rgb(0, 157, 217);
+	margin: 0;
+	border: 2px solid white;
+	padding: 4px 10px;
+	font-size: 15px;
+	letter-spacing: 1px;
+	text-align: center;
+}
+table.table-zebra td {  /* data cells */
+    margin: 0;
+	border: 2px solid white;
+	padding: 2px 8px;
+	/* color, font, text inherited from table */
+	vertical-align: top;
+}
+
+table.table-program th {  /* header cells */
+	color: #ffffff;     /* white text on dark background */
+	background-color: rgb(0, 157, 217);
+	margin: 0;
+	border: 2px solid white;
+	padding: 4px 10px;
+	font-size: 15px;
+	letter-spacing: 1px;
+	text-align: center;
+}
+table.table-program td {  /* data cells */
+    margin: 0;
+	border: 0;
+	padding: 0;
+	/* color, font, text inherited from table */
+}
+
+table.table-program td pre {
+	margin: 0;
+	border: solid 2px #f8f8f8;   /* slight 3D shape */
+	padding: 5px 10px;
+}
+
+table.table-program td pre.text-right {
+	text-align: right;
+}
+
+/* Setting the color for row (2 colors) or column (3 colors) */
+/* can only set the background, border, width of <col>, NOT font, text, color */
+/* for table-zebra */
+table .col-desc {       /* same as default color */
+    background-color: rgb(231, 240, 248);  /* lighter */
+}
+table .col-code, table .tr-alt {
+	background-color: rgb(203, 223, 241);  /* darker */
+}
+table .col-example {
+    background-color: #eee;  /* grey */
+}
+
+/* for table-program */
+table .col-line-number {
+	width: 40px;
+    background-color: rgb(225, 233, 207);
+}
+table .col-program {
+    background-color: rgb(240, 244, 233);
+}
+
+/*
+ * For the "Table of Content" generated by JavaScript
+ * in <div id="toc">
+ */
+#wrap-toc {
+    display: block;
+	background: none repeat scroll 0 0 rgb(231, 246, 239);
+	float: right;
+	width: 230px;
+	z-index: 100;
+	line-height: 1.5;
+	margin: 0 0 0 15px;
+	padding: 5px 8px 10px 8px;
+	text-align: left;
+	white-space: nowrap;
+/*	min-height: 180px;  */
+}
+#wrap-toc h5 {
+   letter-spacing: 1px;
+   margin: 0;
+   text-transform: uppercase;
+	color: #444;
+	padding: 0.5em 0;
+}
+a#show-toc {
+	color: rgb(192, 80, 77);
+	text-decoration: none;
+   letter-spacing: 1px;
+}
+#toc {
+	overflow: auto;
+}
+#toc a.toc-H3 {
+    margin-left: 0px;
+	font-size: 15px;
+}
+#toc a.toc-H4 {
+    margin-left: 20px;
+	font-size: 14px;
+}
+#toc a.toc-H5 {
+    margin-left: 40px;
+	font-size: 14px;
+}
+</style>
+
+<link rel="shortcut icon" href="data:image/x-icon;base64,AAABAAEAEBAQAAEABAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAgAAAAAAAAAAAAAAAEAAAAAAAAADy8O0APrMnACEdGADb2tkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMzMzMzMzMzMyIiIiIiIiIzIiIiIiIiIjMgIiIgAAAiMyACIiAAACIzIgAiIiIiIjMiIAIiIiIiMyIiACIiIiIzIiACIiIiIjMiACISEiESMyACIhISEiIzICIiERISIjMiIiISEhIiMyIiIhISIRIzIiIiIiIiIjMzMzMzMzMzMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" type="image/x-icon"></head>
+
+<body class="">
+
+<div id="wrap-outer" class="">
+
+<!-- header filled by JavaScript -->
+<div id="header" class="header-footer"><p class="">yet another insignificant programming notes... &nbsp;&nbsp;| &nbsp;&nbsp;<a href="http://www.ntu.edu.sg/home/ehchua/programming/index.html" class="">HOME</a></p></div>
+
+<div id="wrap-inner" class="">
+
+<div id="wrap-toc" class="">
+<h5 class="">TABLE OF CONTENTS <a id="show-toc" href="#show-toc" class="">(HIDE)</a></h5>
+<div id="toc" class=""><a class="toc-H3" href="#zz-1.">1.&nbsp;&nbsp;Searching</a><br class=""><a class="toc-H4" href="#zz-1.1">1.1&nbsp;&nbsp;Linear Search</a><br class=""><a class="toc-H4" href="#zz-1.2">1.2&nbsp;&nbsp;Binary Search</a><br class=""><a class="toc-H3" href="#zz-2.">2.&nbsp;&nbsp;Sorting</a><br class=""><a class="toc-H4" href="#zz-2.1">2.1&nbsp;&nbsp;Bubble Sort</a><br class=""><a class="toc-H4" href="#zz-2.2">2.2&nbsp;&nbsp;Insertion Sort</a><br class=""><a class="toc-H4" href="#zz-2.3">2.3&nbsp;&nbsp;Selection Sort</a><br class=""><a class="toc-H4" href="#zz-2.4">2.4&nbsp;&nbsp;Merge Sort</a><br class=""><a class="toc-H4" href="#zz-2.5">2.5&nbsp;&nbsp;Quick Sort</a><br class=""><a class="toc-H4" href="#zz-2.6">2.6&nbsp;&nbsp;Bucket Sort</a><br class=""><a class="toc-H3" href="#zz-3.">3.&nbsp;&nbsp;Data Structures</a><br class=""><a class="toc-H4" href="#zz-3.1">3.1&nbsp;&nbsp;Single Linked List</a><br class=""><a class="toc-H4" href="#zz-3.2">3.2&nbsp;&nbsp;Double Linked List</a><br class=""><a class="toc-H4" href="#zz-3.3">3.3&nbsp;&nbsp;Stack (LIFO Queue)</a><br class=""><a class="toc-H4" href="#zz-3.4">3.4&nbsp;&nbsp;Tree</a><br class=""><br class=""></div>  <!-- for showing the "Table of Content" -->
+</div>
+
+<div id="content-header" class="">
+<h1 class="">Data Structure and Algorithm</h1>
+</div>
+
+<div id="content-main" class="">
+
+<!-- @@ end change in v1 -->
+
+<h3 class="">1.&nbsp;&nbsp;Searching<a id="zz-1." class="" style=""></a></h3>
+
+<p class="">Searching involves deciding whether a <em class="">search key</em> is present in the data. For example, looking up a phone book or address book. The searching algorithm includes:</p>
+<ul class="">
+<li class="">Linear Search: See "<a href="http://www.ntu.edu.sg/home/ehchua/programming/cpp/cp1_Basics.html#LinearSearch" class="">Linear Search</a>".</li>
+<li class="">Recursive Binary Search for sorted list</li>
+<li class="">Binary Tree Search</li>
+</ul>
+
+<h4 class="">1.1&nbsp;&nbsp;Linear Search<a id="zz-1.1" class="" style=""></a></h4>
+
+<p class="">See "<a href="http://www.ntu.edu.sg/home/ehchua/programming/cpp/cp1_Basics.html#LinearSearch" class="">Linear Search</a>".</p>
+
+<h5 class="">Complexity</h5>
+
+<p class="">The worst-case and average-case time complexity is O(n). The best-case is O(1).</p>
+
+<h4 class="">1.2&nbsp;&nbsp;Binary Search<a id="zz-1.2" class="" style=""></a></h4>
+
+<p class="">A binary search (or half-interval search) is applicable only to a sorted array. It compares the search key with the middle element. If there is a match, it returns the element's index. If the search key is less then the middle element, repeat searching on the left half; otherwise, search the right half. If the remaining element to be searched is zero, return "no found".</p>
+
+<table class="table-program">
+<colgroup class="" style=""><col class="col-line-number" style="">
+<col class="col-program" style="">
+</colgroup><tbody class="">
+<tr class="">
+<td class="">
+<pre class="text-right">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55</pre>
+</td>
+<td class="">
+<pre class=""><span class="color-comment">/* Search an array for a key using Binary Search (BinarySearch.cpp) */</span>
+#include &lt;iostream&gt;
+using namespace std;
+ 
+int binarySearch(const int a[], int size, int key);
+int binarySearch(const int a[], int iLeft, int iRight, int key);
+void print(const int a[], int iLeft, int iRight);
+ 
+int main() {
+   const int SIZE = 10;
+   int a1[SIZE] = {1, 4, 5, 8, 12, 19, 24, 31, 43, 55};<span class="color-comment"> // sorted</span>
+ 
+   cout &lt;&lt; binarySearch(a1, SIZE, 8) &lt;&lt; endl;
+   cout &lt;&lt; binarySearch(a1, SIZE, 12) &lt;&lt; endl;
+   cout &lt;&lt; binarySearch(a1, SIZE, 24) &lt;&lt; endl;
+   cout &lt;&lt; binarySearch(a1, SIZE, 21) &lt;&lt; endl;
+}
+ 
+<span class="color-comment">// Search the array for the given key</span>
+<span class="color-comment">// If found, return array index; otherwise, return -1</span>
+int binarySearch(const int a[], int size, int key) {
+  <span class="color-comment"> // Call recursive helper function</span>
+   return binarySearch(a, 0, size-1, key);
+}
+ 
+<span class="color-comment">// Recursive helper function for binarySearch</span>
+int binarySearch(const int a[], int iLeft, int iRight, int key) {
+  <span class="color-comment"> // For tracing the algorithm</span>
+   print(a, iLeft, iRight);
+ 
+  <span class="color-comment"> // Test for empty list</span>
+   if (iLeft &gt; iRight) return -1;
+ 
+  <span class="color-comment"> // Compare with middle element</span>
+   int mid = (iRight + iLeft) / 2; <span class="color-comment"> // truncate</span>
+   if (key == a[mid]) {
+      return mid;
+   } else if (key &lt; a[mid]) {
+     <span class="color-comment"> // Recursively search the lower half</span>
+      binarySearch(a, iLeft, mid - 1, key);
+   } else {
+     <span class="color-comment"> // Recursively search the upper half</span>
+      binarySearch(a, mid + 1, iRight, key);
+   }
+}
+ 
+<span class="color-comment">// Print the contents of the given array from iLeft to iRight (inclusive)</span>
+void print(const int a[], int iLeft, int iRight) {
+   cout &lt;&lt; "{";
+   for (int i = iLeft; i &lt;= iRight; ++i) {
+      cout &lt;&lt; a[i];
+      if (i &lt; iRight) cout &lt;&lt; ",";
+   }
+   cout &lt;&lt; "}" &lt;&lt; endl;
+}</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+<h5 class="">Complexity</h5>
+<p class="">The worst-case and average-case time complexity for binary search is O(log n). The best-case is O(1).</p>
+
+<h3 class="">2.&nbsp;&nbsp;Sorting<a id="zz-2." class="" style=""></a></h3>
+
+<p class="">Sorting involves arranging data in ascending or descending order, according to a certain collating sequence (or sorting sequence). The sorting algorithm includes:</p>
+<ul class="">
+<li class="">Insertion Sort: See "<a href="http://www.ntu.edu.sg/home/ehchua/programming/cpp/cp1_Basics.html#InsertionSort" class="">Insertion Sort</a>".</li>
+<li class="">Selection Sort: See "<a href="http://www.ntu.edu.sg/home/ehchua/programming/cpp/cp1_Basics.html#SelectionSort" class="">Selection Sort</a>".</li>
+<li class="">Bubble Sort: See "<a href="http://www.ntu.edu.sg/home/ehchua/programming/cpp/cp1_Basics.html#BubbleSort" class="">Bubble Sort</a>"</li>
+<li class=""> Merge Sort (Recursive Top-Down or Interactive Bottom-up)</li>
+<li class="">Quick Sort (Recursive)</li>
+<li class="">Bucket Sort</li>
+<li class="">Heap Sort</li>
+<li class="">Binary Tree Sort</li>
+</ul>
+
+<h4 class="">2.1&nbsp;&nbsp;Bubble Sort<a id="zz-2.1" class="" style=""></a></h4>
+
+<p class="">See "<a href="http://www.ntu.edu.sg/home/ehchua/programming/cpp/cp1_Basics.html#BubbleSort" class="">Bubble Sort</a>"</p>
+
+<h5 class="">Complexity</h5>
+<p class="">The average-case and worst-case time complexity is O(n<sup class="">2</sup>).</p>
+
+<h4 class="">2.2&nbsp;&nbsp;Insertion Sort<a id="zz-2.2" class="" style=""></a></h4>
+<p class="">See "<a href="http://www.ntu.edu.sg/home/ehchua/programming/cpp/cp1_Basics.html#InsertionSort" class="">Insertion Sort</a>".</p>
+
+<h5 class="">Complexity</h5>
+
+<p class="">The average-case and worst-case time complexity is O(n<sup class="">2</sup>).</p>
+
+<h4 class="">2.3&nbsp;&nbsp;Selection Sort<a id="zz-2.3" class="" style=""></a></h4>
+
+<p class="">See "<a href="http://www.ntu.edu.sg/home/ehchua/programming/cpp/cp1_Basics.html#SelectionSort" class="">Selection Sort</a>".</p>
+
+<h5 class="">Complexity</h5>
+
+<p class="">The average-case and worst-case time complexity is O(n<sup class="">2</sup>).</p>
+
+<h4 class="">2.4&nbsp;&nbsp;Merge Sort<a id="zz-2.4" class="" style=""></a></h4>
+
+<h5 class="">Recursive Top-Down Merge Sort</h5>
+
+<p class="">The algorithm is as follows:</p>
+
+<ol class="">
+<li class="">Recursively divide the list into 2 sublists.</li>
+
+<li class="">When  the sublists contain 1 element (a list of 1 element is sorted), merge two sublists in the right order. Unwind the merging recursively.</li>
+</ol>
+
+<table class="table-program">
+<colgroup class="" style=""><col class="col-line-number" style="">
+<col class="col-program" style="">
+</colgroup><tbody class="">
+<tr class="">
+<td class="">
+<pre class="text-right">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97</pre>
+</td>
+<td class="">
+<pre class=""><span class="color-comment">/* Sorting an array using Merge Sort (MergeSort.cpp) */</span>
+#include &lt;iostream&gt;
+using namespace std;
+ 
+void mergeSort(int a[], int size);
+void mergeSort(int a[], int iLeft, int iRight, int work[]);
+void merge(int a[], int iLeftHalfLeft, int iLeftHalfRight,
+           int iRightHalfLeft, int iRightHalfRight, int work[]);
+void print(const int a[], int iLeft, int iRight);
+ 
+int main() {
+  <span class="color-comment"> // Test 1</span>
+   const int SIZE_1 = 8;
+   int a1[SIZE_1] = {8, 4, 5, 3, 2, 9, 4, 1};
+ 
+   print(a1, 0, SIZE_1 - 1);
+   cout &lt;&lt; endl;
+   mergeSort(a1, SIZE_1);
+   print(a1, 0, SIZE_1 - 1);
+   cout &lt;&lt; endl &lt;&lt; endl;
+ 
+  <span class="color-comment"> // Test 2</span>
+   const int SIZE_2 = 13;
+   int a2[SIZE_2] = {8, 4, 5, 3, 2, 9, 4, 1, 9, 1, 2, 4, 5};
+ 
+   print(a2, 0, SIZE_2 - 1);
+   cout &lt;&lt; endl;
+   mergeSort(a2, SIZE_2);
+   print(a2, 0, SIZE_2 - 1);
+   cout &lt;&lt; endl;
+}
+ 
+<span class="color-comment">// Sort the given array of size</span>
+void mergeSort(int a[], int size) {
+   int work[size]; <span class="color-comment"> // work space</span>
+   mergeSort(a, 0, size - 1, work);
+}
+ 
+<span class="color-comment">// Sort the given array in [iLeft, iRight]</span>
+void mergeSort(int a[], int iLeft, int iRight, int work[]) {
+   if ((iRight - iLeft) &gt;= 1) {  <span class="color-comment"> // more than 1 elements, divide and sort</span>
+     <span class="color-comment"> // Divide into left and right half</span>
+      int iLeftHalfLeft = iLeft;
+      int iLeftHalfRight = (iRight + iLeft) / 2;  <span class="color-comment"> // truncate</span>
+      int iRightHalfLeft = iLeftHalfRight + 1;
+      int iRightHalfRight = iRight;
+ 
+     <span class="color-comment"> // Recursively sort each half</span>
+      mergeSort(a, iLeftHalfLeft, iLeftHalfRight, work);
+      mergeSort(a, iRightHalfLeft, iRightHalfRight, work);
+ 
+     <span class="color-comment"> // Merge two halves</span>
+      merge(a, iLeftHalfLeft, iLeftHalfRight, iRightHalfLeft, iRightHalfRight, work);
+   }
+}
+ 
+<span class="color-comment">// Merge two halves in [iLeftHalfLeft, iLeftHalfRight] and [iRightHalfLeft, iRightHalfRight]</span>
+<span class="color-comment">// Assume that iLeftHalfRight + 1 = iRightHalfLeft</span>
+void merge(int a[], int iLeftHalfLeft, int iLeftHalfRight,
+           int iRightHalfLeft, int iRightHalfRight, int work[]) {
+   int size = iRightHalfRight - iLeftHalfLeft + 1;
+   int iResult = 0;
+   int iLeft = iLeftHalfLeft;
+   int iRight = iRightHalfLeft;
+   while (iLeft &lt;= iLeftHalfRight &amp;&amp; iRight &lt;= iRightHalfRight) {
+      if (a[iLeft] &lt;= a[iRight]) {
+         work[iResult++] = a[iLeft++];
+      } else {
+         work[iResult++] = a[iRight++];
+      }
+   }
+  <span class="color-comment"> // Copy the remaining left or right into work</span>
+   while (iLeft &lt;= iLeftHalfRight) work[iResult++] = a[iLeft++];
+   while (iRight &lt;= iRightHalfRight) work[iResult++] = a[iRight++];
+ 
+  <span class="color-comment"> // for tracing</span>
+   print(a, iLeftHalfLeft, iLeftHalfRight);
+   print(a, iRightHalfLeft, iRightHalfRight);
+   cout &lt;&lt; "=&gt; ";
+   print(work, 0, size - 1);
+   cout &lt;&lt; endl;
+ 
+  <span class="color-comment"> // Copy the work back to the original array</span>
+   for (iResult = 0, iLeft = iLeftHalfLeft; iResult &lt; size; ++iResult, ++iLeft) {
+      a[iLeft] = work[iResult];
+   }
+}
+ 
+<span class="color-comment">// Print the contents of the given array from iLeft to iRight (inclusive)</span>
+void print(const int a[], int iLeft, int iRight) {
+   cout &lt;&lt; "{";
+   for (int i = iLeft; i &lt;= iRight; ++i) {
+      cout &lt;&lt; a[i];
+      if (i &lt; iRight) cout &lt;&lt; ",";
+   }
+   cout &lt;&lt; "} ";
+}</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+<pre class="output">{8,4,5,3,2,9,4,1}
+{8} {4} =&gt; {4,8}
+{5} {3} =&gt; {3,5}
+{4,8} {3,5} =&gt; {3,4,5,8}
+{2} {9} =&gt; {2,9}
+{4} {1} =&gt; {1,4}
+{2,9} {1,4} =&gt; {1,2,4,9}
+{3,4,5,8} {1,2,4,9} =&gt; {1,2,3,4,4,5,8,9}
+{1,2,3,4,4,5,8,9}
+
+{8,4,5,3,2,9,4,1,9,1,2,4,5}
+{8} {4} =&gt; {4,8}
+{5} {3} =&gt; {3,5}
+{4,8} {3,5} =&gt; {3,4,5,8}
+{2} {9} =&gt; {2,9}
+{2,9} {4} =&gt; {2,4,9}
+{3,4,5,8} {2,4,9} =&gt; {2,3,4,4,5,8,9}
+{1} {9} =&gt; {1,9}
+{1,9} {1} =&gt; {1,1,9}
+{2} {4} =&gt; {2,4}
+{2,4} {5} =&gt; {2,4,5}
+{1,1,9} {2,4,5} =&gt; {1,1,2,4,5,9}
+{2,3,4,4,5,8,9} {1,1,2,4,5,9} =&gt; {1,1,2,2,3,4,4,4,5,5,8,9,9}
+{1,1,2,2,3,4,4,4,5,5,8,9,9}</pre>
+
+<h5 class="">Interactive Bottom-up Merge Sort</h5>
+
+<p class="">Treat the list as sublists of length 1, and interactively merge a pair of sublists bottom-up, until there is only one sublist.</p>
+
+<table class="table-program">
+<colgroup class="" style=""><col class="col-line-number" style="">
+<col class="col-program" style="">
+</colgroup><tbody class="">
+<tr class="">
+<td class="">
+<pre class="text-right">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95</pre>
+</td>
+<td class="">
+<pre class=""><span class="color-comment">/* Sorting an array using Merge Sort with bottom-up interactive algorithm
+   (MergeSortInteractive.cpp) */</span>
+#include &lt;iostream&gt;
+using namespace std;
+ 
+void mergeSort(int a[], int size);
+void merge(int a[], int iLeftHalfLeft, int iLeftHalfRight,
+           int iRightHalfLeft, int iRightHalfRight, int work[]);
+void print(const int a[], int iLeft, int iRight);
+ 
+int main() {
+  <span class="color-comment"> // Test 1</span>
+   const int SIZE_1 = 8;
+   int a1[SIZE_1] = {8, 4, 5, 3, 2, 9, 4, 1};
+ 
+   print(a1, 0, SIZE_1 - 1);
+   cout &lt;&lt; endl;
+   mergeSort(a1, SIZE_1);
+   print(a1, 0, SIZE_1 - 1);
+   cout &lt;&lt; endl &lt;&lt; endl;
+ 
+  <span class="color-comment"> // Test 2</span>
+   const int SIZE_2 = 13;
+   int a2[SIZE_2] = {8, 4, 5, 3, 2, 9, 4, 1, 9, 1, 2, 4, 5};
+ 
+   print(a2, 0, SIZE_2 - 1);
+   cout &lt;&lt; endl;
+   mergeSort(a2, SIZE_2);
+   print(a2, 0, SIZE_2 - 1);
+   cout &lt;&lt; endl;
+}
+ 
+<span class="color-comment">// Sort the given array of size</span>
+void mergeSort(int a[], int size) {
+   int work[size]; <span class="color-comment"> // work space</span>
+   int width = 1;  <span class="color-comment"> // width of sublists to merge</span>
+ 
+   while (width &lt; size) {
+     <span class="color-comment"> // Merge 2 sublists of width</span>
+      for (int i = 0; i &lt; size - width; i += 2*width) {
+        <span class="color-comment"> // Get the bounds of left and right sublists</span>
+         int iLeftHalfLeft = i;
+         int iLeftHalfRight = i + width - 1;
+         int iRightHalfLeft = i + width;
+         int iRightHalfRight = i + 2*width - 1;
+         if (iRightHalfRight &gt;= size - 1) iRightHalfRight = size - 1;
+ 
+        <span class="color-comment"> // Merge left and right sublists</span>
+         merge(a, iLeftHalfLeft, iLeftHalfRight, iRightHalfLeft, iRightHalfRight, work);
+      }
+      width *= 2;
+   }
+}
+ 
+<span class="color-comment">// Merge two halves in [iLeftHalfLeft, iLeftHalfRight] and [iRightHalfLeft, iRightHalfRight]</span>
+<span class="color-comment">// Assume that iLeftHalfRight + 1 = iRightHalfLeft</span>
+void merge(int a[], int iLeftHalfLeft, int iLeftHalfRight,
+           int iRightHalfLeft, int iRightHalfRight, int work[]) {
+   int size = iRightHalfRight - iLeftHalfLeft + 1;
+   int iResult = 0;
+   int iLeft = iLeftHalfLeft;
+   int iRight = iRightHalfLeft;
+   while (iLeft &lt;= iLeftHalfRight &amp;&amp; iRight &lt;= iRightHalfRight) {
+      if (a[iLeft] &lt;= a[iRight]) {
+         work[iResult++] = a[iLeft++];
+      } else {
+         work[iResult++] = a[iRight++];
+      }
+   }
+  <span class="color-comment"> // Copy the remaining left or right into work</span>
+   while (iLeft &lt;= iLeftHalfRight) work[iResult++] = a[iLeft++];
+   while (iRight &lt;= iRightHalfRight) work[iResult++] = a[iRight++];
+ 
+  <span class="color-comment"> // for tracing</span>
+   print(a, iLeftHalfLeft, iLeftHalfRight);
+   print(a, iRightHalfLeft, iRightHalfRight);
+   cout &lt;&lt; "=&gt; ";
+   print(work, 0, size - 1);
+   cout &lt;&lt; endl;
+ 
+  <span class="color-comment"> // Copy the work back to the original array</span>
+   for (iResult = 0, iLeft = iLeftHalfLeft; iResult &lt; size; ++iResult, ++iLeft) {
+      a[iLeft] = work[iResult];
+   }
+}
+ 
+<span class="color-comment">// Print the contents of the given array from iLeft to iRight (inclusive)</span>
+void print(const int a[], int iLeft, int iRight) {
+   cout &lt;&lt; "{";
+   for (int i = iLeft; i &lt;= iRight; ++i) {
+      cout &lt;&lt; a[i];
+      if (i &lt; iRight) cout &lt;&lt; ",";
+   }
+   cout &lt;&lt; "} ";
+}</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+<pre class="output">{8,4,5,3,2,9,4,1}
+{8} {4} =&gt; {4,8}
+{5} {3} =&gt; {3,5}
+{2} {9} =&gt; {2,9}
+{4} {1} =&gt; {1,4}
+{4,8} {3,5} =&gt; {3,4,5,8}
+{2,9} {1,4} =&gt; {1,2,4,9}
+{3,4,5,8} {1,2,4,9} =&gt; {1,2,3,4,4,5,8,9}
+{1,2,3,4,4,5,8,9}
+
+{8,4,5,3,2,9,4,1,9,1,2,4,5}
+{8} {4} =&gt; {4,8}
+{5} {3} =&gt; {3,5}
+{2} {9} =&gt; {2,9}
+{4} {1} =&gt; {1,4}
+{9} {1} =&gt; {1,9}
+{2} {4} =&gt; {2,4}
+{4,8} {3,5} =&gt; {3,4,5,8}
+{2,9} {1,4} =&gt; {1,2,4,9}
+{1,9} {2,4} =&gt; {1,2,4,9}
+{3,4,5,8} {1,2,4,9} =&gt; {1,2,3,4,4,5,8,9}
+{1,2,4,9} {5} =&gt; {1,2,4,5,9}
+{1,2,3,4,4,5,8,9} {1,2,4,5,9} =&gt; {1,1,2,2,3,4,4,4,5,5,8,9,9}
+{1,1,2,2,3,4,4,4,5,5,8,9,9}</pre>
+
+<h5 class="">Complexity</h5>
+
+<p class="">The worst-case and average-case time complexity is O(n log n). The best-case is typically O(n log n). However, merge sort requires a space complexity of O(n) for carrying out the merge-sorting.</p>
+
+<h4 class="">2.5&nbsp;&nbsp;Quick Sort<a id="zz-2.5" class="" style=""></a></h4>
+
+<p class="">Quick sort is a divide and conquer algorithm. It picks a pivot and divides the list into two sub-lists: the low elements and the high elements, and recursively sorts the sub-lists.</p>
+<ol class="">
+<li class="">Pick a element, called pivot, from the list.</li>
+<li class="">Partition the list so that the smaller elements are before the pivot, and the larger elements after the pivot.</li>
+<li class="">Recursively sort the sub-lists.</li>
+</ol>
+
+<p class=""><span class="line-heading">Partition:</span> The partition procedure are:</p>
+
+<pre class="color-example"><span class="color-comment">// Assume that the pivot element is already on the right</span>
+partition(array, left, right)
+   storeIndex := left
+   for i from left to right - 1  <span class="color-comment">// left &lt;= i &lt; right</span>
+      if array[i] &lt;= pivotValue
+         if i != storeIndex
+            swap array[i] and array[storeIndex]
+         storeIndex := storeIndex + 1
+   swap array[storeIndex] and array[right]  <span class="color-comment">// Move pivot to its final place</span>
+   return storeIndex</pre>
+
+<p class=""><span class="line-heading">Choosing the pivot:</span> If the list is already sorted, choosing the first or last element as pivot results in worst performance of O(n<sup class="">2</sup>). We choose the middle element, and swap the the element at the right end, so as not to interfere with the partition process.</p>
+
+<h5 class="font-code">QuickSort.cpp</h5>
+<table class="table-program">
+<colgroup class="" style=""><col class="col-line-number" style="">
+<col class="col-program" style="">
+</colgroup><tbody class="">
+<tr class="">
+<td class="">
+<pre class="text-right">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107</pre>
+</td>
+<td class="">
+<pre class=""><span class="color-comment">/* Sorting an array using Quick Sort (QuickSort.cpp) */</span>
+#include &lt;iostream&gt;
+using namespace std;
+ 
+void quickSort(int a[], int size);
+void quickSort(int a[], int left, int right);
+void choosePivot(int a[], int left, int right);
+int partition(int a[], int left, int right);
+void print(const int a[], int left, int right);
+ 
+int main() {
+  <span class="color-comment"> // Test 1</span>
+   const int SIZE_1 = 8;
+   int a1[SIZE_1] = {8, 4, 5, 3, 2, 9, 4, 1};
+ 
+   print(a1, 0, SIZE_1 - 1);
+   cout &lt;&lt; endl;
+   quickSort(a1, SIZE_1);
+   print(a1, 0, SIZE_1 - 1);
+   cout &lt;&lt; endl &lt;&lt; endl;
+ 
+  <span class="color-comment"> // Test 2</span>
+   const int SIZE_2 = 13;
+   int a2[SIZE_2] = {8, 4, 5, 3, 2, 9, 4, 1, 9, 1, 2, 4, 5};
+ 
+   print(a2, 0, SIZE_2 - 1);
+   cout &lt;&lt; endl;
+   quickSort(a2, SIZE_2);
+   print(a2, 0, SIZE_2 - 1);
+   cout &lt;&lt; endl;
+}
+ 
+<span class="color-comment">// Sort the given array of size</span>
+void quickSort(int a[], int size) {
+   quickSort(a, 0, size - 1);
+}
+ 
+<span class="color-comment">// Sort the given array in [left, right]</span>
+void quickSort(int a[], int left, int right) {
+   if ((right - left) &gt;= 1) {  <span class="color-comment"> // more than 1 elements, need to sort</span>
+      choosePivot(a, left, right);
+      int pivotIndex = partition(a, left, right);
+      quickSort(a, left, pivotIndex -  1);
+      quickSort(a, pivotIndex + 1, right);
+   }
+}
+ 
+<span class="color-comment">// Choose a pivot element and swap with the right</span>
+void choosePivot(int a[], int left, int right) {
+   int pivotIndex = (right + left) / 2;
+   int temp;
+   temp = a[pivotIndex];
+   a[pivotIndex] = a[right];
+   a[right] = temp;
+}
+ 
+<span class="color-comment">// Partition the array [left, right] with pivot initially on the right.</span>
+<span class="color-comment">// Return the index of the pivot after partition, all elements to the</span>
+<span class="color-comment">// left of pivot are smaller; while to the right are larger.</span>
+int partition(int a[], int left, int right) {
+   int pivot = a[right];
+   int temp; <span class="color-comment"> // for swapping</span>
+   int storeIndex = left;
+     <span class="color-comment"> // Start the storeIndex from left, swap elements smaller than</span>
+     <span class="color-comment"> //  pivot into storeIndex and increase the storeIndex.</span>
+     <span class="color-comment"> // At the end of the pass, all elements up to storeIndex are</span>
+     <span class="color-comment"> //  smaller than pivot.</span>
+   for (int i = left; i &lt; right; ++i) { <span class="color-comment"> // exclude pivot</span>
+      if (a[i] &lt; pivot) {
+        <span class="color-comment"> // for tracing</span>
+         print(a, left, right);
+ 
+         if (i != storeIndex) {
+            temp = a[i];
+            a[i] = a[storeIndex];
+            a[storeIndex] = temp;
+         }
+         ++storeIndex;
+ 
+        <span class="color-comment"> // for tracing</span>
+         cout &lt;&lt; "=&gt; ";
+         print(a, left, right);
+         cout &lt;&lt; endl;
+      }
+   }
+  <span class="color-comment"> // Swap pivot and storeIndex</span>
+   a[right] = a[storeIndex];
+   a[storeIndex] = pivot;
+ 
+  <span class="color-comment"> // for tracing</span>
+   print(a, left, storeIndex - 1);
+   cout &lt;&lt; "{" &lt;&lt; a[storeIndex] &lt;&lt; "} ";
+   print(a, storeIndex + 1, right);
+   cout &lt;&lt; endl;
+ 
+   return storeIndex;
+}
+ 
+<span class="color-comment">// Print the contents of the given array from left to right (inclusive)</span>
+void print(const int a[], int left, int right) {
+   cout &lt;&lt; "{";
+   for (int i = left; i &lt;= right; ++i) {
+      cout &lt;&lt; a[i];
+      if (i &lt; right) cout &lt;&lt; ",";
+   }
+   cout &lt;&lt; "} ";
+}</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+<pre class="output">{8,4,5,3,2,9,4,1}
+{8,4,5,1,2,9,4,3} =&gt; {1,4,5,8,2,9,4,3}
+{1,4,5,8,2,9,4,3} =&gt; {1,2,5,8,4,9,4,3}
+{1,2} {3} {8,4,9,4,5}
+{} {1} {2}
+{8,4,5,4,9} =&gt; {8,4,5,4,9}
+{8,4,5,4,9} =&gt; {8,4,5,4,9}
+{8,4,5,4,9} =&gt; {8,4,5,4,9}
+{8,4,5,4,9} =&gt; {8,4,5,4,9}
+{8,4,5,4} {9} {}
+{} {4} {4,5,8}
+{4,8,5} =&gt; {4,8,5}
+{4} {5} {8}
+{1,2,3,4,4,5,8,9}
+
+{8,4,5,3,2,9,4,1,9,1,2,4,5}
+{8,4,5,3,2,9,5,1,9,1,2,4,4} =&gt; {3,4,5,8,2,9,5,1,9,1,2,4,4}
+{3,4,5,8,2,9,5,1,9,1,2,4,4} =&gt; {3,2,5,8,4,9,5,1,9,1,2,4,4}
+{3,2,5,8,4,9,5,1,9,1,2,4,4} =&gt; {3,2,1,8,4,9,5,5,9,1,2,4,4}
+{3,2,1,8,4,9,5,5,9,1,2,4,4} =&gt; {3,2,1,1,4,9,5,5,9,8,2,4,4}
+{3,2,1,1,4,9,5,5,9,8,2,4,4} =&gt; {3,2,1,1,2,9,5,5,9,8,4,4,4}
+{3,2,1,1,2} {4} {5,5,9,8,4,4,9}
+{} {1} {2,2,1,3}
+{2,3,1,2} =&gt; {1,3,2,2}
+{1} {2} {2,3}
+{} {2} {3}
+{5,5,9,9,4,4,8} =&gt; {5,5,9,9,4,4,8}
+{5,5,9,9,4,4,8} =&gt; {5,5,9,9,4,4,8}
+{5,5,9,9,4,4,8} =&gt; {5,5,4,9,9,4,8}
+{5,5,4,9,9,4,8} =&gt; {5,5,4,4,9,9,8}
+{5,5,4,4} {8} {9,9}
+{5,4,4,5} =&gt; {4,5,4,5}
+{4,5,4,5} =&gt; {4,4,5,5}
+{4,4} {5} {5}
+{} {4} {4}
+{} {9} {9}
+{1,1,2,2,3,4,4,4,5,5,8,9,9}</pre>
+
+<h5 class="">Complexity</h5>
+
+<p class="">The worst-case time complexity is O(n<sup class="">2</sup>). The average-case (typical) and best-case is O(n log n). In-place sorting can be achieved without additional space requirement.</p>
+
+<h4 class="">2.6&nbsp;&nbsp;Bucket Sort<a id="zz-2.6" class="" style=""></a></h4>
+
+<p class="">Bucket sort (or bin sort) works by distributing the elements into a number of buckets, and each bucket is then sorted individually.  Bucket sort is a distribution sort, and is a cousin of radix sort, in which the sorting begins at the most significant digit and goes down to the less significant ones.  Bucket sort is not a comparison sort like bubble sort, insertion sort or selection sort.</p>
+
+<p class="">The algorithm is as follows:</p>
+<ol class="">
+<li class="">Set up buckets, initially empty.</li>
+<li class="">Scatter: place each element into an appropriate bucket.</li>
+<li class="">Sort each non-empty bucket.</li>
+<li class="">Gather: Gather elements from buckets and put back to the original array.</li>
+</ol>
+
+
+<h5 class="">Radix Sort (Recursive)</h5>
+
+<p class="">Use 10 buckets to sort from the most-significant down to the least-significant digit.</p>
+
+<table class="table-program">
+<colgroup class="" style=""><col class="col-line-number" style="">
+<col class="col-program" style="">
+</colgroup><tbody class="">
+<tr class="">
+<td class="">
+<pre class="text-right">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105</pre>
+</td>
+<td class="">
+<pre class=""><span class="color-comment">/* Bucket Sort (Radix Sort)  (BucketSort.cpp) */</span>
+#include &lt;iostream&gt;
+#include &lt;vector&gt;
+using namespace std;
+ 
+void bucketSort(int a[], int size);
+void bucketSort(vector&lt;int&gt; &amp; list, int radix);
+void printBuckets(const vector&lt;int&gt; buckets[], int size);
+void print(const vector&lt;int&gt; list);
+ 
+const int NUM_BUCKETS = 10;
+ 
+int main() {
+   const int SIZE = 13;
+   int a[] = {28, 104, 25, 593, 22, 129, 4, 11, 129, 4, 111, 20, 9};
+   bucketSort(a, SIZE);
+}
+ 
+void bucketSort(int a[], int size) {
+  <span class="color-comment"> // find maximum to decide on the number of significant digits</span>
+   int max = a[0];
+   for (int i = 1; i &lt; size; ++i) {
+      if (a[i] &gt; max) max = a[i];
+   }
+ 
+  <span class="color-comment"> // Decide on the max radix (1000, 100, 10, 1, etc)</span>
+   int radix = 1;
+   while (max &gt; 10) {
+      radix *= 10;
+      max /= 10;
+   }
+ 
+  <span class="color-comment"> // copy the array into a vector</span>
+   vector&lt;int&gt; list(size);
+   for (int i = 0; i &lt; size; ++i) {
+      list[i] = a[i];
+   }
+   bucketSort(list, radix);
+}
+ 
+<span class="color-comment">// Sort the given array of size on the particular radix (1, 10, 100, etc)</span>
+<span class="color-comment">// Assume elements are non-negative integers</span>
+<span class="color-comment">// radix shall be more than 0</span>
+void bucketSort(vector&lt;int&gt; &amp; list, int radix) {
+   if (list.size() &gt; 1 &amp;&amp; radix &gt; 0) { <span class="color-comment"> // Sort if more than 1 elements</span>
+     <span class="color-comment"> // For tracing</span>
+      cout &lt;&lt; "To sort: ";
+      print(list);
+ 
+      vector&lt;int&gt; buckets[NUM_BUCKETS]; <span class="color-comment"> // 10 buckets</span>
+ 
+     <span class="color-comment"> // Distribute elements into buckets</span>
+      for (int i = 0; i &lt; list.size(); ++i) {
+         int bucketIndex = list[i] / radix % 10;
+         buckets[bucketIndex].push_back(list[i]);
+      }
+ 
+     <span class="color-comment"> // For tracing</span>
+      cout &lt;&lt; "radix=" &lt;&lt; radix &lt;&lt; ": ";
+      printBuckets(buckets, NUM_BUCKETS);
+ 
+     <span class="color-comment"> // Recursively sort the non-empty bucket</span>
+      for (int bi = 0; bi &lt; NUM_BUCKETS; ++bi) {
+         if (buckets[bi].size() &gt; 0) {
+            bucketSort(buckets[bi], radix / 10);
+         }
+      }
+ 
+     <span class="color-comment"> // Gather all the buckets into list and return</span>
+      list.resize(0); <span class="color-comment"> // remove all elements</span>
+      for (int bi = 0; bi &lt; NUM_BUCKETS; ++bi) {
+         for (int j = 0; j &lt; buckets[bi].size(); ++j) {
+            list.push_back((buckets[bi])[j]);
+         }
+      }
+ 
+     <span class="color-comment"> // For tracing</span>
+      cout &lt;&lt; "Sorted: ";
+      print(list);
+   }
+}
+ 
+<span class="color-comment">// Print the contents of all buckets</span>
+void printBuckets(const vector&lt;int&gt; buckets[], int size) {
+   for (int i = 0; i &lt; size; ++i) {
+     <span class="color-comment"> // print each bucket</span>
+      cout &lt;&lt; "{";
+      for (int bi = 0; bi &lt; buckets[i].size(); ++bi) {
+         cout &lt;&lt; (buckets[i])[bi];
+         if (bi &lt; buckets[i].size() - 1) cout &lt;&lt; ",";
+      }
+      cout &lt;&lt; "} ";
+   }
+   cout &lt;&lt; endl;
+}
+ 
+<span class="color-comment">// Print the contents of vector&lt;int&gt;</span>
+void print(const vector&lt;int&gt; list) {
+   cout &lt;&lt; "{";
+   for (int i = 0; i &lt; list.size(); ++i) {
+      cout &lt;&lt; list[i];
+      if (i &lt; list.size() - 1) cout &lt;&lt; ",";
+   }
+   cout &lt;&lt; "}" &lt;&lt; endl;
+}</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+<pre class="output">To sort: {28,104,25,593,22,129,4,11,129,4,111,20,9}
+radix=100: {28,25,22,4,11,4,20,9} {104,129,129,111} {} {} {} {593} {} {} {} {}
+To sort: {28,25,22,4,11,4,20,9}
+radix=10: {4,4,9} {11} {28,25,22,20} {} {} {} {} {} {} {}
+To sort: {4,4,9}
+radix=1: {} {} {} {} {4,4} {} {} {} {} {9}
+Sorted: {4,4,9}
+To sort: {28,25,22,20}
+radix=1: {20} {} {22} {} {} {25} {} {} {28} {}
+Sorted: {20,22,25,28}
+Sorted: {4,4,9,11,20,22,25,28}
+To sort: {104,129,129,111}
+radix=10: {104} {111} {129,129} {} {} {} {} {} {} {}
+To sort: {129,129}
+radix=1: {} {} {} {} {} {} {} {} {} {129,129}
+Sorted: {129,129}
+Sorted: {104,111,129,129}
+Sorted: {4,4,9,11,20,22,25,28,104,111,129,129,593}</pre>
+
+<p class="">Program Notes:</p>
+
+<ul class="">
+<li class="">Need to implement the buckets using dynamic array (such as <code class="">vector</code>) as their sizes are unknown; and to expensive to set to the maximum.</li>
+</ul>
+
+<h3 class="">3.&nbsp;&nbsp;Data Structures<a id="zz-3." class="" style=""></a></h3>
+
+<p class="">The built-in array has many limitations. It is fixed in size and cannot grow and shrink during execution. The size has to be decided during the declaration.</p>
+
+<p class="">Many applications require dynamic data structures, that can grow and shrink during execution. The commonly used data structures include:</p>
+
+<ul class="">
+<li class="">List: Single linked list, double linked list, etc.</li>
+<li class="">Queue: FIFO queue, priority queue, etc.</li>
+<li class="">Stack: LIFO queue</li>
+<li class="">Tree:</li>
+<li class="">Map or Associative Array:</li>
+</ul>
+
+<h4 class="">3.1&nbsp;&nbsp;Single Linked List<a id="zz-3.1" class="" style=""></a></h4>
+
+<img class="image-center" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAicAAAFKCAYAAADG0v/EAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAADv2SURBVHhe7Z1rlBXVte/72+Fj7rjjjsFHzoeMcHOuQ4KKBh8xuTlHkhyVO058HDWAeg4Xc25OGHmqweeNrwyvtI9oYpRWQRCCoKAgCAIi8lBp1GgLjbYI2CBq+8L2vW6t2rt2165de1fVrlVVc+367TFqqG3VWnP95qy1/jXXqlVdih8EIAABCEAAAhAQRKBLkC2YAgEIQAACEIAABBTihCCAAAQgAAEIQEAUAcSJKHdgDAQgAAEIQAACiBNiAAIQgAAEIAABUQQQJ6LcgTEQgAAEIAABCCBOiAEIQAACEIAABEQRQJyIcgfGQAACEIAABCCAOCEGIAABCEAAAhAQRQBxIsodGAMBCEAAAhCAAOKEGIAABCAAAQhAQBQBxIkod2AMBCAAAQhAAAKIE2IAAhCAAAQgAAFRBBAnotyBMRCAAAQgAAEIIE6IAQhAAAIQgAAERBFAnIhyB8ZAAAIQgAAEIIA4IQYgAAEIQAACEBBFoD1xsmK66urqGjkmdqt+Uc3CGAhkQ+C9995Te/bsyabwaqk7duxQa9euVTt37sy0Hq/wtG3Ky97Nmze7XNLyT9veXJxCJRAoOYHk4qS/W010hMn0FQLIRdiyYrpPQHliKkxISWqTAKxlNkEPfAsWLFA33nije9x55511ImHGjBmuKNf/L6ufLttkHVo86DJ1u8J+adtk2t5mXL0HIi1QWv2ybm9Wfu/0ct3+OKcH2f7uic49NF1JGKY63a9ZtS+xOHGdnlOARTY6jjips7VfdU/UgiUQtIiTSNRlOEEPanUZQV92UD9t69+pp55qVDiEcTU92Hvl6baF/dK2ybS9acVJFu3V/vfEahnuhSzaKE2c8PCahZfNlZlYnOQZYJHNTCxOnBLDrkGcRKIuwwneID1r1ix36kAfWrDozIInTrwpAe+/s+BierCPGqzTtsm0vVmLk3baq2PBE65Z+LwMZeY5dsTJnDTaw8OrpDg0K07ctSg6K+E5uTqtEpwDiliz4gaNvqbuvImqu7qwpRJ4IVM27t9GsiLhN8MKNd05b6JTWNxyKnbEaJckz2JLIgIHDx6sxVSraQM9SAXXPei1If5rvLUR+p9hPz046vODh3d+q8Heq0tf26z8YJ1R4iRtm8Ls9crU4i74i9uGIMe40zrttFfb6Nns+cUToNpePSXmrz9qailR8JXkZPnihIdXSaEYT5wExURAGNS0h+88Pfi7v0BWoiIIRoSGc0LDVEst3VabkqmeE5xOyitzEqNdkpyKLckJ6IHIG3x05qRZZiRsIPb+pgdTL/viL8tvTaupI2/apZk40XYFRbmuTwurVr+owTptm4LXa3uaTRXFaYNmH8bRlDgJa69ffHj1eOuK/Pz8/OOKw+TR2JlXRD101lrdMN6Erx2pn5bxjyl62AmuOak8lGr/eWMTD6+y4yyeOPG1oaX6rQZVfaJkJFPhpEJqWYs6LAGREVZHaJousTipBmhCkeNlcJq3S7aTsS4egeAgpAesoEhpNZDrjk8PqsuWLVP+Qdj/1o036HrZF29Q1H/3nsZbDZ56ikmXp5/yvfP037ISJ3HaFLTXa7v+p//ntTWqDXoRsicCNEt9+EVBVNYiqRjzC1MtOLzpPK8eLSjDMidZTu3Fi1i7zmp86NTJ8cAiWd2n13W0YQ+mYdMvzt+mj7w1Wj9ehPf7oWNZO9P+PLxmEogZiJN6BdsoQsL+fyXYWinatsVJIMtTy+j4DYtac+IGX4t2ZeIaCi2CQNiTvR4cvV8rcaIFhn/ACj7p+6eO/G0LrmUIq8M7xz9N4i+vVfYk6WCtbfOuiWqT/1x9jSckwjI6cdvgned/u8i/5sO0OPGX3ez1bdacpL8bm4uB1n1rsO9vzL432la7ptq3u8sEAr9Ge3h4Te9lcyV0vjiJ82YR4sRcRHVASVoABEVKq6xGs2mYsGkI72/eXh36ST1KnPgHRm2Xrs87guWF4U8jTrypDa/csDb5hUyYANHXxm2D/7zgfiZZTuv4p5F0e4JrZRAn6W/sVtMofu0Q+hZN5FrCevvq1hM2GQPC6uHhNb2fTZWQrzgpfFqnCTbEial46qhy/OtDgusP/IN2EnEStrZBD7qtsjP+gTFsIXjUupO8xIkWTs3WmsRtQ1HiRGeegtN6enrJ+yFO0t/acaZRKoKh9fqROAtr28ucMD6k97K5EnIWJ9U5xrAFsT51G3vNSVXshKXsNKI4QVxBWU3nNdtZjmkdcxFnWUlB4dFqWicqy+At9NQDuH+jt+BTerCOVgN2HJx5iRNdjz8T5F8wGrcN/vOCXLLMnHgctUjxr3nxsjeIkziR1vqc0P64rm+triUJ9MPh0zqtN1iru6a6JiSYFYk9PvDwmt75bZSQuzjRNja8whsIxvjixC3M3bF25Iky6lXi1uo4rJzKgljWnLQRX9Zc4u0M618z4l/T4T1FpxEn3gCnF4R6+6iEAQqrw8tI+J/mvWujFmb6xYlXr7/+NG3SNjQTcMH1KnHbEHxbRtcRXJDaKrDaaW+QYXC6LM66FGuCvSBDm67x8PX/wXNGxgq/GAlbG9JqQezImOMXKLHFCQ+vhURMYnFSiJVUCoGMCfincLR48K858U+bpBnIw16R9Q/E3qLWsDr8b6z4151oW4MZmyCq4HSFf2rI/9ZPu1NVQXv9b7/4y4zbBr8Q0ew9UeN/0ymuOAlOg4W11xMeWvjptUWe7/3iyi9UvTeYwvZwyThMrS4+bF+pxjUeI6/8ur7TGfXaPlP+5gf20oqYCtJX1taYVMVQfHHS+iGYh9dswhJxkg1XSrWQQLO9LvxvwngDsT+DEfY33fywwdT7jo2uy5vaabavRjBLogfO4P4f/leQmyHX14WtVdF/8w/W7bYprP3+Ov0LW+O2ISiovI3RtM1Rb+skba8WU55fPE7e685+psFXmoMLdi0MeUyGgFgCiBOxrsGwogi0mnJJY5MnfoL7f/gHvTjla7GkbYzafC1OWUWdE6cNeX892KsviiuipKiood4yEUCclMnbtLVQAl42wFtzoo3R+2qk/SpwoY2icghAAAIZEECcZACVIiEQRkA/cQenZfzTCFFP7FCFAAQgUBYCiJOyeJp2iiGgF1L6P/rXbFdSMQZjCAQgAIGcCSBOcgZOdRCAAAQgAAEItCaAOCFCIAABCEAAAhAQRQBxIsodGAMBCEAAAhCAAOKEGIAABCAAAQhAQBQBxIkod2AMBCAAAQhAAAJWipPh4WE1MDCA9yAAAQhAAAIQ6EACVomToaEhNXny5NpW3GPGjFG9vb0d6BaaBAEIQAACJgjwMGuCYv5lWCVO/MLE27xq9OjRanBwMH9y1AgBCEAAAmIJ8DAr1jWxDLNGnOhAa/bxsp6enliN5SQIQAACECgHAR5m7fazNeJEZ0eaiZPZs2fb7QWshwAEIAABYwR4mDWGsrCCrBEnmtC4ceNCBUpfX19hAKkYAhCAAARkEeBhVpY/2rHGKnGiF7/qNSb+DApZk3bczjUQgAAEOpsAD7N2+9cqcaJR63TdzJkzXZFCxsTu4MN6CEAAAlkR4GE2K7L5lGudONFY9AJY/RoxPwhAAAIQgEAzAjzM2hsbiBN7fYflEIAABCAQQYCHWTtDBHFip9+wGgIQgAAEYhBAnMSAJPAUxIlAp2ASBCAAAQiYIYA4McMx71IQJ3kTpz4IQAACEMiNAOIkN9RGK0KcGMVJYRCAAAQgIIkA4kSSN+LbgjiJz4ozIQABCEDAMgKIE8scVjUXcWKn37AaAhCAAARiEECcxIAk8BTEiUCnYBIEIAABCJghgDgxwzHvUhAneROnPghAAAIQyI0A4iQ31EYrQpwYxUlhEIAABCAgiQDiRJI34tuCOInPijMhAAEIQMAyAogTyxxWNRdxYqffsBoCEIAABGIQQJzEgCTwFMSJQKdgEgQgAAEImCGAODHDMe9SECd5E6c+CEAAAhDIjQDiJDfURitCnBjFSWEQgAAEICCJAOJEkjfi24I4ic+KMyEAAQhAwDICiBPLHFY1F3Fip9+wGgIQgAAEYhBAnMSAJPAUxIlAp2ASBCAAAQiYIYA4McMx71IQJ3kTpz4IQAACEMiNAOIkN9RGK0KcGMVJYRCAAAQgIIkA4kSSN+LbgjiJz4ozIQABCEDAMgKIE8scVjUXcWKn37AaAhCAAARiEECcxIAk8BTEiUCnYBIEIAABCJghgDgxwzHvUqwQJzNnzlRdXV0tj9GjR6vh4eG8+VEfBCAAAQgIJoA4EeycFqZZIU4GBwfVqFGjWoqT2bNn2+kBrIYABCAAAWMEeJg1hrLQgqwQJ5pQq4Aja1JoDFE5BCAAATEEeJgV44pUhlgjTloFHFmTVDHAxRCAAAQ6igAPs/a70xpx0ix7QtbE/iCkBRCAAARMEuBh1iTNYsqySpyEBRxZk2ICh1ohAAEISCYQlj3hYVayx+pts0qcBLMnBJo9gYalEIAABPIkwMNsnrTN12WdOPEHHFkT8wFBiRCAAAQ6hYA/e8LDrF1etU6ceNkTAs2uQMNaCEAAAnkT4GE2b+Lm6rNOnDz10kHVs/xZNePX16iHnt7DkTODPQc/NBd9BkrS8UAcFHcfEA/FsZcY9xLj4dSzLlT/5b/+N7Vo/S76CovGC+vEib4h/7i8j6MgBn1vvGdAUpgrgngo9l4gHorlL60vlBgP1923UZ390yusHDMuv+NRK+324jJNPFgpTu5bu1t99ZWy7ti285AbaIPvfGyd7XsPHXZtTxNs5iTJSElanBAP+d8LxIN55vQP5nsIm/uHtc/sVl8/YoKav+jhUo4XiJMcRY7X+eiO3TZxxWCU3WBEPJgblGwejOgfzMWBV5Lt8dD94A51yg9PVXPm9Fg1ZpgYL6wVJ186osK2Y2s1c6IdZ5vtXrA9+lSfev/Dw+Z7kTZL9Dof23hqe4mHNp3e4jLioZh+kf7BPHevf9i97x01ddo0V6DY0s+ZiAd7xYnjpS8tO7a+UpnW2XvoI+ts1zZr22+Z/4TaN3jI/KjSZom1wciyWNCxSzy06fQ44oR4yLWPoX8wPx4F+4epU6epyy+/Ile/tjvGmogHa8XJF07nY9vhBdsbzkBvm+3aZsnixDae2l7iITtxQjzk2z/SP5jnHdY/aHHy299eLH78MBEPVoqTe50FsZ9/8ZV1x5Zq5mTPWx9ZZ7u2Wao4IR7yvxeIB/PM6R+yEaud1j9cc821aoqTRZE8BproH+wUJ2t2q88+/9K6Y0vfW+4A//rBj6yzXdssVpwQD7nHE/Fgvv+hf8hInHRg/3DX3XPUmWedpT5w1v9JHAtN9A/WipNPP/tS2XZs9sTJgY+ss/11x2bJ4sS2WND2Eg/ZDUbEQ779I/2Ded5R/cPcefPVaaedrt7/4LC48cREPFgrTj759Atl27H55UrmZODAh9bZrm2WLE5siwVtL/GQnTghHvLtH+kfzPOO0z8sW/6omnDsserAwbdFjSkm4sFScdKvPv7kc+uOp18+6A7wrw5+YJ3t2ma54oR4yPt+IB7M9z/0D1mJ1c7uH7ZsfVaddNJ31MCevWLGFRP9g7Xi5PDwZ8q2Y5PzHRhXnLz5vnW2a5slixPbYkHbSzxkNxgRD/n2j/QP5nkn6R82b31GTZhwrHr5lX4RY4uJeLBSnNyzpl99+PFn1h36I3V6gO/f/751tmubpYoT4iH/e4F4MM+c/iEbsVqW/uGlvn51opNB2bTlmcLHFxP9g7Xi5IPDnyrbjqf+dsAd4Hc5A71ttmubJYsT23hqe4mH7AYj4iHf/pH+wTzvdvqHv728S5144knqqc3bCh1jTMSDneLk8X419OEn1h1PvlgRJ6/sfc8627XNYsUJ8ZB7PBEP5vsf+oeMxGrJ+ofX9x1QJzgCZfGSZbn3C964bKJ/sFacvPPBsLLt2PDiYPXLvkPW2d73xpBocWJbLGh7iYfsBiPiId/+kf7BPO80/cNrew+oH/7zqWru/EWFjDUm4sFKcdLjKOFD7w1bd6x/oSJOXtozZJ3t2mapmRPiIf97gXgwz5z+IRuxWtb+Yd+BIfXDH52qbr39ztzHGxP9g7Xi5MC7H6vMjkUXqK6uLt9xgZpvoL51z1fEyYsD72ZnuwE7w7hqm/MWJwMDA5G9lf7wn+58MosFzTMQD0df+6KR+oiHSPfWnSAiHhr6hko/YSImiAcL48Hf39ZiQ9Z4cdY5P1FXX/MHI31W3H7WxHhhrTh58+3DKpPjAS1MjlNXbRspf94U3QFdoOalrPOJHW+6A/zzr72bje0p7WvFU9uctzgZM2aMmjx5surt7W3aa3niJJNYcHhu+v1x9b7f9gd1tB6Mfv9Cah8SD8kGIwnx8KbbP6TvC8LilXiwMB5qfe4L6qpjvAdaM/FhMh7+fcb/Ub/8zaWp+6y4/ayJ8cJOcbK6X+1zPkSXxTFXC5EpS+rLXqA7pAnqyq3p6lzbWxEnO3a/Y9z2eQ8sVWeefZ6a9INT1U23/Ml4+drmIsSJl8FqJlJccZJZPCxR5zpC5NwF9X5/6v9OcAeouSljkHhIPhgVGw9OHLh9QXrfh/VdxIOF8VDtA2p9gsH4MB0Pv/j1peonU//N+NgQFssmxgsrxcmc1bvUHmc79SyOe37iiJOjb1AbfOVvuFoPRuere1LW+fj2/e4Av73/baO2X3719YFpqC513tQLjdahbS5SnDQblLQ4ySwettygjnLEyTnzA7E2/3xXrF6xJV0MEg/tD0aFxIO+/13fp+8Lwvou4sHCeHDHhCXqHKefOOrq543GRxbxcM0N3eqMs841OjaExbKJ8cJacfKas516JsfT16vx7nqT89UcXcf9ujPqUuOv6k1d3+rnKuLkmV2HUpfltX3Hzr3q7/5uVIM40TY/+MhaY/VomyWIk+Cg5ImTLGPhX+8PxJobIxPUZU+ni0HiIf1glGs8+PoD/5o0E32Djl/iwcJ4cPw25zz9QHu9WleLj+rYkXKMyiIedJz9ofsO9Z3vfl/1vf6WsfEh2P+aGC+sFSe7nU3Bsjt61ayjvPnDCWrWJjN1rXp2nzvAb9t5yJjti5evCRUm9Qt6/Yt7O+vfTz3rQjdzkk0sVOPgqOvU2lq8ebGRPi6IB/OxmG08hPQDm66rPMyctzh1DBIPFsZD1f9nz63GxtxpTn88Td1tYHzKIh68fnLOvAfVP076Z7W9743UcRvW9+oxLu3DrJXi5O5Vu9TOvUPZHBuvVd/Snc25i9zyV195TGXwr/53mnpXPrPXddiWvoPGbH/mpdebipMrr71JzV203Mhx+71L1cxr71U/m3WT+uuDD6l169ZlfowePbpp2/TiyJ6eHqUzJ5nGw97t6tKaUNWd5zHq0vt0jDj/3JguBomHZDEkIx4afV7pI6apv6Tsk4gH2+Kh2jf4x4b7KuIkbSzocSaLePCPX3fNXawmfPsEpceQNONa2LV6jCutOHnZ2XfD/LFdXaIHonMW1Zd9jw64LnXmPenqXLGtIk42OV8nNmn7lAsvahjEJxx3gtE6tM1pgy1Z0lYpLUCCGSBPlHhleeLEJM/Istx4mKb+nDIGiYdkESE1Hh67QouTY9QlG+gfbpn/hNo3eCiZY9s8u/B4cPuBgN8N9Q26D8qqf/D3b0tWPqmO/NbR6vFNz4sbL6zMnNzlZE70e9Tmj0XqDEeEjLv8ufqy11+rxjl/P6MnXZ2PbK2Ik43ON3ZM2z7zN5erYxxBoo8LL5qpnn1l0Ggd2uYixUlQlPjFSXbxEObv59Rvx4fESBvxSDwkG5X8g5GceHhX3f6vzgPN+GvVo23EgL8fIB7sigfX73X7YQX/e6q6PUVMZBkP/rhbtmarO26s2rjD2JhhYrywVpzsePUdlcVxmxtwx6hfPzFSfuVvU9VtKetcvuUNd4Df4HxjJwvbsyxT21yEOGk2CAXFSZZtHyl7ofqx7ozGX6OWp4wFXSbxkHwwkhUPjg8vq0z7/vju9P0R8WB/POy4e6qRsSLv/mHFhl71jW8eoRYuX29kbDIxXtgpTh7b5b6Om9Vxy9lBBTxF3WKgvmWbK+JE7wSZle1ZlevtXpln2nbp0qWRvZWe1rkrw3h4+HfVNUfVJ6R/uctc3BEPke6tO0FiPHR96/fqYQN9g75viQf74qGhv71riiNO7BwvNjz3qjr62OPVvX99LPX4ZGK8sFSc7FTPOquBbTsedgZSLU70zn+22e7tVpinOInTVVXECfGQdzwRD+b7H/qHOHd8snPoH5LF6bpndqujJhyvbrlrYaoxykT/YKU4+YszGG195S3rjqVVcbKmd791tmub857WidMN6c6HeMj/XiAezDOnf4hzxyc7h/4heZxufH6v+s73f6B+///+3PY4ZaJ/sFacbHbeHrHtWLLpdXeA15vr2Ga7tyGQxMyJFie28dT2Eg/JBpo4Z3uDEfGQb/9I/2Ced5H9w4beN9Q//nCymnXNzW31rSbiwVpxsumlA8q248GnKuJk1XP7rLNd2yw5c2JbLGh7iYc4ciPZOZ44IR7y7R/pH8zzltA//HDyWeqCn/4q8XhlIh6sFCd3rtypNjpvj9h2LN5YEScrn9lnne3aZqnihHjI/14gHswzp39IJkTjnK3FKv1Dulg9/6JfqfMu/FmiMctE/2CtONnwwqCy7fjrxgF3gNeb69hmu7chkMRpHd352MZT20s8xBlekp3jDUbEQ779I/2Ded6S+ofpP79U/eD0s2L3sybiwVpxsu75N51Xcu06Fj1ZESePbHvDOtu1zZIzJ7bFgraXeEgmPOKc7YkT4iHfvpH+wTxvaf3Db6+erb436XS1attA5PhlIh6sFSf6VSXbDi/Ylm99wzrbtc2SxYltsaDtJR7iyI1k53jihHjIt3+kfzDPW2L/MOv6O9QJ352kHts60HIMMxEP1oqTtTv2K9uOhU++5g7w2nG22W4i2JINM/HO9gYj23hqe4mHeD5OchbxUEy/SP9gnrvU/uH6P85TRx79bfXwxr6m45iJeLBWnOj3qG07Fm6oiJNlzjb2ttmubZacObGNp7aXeEgiO+Kd64kT4iHf/pH+wTxvyf3DrfctdwXKojW9oWOZiXiwUpz82VkA+fj2/dYdD1TFycPONva22a9tlipOiIf87wXiwTxz+od4AjTJWVqs0j+Yj1U9fv1pwWr1348Yr+Y9sqVhPDPRP1grTvQmL7YdD6yvZE4ecgZ622zXNksWJ7bx1PYSD0mGmXjneoMR8ZBv/0j/YJ63Df3D3OVb1JFHfVvdMX913ZhmIh4QJzmKHBuCrVmnbiLY4g0vyc5iMDLfKcYZ2IkH89zpH5Ld+3HOpn8wH6fB/iFMoJjoH6wUJ3969BWlg862Y+7a3W72YeGGAetsX1jN+kjc54R4yP9eIB7MM6d/iCM3kp2jxwj6B/OxGhx771/9ovof449Tl990rzu2megfrBQneoDnKIaBRHFCLBQTC1Kn+YgH4sGTMHqgJB7yiYcbH9imjjzuf6r/uPLOGvM044V14qTvjffUtp2H1Nrn9qhbF2606rhtyXOu025dvMUqu/2cb5m7Qu0bPJTs8SXDs4mHYu8B4sEcf/oH8x0F/YO5+Iwz3t40b6365rhj1XkXXeqOcWn6B+vEiRe+eoC8uWepVYd2lvu0OW+VVXYHOUsSJ8RD8fcA8WDGB/QP5sUJ/YOZ2Ew61h57wvfUOc73ePR17fYPiBPLBE7SIMni/HaDLbuuR7k3QBZtpczozo14iGZUpjgiHogHHe+lFSdZDnSUDQEIQAACEIBAcQSszZwUh4yaIQABCEAAAhDIkgDiJEu6lA0BCEAAAhCAQGICiJPEyLgAAhCAAAQgAIEsCSBOsqRL2RCAAAQgAAEIJCaAOEmMjAsgAAEIQAACEMiSAOIkS7qUDQEIQAACEIBAYgKIk8TIuAACEIAABCAAgSwJIE6ypEvZEIAABCAAAQgkJoA4SYyMCyAAAQhAAAIQyJIA4iRLupQNAQhAAAIQgEBiAoiTxMi4AAIQgAAEIACBLAkgTrKkS9kQgAAEIAABCCQmgDhJjIwLIAABCEAAAhDIkgDiJEu6lA0BCEAAAhCAQGICiJPEyLgAAhCAAAQgAIEsCSBOsqRL2RCAAAQgAAEIJCaAOEmMjAsgAAEIQAACEMiSAOIkS7qUDQEIQAACEIBAYgKIk8TIuAACEIAABCAAgSwJIE6ypEvZEIAABCAAAQgkJoA4SYyMCyAAAQhAAAIQyJIA4iRLupQNAQjYR2DFdNXV1TVyTOxW/fa1AoshYDUBxInV7sN4CEDAKIH+bjXRESbTVxgttb3CImxZMd0noDwxFSakJLWpPRJcVUICiJMSOp0mQwAC4QT6uyeqLimZkjjipM7WftU9UQuW6apOWyFOCHcLCSBOLHQaJkMAAtkQcLMR1ooTh0mYEEGcZBMslJopAcRJpngpHAIQsIlAS3HirkXRWQkvQ1GdVgnOAUWsWXHr0NfUnTdRdVcXtrjZG/+al7p/H8mKhNu6Qk13zp/oFBa3nIodMdplkyOx1XoCiBPrXUgDIACBVASCYiIgDGraw3eeHvzdXyArUREEI0LDOaFhqqW2VqSWoameE8zYJJ7WaTNzEqNdqfhyMQTaIIA4aQMal0AAAp1JIDpzElwsO5KpcFIhtaxFHZ2AyAiroyJqkq0VaSynUn/DtFTUtE5VnNQngJq0pTPdTqsEEkCcCHQKJkEAAsUQiBYn/qxIwEZXBIT9/0pmxMu2GBUngSxPLaPjNy2WOGnRrmJcQa0lJ4A4KXkA0HwIQGCEgHXiJM7iXcQJIW4hAcSJhU7DZAhAIBsCqcRJ4dM6TZggTrIJFkrNlADiJFO8FA4BCNhEIJ040S/g6Dd4QhbE+jIcsad1qmLHfbMn5Bf/tefqWpRmO8u5a06Y1rEpTstgK+KkDF6mjRCAQCwCacWJrqThFd6AKIgvTtzC3B1rR14tjnqVuHX2JKycyqvEiJNYAcJJuRFAnOSGOkFFfNsjASxOhQAEIACBTiOAOJHm0aj54TztjbPPQnCzKL7tkaeHqAsCEIBARxJAnAhzK9/2EOYQzIEABCAAgdwJIE5yR966wviL3HIwPE7mJM6ulpKyQTlgowoIQAACEEhHAHGSjp/xq6MX5MX4Bgbf9jDuFwqEAAQgAIH8CCBO8mPdvCa+7VF7G6HZN0skuAkbIAABCEAgHwKIk3w4x64lOnPCtz1iw+RECEAAAhCwkgDiRJjbosUJ3/YQ5jLMgQAEIAABwwQQJ4aBpi3OOnHCtz3SupzrIQABCEAgQABxIiwkUokTvu0hzJuYAwEIQAAC7RBAnLRDLcNr0okTvu2RoWsoGgK5EBgcHFT64AeBMhNAnAjzflpxopvDtz2EORVzIBCDwMDAgDruuONqb67pf0ekxADHKR1JAHHSkW6lURCAgE0EhoeH64SJ94E+LVD0/+MHgbIRQJyUzeO0FwIQEEegt7fX9+Vh/1eIu5T+f/wgUDYCiJOyeZz2QgAC4ghs3ry5qTjR/48fBMpGAHFSNo/TXghAQByBoaEh9bWvfa1BoOi/6f/HDwJlI4A4KZvHaS8EICCSwMqVK9WoUaNqAkX/+4IFC0TailEQyJoA4iRrwpQPAQhAICYB/cbOpEmT3EP/Oz8IlJUA4qSsnqfdEICASALTpk1T+uAHgTITQJyU2fu0HQIQEEcAcSLOJRhUAAHESQHQqRICEIBAMwKIE2IDAkohTogCCEAAAoIIIE4EOQNTCiOAOCkMPRVDAAIQaCSAOCEqIEDmhBjwEejr61OTJ092X2UcO3as6unpgQ8EIJAzAcRJzsCpTiQBMici3ZK/Ufq1xbBNoBAo+fuCGstNAHFSbv/T+goBxAmR4BK4+OKLQ7fP1hkUfhCAQH4EECf5saYmuQQQJ3J9k6tlM2bMCBUnepdKfhCAQH4EECf5saYmuQQQJ3J9k6tlevrG+0y7/596p0p+EIBAfgQQJ/mxpia5BBAncn2Tu2Unn3xynUAZPXo0W2jn7gUqLDsBxEnZI4D2awKIE+KgjsAdd9zhLozVb+0MDg5CBwIQyJkA4iRn4FQnkgDiRKRbijVqzJgxvEZcrAuovcQEECcldj5NrxFAnBAMDQQQJwQFBIojgDgpjj01yyGAOJHjCzGWIE7EuAJDSkgAcVJCp9PkBgKIE4KCzAkxAAFBBBAngpyBKYURQJwUhl5uxWRO5PoGyzqfAOKk831MC6MJIE6iGZXuDMRJ6VxOgwURQJwIcgamFEYAcVIYerkVI07k+gbLOp8A4qTzfUwLowkgTqIZle4MxEnpXE6DBRFAnAhyBqYURgBxUhh6uRUjTuT6Bss6nwDipPN9TAujCSBOohmV7gzESelcToMFEUCcCHIGphRGAHFSGHq5FSNO5PoGyzqfAOKk831MC6MJIE6iGZXuDMRJ6VxOgwURQJwIcgamFEYAcVIYerkVI07k+gbLOo+A/shmV1dXy2PcuHGd13BaBIEWBBAnhEcDAcQJQQGB/Aj09vZGipOlS5fmZxA1QUAAAcSJACdIMwFxIs0j2NPpBFplT8iadLr3aV8YAcQJcUHmhBiAQMEEWmVPyJoU7ByqL4QA4qQQ7LIrJXMi2z9Y15kEwrInZE0609e0KpoA4iSaUenOQJyUzuU0WACBsOwJWRMBjsGEQgggTgrBLrtSxIls/2Bd5xLwZ0/ImnSun2lZNAHESTSj0p2BOCmdy2mwEAL+7AlZEyFOwYxCCCBOCsEuu1LEiWz/YF1nEzj2pFPU33/9m+qhp/dwFMDg0PvDnR1glrQOcWKJo/I0E3GSJ23qgkA9gUtuXqqm/+429cflfdYd3Q/uUFffvcY6u/2s9719mJAUQABxIsAJ0kxAnEjzCPaUiYAeKHXW5KuvlHXH3OVb1N9/40i1fXuvdbZv23nIFVWIExl3G+JEhh9EWYE4EeUOjCkZAZvFydodb6obH9imTj75ZLVixUqrBAriRNaNhjiR5Y/crRkeHlaTJk1yOxPvGDVqlBo7dmzd33p6enK3jQohUEYCWpwsdTInXzqZE9uONY440fa/8+6QOt35ZpAWKLa0YWs1c/L4lr4yhp24NiNOxLkkf4NmzpzZ8tseWqwMDg7mbxg1QqCEBFxxsskRJ86obtuxprciTrTdhw9/rE45ZZKaM2eOFe3Y+kplWueWeatKGHXymow4keeT3C3SwkMLkGZfRtXihR8EIJAPAU+cfOEM8LYdnjjx2z116jT1x9tvF98WxEk+8R23FsRJXFIdfl6z7AlZkw53PM0TR8ATJ59/8ZWy7Xi8mjkJ2j39f89Ql11+hej2bCFzIupeQJyIckdxxjTLnpA1Kc4n1FxOAhVx8rr67PMvrTse377fnRoJs/2yyy5X//mfPxfbpi19bzGtI+iWQ5wIckbRpgSzJ2RNivYI9ZeRgB7clzji5NPPvrTu8MRJM9tvvPEmNWXKVJHt2ow4EXW7IU5EuaNYY4LZE7ImxfqD2stJwBUnT72uPvn0C+uO1dXMSSvb//KXu9U//dMp6r33PxLVvs0vkzmRdMchTiR5Q4AtXvaErIkAZ2BCKQl44uTjTz5Xth2rn9vnTo1E2f3wskfUqaedrgYPHIo8N6osU///6ZcPMq0j6I5DnAhyhgRTvOwJWRMJ3sCGMhLQg/uDTubk8PBn1h2rquIkju0PPbxcnXjSd9SbB94S0c5NLyFOJN1viBNJ3sjYloGBgVg1XHzxxbH2NYlbXqxKOQkCEHAJeOLkw48/U7Ydj1XFSVy7N215xhUoL/X1F97WpxAnou5AxIkod2RrjN7lddq0aUYq0Z921zvKDg0NGSmPQiAAgQoBV5xsHFAfHP7UuuOxZyvTOklsf2rzNnXiiSepv728K9F1SeqIc+5TfzvAtI6gmxBxIsgZeZhiQqAgTPLwFHWUlYAe3Bc74mTow0+sO1Y+s9cd4JPa/vxLO9XRx0xQT27amvjapHU1O//JFxEnku45xIkkb+RkSxqBgjDJyUlUU1oCenD/qyNO3vlg2LpjRVWctGN7X//r6ngng7Jq7YZC2r3hxUEyJ4LuOsSJIGfkaUo7AgVhkqeHqKusBFxx8uSAOvTesHXHo9sqmZN2bd+954A6/oST1MLFD7ddRrt1r38BcSLpnkOcSPJGzrYkESgIk5ydQ3WlJaAH90WOODnw7sfZHYsuCHxL6wI130B9j1TFSRrb9wy+q37wo1PVn+66N7v2h7R13fOIE0k3HeJEkjcKsCWOQEGYFOAYqiwtAVecbHhNvfn24WyOB7QwOU5dtW2k/HlTupy/XaDmpazzka1vuJmTtLYP7H9Hnf6/zlCzb/1z6rLi2vLEjsoXlfkqsYxbD3Eiww+FWtFKoCBMCnUNlZeQgB4gFzriZN9bH2VyzNVCZMqS+rIXaMEyQV25NV2dy7dUxIkp2888+zx1yayrjJXXyq611Y8WIk5k3HSIExl+KNyKMIGCMCncLRhQQgJ6cH9g/Wtqz4EPMznu+YkjTo6+QW3wlb/h6gmOODlf3ZOyzmWb97jixKTtP/3ZL9TMX11itMww+7zvAiFOZNx0iBMZfhBhhV+gIExEuAQjSkjAEyevDX6gMjmevl6N79LTOOerObqO+89315+Mv6o3dX0PV8WJabt//stL1I/POje1fa3sWv1c5YvKiBMZNx3iRIYfxFihBcppp53GBmtiPIIhZSOgB8gF615Vu/e/n+HRq2YdpQWKPiaoWZvM1PXQ05XMSRa23zD7dvUvZ56rXnrtYCblr6puIIc4kXHHIU5k+EGMFTpjMnbsWHXOOeeIsQlDIFAmAnpwn++Ik517h7I5Nl6rvqVFybmL3PJXX3lMRaRU/ztNvUs3ve6KkzRltLr2upv+qL5/yo/UC7sPGK/D20AOcSLjbkOcyPCDCCv8Uzlx3uIRYTRGQKDDCLji5IlX1ct7hjI4tqtLdMbknEX1Zd8zzRUoZ96Trs4lVXGSje0V2+68d7GacNwJauuLrxvls6L6GjTiRMYNhTiR4YfCrQhbY4JAKdwtGFBCAlqc3O+IkxcH3s3gWKTOcETIuMufqy97/bVqnPP3M3rS1bnY+Zqytj8b20dsu3/JanWMI1Cefn7AWF2PbK1sIIc4kXHTIU5k+KFQK1otfkWgFOoaKi8hAT1Azlu7W+149Z1Mjtv+Va8zOUb9+omR8it/m6puS1mn3nZf25+V7f5yFy5fr77xzSPUig29RurzXoNGnMi46RAnMvxQmBVx3spBoBTmHiouIQFPnGzvf1tlddxytrcY1vvnFHWLgfr0tvva/qzsDpb7yPrt6uhjj1dLVm1OXeeyzZU9WhAnMm46xIkMPxRiRRxh4hmGQCnERVRaQgJ6gJy7Zrd6duch645FT77mDvB52r7sie3qiHFHq/kPrUtV78PVN40QJzJuOsSJDD/kbkUSYYJAyd09VFhiAnpwv88RJ1tfecu6Q+9sq+3P2/Y12/rV+AnHqzvuW9p23UsRJ6LuOsSJKHfkY0w7wgSBko9vqAUCFXHSrza/fNC644GqOCnC9se37lLHnfA9NfvOBW1x8940InMi4x5EnMjwQ25WpBEmCJTc3ERFJSagxcm9j/erTS8dsO5YsP5VN3NSlO3rtu9xBcrvrrk5sQ0PVt80QpzIuPkQJzL8kIsVJoQJAiUXV1FJiQl44mTjiweUbYfePE7bX7TdPzj9LPXLy25IZMfijZXXoBEnMm4+xIkMP+RixdKlS9XQ0FBkXQsWLFDDw8OR58UtL7IgToAABGoE9AB5j5M52fDCoHWHJ04k2H76mVPUtIt+GZuh9xo04kTGzYg4keEHMVZoUTJ69Gg1e/ZsMTZhCATKRMAVJ6v71brn37TuuL+aOZFi+9QZv1Q/Pu/fY3FcVH0NGnEi425DnMjwgxgrtCjR21hrgRIneyLGcAyBQIcQ8MTJEzveVLYdemdbbb8ku//j11epSaedFWkT4kTWDYQ4keWPQq3xsiaVL5V2kT0p1BtUXlYCenDvWb1Lrd2x37pj3hO7XXEizfbfXD1bHf/dSWrl1tea2rawukcLmRMZdx7iRIYfRFjhZU08cUL2RIRbMKJkBDxxsqZ3v7Lt8MSJRLuvuuluV6A89GRfKFdvjxbEiYwbDnEiww+FWxHMmpA9KdwlGFBSAp44eXz7fmXbMbeaOZFq97W3zVNHHv1ttXRDXwNbb48WxImMGw9xIsMPhVsRzJqQPSncJRhQUgKuOFm1S61+br91x1zng4Xafsm23zF/tTryqG+rucu31Nn5wPrK7raIExk3HuJEhh8KtaJZ1oTsSaFuofKSEkCcZC/KwgQK4kTWDYc4keWPQqxpljUhe1KIO6i05AS0OLlr5S71kPOtF9uOHmd/Fm2/DXbf+eAm9Y1/+Jaafe9K114v60PmRMYNiDiR4YfCrIjKmpA9Kcw1VFxSAnpw58iHwXX3bVRfP2KCuuTmpTXmiBMZNx7iRIYfCrNC7xi7bt26ukO/pXPxxRfX/U1vfc8PAhDInsC8h9YpfehFm7cu3GjVcdtDve4gb5Pdf5izUo35+j+oiy650bX7lnsfyd7J1BBJAHESiah8J4wZM0b19PSUr+G0GAICCEyePFnpY0tvn7q5Z6lVx22Lt7jixDa7b7xzkTpi/LFqxi8ud23nVzwBxEnxPhBnAeJEnEswqCQEdIbSm0q97wG7hIltgiRorxYoert7xImMmw1xIsMPoqxAnIhyB8aUiIDOmHjiRP87PwiUlQDipKyeb9FuxAlBAYH8CfizJp5AYa1X/n6gRhkEECcy/CDKCsSJKHdgTEkI+LMmZE9K4nSa2ZQA4oTgaCCAOCEoIJAvgbCsCdmTfH1AbbIIIE5k+UOENYgTEW7AiBIRCMuakD0pUQDQ1AYCiBOCgswJMQCBAgm0ypqQPSnQMVRdKAHESaH4ZVZO5kSmX7CqMwm0ypqQPelMn9OqaAKIk2hGpTsDcVI6l9PgAgkEd2ieNGmS0kfw7wWaSNUQyJ0A4iR35PIrlCpOVkzvqu0B4T1Ruv+c2K365WMNsbBfdU+stGlid1gLVqjpun1N/7+VjcboCALTpk1T+uAHgTITQJyU2ftN2i5TnIwM5HXCpABx0t89sSKSpq9IGT1mxYk5u1I2i8tTEUCcpMLHxR1CAHHSIY402Qzp4iQ8y2CSQOuyzImAKHGSrE3m7EpWL2ebJYA4McuT0uwkgDix02+ZWm2vOPEG++lqRX+3mlidEhmZFglkX+oyH75r1ch0Sn2GpEn2Znp3bXqmPpsycn54kiVKnIRcv2J63dRWRag1syttZifTMKPwJgQQJ4QGBJRCnBAFDQSki5PgtM7IwN9i6scnVPzXx702UgTURIMjjDyiNYHk+1sd7YTiJCC4Ku2YqLr7ESeddBsjTjrJm7SlXQKIk3bJdfB1HSFOaotk/VkQTyT4BvOaOgn7m1K1Rbi+Rbfh0ycj9XhFRk+zJBQnngCq2aKv1+KkEozR9XVw0HZQ0xAnHeRMmtI2AcRJ2+g690Lp4qT5mpPwaRRPYPivaxzIm0zBhGREmomAmpBx1UnUlI4rJyLe1gmWEZhu6qrPyCBOOuOeRJx0hh9pRToCiJN0/DryasSJz60JxImTuqiuc/GveWk2pdOOOKnaFVh3Ej9T05Hh2nGNQpx0nEtpUBsEECdtQOv0S8ouTkYWtfqmesKmdRr2V2lc+9H6zaKEmRMtSnwra4OZktp/W7vvS6ffWfHahziJx4mzOpsA4qSz/dtW66SLk4Z9TmrTG2amdRrL71J1b9sEMhd1b+jU/b+R9SDhjmi+gDe4ANetP1hvcIO2Vna1FQlcVAQBxEkR1KlTGgHEiTSPCLBHpjjxLU5tePOmcaGrX0wkX3NSv7ajMfvR6pVk37UxMhjNdr0NFSeuPqnfJbfetlZ2CQgsTIhFAHESC5OVJ4X1RVY2JAejESc5QLatCqniJFuOcRawxrEgaqomThmcU2YCZRIntanIugeOVuu07I4MM+Ikqo/pjM9eIE7sjvVMrEecpMBam1qJmtJJUQeXdjSBcoiT4Jtnjd/NSv11CIFRIlGcSH3LD3EiMICLNKmvr0+NHj1aXXfddUWaUUDdZjInYfuiFNAYqrSYQBnEiX96sl6EJJsWtc3N+YiTZFQQJ8l4cXYBBK644oq6rdH1Z9uHh4cLsIQqIVBeAp0vTiKmHRqyj1GfpaiPlYapohhrv0b2HGr26YuIOpxpqcZMT2ANmGNHd3XNWHAdWzKbo6Z1OuOzF2ROytsH1rV88+bNdcLEe2NlxowZEIIABHIk0PHipLYfULOpz+Buy60/SxG2+D35l8sN1OEIFL/oaLbYfeRbX5WganpeU1GVUJxY+tkLxEmOnY7kqmbOnBkqTvQUDz8IQCA/Ah0vTiLXZQUzK2H7DYV9bsK7zi96vPMqf2tcgBvySYu6z0NU18KM7HRY+6BoqCjyrvUJgpHzwjJG0TY3Rl5CcWLpZy8QJ/n1OaJr0hmSsP09ECei3YZxHUgAcdI8c+IXBA1rJZrsA+T1a/raOOIkVh3BrEbwI59hHwL1ZUlqGZYYNqcWJ8GvrFvy2QvESQd2bu00aeXKlUzrtAOOayBgmEDHixNfViF0B+Wma07q13W0I06auyp8QXzTOqwSJ9VWW/bZC8SJ4Y7F5uJmz56tRo0aVRMpkydPZkGszQ7FdisJdLw48X3wsqsrsO7Evz4iZHqlZVYjci1Lq3CIKU5Cp2tCvl4ed1qnLZvbmNax8LMXiBMru6/sjB4aGlLr1q1T+pVifhCAQP4EOl+cOExDF2n69zrxb8QWUzj4pk2af+KimT/j1hF34Wzr8+ItnG22GV05PnuBOMm/76FGCEAAAk0JlEKcuK1vMsg2vJMbVzhUkIa//RK162zaOsLePAr5nER1aiU4nZXU5jJ89gJxQicJAQhAQBCB8ogTQdAxRRwBxIk4l2AQBCBQVgKDg4NKb36oD34QKDMBxIlg77upu1i7G6ZvRGVVelTqM309lAABCIQT0Bsh6lf3vfUS+t/13/hBoIwEECeCvS5NnITOc4aJp+pit078cJfgcME0iwnoz0ToD24GF3JqgcInJCx2LKa3TQBx0ja67C8UKU7qxIjvmxd+HIiT7IODGjqKQLPPR2ixQvako1xNY2ISQJzEBFXEafLFiUMlTIggTooIF+q0mADixGLnYXomBBAnmWA1U6grTvTcSN3OfiGvrDVsgRy+dqR+Wqa+nMY1J43fgQgXS5Xz9KtxjVtDN9m3wLVX2xjyqp0ZdJQCAasINJvW0VM9TOtY5UqMNUQAcWIIZBbF1MSEbyqlQSDoLEXd4o7qgB85/eKcN73bkQeVX704qQqTwHqSUHHSTubEJ6Zq7/uTbckihCjTIgK9vb11607Gjh2r9N/4QaCMBBAngr3eXAw0+9R4mNDwhEfMa7ydG0NWszbaEy5iQqd6/Jyr4qS+ipEMjGCXYBoEMiegd2jWBz8IlJkA4kSw91tNo4R+rtuZXhlZ7T8ytRNn7UrdlEyT15fD3tYJ/XBXVBbEFSetxZJgt2AaBCAAAQhkTABxkjHgNMXHmUapCIbW60fiixNH0CTKnDRpHeIkjdu5FgIQgEDpCSBOBIdAqKioyzpU15cEpmCCi1vjbLBWd06r7z/E2RQOcSI4qjANAhCAgHwCiBPBPmq6xsMnRoLnjEzP+N/YCVsb0mpBrLdOpfIWjveLk4GpnFutr9kubEzrCI46TEse7+mZxXmASF8LJUDAHgKIE8G+Cns1t3GNx8grv+56E53ZqL2q629c8AugUa8S+77uWRUZ8cWJU2/DJ9F9YglxIjjqME2qOGGHZmKzTAQQJ2XyNm2FAARiE0gkxmOXGn5inMxJoz3s0JwSO5cLJoA4EewcTIMABIojIF+cjGQo67c6cvY+crKofNuquNih5vQEECfpGVICBCDQgQTYobkDnUqTrCGAOLHGVRgKAQjkSYAdmvOkTV0QqCeAOCEiIAABCIQQYIdmwgICxRFAnBTHnpohAAHBBNihWbBzMK3jCSBOOt7FNBACEGiHADs0t0ONayBghgDixAxHSoEABDqMADs0d5hDaY5VBBAnVrkLYyEAgbwIsENzXqSpBwKNBBAnRAUEIACBEALs0ExYQKA4AoiT4thTMwQgAAEIQAACIQQQJ4QFBCAAAQhAAAKiCCBORLkDYyAAAQhAAAIQQJwQAxCAAAQgAAEIiCKAOBHlDoyBAAQgAAEIQABxQgxAAAIQgAAEICCKAOJElDswBgIQgAAEIAABxAkxAAEIQAACEICAKAKIE1HuwBgIQAACEIAABBAnxAAEIAABCEAAAqIIIE5EuQNjIAABCEAAAhBAnBADEIAABCAAAQiIIoA4EeUOjIEABCAAAQhAAHFCDEAAAhCAAAQgIIoA4kSUOzAGAhCAAAQgAAHECTEAAQhAAAIQgIAoAogTUe7AGAhAAAIQgAAE/j9RI2rmnKHo4gAAAABJRU5ErkJggg==" alt="DS_SingleLinkedList.png">
+
+<h5 class="font-code">Node.h</h5>
+
+<table class="table-program">
+<colgroup class="" style=""><col class="col-line-number" style="">
+<col class="col-program" style="">
+</colgroup><tbody class="">
+<tr class="">
+<td class="">
+<pre class="text-right">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19</pre>
+</td>
+<td class="">
+<pre class="">#ifndef NODE_H
+#define NODE_H
+ 
+template &lt;typename T&gt; class List; <span class="color-comment"> // Forward reference</span>
+ 
+template &lt;typename T&gt;
+class Node {
+private:
+   T data;
+   Node * nextPtr;
+public:
+   Node (T d) : data(d), nextPtr(0) { };<span class="color-comment"> // Constructor</span>
+   T getData() const { return data; };  <span class="color-comment"> // Public getter for data</span>
+   Node * getNextPtr() const { return nextPtr; }<span class="color-comment"> // Public getter for nextPtr</span>
+ 
+friend class List&lt;T&gt;; <span class="color-comment"> // Make List class a friend to access private data</span>
+};
+ 
+#endif</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+<p class="">Program Notes:</p>
+<ul class="">
+<li class="">[TODO]</li>
+</ul>
+
+<h5 class="font-code">List.h</h5>
+
+<table class="table-program">
+<colgroup class="" style=""><col class="col-line-number" style="">
+<col class="col-program" style="">
+</colgroup><tbody class="">
+<tr class="">
+<td class="">
+<pre class="text-right">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128</pre>
+</td>
+<td class="">
+<pre class="">#ifndef LIST_H
+#define LIST_H
+ 
+#include &lt;iostream&gt;
+#include "Node.h"
+ 
+<span class="color-comment">// Forward Reference</span>
+template &lt;typename T&gt;
+std::ostream &amp; operator&lt;&lt;(std::ostream &amp; os, const List&lt;T&gt; &amp; lst);
+ 
+template &lt;typename T&gt;
+class List {
+private:
+   Node&lt;T&gt; * frontPtr; <span class="color-comment"> // First node</span>
+   Node&lt;T&gt; * backPtr;  <span class="color-comment"> // Last node</span>
+public:
+   List();  <span class="color-comment"> // Constructor</span>
+   ~List(); <span class="color-comment"> // Destructor</span>
+   void pushFront(const T &amp; value);
+   void pushBack(const T &amp; value);
+   bool popFront(T &amp; value);
+   bool popBack(T &amp; value);
+   bool isEmpty() const;
+ 
+friend std::ostream &amp; operator&lt;&lt; &lt;&gt;(std::ostream &amp; os, const List&lt;T&gt; &amp; lst);
+     <span class="color-comment"> // Overload the stream insertion operator to print the list</span>
+};
+ 
+<span class="color-comment">// Constructor - Create an empty list without any node</span>
+template &lt;typename T&gt;
+List&lt;T&gt;::List() : frontPtr(0), backPtr(0) { }
+ 
+<span class="color-comment">// Destructor - Remove all the dynamically allocated nodes</span>
+template &lt;typename T&gt;
+List&lt;T&gt;::~List() {
+   while (frontPtr) {
+      Node&lt;T&gt; * tempPtr = frontPtr;
+      frontPtr = frontPtr-&gt;nextPtr;
+      delete tempPtr;
+   }
+  <span class="color-comment"> // std::cout &lt;&lt; "Destructor completed..." &lt;&lt; std::endl;</span>
+}
+ 
+<span class="color-comment">// Is list empty? Check if frontPtr is null</span>
+template &lt;typename T&gt;
+bool List&lt;T&gt;::isEmpty() const { return frontPtr == 0; }
+ 
+<span class="color-comment">// Push the data in front by dynamically allocate a new node</span>
+template &lt;typename T&gt;
+void List&lt;T&gt;::pushFront(const T &amp; value) {
+   Node&lt;T&gt; * newNodePtr = new Node&lt;T&gt;(value);
+   if (isEmpty()) {
+      frontPtr = backPtr = newNodePtr;
+   } else {
+      newNodePtr-&gt;nextPtr = frontPtr;
+      frontPtr = newNodePtr;
+   }
+}
+ 
+<span class="color-comment">// Push the data at the end by dynamically allocate a new node</span>
+template &lt;typename T&gt;
+void List&lt;T&gt;::pushBack(const T &amp; value) {
+   Node&lt;T&gt; * newNodePtr = new Node&lt;T&gt;(value);
+   if (isEmpty()) {
+      frontPtr = backPtr = newNodePtr;
+   } else {
+      backPtr-&gt;nextPtr = newNodePtr;
+      backPtr = newNodePtr;
+   }
+}
+ 
+<span class="color-comment">// Pop and the data in front to value and remove the node</span>
+template &lt;typename T&gt;
+bool List&lt;T&gt;::popFront(T &amp; value) {
+   if (isEmpty()) {
+      return false;
+   } else if (frontPtr == backPtr) { <span class="color-comment"> // only one node</span>
+      value = frontPtr-&gt;data;
+      delete frontPtr;        <span class="color-comment"> // remove node</span>
+      frontPtr = backPtr = 0; <span class="color-comment"> // empty</span>
+   } else {
+      value = frontPtr-&gt;data;
+      Node&lt;T&gt; * tempPtr = frontPtr;
+      frontPtr = frontPtr-&gt;nextPtr;
+      delete tempPtr;
+   }
+   return true;
+}
+ 
+<span class="color-comment">// Pop and the data at the end to value and remove the node</span>
+template &lt;typename T&gt;
+bool List&lt;T&gt;::popBack(T &amp; value) {
+   if (isEmpty()) {
+      return false;
+   } else if (frontPtr == backPtr) { <span class="color-comment"> // only one node</span>
+      value = backPtr-&gt;data;
+      delete backPtr;         <span class="color-comment"> // remove node</span>
+      frontPtr = backPtr = 0; <span class="color-comment"> // empty</span>
+   } else {
+     <span class="color-comment"> // Locate second to last node</span>
+      Node&lt;T&gt; * currentPtr = frontPtr;
+      while (currentPtr-&gt;nextPtr != backPtr) {
+         currentPtr = currentPtr-&gt;nextPtr;
+      }
+      value = backPtr-&gt;data;
+      delete backPtr;         <span class="color-comment"> // remove last node</span>
+      backPtr = currentPtr;
+      currentPtr-&gt;nextPtr = 0;
+   }
+   return true;
+}
+ 
+<span class="color-comment">// Overload the stream insertion operator to print the list</span>
+template &lt;typename T&gt;
+std::ostream &amp; operator&lt;&lt; (std::ostream &amp; os, const List&lt;T&gt; &amp; lst) {
+   os &lt;&lt; '{';
+   if (!lst.isEmpty()) {
+      Node&lt;T&gt; * currentPtr = lst.frontPtr;
+      while (currentPtr) {
+         os &lt;&lt; currentPtr-&gt;getData();
+         if (currentPtr != lst.backPtr) os &lt;&lt; ',';
+         currentPtr = currentPtr-&gt;getNextPtr();
+      }
+   }
+   os &lt;&lt; '}';
+}
+ 
+#endif</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+<p class="">Program Notes:</p>
+<ul class="">
+<li class="">[TODO]</li>
+</ul>
+
+<h5 class="font-code">TestList.cpp</h5>
+
+<table class="table-program">
+<colgroup class="" style=""><col class="col-line-number" style="">
+<col class="col-program" style="">
+</colgroup><tbody class="">
+<tr class="">
+<td class="">
+<pre class="text-right">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32</pre>
+</td>
+<td class="">
+<pre class=""><span class="color-comment">/* Test Driver for List class (TestList.cpp) */</span>
+#include &lt;iostream&gt;
+#include "List.h"
+using namespace std;
+ 
+int main() {
+ 
+   List&lt;int&gt; lst1;
+   cout &lt;&lt; lst1 &lt;&lt; endl;
+   lst1.pushFront(8);
+   lst1.pushBack(88);
+   lst1.pushFront(9);
+   lst1.pushBack(99);
+   cout &lt;&lt; lst1 &lt;&lt; endl;
+ 
+   int result;
+   lst1.popBack(result)
+      ? cout &lt;&lt; "value is " &lt;&lt; result &lt;&lt; ", list is " &lt;&lt; lst1 &lt;&lt; endl
+      : cout &lt;&lt; "empty list" &lt;&lt; endl;
+   lst1.popBack(result)
+      ? cout &lt;&lt; "value is " &lt;&lt; result &lt;&lt; ", list is " &lt;&lt; lst1 &lt;&lt; endl
+      : cout &lt;&lt; "empty list" &lt;&lt; endl;
+   lst1.popFront(result)
+      ? cout &lt;&lt; "value is " &lt;&lt; result &lt;&lt; ", list is " &lt;&lt; lst1 &lt;&lt; endl
+      : cout &lt;&lt; "empty list" &lt;&lt; endl;
+   lst1.popFront(result)
+      ? cout &lt;&lt; "value is " &lt;&lt; result &lt;&lt; ", list is " &lt;&lt; lst1 &lt;&lt; endl
+      : cout &lt;&lt; "empty list" &lt;&lt; endl;
+   lst1.popBack(result)
+      ? cout &lt;&lt; "value is " &lt;&lt; result &lt;&lt; ", list is " &lt;&lt; lst1 &lt;&lt; endl
+      : cout &lt;&lt; "empty list" &lt;&lt; endl;
+}</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+<pre class="output">{}
+{9,8,88,99}
+value is 99, list is {9,8,88}
+value is 88, list is {9,8}
+value is 9, list is {8}
+value is 8, list is {}
+empty list</pre>
+
+<p class="">Program Notes:</p>
+<ul class="">
+<li class="">[TODO]</li>
+</ul>
+
+<h4 class="">3.2&nbsp;&nbsp;Double Linked List<a id="zz-3.2" class="" style=""></a></h4>
+
+<img class="image-center" src="data:image/png;base64,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" alt="DS_DoubleLinkedList.png">
+
+<h5 class="font-code">DoubleLinkedNode.h</h5>
+
+<table class="table-program">
+<colgroup class="" style=""><col class="col-line-number" style="">
+<col class="col-program" style="">
+</colgroup><tbody class="">
+<tr class="">
+<td class="">
+<pre class="text-right">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23</pre>
+</td>
+<td class="">
+<pre class=""><span class="color-comment">/* DoubleLinkedNode template class for double linked list (DoubleLinkedNode.h) */</span>
+#ifndef DOUBLE_LINKED_NODE_H
+#define DOUBLE_LINKED_NODE_H
+ 
+template &lt;typename T&gt; class DoubleLinkedList;<span class="color-comment"> // Forward reference</span>
+ 
+template &lt;typename T&gt;
+class DoubleLinkedNode {
+private:
+   T data;
+   DoubleLinkedNode * nextPtr;
+   DoubleLinkedNode * prevPtr;
+public:
+   DoubleLinkedNode (T d) : data(d), nextPtr(0), prevPtr(0) { };
+   T getData() const { return data; };
+   DoubleLinkedNode * getNextPtr() const { return nextPtr; }
+   DoubleLinkedNode * getPrevPtr() const { return prevPtr; }
+ 
+friend class DoubleLinkedList&lt;T&gt;;
+  <span class="color-comment"> // Make DoubleLinkedList class a friend to access private data</span>
+};
+ 
+#endif</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+<p class="">Program Notes:</p>
+<ul class="">
+<li class="">[TODO]</li>
+</ul>
+
+<h5 class="font-code">DoubleLinkedList.h</h5>
+
+<table class="table-program">
+<colgroup class="" style=""><col class="col-line-number" style="">
+<col class="col-program" style="">
+</colgroup><tbody class="">
+<tr class="">
+<td class="">
+<pre class="text-right">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131</pre>
+</td>
+<td class="">
+<pre class=""><span class="color-comment">/* DoubleLinkedList template class for double linked list
+   (DoubleLinkedList.h) */</span>
+#ifndef DOUBLE_LINKED_LIST_H
+#define DOUBLE_LINKED_LIST_H
+ 
+#include &lt;iostream&gt;
+#include "DoubleLinkedNode.h"
+ 
+<span class="color-comment">// Forward Reference</span>
+template &lt;typename T&gt;
+std::ostream &amp; operator&lt;&lt;(std::ostream &amp; os,
+      const DoubleLinkedList&lt;T&gt; &amp; lst);
+ 
+template &lt;typename T&gt;
+class DoubleLinkedList {
+private:
+   DoubleLinkedNode&lt;T&gt; * frontPtr;
+   DoubleLinkedNode&lt;T&gt; * backPtr;
+public:
+   DoubleLinkedList();  <span class="color-comment"> // Constructor</span>
+   ~DoubleLinkedList(); <span class="color-comment"> // Destructor</span>
+   void pushFront(const T &amp; value);
+   void pushBack(const T &amp; value);
+   bool popFront(T &amp; value);
+   bool popBack(T &amp; value);
+   bool isEmpty() const;
+ 
+friend std::ostream &amp; operator&lt;&lt; &lt;&gt;(std::ostream &amp; os,
+      const DoubleLinkedList&lt;T&gt; &amp; lst);
+     <span class="color-comment"> // Overload the stream insertion operator to print the list</span>
+};
+ 
+<span class="color-comment">// Constructor - Create an empty list with no node</span>
+template &lt;typename T&gt;
+DoubleLinkedList&lt;T&gt;::DoubleLinkedList() : frontPtr(0), backPtr(0) { }
+ 
+<span class="color-comment">// Destructor - Remove all the dynamically allocated nodes</span>
+template &lt;typename T&gt;
+DoubleLinkedList&lt;T&gt;::~DoubleLinkedList() {
+   while (frontPtr) {
+      DoubleLinkedNode&lt;T&gt; * tempPtr = frontPtr;
+      frontPtr = frontPtr-&gt;nextPtr;
+      delete tempPtr;
+   }
+  <span class="color-comment"> // std::cout &lt;&lt; "Destructor completed..." &lt;&lt; std::endl;</span>
+}
+ 
+<span class="color-comment">// Is list empty? Check if frontPtr is null</span>
+template &lt;typename T&gt;
+bool DoubleLinkedList&lt;T&gt;::isEmpty() const { return frontPtr == 0; }
+ 
+<span class="color-comment">// Push the data in front by dynamically allocate a new node</span>
+template &lt;typename T&gt;
+void DoubleLinkedList&lt;T&gt;::pushFront(const T &amp; value) {
+   DoubleLinkedNode&lt;T&gt; * newPtr = new DoubleLinkedNode&lt;T&gt;(value);
+   if (isEmpty()) {
+      frontPtr = backPtr = newPtr;
+   } else {
+      frontPtr-&gt;prevPtr = newPtr;
+      newPtr-&gt;nextPtr = frontPtr;
+      frontPtr = newPtr;
+   }
+}
+ 
+<span class="color-comment">// Push the data at the end by dynamically allocate a new node</span>
+template &lt;typename T&gt;
+void DoubleLinkedList&lt;T&gt;::pushBack(const T &amp; value) {
+   DoubleLinkedNode&lt;T&gt; * newPtr = new DoubleLinkedNode&lt;T&gt;(value);
+   if (isEmpty()) {
+      frontPtr = backPtr = newPtr;
+   } else {
+      backPtr-&gt;nextPtr = newPtr;
+      newPtr-&gt;prevPtr = backPtr;
+      backPtr = newPtr;
+   }
+}
+ 
+<span class="color-comment">// Pop and the data in front to value and remove the node</span>
+template &lt;typename T&gt;
+bool DoubleLinkedList&lt;T&gt;::popFront(T &amp; value) {
+   if (isEmpty()) {
+      return false;
+   } else if (frontPtr == backPtr) { <span class="color-comment"> // only one node</span>
+      value = frontPtr-&gt;data;
+      delete frontPtr;        <span class="color-comment"> // remove node</span>
+      frontPtr = backPtr = 0; <span class="color-comment"> // empty</span>
+   } else {
+      value = frontPtr-&gt;data;
+      DoubleLinkedNode&lt;T&gt; * tempPtr = frontPtr;
+      frontPtr = frontPtr-&gt;nextPtr;
+      frontPtr-&gt;prevPtr = 0;
+      delete tempPtr;
+   }
+   return true;
+}
+ 
+<span class="color-comment">// Pop and the data at the end to value and remove the node</span>
+template &lt;typename T&gt;
+bool DoubleLinkedList&lt;T&gt;::popBack(T &amp; value) {
+   if (isEmpty()) {
+      return false;
+   } else if (frontPtr == backPtr) { <span class="color-comment"> // only one node</span>
+      value = backPtr-&gt;data;
+      delete backPtr;         <span class="color-comment"> // remove node</span>
+      frontPtr = backPtr = 0; <span class="color-comment"> // empty</span>
+   } else {
+      value = backPtr-&gt;data;
+      DoubleLinkedNode&lt;T&gt; * tempPtr = backPtr;
+      backPtr = backPtr-&gt;prevPtr; <span class="color-comment"> // 2nd last node</span>
+      backPtr-&gt;nextPtr = 0;
+      delete tempPtr;
+   }
+   return true;
+}
+ 
+<span class="color-comment">// Overload the stream insertion operator to print the list</span>
+template &lt;typename T&gt;
+std::ostream &amp; operator&lt;&lt; (std::ostream &amp; os, const DoubleLinkedList&lt;T&gt; &amp; lst) {
+   os &lt;&lt; '{';
+   if (!lst.isEmpty()) {
+      DoubleLinkedNode&lt;T&gt; * currentPtr = lst.frontPtr;
+      while (currentPtr) {
+         os &lt;&lt; currentPtr-&gt;getData();
+         if (currentPtr != lst.backPtr) os &lt;&lt; ',';
+         currentPtr = currentPtr-&gt;getNextPtr();
+      }
+   }
+   os &lt;&lt; '}';
+}
+ 
+#endif</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+<p class="">Program Notes:</p>
+<ul class="">
+<li class="">[TODO]</li>
+</ul>
+
+<h5 class="font-code">TestDoubleLinkedList.cpp</h5>
+
+<table class="table-program">
+<colgroup class="" style=""><col class="col-line-number" style="">
+<col class="col-program" style="">
+</colgroup><tbody class="">
+<tr class="">
+<td class="">
+<pre class="text-right">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32</pre>
+</td>
+<td class="">
+<pre class=""><span class="color-comment">/* Test Driver for List class (TestList.cpp) */</span>
+#include &lt;iostream&gt;
+#include "DoubleLinkedList.h"
+using namespace std;
+ 
+int main() {
+ 
+   DoubleLinkedList&lt;int&gt; lst1;
+   cout &lt;&lt; lst1 &lt;&lt; endl;
+   lst1.pushFront(8);
+   lst1.pushBack(88);
+   lst1.pushFront(9);
+   lst1.pushBack(99);
+   cout &lt;&lt; lst1 &lt;&lt; endl;
+ 
+   int result;
+   lst1.popBack(result)
+      ? cout &lt;&lt; "value is " &lt;&lt; result &lt;&lt; ", list is " &lt;&lt; lst1 &lt;&lt; endl
+      : cout &lt;&lt; "empty list" &lt;&lt; endl;
+   lst1.popBack(result)
+      ? cout &lt;&lt; "value is " &lt;&lt; result &lt;&lt; ", list is " &lt;&lt; lst1 &lt;&lt; endl
+      : cout &lt;&lt; "empty list" &lt;&lt; endl;
+   lst1.popFront(result)
+      ? cout &lt;&lt; "value is " &lt;&lt; result &lt;&lt; ", list is " &lt;&lt; lst1 &lt;&lt; endl
+      : cout &lt;&lt; "empty list" &lt;&lt; endl;
+   lst1.popFront(result)
+      ? cout &lt;&lt; "value is " &lt;&lt; result &lt;&lt; ", list is " &lt;&lt; lst1 &lt;&lt; endl
+      : cout &lt;&lt; "empty list" &lt;&lt; endl;
+   lst1.popBack(result)
+      ? cout &lt;&lt; "value is " &lt;&lt; result &lt;&lt; ", list is " &lt;&lt; lst1 &lt;&lt; endl
+      : cout &lt;&lt; "empty list" &lt;&lt; endl;
+}</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+<pre class="output">{}
+{9,8,88,99}
+value is 99, list is {9,8,88}
+value is 88, list is {9,8}
+value is 9, list is {8}
+value is 8, list is {}
+empty list</pre>
+
+<p class="">Program Notes:</p>
+<ul class="">
+<li class="">[TODO]</li>
+</ul>
+
+<h4 class="">3.3&nbsp;&nbsp;Stack (LIFO Queue)<a id="zz-3.3" class="" style=""></a></h4>
+
+<img class="image-center" src="data:image/png;base64,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" alt="DS_Stack.png">
+
+<h5 class="font-code">Stack.h</h5>
+
+<table class="table-program">
+<colgroup class="" style=""><col class="col-line-number" style="">
+<col class="col-program" style="">
+</colgroup><tbody class="">
+<tr class="">
+<td class="">
+<pre class="text-right">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87</pre>
+</td>
+<td class="">
+<pre class="">#ifndef STACK_H
+#define STACK_H
+ 
+#include &lt;iostream&gt;
+ 
+<span class="color-comment">// Forward Reference</span>
+template &lt;typename T&gt;
+class Stack;
+template &lt;typename T&gt;
+std::ostream &amp; operator&lt;&lt;(std::ostream &amp; os, const Stack&lt;T&gt; &amp; s);
+ 
+template &lt;typename T&gt;
+class Stack {
+private:
+   T * data;     <span class="color-comment"> // Array</span>
+   int tos;      <span class="color-comment"> // Top of stack, start at index -1</span>
+   int capacity; <span class="color-comment"> // capacity of the array</span>
+   int increment;<span class="color-comment"> // each subsequent increment size</span>
+public:
+   explicit Stack(int capacity = 10, int increment = 10);
+   ~Stack(); <span class="color-comment"> // Destructor</span>
+   void push(const T &amp; value);
+   bool pop(T &amp; value);
+   bool isEmpty() const;
+ 
+friend std::ostream &amp; operator&lt;&lt; &lt;&gt;(std::ostream &amp; os, const Stack&lt;T&gt; &amp; s);
+     <span class="color-comment"> // Overload the stream insertion operator to print the list</span>
+};
+ 
+<span class="color-comment">// Constructor - Create an empty list without any node</span>
+template &lt;typename T&gt;
+Stack&lt;T&gt;::Stack(int cap, int inc) : capacity(cap), increment(inc) {
+   data = new T[capacity];
+   tos = -1;
+}
+ 
+<span class="color-comment">// Destructor - Remove all the dynamically allocated nodes</span>
+template &lt;typename T&gt;
+Stack&lt;T&gt;::~Stack() {
+   delete[] data; <span class="color-comment"> // remove the dynamically allocate storage</span>
+  <span class="color-comment"> // std::cout &lt;&lt; "Destructor completed..." &lt;&lt; std::endl;</span>
+}
+ 
+<span class="color-comment">// Is list empty? Check if frontPtr is null</span>
+template &lt;typename T&gt;
+bool Stack&lt;T&gt;::isEmpty() const { return tos &lt; 0; }
+ 
+<span class="color-comment">// Push the data on top of the stack</span>
+template &lt;typename T&gt;
+void Stack&lt;T&gt;::push(const T &amp; value) {
+   if (tos &lt; capacity - 1) {
+     <span class="color-comment"> // Have space, simply add in the value</span>
+      data[++tos] = value;
+   } else {
+     <span class="color-comment"> // No more space. Allocate a bigger array</span>
+      T * newDataPtr = new T[capacity + increment];
+      for (int i = 0; i &lt;= tos; ++i) {
+         newDataPtr[i] = data[i];  <span class="color-comment"> // copy over</span>
+      }
+      delete[] data;
+      data = newDataPtr;
+   }
+}
+ 
+<span class="color-comment">// Pop the data from the TOS</span>
+template &lt;typename T&gt;
+bool Stack&lt;T&gt;::pop(T &amp; value) {
+   if (isEmpty()) {
+      return false;
+   } else {
+      value = data[tos--];
+   }
+   return true;
+}
+ 
+<span class="color-comment">// Overload the stream insertion operator to print the list</span>
+template &lt;typename T&gt;
+std::ostream &amp; operator&lt;&lt; (std::ostream &amp; os, const Stack&lt;T&gt; &amp; stack) {
+   os &lt;&lt; '{';
+   for (int i = stack.tos; i &gt;= 0; --i) {
+      os &lt;&lt; stack.data[i];
+      if (i &gt; 0) os &lt;&lt; ',';
+   }
+   os &lt;&lt; '}';
+}
+ 
+#endif</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+<p class="">Program Notes:</p>
+
+<ul class="">
+<li class="">[TODO]</li>
+</ul>
+
+<h5 class="font-code">TestStack.cpp</h5>
+
+<table class="table-program">
+<colgroup class="" style=""><col class="col-line-number" style="">
+<col class="col-program" style="">
+</colgroup><tbody class="">
+<tr class="">
+<td class="">
+<pre class="text-right">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36</pre>
+</td>
+<td class="">
+<pre class=""><span class="color-comment">/* Test Driver for Stack class (TestStack.cpp) */</span>
+#include &lt;iostream&gt;
+#include "Stack.h"
+using namespace std;
+ 
+int main() {
+ 
+   Stack&lt;int&gt; s1;
+   cout &lt;&lt; s1 &lt;&lt; endl;
+   s1.push(8);
+   s1.push(88);
+   cout &lt;&lt; s1 &lt;&lt; endl;
+ 
+   int result;
+   s1.pop(result)
+      ? cout &lt;&lt; "value is " &lt;&lt; result &lt;&lt; ", stack is " &lt;&lt; s1 &lt;&lt; endl
+      : cout &lt;&lt; "empty stack" &lt;&lt; endl;
+ 
+   s1.push(9);
+   s1.push(99);
+   cout &lt;&lt; s1 &lt;&lt; endl;
+ 
+   s1.pop(result)
+      ? cout &lt;&lt; "value is " &lt;&lt; result &lt;&lt; ", stack is " &lt;&lt; s1 &lt;&lt; endl
+      : cout &lt;&lt; "empty stack" &lt;&lt; endl;
+ 
+   s1.pop(result)
+      ? cout &lt;&lt; "value is " &lt;&lt; result &lt;&lt; ", stack is " &lt;&lt; s1 &lt;&lt; endl
+      : cout &lt;&lt; "empty stack" &lt;&lt; endl;
+   s1.pop(result)
+      ? cout &lt;&lt; "value is " &lt;&lt; result &lt;&lt; ", stack is " &lt;&lt; s1 &lt;&lt; endl
+      : cout &lt;&lt; "empty stack" &lt;&lt; endl;
+   s1.pop(result)
+      ? cout &lt;&lt; "value is " &lt;&lt; result &lt;&lt; ", stack is " &lt;&lt; s1 &lt;&lt; endl
+      : cout &lt;&lt; "empty stack" &lt;&lt; endl;
+}</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+<pre class="output">{}
+{88,8}
+value is 88, stack is {8}
+{99,9,8}
+value is 99, stack is {9,8}
+value is 9, stack is {8}
+value is 8, stack is {}
+empty stack</pre>
+
+<h4 class="">3.4&nbsp;&nbsp;Tree<a id="zz-3.4" class="" style=""></a></h4>
+
+<p class="">A <em class="">tree</em> has a root node. Each parent node could have child nodes. A node without child is called a leaf node. A tree with only the root node is called a null tree. The depth of a tree is the length of the path from the root to the deepest node in the tree. A null tree has depth of zero.</p>
+<p class="">In a <em class="">binary tree</em>, a parent node could have up to two child nodes: left child and right child (called siblings with the same parent). They are root of the left subtree and right subtree respectively.</p>
+
+<img class="image-center" src="data:image/png;base64,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" alt="DS_BinaryTree.png">
+
+<h5 class="">Depth-First Search (DFS)</h5>
+
+<p class="">Start at the root and explore as far as possible along each branch before backtracking. They are 3 types of depth-first search:</p>
+
+<ol class="">
+<li class="">Pre-order: visit the root, traverse the left subtree, then the right subtree. E.g., 6 -&gt; 5 -&gt; 4 -&gt; 10 -&gt; 7 -&gt; 9 -&gt;15.</li>
+<li class="">In-order: traverse the left subtree, visit the root, then the right subtree. E.g., 4 -&gt; 5 -&gt; 6 -&gt; 7 -&gt; 9 -&gt;10 -&gt; 15.</li>
+<li class="">Post-order: traverse the left subtree, the right subtree, then visit the root. E.g, 4 -&gt; 5 -&gt; 9 -&gt; 7 -&gt; 15 -&gt; 10 -&gt; 6.</li>
+</ol>
+
+<p class="">Pre-, in- and post- refer to the order of visiting the root.</p>
+
+<h5 class="">Breadth-First Search (BFS)</h5>
+<p class="">Begin at the root, visit all its child nodes. Then for each of the child nodes visited, visit their child nodes in turn. E.g., 6 -&gt; 5 -&gt; 10 -&gt; 4 -&gt; 7 -&gt; 15 -&gt; 9.</p>
+
+<h5 class="">Binary Search Tree</h5>
+
+<p class="">A binary search tree, without duplicate elements, has these properties:</p>
+
+<ol class="">
+<li class="">All values in the left subtree are smaller than the parent node.</li>
+<li class="">All values in the right subtree are larger than the parent node.</li>
+</ol>
+
+<p class="">The above diagram illustrates a binary search tree. You can retrieve the sorted list or perform searching via in-order depth-first traversal. Take note that the actual shape of the tree depends on the order of insertion.</p>
+
+<h5 class="font-code">Node.h</h5>
+
+<table class="table-program">
+<colgroup class="" style=""><col class="col-line-number" style="">
+<col class="col-program" style="">
+</colgroup><tbody class="">
+<tr class="">
+<td class="">
+<pre class="text-right">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23</pre>
+</td>
+<td class="">
+<pre class=""><span class="color-comment">/* Node template class for binary tree (Node.h) */</span>
+#ifndef NODE_H
+#define NODE_H
+ 
+template &lt;typename T&gt; class BinaryTree;<span class="color-comment"> // Forward reference</span>
+ 
+template &lt;typename T&gt;
+class Node {
+private:
+   T data;
+   Node * rightPtr;
+   Node * leftPtr;
+public:
+   Node (T d) : data(d), rightPtr(0), leftPtr(0) { };
+   T getData() const { return data; };
+   Node * getRightPtr() const { return rightPtr; }
+   Node * getLeftPtr() const  { return leftPtr;  }
+ 
+friend class BinaryTree&lt;T&gt;;
+  <span class="color-comment"> // Make BinaryTree class a friend to access private data</span>
+};
+ 
+#endif</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+<p class="">Program Notes:</p>
+
+<ul class="">
+<li class="">[TODO]</li>
+</ul>
+
+<h5 class="font-code">BinaryTree.h</h5>
+
+<table class="table-program">
+<colgroup class="" style=""><col class="col-line-number" style="">
+<col class="col-program" style="">
+</colgroup><tbody class="">
+<tr class="">
+<td class="">
+<pre class="text-right">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155</pre>
+</td>
+<td class="">
+<pre class=""><span class="color-comment">/* BinaryTree template class for binary tree (BinaryTree.h) */</span>
+#ifndef BINARY_TREE_H
+#define BINARY_TREE_H
+ 
+#include &lt;iostream&gt;
+#include &lt;queue&gt;
+#include "Node.h"
+ 
+<span class="color-comment">// Forward Reference</span>
+template &lt;typename T&gt;
+std::ostream &amp; operator&lt;&lt;(std::ostream &amp; os, const BinaryTree&lt;T&gt; &amp; lst);
+ 
+template &lt;typename T&gt;
+class BinaryTree {
+private:
+   Node&lt;T&gt; * rootPtr;
+ 
+  <span class="color-comment"> // private helper functions</span>
+   void insertNode(Node&lt;T&gt; * &amp; ptr, const T &amp; value);
+   void preOrderSubTree(const Node&lt;T&gt; * ptr, std::ostream &amp; os = std::cout) const;
+   void inOrderSubTree(const Node&lt;T&gt; * ptr, std::ostream &amp; os = std::cout) const;
+   void postOrderSubTree(const Node&lt;T&gt; * ptr, std::ostream &amp; os = std::cout) const;
+   void removeSubTree(Node&lt;T&gt; * &amp; ptr);
+public:
+   BinaryTree();  <span class="color-comment"> // Constructor</span>
+   ~BinaryTree(); <span class="color-comment"> // Destructor</span>
+   void insert(const T &amp; value);
+   bool isEmpty() const;
+   void preOrderTraversal(std::ostream &amp; os = std::cout) const;
+   void inOrderTraversal(std::ostream &amp; os = std::cout) const;
+   void postOrderTraversal(std::ostream &amp; os = std::cout) const;
+   void breadthFirstTraversal(std::ostream &amp; os = std::cout) const;
+ 
+friend std::ostream &amp; operator&lt;&lt; &lt;&gt;(std::ostream &amp; os, const BinaryTree&lt;T&gt; &amp; lst);
+     <span class="color-comment"> // Overload the stream insertion operator to print the list</span>
+};
+ 
+<span class="color-comment">// Constructor - Create an empty list with no node</span>
+template &lt;typename T&gt;
+BinaryTree&lt;T&gt;::BinaryTree() : rootPtr(0) { }
+ 
+<span class="color-comment">// Destructor - Remove all the dynamically allocated nodes</span>
+template &lt;typename T&gt;
+BinaryTree&lt;T&gt;::~BinaryTree() {
+   removeSubTree(rootPtr);
+  <span class="color-comment"> // std::cout &lt;&lt; "Destructor completed..." &lt;&lt; std::endl;</span>
+}
+ 
+template &lt;typename T&gt;
+void BinaryTree&lt;T&gt;::removeSubTree(Node&lt;T&gt; * &amp; ptr) {
+   if (ptr) {
+      removeSubTree(ptr-&gt;leftPtr);  <span class="color-comment"> // remove left subtree</span>
+      removeSubTree(ptr-&gt;rightPtr); <span class="color-comment"> // remove right subtree</span>
+      delete ptr;
+   }
+}
+ 
+<span class="color-comment">// Is list empty? Check if rootPtr is null</span>
+template &lt;typename T&gt;
+bool BinaryTree&lt;T&gt;::isEmpty() const { return rootPtr == 0; }
+ 
+<span class="color-comment">// Push the data in front by dynamically allocate a new node</span>
+template &lt;typename T&gt;
+void BinaryTree&lt;T&gt;::insert(const T &amp; value) {
+   insertNode(rootPtr, value);
+}
+ 
+<span class="color-comment">// Need to pass the pointer by reference so as to modify the caller's copy</span>
+template &lt;typename T&gt;
+void BinaryTree&lt;T&gt;::insertNode(Node&lt;T&gt; * &amp; ptr, const T &amp; value) {
+   if (ptr == 0) {
+      ptr = new Node&lt;T&gt;(value);
+   } else {
+      if (value &lt; ptr-&gt;data)
+         insertNode(ptr-&gt;leftPtr, value);
+      else if (value &gt; ptr-&gt;data)
+         insertNode(ptr-&gt;rightPtr, value);
+      else
+         std::cout &lt;&lt; "duplicate value" &lt;&lt; std::endl;
+   }
+}
+ 
+template &lt;typename T&gt;
+void BinaryTree&lt;T&gt;::preOrderTraversal(std::ostream &amp; os) const {
+   os &lt;&lt; "{ ";
+   preOrderSubTree(rootPtr);
+   os &lt;&lt; '}' &lt;&lt; std::endl;
+}
+ 
+template &lt;typename T&gt;
+void BinaryTree&lt;T&gt;::preOrderSubTree(const Node&lt;T&gt; * ptr, std::ostream &amp; os) const {
+   if (ptr) {
+      os &lt;&lt; ptr-&gt;data &lt;&lt; ' ';
+      preOrderSubTree(ptr-&gt;leftPtr);
+      preOrderSubTree(ptr-&gt;rightPtr);
+   }
+}
+ 
+template &lt;typename T&gt;
+void BinaryTree&lt;T&gt;::inOrderTraversal(std::ostream &amp; os) const {
+   os &lt;&lt; "{ ";
+   inOrderSubTree(rootPtr);
+   os &lt;&lt; '}' &lt;&lt; std::endl;
+}
+ 
+template &lt;typename T&gt;
+void BinaryTree&lt;T&gt;::inOrderSubTree(const Node&lt;T&gt; * ptr, std::ostream &amp; os) const {
+   if (ptr) {
+      inOrderSubTree(ptr-&gt;leftPtr);
+      os &lt;&lt; ptr-&gt;data &lt;&lt; ' ';
+      inOrderSubTree(ptr-&gt;rightPtr);
+   }
+}
+ 
+template &lt;typename T&gt;
+void BinaryTree&lt;T&gt;::postOrderTraversal(std::ostream &amp; os) const {
+   os &lt;&lt; "{ ";
+   postOrderSubTree(rootPtr);
+   os &lt;&lt; '}' &lt;&lt; std::endl;
+}
+ 
+template &lt;typename T&gt;
+void BinaryTree&lt;T&gt;::postOrderSubTree(const Node&lt;T&gt; * ptr, std::ostream &amp; os) const {
+   if (ptr) {
+      postOrderSubTree(ptr-&gt;leftPtr);
+      postOrderSubTree(ptr-&gt;rightPtr);
+      os &lt;&lt; ptr-&gt;data &lt;&lt; ' ';
+   }
+}
+ 
+<span class="color-comment">// Breadth First Search (BFS)</span>
+template &lt;typename T&gt;
+void BinaryTree&lt;T&gt;::breadthFirstTraversal(std::ostream &amp; os) const {
+   std::queue&lt;Node&lt;T&gt; * &gt; q;
+   if (!isEmpty()) q.push(rootPtr);
+ 
+   os &lt;&lt; "{ ";
+   Node&lt;T&gt; * currentPtr;
+   while (currentPtr = q.front()) {
+      std::cout &lt;&lt; currentPtr-&gt;data &lt;&lt; ' ';
+      if (currentPtr-&gt;leftPtr) q.push(currentPtr-&gt;leftPtr);
+      if (currentPtr-&gt;rightPtr) q.push(currentPtr-&gt;rightPtr);
+      q.pop(); <span class="color-comment"> // remove this node</span>
+   }
+   os &lt;&lt; '}' &lt;&lt; std::endl;
+}
+ 
+<span class="color-comment">// Overload the stream insertion operator to print the list in in-order traversal</span>
+template &lt;typename T&gt;
+std::ostream &amp; operator&lt;&lt; (std::ostream &amp; os, const BinaryTree&lt;T&gt; &amp; lst) {
+   lst.inOrderTraversal(os);
+   return os;
+}
+ 
+#endif</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+<p class="">Program Notes:</p>
+
+<ul class="">
+<li class="">[TODO]</li>
+</ul>
+
+<h5 class="font-code">TestBinaryTree.cpp</h5>
+
+<table class="table-program">
+<colgroup class="" style=""><col class="col-line-number" style="">
+<col class="col-program" style="">
+</colgroup><tbody class="">
+<tr class="">
+<td class="">
+<pre class="text-right">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21</pre>
+</td>
+<td class="">
+<pre class=""><span class="color-comment">/* Test Driver for BinaryTree class (TestBinaryTree.cpp) */</span>
+#include &lt;iostream&gt;
+#include "BinaryTree.h"
+using namespace std;
+ 
+int main() {
+   BinaryTree&lt;int&gt; t1;
+   t1.insert(6);
+   t1.insert(10);
+   t1.insert(5);
+   t1.insert(15);
+   t1.insert(7);
+   t1.insert(4);
+   t1.insert(9);
+ 
+   t1.preOrderTraversal();
+   t1.inOrderTraversal();
+   t1.postOrderTraversal();
+   cout &lt;&lt; t1;
+   t1.breadthFirstTraversal();
+}</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+<pre class="output">{ 6 5 4 10 7 9 15 }  <span class="color-comment">// pre-order depth-first search</span>
+{ 4 5 6 7 9 10 15 }  <span class="color-comment">// in-order depth-first search (ascending order)</span>
+{ 4 5 9 7 15 10 6 }  <span class="color-comment">// post-order depth-first search</span>
+{ 4 5 6 7 9 10 15 }  <span class="color-comment">// in-order depth-first search</span>
+{ 6 5 10 4 7 15 9 }  <span class="color-comment">// breadth-first search</span></pre>
+
+<p class="">Program Notes:</p>
+
+<ul class="">
+<li class="">[TODO]</li>
+</ul>
+
+<p class="">[TODO] Breadth-First Search: need a FIFO queue to keep the child nodes.</p>
+
+
+<!-- @@ start change in v1 -->
+<p class="references">REFERENCES &amp; RESOURCES</p>
+<a class="references" href="http://www.ntu.edu.sg/home/ehchua/programming/howto/References.html#">REFERENCES &amp; RESOURCES</a>
+
+</div> <!-- End the content-main division -->
+
+<div id="content-footer" class="">
+<p class="">Latest version tested: Cygwin/MinGW GNU GCC 4.62<br class="">
+Last modified: May, 2013</p>
+</div>
+
+</div>  <!-- End the wrap-inner division -->
+
+<!-- footer filled by JavaScript -->
+<div id="footer" class="header-footer"><p class="">Feedback, comments, corrections, and errata can be sent to Chua Hock-Chuan (ehchua@ntu.edu.sg) &nbsp;&nbsp;|&nbsp;&nbsp; <a href="http://www.ntu.edu.sg/home/ehchua/programming/index.html" class="">HOME</a></p></div>
+
+</div>  <!-- End the wrap-outer division -->
+<!-- @@ end change in v1 -->
+
+
+<div class="selection_bubble_root" style=""></div><div id="gritter-notice-wrapper" class="bottom-left"><div id="gritter-item-1" class="gritter-item-wrapper "><div class="gritter-top"></div><div class="gritter-item"><div class="gritter-close"></div><div class="gritter-without-image"><span class="gritter-title">Text Zoom</span><p>Level 100%</p></div><div style="clear:both"></div></div><div class="gritter-bottom"></div></div></div></body></html>
