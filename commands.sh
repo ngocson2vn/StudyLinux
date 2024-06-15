@@ -145,19 +145,6 @@ https://sourceware.org/gdb/wiki/STLSupport
 ########################################################################################################################
 # git
 ########################################################################################################################
-# To fix symlinks, must upgrade git to version 2.38.1
-
-sudo apt install -y software-properties-common
-
-wget https://mirrors.edge.kernel.org/pub/software/scm/git/git-2.38.1.tar.gz
-tar -xzf git-2.38.1.tar.gz
-sudo apt install libssl libssl-dev
-sudo apt install libcurl4-openssl-dev gettext
-
-make prefix=/usr all
-sudo make prefix=/usr install
-
-
 git checkout tags/<tag_name> -b <branch_name>
 
 # git delete untracked files
@@ -175,6 +162,13 @@ git checkout FETCH_HEAD
 git checkout -b v1.15.3
 
 git config --global --add --bool push.autoSetupRemote true
+
+# submodule
+git submodule add https://github.com/tensorflow/tensorflow.git third_party/tensorflow
+
+git config -f .gitmodules submodule.tensorflow.shallow true
+git submodule update --init --recursive
+git submodule status
 
 ########################################################################################################################
 # apt
